@@ -1,0 +1,15 @@
+///////////////////////////////
+// PRE-PROCESSING DIRECTIVES //
+///////////////////////////////
+#define WIN32_LEAN_AND_MEAN
+
+
+//////////////
+// INCLUDES //
+//////////////
+#include <windows.h>
+
+
+//{@
+#include "BaseTypes.h"
+//@}
