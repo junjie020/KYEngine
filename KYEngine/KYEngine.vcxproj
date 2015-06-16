@@ -52,6 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BrowseInformation>true</BrowseInformation>
+      <AdditionalIncludeDirectories>./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -69,6 +70,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,26 +80,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Dx11.cpp" />
-    <ClCompile Include="Graphic.cpp" />
-    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Graphic\DX\Dx11.cpp" />
+    <ClCompile Include="Graphic\Graphic.cpp" />
+    <ClCompile Include="Input\Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="System.cpp" />
+    <ClCompile Include="System\System.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseTypes.h" />
-    <ClInclude Include="Dx11.h" />
-    <ClInclude Include="Graphic.h" />
-    <ClInclude Include="Input.h" />
+    <ClInclude Include="Common\BaseTypes.h" />
+    <ClInclude Include="Common\CommonUtils.h" />
+    <ClInclude Include="Graphic\DX\Dx11.h" />
+    <ClInclude Include="Graphic\Graphic.h" />
+    <ClInclude Include="Graphic\GraphicDef.h" />
+    <ClInclude Include="Input\Input.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="System.h" />
+    <ClInclude Include="System\System.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CodeMap.dgml" />
+    <None Include="CodeGraph\CodeMap.dgml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

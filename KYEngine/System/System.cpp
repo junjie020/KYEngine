@@ -5,9 +5,9 @@
 #include "stdafx.h"
 #include "System.h"
 
-#include "Input.h"
-#include "Graphic.h"
-
+#include "Input/Input.h"
+#include "Graphic/Graphic.h"
+#include "Common/CommonUtils.h"
 namespace KY
 {
 
@@ -30,42 +30,17 @@ namespace KY
 
 	bool System::Initialize()
 	{
-		int screenWidth, screenHeight;
-		bool result;
-
-
-		// Initialize the width and height of the screen to zero before sending the variables into the function.
-		screenWidth = 0;
-		screenHeight = 0;
-
-		// Initialize the windows api.
+		int screenWidth = 0, screenHeight = 0;
 		InitializeWindows(screenWidth, screenHeight);
 
-		// Create the input object.  This object will be used to handle reading the keyboard input from the user.
 		m_Input = new Input;
-		if (!m_Input)
-		{
-			return false;
-		}
-
-		// Initialize the input object.
 		m_Input->Initialize();
 
-		// Create the graphics object.  This object will handle rendering all the graphics for this application.
 		m_Graphics = new Graphic;
-		if (!m_Graphics)
-		{
-			return false;
-		}
-
+		
 		// Initialize the graphics object.
-		result = m_Graphics->Initialize(screenWidth, screenHeight, m_hwnd);
-		if (!result)
-		{
-			return false;
-		}
-
-		return true;
+		GraphicInitParam param = { screenWidth, screenHeight, m_hwnd };
+		return m_Graphics->Initialize(param);		
 	}
 
 
@@ -79,16 +54,9 @@ namespace KY
 			m_Graphics = 0;
 		}
 
-		// Release the input object.
-		if (m_Input)
-		{
-			delete m_Input;
-			m_Input = 0;
-		}
+		SafeDelete(m_Input);
 
-		// Shutdown the window.
 		ShutdownWindows();
-
 		return;
 	}
 

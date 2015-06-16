@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "Graphic.h"
-#include "Dx11.h"
+#include "DX/Dx11.h"
 
 namespace KY
 {

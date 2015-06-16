@@ -1,6 +1,8 @@
 #ifndef __DX11_H__
 #define __DX11_H__
 
+#include "../GraphicDef.h"
+
 namespace KY
 {
 	namespace DX
@@ -8,7 +10,7 @@ namespace KY
 		class Dx11
 		{
 		public:
-			bool Init();
+			bool Init(const GraphicInitParam &param);
 
 		private:
 

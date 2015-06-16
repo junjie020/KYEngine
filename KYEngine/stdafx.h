@@ -9,7 +9,12 @@
 //////////////
 #include <windows.h>
 
+//{@	STL
+#include <vector>
+#include <string>
+#include <memory>
+//@}
 
 //{@
-#include "BaseTypes.h"
+#include "Common/BaseTypes.h"
 //@}

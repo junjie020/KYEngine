@@ -8,7 +8,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <windows.h>
+#include "GraphicDef.h"
 
 
 /////////////
@@ -33,12 +33,6 @@ namespace KY
 	// Class name: Graphic
 	////////////////////////////////////////////////////////////////////////////////
 
-
-	struct GraphicInitParam
-	{
-		int width, height;
-		HWND hwnd;
-	};
 
 	class Graphic
 	{
