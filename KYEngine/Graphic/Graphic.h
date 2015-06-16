@@ -32,6 +32,14 @@ namespace KY
 	////////////////////////////////////////////////////////////////////////////////
 	// Class name: Graphic
 	////////////////////////////////////////////////////////////////////////////////
+
+
+	struct GraphicInitParam
+	{
+		int width, height;
+		HWND hwnd;
+	};
+
 	class Graphic
 	{
 	public:
@@ -39,7 +47,7 @@ namespace KY
 		Graphic(const Graphic&);
 		~Graphic();
 
-		bool Initialize(int, int, HWND);
+		bool Initialize(const GraphicInitParam& param);
 		void Shutdown();
 		bool Frame();
 

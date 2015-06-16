@@ -7,10 +7,6 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
-	
-	bool result;
-	
-	
 	// Create the system object.
 	KY::System* system = new KY::System;
 	if(!system)
@@ -19,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	}
 
 	// Initialize and run the system object.
-	result = system->Initialize();
+	const bool result = system->Initialize();
 	if(result)
 	{
 		system->Run();

@@ -23,13 +23,12 @@ namespace KY
 	}
 
 
-	bool Graphic::Initialize(int screenWidth, int screenHeight, HWND hwnd)
+	bool Graphic::Initialize(const GraphicInitParam &param)
 	{
+
 		m_pDx = new DX::Dx11;
 
-
-
-		return true;
+		return m_pDx->Init(param);
 	}
 
 
