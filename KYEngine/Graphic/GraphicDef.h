@@ -5,7 +5,14 @@ namespace KY
 {
 	struct GraphicInitParam
 	{
-		int width, height;
+		uint32 width, height;
+		uint32 featureLevel;
+		struct SampleDesc
+		{
+			uint32 count;
+			uint32 level;
+		};
+		SampleDesc sampleDesc;
 		HWND hwnd;
 	};
 }

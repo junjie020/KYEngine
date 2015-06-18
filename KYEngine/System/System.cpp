@@ -39,7 +39,7 @@ namespace KY
 		m_Graphics = new Graphic;
 		
 		// Initialize the graphics object.
-		GraphicInitParam param = { screenWidth, screenHeight, m_hwnd };
+		GraphicInitParam param = { screenWidth, screenHeight, 11, 2, 4, m_hwnd };
 		return m_Graphics->Initialize(param);		
 	}
 
