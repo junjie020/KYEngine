@@ -81,21 +81,13 @@ namespace KY
 				DispatchMessage(&msg);
 			}
 
-			// If windows signals to end the application then exit out.
-			if (msg.message == WM_QUIT)
+			if (m_Input->IsKeyDown(VK_ESCAPE))
 			{
 				done = true;
-			}
-			else
-			{
-				// Otherwise do the frame processing.
-				result = Frame();
-				if (!result)
-				{
-					done = true;
-				}
+				continue;
 			}
 
+			done = (msg.message != WM_QUIT) ? !Frame() : true;
 		}
 
 		return;
@@ -104,23 +96,7 @@ namespace KY
 
 	bool System::Frame()
 	{
-		bool result;
-
-
-		// Check if the user pressed escape and wants to exit the application.
-		if (m_Input->IsKeyDown(VK_ESCAPE))
-		{
-			return false;
-		}
-
-		// Do the frame processing for the graphics object.
-		result = m_Graphics->Frame();
-		if (!result)
-		{
-			return false;
-		}
-
-		return true;
+		return m_Graphics->Frame();		
 	}
 
 
