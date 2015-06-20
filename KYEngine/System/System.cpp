@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "System.h"
-
+#include "Scene/Scene.h"
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
 #include "Common/CommonUtils.h"
@@ -12,19 +12,15 @@ namespace KY
 {
 
 	System::System()
-	{
-		m_Input = 0;
-		m_Graphics = 0;
-	}
-
-
-	System::System(const System& other)
+		: m_pInput(nullptr)
+		, m_pGraphics(nullptr)
+		, m_pScene(nullptr)
 	{
 	}
-
 
 	System::~System()
 	{
+		
 	}
 
 
@@ -33,28 +29,31 @@ namespace KY
 		int screenWidth = 0, screenHeight = 0;
 		InitializeWindows(screenWidth, screenHeight);
 
-		m_Input = new Input;
-		m_Input->Initialize();
+		m_pInput = new Input;
+		m_pInput->Initialize();
 
-		m_Graphics = new Graphic;
+		m_pScene = new Scene;
+
+		m_pGraphics = new Graphic;
 		
 		// Initialize the graphics object.
-		GraphicInitParam param = { screenWidth, screenHeight, 11, 2, 4, m_hwnd };
-		return m_Graphics->Initialize(param);		
+		GraphicInitParam param = { screenWidth, screenHeight, 11, 1, 0, m_hwnd };
+		return m_pGraphics->Initialize(param);		
 	}
 
 
 	void System::Shutdown()
 	{
 		// Release the graphics object.
-		if (m_Graphics)
+		if (m_pGraphics)
 		{
-			m_Graphics->Shutdown();
-			delete m_Graphics;
-			m_Graphics = 0;
+			m_pGraphics->Shutdown();
+			delete m_pGraphics;
+			m_pGraphics = 0;
 		}
 
-		SafeDelete(m_Input);
+		SafeDelete(m_pInput);
+		SafeDelete(m_pScene);
 
 		ShutdownWindows();
 		return;
@@ -63,15 +62,9 @@ namespace KY
 
 	void System::Run()
 	{
-		MSG msg;
-		bool done, result;
-
-
-		// Initialize the message structure.
-		ZeroMemory(&msg, sizeof(MSG));
-
-		// Loop until there is a quit message from the window or the user.
-		done = false;
+		MSG msg = { 0 };
+		
+		bool done = false;
 		while (!done)
 		{
 			// Handle the windows messages.
@@ -81,7 +74,7 @@ namespace KY
 				DispatchMessage(&msg);
 			}
 
-			if (m_Input->IsKeyDown(VK_ESCAPE))
+			if (m_pInput->IsKeyDown(VK_ESCAPE))
 			{
 				done = true;
 				continue;
@@ -96,7 +89,8 @@ namespace KY
 
 	bool System::Frame()
 	{
-		return m_Graphics->Frame();		
+		m_pScene->Update();
+		return m_pGraphics->Frame();		
 	}
 
 
@@ -108,7 +102,7 @@ namespace KY
 		case WM_KEYDOWN:
 		{
 			// If a key is pressed send it to the input object so it can record that state.
-			m_Input->KeyDown((unsigned int)wparam);
+			m_pInput->KeyDown((unsigned int)wparam);
 			return 0;
 		}
 
@@ -116,7 +110,7 @@ namespace KY
 		case WM_KEYUP:
 		{
 			// If a key is released then send it to the input object so it can unset the state for that key.
-			m_Input->KeyUp((unsigned int)wparam);
+			m_pInput->KeyUp((unsigned int)wparam);
 			return 0;
 		}
 
@@ -235,6 +229,12 @@ namespace KY
 
 		return;
 	}
+
+	void System::Update()
+	{
+
+	}
+
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)

@@ -36,9 +36,9 @@ namespace KY
 
 	class Graphic
 	{
-	public:
-		Graphic();
 		Graphic(const Graphic&);
+	public:
+		Graphic();		
 		~Graphic();
 
 		bool Initialize(const GraphicInitParam& param);

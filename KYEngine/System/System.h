@@ -12,12 +12,14 @@ namespace KY
 {
 	class Graphic;
 	class Input;
+	class Scene;
 
 	class System
 	{
+		System(const System& rhs);
 	public:
 		System();
-		System(const System& rhs);
+		
 		~System();
 
 		bool Initialize();
@@ -28,6 +30,7 @@ namespace KY
 
 	private:
 		bool Frame();
+		void Update();
 		void InitializeWindows(int&, int&);
 		void ShutdownWindows();
 
@@ -36,8 +39,9 @@ namespace KY
 		HINSTANCE m_hinstance;
 		HWND m_hwnd;
 
-		Input* m_Input;
-		Graphic* m_Graphics;
+		Input*		m_pInput;
+		Graphic*	m_pGraphics;
+		Scene*		m_pScene;
 	};
 }
 

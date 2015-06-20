@@ -11,9 +11,14 @@
 
 //{@	STL
 #include <vector>
+#include <array>
 #include <string>
 #include <memory>
 #include <algorithm>
+//@}
+
+//{@	boost
+#include "boost/assert.hpp"
 //@}
 
 //{@
