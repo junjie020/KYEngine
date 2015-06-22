@@ -56,18 +56,18 @@ namespace KY
 			swapDesc.BufferDesc.Height		= param.height;
 			swapDesc.BufferDesc.RefreshRate.Numerator = 60;
 			swapDesc.BufferDesc.RefreshRate.Denominator = 1;
-			swapDesc.BufferDesc.Format		= DXGI_FORMAT_R8G8B8A8_UNORM;
-			swapDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-			swapDesc.BufferDesc.Scaling		= DXGI_MODE_SCALING_UNSPECIFIED;
-
+			swapDesc.BufferDesc.Format		= DXGI_FORMAT_R8G8B8A8_UNORM;		
+			swapDesc.Windowed				= TRUE;
+			
 			swapDesc.SampleDesc.Count		= std::max(uint32(1), param.sampleDesc.count);
 			m_pDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, swapDesc.SampleDesc.Count, &swapDesc.SampleDesc.Quality);
 			swapDesc.SampleDesc.Quality		= std::min(swapDesc.SampleDesc.Quality, param.sampleDesc.level);
 
 	
-			swapDesc.BufferCount = 2;
+			swapDesc.BufferCount = 1;
 			swapDesc.OutputWindow = param.hwnd;
 			swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+			swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
 			if (FAILED(dxgi->CreateSwapChain(m_pDevice, &swapDesc, &m_pSwapChain)))
 				return false;
@@ -76,7 +76,7 @@ namespace KY
 			BOOST_VERIFY(SUCCEEDED(m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)(&pSwapBuffer))));
 
 			ID3D11RenderTargetView *pRTView = nullptr;
-			if (FAILED(m_pDevice->CreateRenderTargetView(pSwapBuffer, nullptr, &pRTView)))
+			if (FAILED(m_pDevice->CreateRenderTargetView(pSwapBuffer, 0, &pRTView)))
 				return false;
 
 			m_RenderTargetViewArray.push_back(pRTView);
@@ -114,6 +114,8 @@ namespace KY
 		{
 			m_pDeviceContext->OMSetRenderTargets(m_RenderTargetViewArray.size(), &*m_RenderTargetViewArray.begin(), m_pDepthStencilView);
 
+			float colors[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			m_pDeviceContext->ClearRenderTargetView(m_RenderTargetViewArray[0], colors);
 			return true;
 		}
 
