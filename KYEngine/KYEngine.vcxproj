@@ -102,10 +102,12 @@
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Input\Input.h" />
+    <ClInclude Include="Math\Matrix.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Platform\Win32DefHeader.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="Win32DefHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml" />
