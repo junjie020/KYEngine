@@ -19,7 +19,21 @@
     <ClCompile Include="Graphic\DX\Dx11.cpp">
       <Filter>Graphic\DX11</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Graphic\DX\VertexBuffer.cpp">
+      <Filter>Graphic\DX11\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DX\ResourceBuffer.cpp">
+      <Filter>Graphic\DX11\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DX\IndexBuffer.cpp">
+      <Filter>Graphic\DX11\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DX\Texture.cpp">
+      <Filter>Graphic\DX11\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -46,7 +60,6 @@
     <ClInclude Include="Graphic\GraphicDef.h">
       <Filter>Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Platform\Win32DefHeader.h">
       <Filter>Platform</Filter>
     </ClInclude>
@@ -55,6 +68,24 @@
     </ClInclude>
     <ClInclude Include="Math\Matrix.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Singleton.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\VertexBuffer.h">
+      <Filter>Graphic\DX11\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\ResourceBuffer.h">
+      <Filter>Graphic\DX11\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\IndexBuffer.h">
+      <Filter>Graphic\DX11\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\Texture.h">
+      <Filter>Graphic\DX11\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +115,18 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{069cf9da-c611-42b1-92db-3a8ce8bbc804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\DX11\Resource">
+      <UniqueIdentifier>{b814d5c2-1f7f-401f-8f4b-074e7a72717f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\DX11\Resource\Buffer">
+      <UniqueIdentifier>{d52369cd-f6c3-4021-b1f1-f9600a5e4676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\DX11\Resource\Texture">
+      <UniqueIdentifier>{3837091a-bc38-45b0-9e16-1385fe8c018c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{535b60a7-8958-4b56-8b81-5d1dacbf179a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

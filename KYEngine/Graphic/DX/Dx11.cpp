@@ -2,7 +2,7 @@
 #include "Dx11.h"
 #include "Common/CommonUtils.h"
 
-#include "Win32DefHeader.h"
+#include "Platform/Win32DefHeader.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")

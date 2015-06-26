@@ -85,6 +85,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphic\DX\Dx11.cpp" />
+    <ClCompile Include="Graphic\DX\IndexBuffer.cpp" />
+    <ClCompile Include="Graphic\DX\ResourceBuffer.cpp" />
+    <ClCompile Include="Graphic\DX\Texture.cpp" />
+    <ClCompile Include="Graphic\DX\VertexBuffer.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Input\Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -98,7 +102,12 @@
   <ItemGroup>
     <ClInclude Include="Common\BaseTypes.h" />
     <ClInclude Include="Common\CommonUtils.h" />
+    <ClInclude Include="Common\Singleton.h" />
     <ClInclude Include="Graphic\DX\Dx11.h" />
+    <ClInclude Include="Graphic\DX\IndexBuffer.h" />
+    <ClInclude Include="Graphic\DX\ResourceBuffer.h" />
+    <ClInclude Include="Graphic\DX\Texture.h" />
+    <ClInclude Include="Graphic\DX\VertexBuffer.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Input\Input.h" />
