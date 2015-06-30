@@ -1,11 +1,11 @@
 #ifndef _INDEXBUFFER_H_
 #define _INDEXBUFFER_H_
 
-#include "ResourceBuffer.h"
+#include "Resource.h"
 
 namespace KY
 {
-    class IndexBuffer : public ResourceBuffer
+    class IndexBuffer : public Resource
     {
     public:
     	IndexBuffer();

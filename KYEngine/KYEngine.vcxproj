@@ -85,12 +85,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Graphic\DX\Dx11.cpp" />
-    <ClCompile Include="Graphic\DX\IndexBuffer.cpp" />
-    <ClCompile Include="Graphic\DX\ResourceBuffer.cpp" />
-    <ClCompile Include="Graphic\DX\Texture.cpp" />
-    <ClCompile Include="Graphic\DX\VertexBuffer.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\RenderOperation.cpp" />
+    <ClCompile Include="Graphic\Resource\IndexBuffer.cpp" />
+    <ClCompile Include="Graphic\Resource\Resource.cpp" />
+    <ClCompile Include="Graphic\Resource\Texture.cpp" />
+    <ClCompile Include="Graphic\Resource\VertexBuffer.cpp" />
     <ClCompile Include="Input\Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -105,13 +105,13 @@
     <ClInclude Include="Common\CommonUtils.h" />
     <ClInclude Include="Common\Singleton.h" />
     <ClInclude Include="Graphic\DX\Dx11.h" />
-    <ClInclude Include="Graphic\DX\IndexBuffer.h" />
-    <ClInclude Include="Graphic\DX\ResourceBuffer.h" />
-    <ClInclude Include="Graphic\DX\Texture.h" />
-    <ClInclude Include="Graphic\DX\VertexBuffer.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\RenderOperation.h" />
+    <ClInclude Include="Graphic\Resource\IndexBuffer.h" />
+    <ClInclude Include="Graphic\Resource\Resource.h" />
+    <ClInclude Include="Graphic\Resource\Texture.h" />
+    <ClInclude Include="Graphic\Resource\VertexBuffer.h" />
     <ClInclude Include="Input\Input.h" />
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Vector4.h" />

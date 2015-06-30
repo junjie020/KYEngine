@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ResourceBuffer.h"
+#include "Resource.h"
 
 namespace KY
 {

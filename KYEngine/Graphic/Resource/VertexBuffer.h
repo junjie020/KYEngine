@@ -1,11 +1,11 @@
 #ifndef _VERTEXBUFFER_H_
 #define _VERTEXBUFFER_H_
 
-#include "ResourceBuffer.h"
+#include "Resource.h"
 
 namespace KY
 {
-    class VertexBuffer : public ResourceBuffer
+    class VertexBuffer : public Resource
     {
     public:    	
 		VertexBuffer();

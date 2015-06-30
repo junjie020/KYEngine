@@ -1,11 +1,11 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
-#include "ResourceBuffer.h"
+#include "Resource.h"
 
 namespace KY
 {
-    class Texture : public ResourceBuffer
+    class Texture : public Resource
     {
     public:
     	Texture();
