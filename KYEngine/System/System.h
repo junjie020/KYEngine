@@ -35,13 +35,13 @@ namespace KY
 		void ShutdownWindows();
 
 	private:
-		LPCWSTR m_applicationName;
-		HINSTANCE m_hinstance;
-		HWND m_hwnd;
+		LPCWSTR		mApplicationName;
+		HINSTANCE	mhinstance;
+		HWND		mhWnd;
 
-		Input*		m_pInput;
-		Graphic*	m_pGraphics;
-		Scene*		m_pScene;
+		Input*		mInput;
+		Graphic*	mGraphics;
+		Scene*		mScene;
 	};
 }
 

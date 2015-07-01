@@ -12,9 +12,9 @@ namespace KY
 {
 
 	System::System()
-		: m_pInput(nullptr)
-		, m_pGraphics(nullptr)
-		, m_pScene(nullptr)
+		: mInput(nullptr)
+		, mGraphics(nullptr)
+		, mScene(nullptr)
 	{
 	}
 
@@ -29,31 +29,31 @@ namespace KY
 		int screenWidth = 0, screenHeight = 0;
 		InitializeWindows(screenWidth, screenHeight);
 
-		m_pInput = new Input;
-		m_pInput->Initialize();
+		mInput = new Input;
+		mInput->Initialize();
 
-		m_pScene = new Scene;
+		mScene = new Scene;
 
-		m_pGraphics = new Graphic;
+		mGraphics = new Graphic;
 		
 		// Initialize the graphics object.
-		GraphicInitParam param = { screenWidth, screenHeight, 11, 1, 0, m_hwnd };
-		return m_pGraphics->Initialize(param);		
+		GraphicInitParam param = { screenWidth, screenHeight, 11, 1, 0, mhWnd };
+		return mGraphics->Initialize(param);		
 	}
 
 
 	void System::Shutdown()
 	{
 		// Release the graphics object.
-		if (m_pGraphics)
+		if (mGraphics)
 		{
-			m_pGraphics->Shutdown();
-			delete m_pGraphics;
-			m_pGraphics = 0;
+			mGraphics->Shutdown();
+			delete mGraphics;
+			mGraphics = 0;
 		}
 
-		SafeDelete(m_pInput);
-		SafeDelete(m_pScene);
+		SafeDelete(mInput);
+		SafeDelete(mScene);
 
 		ShutdownWindows();
 		return;
@@ -74,7 +74,7 @@ namespace KY
 				DispatchMessage(&msg);
 			}
 
-			if (m_pInput->IsKeyDown(VK_ESCAPE))
+			if (mInput->IsKeyDown(VK_ESCAPE))
 			{
 				done = true;
 				continue;
@@ -89,8 +89,8 @@ namespace KY
 
 	bool System::Frame()
 	{
-		m_pScene->Update();
-		return m_pGraphics->Frame();		
+		mScene->Update();
+		return mGraphics->Frame();		
 	}
 
 
@@ -102,7 +102,7 @@ namespace KY
 		case WM_KEYDOWN:
 		{
 			// If a key is pressed send it to the input object so it can record that state.
-			m_pInput->KeyDown((unsigned int)wparam);
+			mInput->KeyDown((unsigned int)wparam);
 			return 0;
 		}
 
@@ -110,7 +110,7 @@ namespace KY
 		case WM_KEYUP:
 		{
 			// If a key is released then send it to the input object so it can unset the state for that key.
-			m_pInput->KeyUp((unsigned int)wparam);
+			mInput->KeyUp((unsigned int)wparam);
 			return 0;
 		}
 
@@ -134,23 +134,23 @@ namespace KY
 		ApplicationHandle = this;
 
 		// Get the instance of this application.
-		m_hinstance = GetModuleHandle(NULL);
+		mhinstance = GetModuleHandle(NULL);
 
 		// Give the application a name.
-		m_applicationName = L"Engine";
+		mApplicationName = L"Engine";
 
 		// Setup the windows class with default settings.
 		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		wc.lpfnWndProc = WndProc;
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
-		wc.hInstance = m_hinstance;
+		wc.hInstance = mhinstance;
 		wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 		wc.hIconSm = wc.hIcon;
 		wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 		wc.lpszMenuName = NULL;
-		wc.lpszClassName = m_applicationName;
+		wc.lpszClassName = mApplicationName;
 		wc.cbSize = sizeof(WNDCLASSEX);
 
 		// Register the window class.
@@ -189,14 +189,14 @@ namespace KY
 		}
 
 		// Create the window with the screen settings and get the handle to it.
-		m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName,
+		mhWnd = CreateWindowEx(WS_EX_APPWINDOW, mApplicationName, mApplicationName,
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-			posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
+			posX, posY, screenWidth, screenHeight, NULL, NULL, mhinstance, NULL);
 
 		// Bring the window up on the screen and set it as main focus.
-		ShowWindow(m_hwnd, SW_SHOW);
-		SetForegroundWindow(m_hwnd);
-		SetFocus(m_hwnd);
+		ShowWindow(mhWnd, SW_SHOW);
+		SetForegroundWindow(mhWnd);
+		SetFocus(mhWnd);
 
 		// Hide the mouse cursor.
 		ShowCursor(false);
@@ -217,12 +217,12 @@ namespace KY
 		}
 
 		// Remove the window.
-		DestroyWindow(m_hwnd);
-		m_hwnd = NULL;
+		DestroyWindow(mhWnd);
+		mhWnd = NULL;
 
 		// Remove the application instance.
-		UnregisterClass(m_applicationName, m_hinstance);
-		m_hinstance = NULL;
+		UnregisterClass(mApplicationName, mhinstance);
+		mhinstance = NULL;
 
 		// Release the pointer to this class.
 		ApplicationHandle = NULL;

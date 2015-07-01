@@ -3,6 +3,7 @@
 #include "Common/CommonUtils.h"
 
 #include "Platform/Win32DefHeader.h"
+#include "Graphic/DX/DX11NameTranslator.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -12,22 +13,25 @@ namespace KY
 	namespace DX
 	{
 		Dx11::Dx11()
-			: m_pDevice(nullptr)
-			, m_pDeviceContext(nullptr)
-			, m_pSwapChain(nullptr)
-			, m_pDepthStencilView(nullptr)
+			: mDevice(nullptr)
+			, mDeviceContext(nullptr)
+			, mSwapChain(nullptr)
+			, mDepthStencilView(nullptr)
 		{
+			DX11NameTranslator::Create();
 		}
 
 		Dx11::~Dx11()
 		{
-			SafeRelease(m_pDevice);
-			SafeRelease(m_pDeviceContext);
-			SafeRelease(m_pSwapChain);
+			DX11NameTranslator::Destroy();
 
-			std::for_each(std::begin(m_RenderTargetViewArray), std::end(m_RenderTargetViewArray), [](ID3D11RenderTargetView* view){view->Release(); });
-			m_RenderTargetViewArray.clear();
-			SafeRelease(m_pDepthStencilView);
+			SafeRelease(mDevice);
+			SafeRelease(mDeviceContext);
+			SafeRelease(mSwapChain);
+
+			std::for_each(std::begin(mRenderTargetViewArray), std::end(mRenderTargetViewArray), [](ID3D11RenderTargetView* view){view->Release(); });
+			mRenderTargetViewArray.clear();
+			SafeRelease(mDepthStencilView);
 		}
 
 		bool Dx11::Init(const GraphicInitParam &param)
@@ -43,7 +47,7 @@ namespace KY
 			
 			D3D_FEATURE_LEVEL returnLevel = D3D_FEATURE_LEVEL_11_0;
 			if (FAILED(::D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags,
-				levels, _countof(levels), D3D11_SDK_VERSION, &m_pDevice, &returnLevel, &m_pDeviceContext)))
+				levels, _countof(levels), D3D11_SDK_VERSION, &mDevice, &returnLevel, &mDeviceContext)))
 				return false;
 
 			IDXGIFactory *dxgi = nullptr;
@@ -60,7 +64,7 @@ namespace KY
 			swapDesc.Windowed				= TRUE;
 			
 			swapDesc.SampleDesc.Count		= std::max(uint32(1), param.sampleDesc.count);
-			m_pDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, swapDesc.SampleDesc.Count, &swapDesc.SampleDesc.Quality);
+			mDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, swapDesc.SampleDesc.Count, &swapDesc.SampleDesc.Quality);
 			swapDesc.SampleDesc.Quality		= std::min(swapDesc.SampleDesc.Quality, param.sampleDesc.level);
 
 	
@@ -69,17 +73,17 @@ namespace KY
 			swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 			swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
-			if (FAILED(dxgi->CreateSwapChain(m_pDevice, &swapDesc, &m_pSwapChain)))
+			if (FAILED(dxgi->CreateSwapChain(mDevice, &swapDesc, &mSwapChain)))
 				return false;
 
 			ID3D11Texture2D *pSwapBuffer = nullptr;
-			BOOST_VERIFY(SUCCEEDED(m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)(&pSwapBuffer))));
+			BOOST_VERIFY(SUCCEEDED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)(&pSwapBuffer))));
 
 			ID3D11RenderTargetView *pRTView = nullptr;
-			if (FAILED(m_pDevice->CreateRenderTargetView(pSwapBuffer, 0, &pRTView)))
+			if (FAILED(mDevice->CreateRenderTargetView(pSwapBuffer, 0, &pRTView)))
 				return false;
 
-			m_RenderTargetViewArray.push_back(pRTView);
+			mRenderTargetViewArray.push_back(pRTView);
 
 			D3D11_TEXTURE2D_DESC depthTexDesc;
 			depthTexDesc.Width = param.width;
@@ -95,10 +99,10 @@ namespace KY
 			depthTexDesc.MiscFlags = 0;
 
 			ID3D11Texture2D *pDepthBuffer = nullptr;
-			if (FAILED(m_pDevice->CreateTexture2D(&depthTexDesc, 0, &pDepthBuffer)))
+			if (FAILED(mDevice->CreateTexture2D(&depthTexDesc, 0, &pDepthBuffer)))
 				return false;
 
-			if (FAILED(m_pDevice->CreateDepthStencilView(pDepthBuffer, nullptr, &m_pDepthStencilView)))
+			if (FAILED(mDevice->CreateDepthStencilView(pDepthBuffer, nullptr, &mDepthStencilView)))
 				return false;
 
 			SafeRelease(dxgi);
@@ -107,15 +111,15 @@ namespace KY
 
 		void Dx11::Swap()
 		{
-			m_pSwapChain->Present(0, 0);
+			mSwapChain->Present(0, 0);
 		}
 
 		bool Dx11::BeforeRender()
 		{
-			m_pDeviceContext->OMSetRenderTargets(m_RenderTargetViewArray.size(), &*m_RenderTargetViewArray.begin(), m_pDepthStencilView);
+			mDeviceContext->OMSetRenderTargets(mRenderTargetViewArray.size(), &*mRenderTargetViewArray.begin(), mDepthStencilView);
 
 			float colors[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-			m_pDeviceContext->ClearRenderTargetView(m_RenderTargetViewArray[0], colors);
+			mDeviceContext->ClearRenderTargetView(mRenderTargetViewArray[0], colors);
 			return true;
 		}
 

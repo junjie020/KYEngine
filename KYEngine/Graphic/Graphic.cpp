@@ -8,23 +8,23 @@
 namespace KY
 {
 	Graphic::Graphic()
-		: m_pDx(nullptr)
+		: mDx(nullptr)
 	{
 	}
 
 
 	Graphic::~Graphic()
 	{
-		SafeDelete(m_pDx);
+		SafeDelete(mDx);
 	}
 
 
 	bool Graphic::Initialize(const GraphicInitParam &param)
 	{
-		SafeDelete(m_pDx);
-		m_pDx = new DX::Dx11;
+		SafeDelete(mDx);
+		mDx = new DX::Dx11;
 
-		return m_pDx->Init(param);
+		return mDx->Init(param);
 	}
 
 
@@ -44,10 +44,10 @@ namespace KY
 
 	bool Graphic::Render()
 	{
-		if (m_pDx->BeforeRender())
+		if (mDx->BeforeRender())
 		{
-			m_pDx->Swap();
-			m_pDx->Render();
+			mDx->Swap();
+			mDx->Render();
 		}
 			
 

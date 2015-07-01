@@ -22,5 +22,11 @@ namespace KY
 			p = nullptr;
 		}
 	}
+
+	template<typename BitType, typename Value>
+	inline bool QueryBit(BitType bit, const Value &v)
+	{
+		return bit == (bit & v);
+	}
 }
 #endif // _COMMONUTILS_H_

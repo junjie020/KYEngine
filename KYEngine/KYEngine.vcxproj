@@ -84,7 +84,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugUtils\TraceUtils.cpp" />
+    <ClCompile Include="Graphic\DX\Buffer\DX11IndexBuffer.cpp" />
+    <ClCompile Include="Graphic\DX\Buffer\DX11VertexBuffer.cpp" />
+    <ClCompile Include="Graphic\DX\Buffer\DX11Buffer.cpp" />
     <ClCompile Include="Graphic\DX\Dx11.cpp" />
+    <ClCompile Include="Graphic\DX\DX11NameTranslator.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\RenderOperation.cpp" />
     <ClCompile Include="Graphic\Resource\IndexBuffer.cpp" />
@@ -104,7 +109,12 @@
     <ClInclude Include="Common\BaseTypes.h" />
     <ClInclude Include="Common\CommonUtils.h" />
     <ClInclude Include="Common\Singleton.h" />
+    <ClInclude Include="DebugUtils\TraceUtils.h" />
+    <ClInclude Include="Graphic\DX\Buffer\DX11IndexBuffer.h" />
+    <ClInclude Include="Graphic\DX\Buffer\DX11VertexBuffer.h" />
+    <ClInclude Include="Graphic\DX\Buffer\DX11Buffer.h" />
     <ClInclude Include="Graphic\DX\Dx11.h" />
+    <ClInclude Include="Graphic\DX\DX11NameTranslator.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\RenderOperation.h" />

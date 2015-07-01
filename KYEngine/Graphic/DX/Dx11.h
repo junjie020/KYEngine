@@ -27,18 +27,28 @@ namespace KY
 
 			void Swap();
 
+			ID3D11Device* GetDevice();
+			ID3D11DeviceContext* GetDeviceContext();
+
 		private:
 
 			typedef std::vector<ID3D11RenderTargetView*>	RenderTargetViewArray;
-			RenderTargetViewArray	m_RenderTargetViewArray;
-			ID3D11DepthStencilView	* m_pDepthStencilView;
+			RenderTargetViewArray	mRenderTargetViewArray;
+			ID3D11DepthStencilView	* mDepthStencilView;
 			
+			ID3D11Device		*mDevice;
+			ID3D11DeviceContext *mDeviceContext;
 
-			ID3D11Device		*m_pDevice;
-			ID3D11DeviceContext *m_pDeviceContext;
-
-			IDXGISwapChain		*m_pSwapChain;
+			IDXGISwapChain		*mSwapChain;
 		};
+
+		inline ID3D11Device* Dx11::GetDevice(){
+			return mDevice;
+		}
+
+		inline ID3D11DeviceContext* Dx11::GetDeviceContext(){
+			return mDeviceContext;
+		}
 	}
 }
 

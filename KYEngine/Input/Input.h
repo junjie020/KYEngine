@@ -25,7 +25,7 @@ namespace KY
 		bool IsKeyDown(unsigned int);
 
 	private:
-		bool m_keys[256];
+		bool mkeys[256];
 	};
 }
 #endif

@@ -34,11 +34,17 @@ namespace KY
 		void Shutdown();
 		bool Frame();
 
+		DX::Dx11* GetDx11();
+
 	private:
 		bool Render();
 
 	private:
-		DX::Dx11 *m_pDx;
+		DX::Dx11 *mDx;
 	};
+
+	inline DX::Dx11* Graphic::GetDx11(){
+		return mDx;
+	}
 }
 #endif

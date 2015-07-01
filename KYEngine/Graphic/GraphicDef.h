@@ -15,5 +15,43 @@ namespace KY
 		SampleDesc sampleDesc;
 		HWND hwnd;
 	};
+
+	enum BufferType
+	{
+		BT_Vertex,
+		BT_Index,
+	};
+	enum BufferCPUAccess
+	{
+		BA_Read = 0x01,
+		BA_Write = 0x02,
+	};
+
+	enum ResourceUsage
+	{
+		RU_Default = 0,
+		RU_Immutable,
+		RU_Dynamic,
+		RU_Stage,
+	};
+
+	struct BufferParam
+	{
+		BufferType type;
+		BufferCPUAccess access;
+		ResourceUsage usage;
+
+		size_t sizeInBytes;
+		size_t elemInBytes;
+	};
+
+	struct ResourceData
+	{
+		const uint8 *pData;
+		//{@ valid for texture resource
+		size_t pitch;
+		size_t slicePitch;
+		//@}
+	};
 }
 #endif // _GRAPHICDEF_H_

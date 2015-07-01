@@ -31,7 +31,7 @@ namespace KY
 		// Initialize all the keys to being released and not pressed.
 		for (i = 0; i < 256; i++)
 		{
-			m_keys[i] = false;
+			mkeys[i] = false;
 		}
 
 		return;
@@ -41,7 +41,7 @@ namespace KY
 	void Input::KeyDown(unsigned int input)
 	{
 		// If a key is pressed then save that state in the key array.
-		m_keys[input] = true;
+		mkeys[input] = true;
 		return;
 	}
 
@@ -49,7 +49,7 @@ namespace KY
 	void Input::KeyUp(unsigned int input)
 	{
 		// If a key is released then clear that state in the key array.
-		m_keys[input] = false;
+		mkeys[input] = false;
 		return;
 	}
 
@@ -57,6 +57,6 @@ namespace KY
 	bool Input::IsKeyDown(unsigned int key)
 	{
 		// Return what state the key is in (pressed/not pressed).
-		return m_keys[key];
+		return mkeys[key];
 	}
 }
