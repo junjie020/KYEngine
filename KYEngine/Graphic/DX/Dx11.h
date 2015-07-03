@@ -36,6 +36,7 @@ namespace KY
 			RenderTargetViewArray	mRenderTargetViewArray;
 			ID3D11DepthStencilView	* mDepthStencilView;
 			
+			ID3D11Debug			*mDebug;
 			ID3D11Device		*mDevice;
 			ID3D11DeviceContext *mDeviceContext;
 

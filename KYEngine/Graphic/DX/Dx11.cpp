@@ -15,6 +15,7 @@ namespace KY
 		Dx11::Dx11()
 			: mDevice(nullptr)
 			, mDeviceContext(nullptr)
+			, mDebug(nullptr)
 			, mSwapChain(nullptr)
 			, mDepthStencilView(nullptr)
 		{
@@ -53,9 +54,12 @@ namespace KY
 			IDXGIFactory *dxgi = nullptr;
 			if (FAILED(::CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void **>(&dxgi))))
 				return false;
+
+			if (FAILED(mDevice->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void **>(&mDebug))))
+				return false;
 			
 			DXGI_SWAP_CHAIN_DESC swapDesc = { 0 };
-
+			
 			swapDesc.BufferDesc.Width		= param.width;
 			swapDesc.BufferDesc.Height		= param.height;
 			swapDesc.BufferDesc.RefreshRate.Numerator = 60;
