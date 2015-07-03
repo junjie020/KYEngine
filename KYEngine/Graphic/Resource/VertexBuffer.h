@@ -2,6 +2,8 @@
 #define _VERTEXBUFFER_H_
 
 #include "Resource.h"
+#include "Graphic/DX/Buffer/DX11Buffer.h"
+#include "Graphic/GraphicDef.h"
 
 namespace KY
 {
@@ -11,11 +13,10 @@ namespace KY
 		VertexBuffer();
 		~VertexBuffer();
 
-    protected:
-    	
+		bool Create(const BufferParam &param, const ResourceData &resData);
 
-    private:
-		uint32 mSizeInBytes;
+    protected:
+		DX::DX11Buffer	*mBuffer;
     };
 }
 #endif // _VERTEXBUFFER_H_
