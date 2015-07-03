@@ -11,6 +11,7 @@
 
 //{@	STL
 #include <vector>
+#include <list>
 #include <array>
 #include <string>
 #include <memory>
@@ -23,4 +24,5 @@
 
 //{@
 #include "Common/BaseTypes.h"
+#include "Common/CommonUtils.h"
 //@}
