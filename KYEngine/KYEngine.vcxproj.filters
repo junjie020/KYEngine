@@ -52,6 +52,18 @@
     <ClCompile Include="Graphic\DX\DX11NameTranslator.cpp">
       <Filter>Graphic\HI\DX11</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Color.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\RenderCommandQueue.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Actor.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -123,6 +135,15 @@
     <ClInclude Include="Graphic\DX\DX11NameTranslator.h">
       <Filter>Graphic\HI\DX11</Filter>
     </ClInclude>
+    <ClInclude Include="Math\Color.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\RenderCommandQueue.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Actor.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -176,10 +197,16 @@
     <Filter Include="DebugUtils">
       <UniqueIdentifier>{e178c1d6-880b-4817-9523-1b70897dd567}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\Shader">
+      <UniqueIdentifier>{97ec46e2-1d9a-4c7b-aada-a9993eedbd0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml">
       <Filter>CodeGraph</Filter>
+    </None>
+    <None Include="Math\Color.inl">
+      <Filter>Math</Filter>
     </None>
   </ItemGroup>
 </Project>

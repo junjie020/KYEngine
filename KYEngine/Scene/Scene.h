@@ -1,7 +1,9 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
+
 namespace KY
 {
+	class Actor;
 	class Scene
 	{
 	public:
@@ -9,6 +11,8 @@ namespace KY
 		~Scene();
 
 		void Update();
+	private:
+		Actor	*mRoot;
 	};
 }
 #endif //_SCENE_H_
