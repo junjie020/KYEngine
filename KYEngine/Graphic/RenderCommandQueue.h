@@ -6,16 +6,16 @@ namespace KY
 {
 	class RenderOperation;
 
-    class RenderCommandQueue : public noncopyable
+    class RenderCommandQueue : public boost::noncopyable
     {
     public:
     	~RenderCommandQueue();
 		
-		void Push(const RenderOperation &ro);
-		RenderOperation* Pop();
+		void Push(const RenderOperation *ro);
+		const RenderOperation* Pop();
 
     private:
-		typedef std::list<RenderOperation*>	ROList;
+		typedef std::list<const RenderOperation*>	ROList;
 
 		ROList	mROList;
 
