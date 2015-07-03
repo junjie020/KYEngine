@@ -35,6 +35,14 @@ namespace KY
 		RU_Stage,
 	};
 
+	enum PrimitiveType
+	{
+		PT_Unknown = -1,
+		PT_Point = 0,
+		PT_TriList,
+		PT_TriStrip,
+	};
+
 	struct BufferParam
 	{
 		BufferType type;
