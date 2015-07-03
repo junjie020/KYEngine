@@ -3,7 +3,7 @@
 
 #include "GraphicDef.h"
 #include "Common/Singleton.h"
-
+#include "RenderCommandQueue.h"
 namespace KY
 {
 
@@ -40,7 +40,8 @@ namespace KY
 		bool Render();
 
 	private:
-		DX::Dx11 *mDx;
+		DX::Dx11			*mDx;
+		RenderCommandQueue	*mQueue;
 	};
 
 	inline DX::Dx11* Graphic::GetDx11(){
