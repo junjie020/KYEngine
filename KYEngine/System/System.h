@@ -14,6 +14,8 @@ namespace KY
 	class Input;
 	class Scene;
 
+	class SampleTest;
+
 	class System
 	{
 		System(const System& rhs);
@@ -27,6 +29,9 @@ namespace KY
 		void Run();
 
 		LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+
+		void AddSample(SampleTest *test);
+		void RemoveSample(SampleTest *test);
 
 	private:
 		bool Frame();
@@ -42,6 +47,9 @@ namespace KY
 		Input*		mInput;
 		Graphic*	mGraphics;
 		Scene*		mScene;
+
+		typedef std::vector<SampleTest*>	SampleTestVec;
+		SampleTestVec	mSamples;
 	};
 }
 

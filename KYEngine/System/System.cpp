@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "System.h"
+#include "SampleTest.h"
 #include "Scene/Scene.h"
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
@@ -20,7 +21,8 @@ namespace KY
 
 	System::~System()
 	{
-		
+		std::for_each(std::begin(mSamples), std::end(mSamples), SafeDelete<SampleTest>);
+		mSamples.clear();
 	}
 
 
@@ -233,6 +235,22 @@ namespace KY
 	void System::Update()
 	{
 
+	}
+
+	void System::AddSample(SampleTest *test)
+	{
+		auto result = std::find(std::begin(mSamples), std::end(mSamples), test);
+		if (result != std::end(mSamples))
+			return;
+
+		mSamples.push_back(test);
+	}
+
+	void System::RemoveSample(SampleTest *test)
+	{
+		auto result = std::find(std::begin(mSamples), std::end(mSamples), test);
+		if (result != std::end(mSamples))
+			mSamples.erase(result);
 	}
 
 }
