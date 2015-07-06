@@ -8,8 +8,7 @@ namespace KY
     public:
 		virtual ~SampleTest(){}
 
-		virtual bool Init() = 0;
-		virtual void Update() = 0;
+		virtual bool Init() = 0;		
     	
 
     private:

@@ -41,16 +41,31 @@ namespace KY
 		return true;
 	}
 
+	void Graphic::AddRenderOperation(RenderOperation *ro)
+	{
+		BOOST_ASSERT(mQueue);
+		mQueue->Push(ro);
+	}
 
 	bool Graphic::Render()
 	{
-		if (mDx->BeforeRender())
+		if (mDx->Prepare())
 		{
 			mDx->Swap();
-			mDx->Render();
+			CommitRenderData();			
 		}
-			
 
 		return true;
 	}
+
+	void Graphic::CommitRenderData()
+	{
+		BOOST_ASSERT(mQueue);
+		while (!mQueue->IsEmpty())
+		{
+			auto ro = mQueue->Pop();
+
+		}
+	}
+
 }

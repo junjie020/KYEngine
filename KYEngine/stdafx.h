@@ -20,6 +20,7 @@
 
 //{@	boost
 #include "boost/assert.hpp"
+#include "boost/noncopyable.hpp"
 //@}
 
 //{@

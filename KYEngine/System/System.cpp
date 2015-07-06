@@ -37,10 +37,10 @@ namespace KY
 		mScene = new Scene;
 
 		mGraphics = new Graphic;
-		
+
 		// Initialize the graphics object.
 		GraphicInitParam param = { screenWidth, screenHeight, 11, 1, 0, mhWnd };
-		return mGraphics->Initialize(param);		
+		return mGraphics->Initialize(param);
 	}
 
 
@@ -65,7 +65,7 @@ namespace KY
 	void System::Run()
 	{
 		MSG msg = { 0 };
-		
+
 		bool done = false;
 		while (!done)
 		{
@@ -92,7 +92,7 @@ namespace KY
 	bool System::Frame()
 	{
 		mScene->Update();
-		return mGraphics->Frame();		
+		return mGraphics->Frame();
 	}
 
 
@@ -130,10 +130,6 @@ namespace KY
 		WNDCLASSEX wc;
 		DEVMODE dmScreenSettings;
 		int posX, posY;
-
-
-		// Get an external pointer to this object.	
-		ApplicationHandle = this;
 
 		// Get the instance of this application.
 		mhinstance = GetModuleHandle(NULL);
@@ -226,9 +222,6 @@ namespace KY
 		UnregisterClass(mApplicationName, mhinstance);
 		mhinstance = NULL;
 
-		// Release the pointer to this class.
-		ApplicationHandle = NULL;
-
 		return;
 	}
 
@@ -243,6 +236,7 @@ namespace KY
 		if (result != std::end(mSamples))
 			return;
 
+		test->Init();
 		mSamples.push_back(test);
 	}
 
@@ -253,30 +247,31 @@ namespace KY
 			mSamples.erase(result);
 	}
 
-}
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
-{
-	switch(umessage)
+	//static
+	LRESULT CALLBACK System::WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 	{
-		// Check if the window is being destroyed.
+		switch (umessage)
+		{
+			// Check if the window is being destroyed.
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
 			return 0;
 		}
 
-		// Check if the window is being closed.
+			// Check if the window is being closed.
 		case WM_CLOSE:
 		{
-			PostQuitMessage(0);		
+			PostQuitMessage(0);
 			return 0;
 		}
 
-		// All other messages pass to the message handler in the system class.
+			// All other messages pass to the message handler in the system class.
 		default:
 		{
-			return ApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
+			return System::Inst()->MessageHandler(hwnd, umessage, wparam, lparam);
+		}
 		}
 	}
 }

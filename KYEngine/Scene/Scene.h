@@ -11,6 +11,8 @@ namespace KY
 		~Scene();
 
 		void Update();
+		void AddActor(Actor *act);
+		void RemoveActor(Actor *act);
 	private:
 		Actor	*mRoot;
 	};

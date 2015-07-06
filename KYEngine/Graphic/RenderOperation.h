@@ -3,19 +3,31 @@
 
 namespace KY
 {
+	class VertexBuffer;
+	class IndexBuffer;
     class RenderOperation
     {
     public:
-    	RenderOperation();
-    	~RenderOperation();
+		RenderOperation()
+			: mVertexBuf(nullptr)
+			, mIndexBuf(nullptr)
+		{
 
-    	
+		}
+		~RenderOperation(){
 
-    protected:
-    	
+		}
 
-    private:
+		void SetVertexBuffer(VertexBuffer *buf){
 
+		}
+
+		void SetIndexBuffer(IndexBuffer *buf){
+
+		}
+	private:
+		VertexBuffer *mVertexBuf;
+		IndexBuffer *mIndexBuf;
     };
 }
 #endif // _RENDEROPERATION_H_

@@ -23,6 +23,7 @@ namespace KY
 	};
 	enum BufferCPUAccess
 	{
+		BA_None = 0,
 		BA_Read = 0x01,
 		BA_Write = 0x02,
 	};

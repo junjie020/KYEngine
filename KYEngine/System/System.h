@@ -8,6 +8,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: System
 ////////////////////////////////////////////////////////////////////////////////
+#include "Common/Singleton.h"
+
 namespace KY
 {
 	class Graphic;
@@ -16,7 +18,8 @@ namespace KY
 
 	class SampleTest;
 
-	class System
+	class System : public Singleton<System>
+				 , public boost::noncopyable
 	{
 		System(const System& rhs);
 	public:
@@ -33,11 +36,16 @@ namespace KY
 		void AddSample(SampleTest *test);
 		void RemoveSample(SampleTest *test);
 
+		Scene* GetScene() { return mScene;  }
+
 	private:
 		bool Frame();
 		void Update();
 		void InitializeWindows(int&, int&);
 		void ShutdownWindows();
+
+	private:
+		static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	private:
 		LPCWSTR		mApplicationName;
@@ -52,17 +60,5 @@ namespace KY
 		SampleTestVec	mSamples;
 	};
 }
-
-/////////////////////////
-// FUNCTION PROTOTYPES //
-/////////////////////////
-static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
-
-/////////////
-// GLOBALS //
-/////////////
-static KY::System* ApplicationHandle = 0;
-
 
 #endif

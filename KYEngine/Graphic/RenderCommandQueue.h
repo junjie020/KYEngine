@@ -10,8 +10,14 @@ namespace KY
     {
     public:
     	~RenderCommandQueue();
+
+		bool IsEmpty() const {
+			return mROList.empty();
+		}
 		
 		void Push(const RenderOperation *ro);
+		void Push(const RenderCommandQueue &q);
+
 		const RenderOperation* Pop();
 
     private:

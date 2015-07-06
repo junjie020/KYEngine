@@ -22,8 +22,7 @@ namespace KY
 			~Dx11();
 
 			bool Init(const GraphicInitParam &param);
-			bool BeforeRender();
-			void Render();
+			bool Prepare();			
 
 			void Swap();
 

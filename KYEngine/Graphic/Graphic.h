@@ -36,8 +36,11 @@ namespace KY
 
 		DX::Dx11* GetDx11();
 
+		void AddRenderOperation(RenderOperation *ro);
+
 	private:
 		bool Render();
+		void CommitRenderData();
 
 	private:
 		DX::Dx11			*mDx;

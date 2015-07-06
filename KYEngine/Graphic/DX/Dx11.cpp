@@ -118,7 +118,7 @@ namespace KY
 			mSwapChain->Present(0, 0);
 		}
 
-		bool Dx11::BeforeRender()
+		bool Dx11::Prepare()
 		{
 			mDeviceContext->OMSetRenderTargets(mRenderTargetViewArray.size(), &*mRenderTargetViewArray.begin(), mDepthStencilView);
 
@@ -126,12 +126,6 @@ namespace KY
 			mDeviceContext->ClearRenderTargetView(mRenderTargetViewArray[0], colors);
 			return true;
 		}
-
-		void Dx11::Render()
-		{
-
-		}
-
 	}
 
 
