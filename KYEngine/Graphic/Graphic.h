@@ -3,7 +3,7 @@
 
 #include "GraphicDef.h"
 #include "Common/Singleton.h"
-#include "RenderCommandQueue.h"
+#include "Graphic/PipelineStage.h"
 namespace KY
 {
 
@@ -18,10 +18,7 @@ namespace KY
 		class Dx11;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////
-	// Class name: Graphic
-	////////////////////////////////////////////////////////////////////////////////
-
+	class RenderCommandQueue;
 
 	class Graphic : public Singleton<Graphic>
 	{
@@ -45,6 +42,25 @@ namespace KY
 	private:
 		DX::Dx11			*mDx;
 		RenderCommandQueue	*mQueue;
+
+		//{@ stage
+		union{
+			PipelineStage* mStages[ST_Count];
+			struct {
+				IAStage* mIAStage;
+				VSStage* mVSStage;
+				HSStage* mHSStage;
+				TessStage* mTessStage;
+				DSStage* mDSStage;
+				GSStage* mGSStage;
+				SOStage* mSOStage;
+				RSStage* mRSStage;
+				PSStage* mPSStage;
+				OMStage* mOMStage;
+			};
+		};
+		//@}
+		
 	};
 
 	inline DX::Dx11* Graphic::GetDx11(){
