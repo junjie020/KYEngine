@@ -5,6 +5,7 @@
 #include "Graphic.h"
 #include "DX/Dx11.h"
 #include "Common/CommonUtils.h"
+#include "Graphic/RenderCommandQueue.h"
 namespace KY
 {
 	Graphic::Graphic()

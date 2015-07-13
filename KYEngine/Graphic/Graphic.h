@@ -19,6 +19,7 @@ namespace KY
 	}
 
 	class RenderCommandQueue;
+	class RenderOperation;
 
 	class Graphic : public Singleton<Graphic>
 	{
