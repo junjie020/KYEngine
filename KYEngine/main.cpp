@@ -10,6 +10,8 @@
 
 #include "Graphic/Resource/VertexBuffer.h"
 #include "Graphic/RenderOperation.h"
+#include "Graphic/Graphic.h"
+
 #include "Math/Vector4.h"
 #include "Math/Color.h"
 #include "Math/Color.inl"
@@ -23,59 +25,72 @@ public:
 	}
 	~SimpleTriangleTest(){}
 	bool Init() override
-	{
-		struct VertexColor{
-			Vec4f		v;
-			Color32B	c;
-		};
-
-		VertexColor vc[] = {
-			{ Vec4f(-0.5f, 0.0f, 0.0f, 1.0f), Color32B::Red },
-			{ Vec4f(0.0f, 0.5f, 0.0f, 1.0f), Color32B::Green },
-			{ Vec4f(5.0f, 0.0f, 0.0f, 1.0f), Color32B::Blue },
-		};
-
-		BufferParam param;
-		param.access = BA_None;
-		param.usage = RU_Immutable;
-		param.elemInBytes = sizeof(VertexColor);
-		param.sizeInBytes = sizeof(vc);
-
-		ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
-
-		if (!mBuffer.Create(param, data))
-			return false;
-
-		RenderOperation ro;
-		
+	{		
 		auto scene = System::Inst()->GetScene();
 		BOOST_ASSERT(nullptr == mActor);
-		mActor = new TriangleActor(&ro);
+		mActor = new TriangleActor;
 		scene->AddActor(mActor);
+
+		return true;
 	}
 
 private:
 	class TriangleActor : public KY::Actor
 	{
 	public:
-		TriangleActor(KY::RenderOperation *op) 
+		TriangleActor() 
 			: Actor(nullptr)
 		{
+			struct VertexColor{
+				Vec4f		v;
+				Color32B	c;
+			};
 
+			VertexColor vc[] = {
+				{ Vec4f(-0.5f, 0.0f, 0.0f, 1.0f), Color32B::Red },
+				{ Vec4f(0.0f, 0.5f, 0.0f, 1.0f), Color32B::Green },
+				{ Vec4f(5.0f, 0.0f, 0.0f, 1.0f), Color32B::Blue },
+			};
+
+			BufferParam param;
+			param.access = BA_None;
+			param.usage = RU_Immutable;
+			param.elemInBytes = sizeof(VertexColor);
+			param.sizeInBytes = sizeof(vc);
+
+			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
+
+			if (mBuffer.Create(param, data))
+			{
+				RenderOperation::BufferInfo info = { 0, 3 };
+				mRO.SetVertexBuffer(&mBuffer, info);				
+			}
 		}
 
 		~TriangleActor(){}
+
+		virtual void UpdateImpl()
+		{
+			KY::Graphic::Inst()->AddRenderOperation(&mRO);			
+		}
+	private:
+		KY::RenderOperation mRO;
+		KY::VertexBuffer mBuffer;
 	};
 
-private:
+private:	
 	KY::Actor *mActor;
-	KY::VertexBuffer mBuffer;
 };
+
+#include "Common/FileSystem.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
 	// Create the system object.
+	KY::FileSystem::Create();
+
 	auto system = KY::System::Create();
+	
 
 	if (system->Initialize())
 	{

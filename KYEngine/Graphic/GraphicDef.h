@@ -44,6 +44,15 @@ namespace KY
 		PT_TriStrip,
 	};
 
+	enum ShaderType
+	{
+		ST_Vertex = 0,
+		ST_Hull,
+		ST_Domain,
+		ST_Geometry,
+		ST_Pixel,
+	};
+
 	struct BufferParam
 	{
 		BufferType type;

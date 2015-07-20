@@ -10,11 +10,14 @@ namespace KY
 		virtual ~Actor(){}
 
 		virtual void Update(){
+			UpdateImpl();
 			std::for_each(std::begin(mChildren), std::end(mChildren), 
 				[](Actor *child){
 					child->Update();
 			});
 		}
+
+		virtual void UpdateImpl(){}
 
 		//virtual void Render(){}
 

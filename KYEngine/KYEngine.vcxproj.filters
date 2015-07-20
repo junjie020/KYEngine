@@ -73,6 +73,15 @@
     <ClCompile Include="Graphic\Viewport.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="Common\FileSystem.cpp">
+      <Filter>Common\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Resource\Shader.cpp">
+      <Filter>Graphic\Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DX\Buffer\Dx11Shader.cpp">
+      <Filter>Graphic\HI\DX11\Resource\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -168,6 +177,15 @@
     <ClInclude Include="Math\Vector2.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Common\FileSystem.h">
+      <Filter>Common\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\Buffer\Dx11Shader.h">
+      <Filter>Graphic\HI\DX11\Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\Shader.h">
+      <Filter>Graphic\Resource\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -221,8 +239,14 @@
     <Filter Include="DebugUtils">
       <UniqueIdentifier>{e178c1d6-880b-4817-9523-1b70897dd567}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\Shader">
-      <UniqueIdentifier>{97ec46e2-1d9a-4c7b-aada-a9993eedbd0e}</UniqueIdentifier>
+    <Filter Include="Common\FileSystem">
+      <UniqueIdentifier>{573a104e-41d9-417f-a480-6745d3b02be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Resource\Shader">
+      <UniqueIdentifier>{880e26bb-c26b-47b7-8a7e-3784a9ef9d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX11\Resource\Shader">
+      <UniqueIdentifier>{68e9f6d7-7978-4931-9b42-971254900730}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

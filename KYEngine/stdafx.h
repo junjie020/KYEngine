@@ -16,6 +16,9 @@
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <sstream>
+#include <filesystem>
+namespace fs = std::tr2::sys;
 //@}
 
 //{@	boost

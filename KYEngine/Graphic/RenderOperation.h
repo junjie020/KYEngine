@@ -18,16 +18,26 @@ namespace KY
 
 		}
 
-		void SetVertexBuffer(VertexBuffer *buf){
+		struct BufferInfo{
+			uint32 startIdx;
+			uint32 elemNum;
+		};
 
+		void SetVertexBuffer(VertexBuffer *buf, BufferInfo &info){
+			mVertexBuf = buf;
+			mVertexInfo = info;
 		}
 
-		void SetIndexBuffer(IndexBuffer *buf){
-
+		void SetIndexBuffer(IndexBuffer *buf, BufferInfo &info){
+			mIndexBuf = buf;
+			mVertexInfo = info;
 		}
 	private:
 		VertexBuffer *mVertexBuf;
+		BufferInfo	mVertexInfo;
+
 		IndexBuffer *mIndexBuf;
+		BufferInfo mIndexInfo;
     };
 }
 #endif // _RENDEROPERATION_H_
