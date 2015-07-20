@@ -124,6 +124,7 @@ namespace KY
 
 			float colors[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			mDeviceContext->ClearRenderTargetView(mRenderTargetViewArray[0], colors);
+			
 			return true;
 		}
 	}

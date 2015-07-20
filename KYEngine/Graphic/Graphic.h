@@ -41,6 +41,7 @@ namespace KY
 		void CommitRenderData();
 
 	private:
+		GraphicInitParam	mInitParam;
 		DX::Dx11			*mDx;
 		RenderCommandQueue	*mQueue;
 

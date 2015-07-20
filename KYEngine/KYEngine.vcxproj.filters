@@ -67,6 +67,12 @@
     <ClCompile Include="System\SampleTest.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\PipelineStage.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Viewport.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -149,6 +155,18 @@
     </ClInclude>
     <ClInclude Include="System\SampleTest.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\PipelineStage.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Viewport.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Rectangle.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

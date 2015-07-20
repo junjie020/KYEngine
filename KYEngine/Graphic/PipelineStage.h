@@ -76,9 +76,11 @@ namespace KY
 
 	};
 
+	class Viewport;
 	class RSStage : public PipelineStage
 	{
 	public:
+		void SetViewPort(Viewport *v);
 
 	};
 

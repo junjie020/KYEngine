@@ -22,6 +22,7 @@ namespace KY
 
 	bool Graphic::Initialize(const GraphicInitParam &param)
 	{
+		mInitParam = param;
 		SafeDelete(mDx);
 		mDx = new DX::Dx11;
 
