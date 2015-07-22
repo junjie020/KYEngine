@@ -89,8 +89,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	// Create the system object.
 	KY::FileSystem::Create();
 
+	KY::FileSystem::Inst()->SetRootPath(fs::current_path<fs::path>().parent_path().parent_path());
+	KY::FileSystem::Inst()->ReigstPath("shader", KY::FileSystem::Inst()->RootPath() / fs::path("Resource/Shader"));
+
 	auto system = KY::System::Create();
-	
 
 	if (system->Initialize())
 	{

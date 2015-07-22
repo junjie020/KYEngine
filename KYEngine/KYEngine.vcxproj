@@ -154,6 +154,8 @@
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml" />
     <None Include="Math\Color.inl" />
+    <None Include="Resource\Shader\ScreenQuad.ps" />
+    <None Include="Resource\Shader\ScreenQuad.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

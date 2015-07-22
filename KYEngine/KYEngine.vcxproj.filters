@@ -248,6 +248,12 @@
     <Filter Include="Graphic\HI\DX11\Resource\Shader">
       <UniqueIdentifier>{68e9f6d7-7978-4931-9b42-971254900730}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{0097bb73-fab4-449b-bd50-b9285852a937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{16d53f61-21c4-4aad-b498-b66ce16e5f9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml">
@@ -255,6 +261,12 @@
     </None>
     <None Include="Math\Color.inl">
       <Filter>Math</Filter>
+    </None>
+    <None Include="Resource\Shader\ScreenQuad.ps">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\ScreenQuad.vs">
+      <Filter>Resource\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>

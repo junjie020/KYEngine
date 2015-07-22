@@ -14,6 +14,7 @@
 #include <list>
 #include <array>
 #include <string>
+#include <unordered_map>
 #include <memory>
 #include <algorithm>
 #include <sstream>

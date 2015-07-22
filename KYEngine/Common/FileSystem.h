@@ -10,15 +10,35 @@ namespace KY
 		FileSystem(){}
 		~FileSystem(){}
 
-		const std::string& RootPath() const{
+		void ReigstPath(const std::string &subPath, const fs::path &p){
+			mSysPaths[subPath] = p;
+		}
+
+		typedef std::list<fs::path>	FilePathList;
+
+		FilePathList ListPaths(const fs::path &path);
+		FilePathList ListPathsRecursive(const fs::path &path);
+
+		fs::path FindFromSubPath(const std::string &name) const{
+			auto result = mSysPaths.find(name);
+			if (result != mSysPaths.end())
+				return result->second;
+
+			return fs::path();
+		}
+
+		const fs::path& RootPath() const{
 			return mRootPath;
 		}
-		void SetRootPath(const std::string &rootPath){
+		void SetRootPath(const fs::path &rootPath){
 			mRootPath = rootPath;
 		}
 
 	private:
-		std::string mRootPath;
+		fs::path mRootPath;
+
+		typedef std::unordered_map<std::string, fs::path>	SysPathMap;
+		SysPathMap	mSysPaths;
 
     };
 }
