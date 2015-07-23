@@ -22,6 +22,12 @@ namespace KY
 				return D3D11_USAGE(-1);
 			}
 		}
+
+		DXGI_FORMAT DX11NameTranslator::ToDXGI_FORMAT(TexFormat tf) const
+		{
+			return DXGI_FORMAT(tf);
+		}
+
 	}
 
 

@@ -7,6 +7,11 @@
 
 namespace KY
 {
+	namespace DX
+	{
+		class DX11Buffer;		
+	}
+
     class VertexBuffer : public Resource
     {
     public:    	

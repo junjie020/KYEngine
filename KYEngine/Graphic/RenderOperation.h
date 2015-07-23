@@ -1,6 +1,8 @@
 #ifndef _RENDEROPERATION_H_
 #define _RENDEROPERATION_H_
 
+#include "Graphic/GraphicDef.h"
+
 namespace KY
 {
 	class VertexBuffer;
@@ -11,12 +13,11 @@ namespace KY
 		RenderOperation()
 			: mVertexBuf(nullptr)
 			, mIndexBuf(nullptr)
+			, mPriType(PT_Unknown)
 		{
-
+			
 		}
-		~RenderOperation(){
-
-		}
+		~RenderOperation(){}
 
 		struct BufferInfo{
 			uint32 startIdx;
@@ -38,6 +39,8 @@ namespace KY
 
 		IndexBuffer *mIndexBuf;
 		BufferInfo mIndexInfo;
+
+		PrimitiveType mPriType;
     };
 }
 #endif // _RENDEROPERATION_H_

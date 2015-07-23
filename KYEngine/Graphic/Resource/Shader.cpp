@@ -52,4 +52,25 @@ namespace KY
 		return mShaderImpl->GetType();
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+
+	InputLayout::InputLayout()
+		:mLayout(nullptr)
+	{
+
+	}
+
+	InputLayout::~InputLayout()
+	{
+		SafeDelete(nullptr);
+	}
+
+	void InputLayout::AddElem(const InputElemDesc &elem)
+	{
+		if (mLayout)
+			mLayout = new DX::DX11InputLayout;
+
+		mLayout->AddElement(elem);
+	}
+
 }

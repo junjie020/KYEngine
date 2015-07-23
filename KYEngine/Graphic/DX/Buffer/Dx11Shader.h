@@ -7,6 +7,7 @@
 
 namespace KY
 {
+	class Shader;
 	namespace DX
 	{
 		class Dx11Shader
@@ -20,6 +21,7 @@ namespace KY
 
 			ShaderType GetType() const { return mType;  }
 
+			const std::string& GetCode() const { return mShaderCode;  }
 		protected:
 
 
@@ -41,6 +43,23 @@ namespace KY
 			};
 			//@}
 
+		};
+
+
+		class DX11InputLayout
+		{
+		public:
+			DX11InputLayout() : mLayout(nullptr){}
+			~DX11InputLayout(){}
+
+			void AddElement(const InputElemDesc &desc);
+
+			void ApplyLayout(const Shader &vsShader);
+
+		private:
+			typedef std::vector<InputElemDesc>	ElemDescVec;
+			ElemDescVec	mElems;
+			ID3D11InputLayout *mLayout;
 		};
 	}
     
