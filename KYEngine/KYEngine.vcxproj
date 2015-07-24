@@ -92,6 +92,8 @@
     <ClCompile Include="Graphic\DX\Buffer\DX11Buffer.cpp" />
     <ClCompile Include="Graphic\DX\Dx11.cpp" />
     <ClCompile Include="Graphic\DX\DX11NameTranslator.cpp" />
+    <ClCompile Include="Graphic\DX\Dx11StateObject.cpp" />
+    <ClCompile Include="Graphic\DX\Dx11PipelineStage.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\PipelineStage.cpp" />
     <ClCompile Include="Graphic\RenderCommandQueue.cpp" />
@@ -99,6 +101,7 @@
     <ClCompile Include="Graphic\Resource\IndexBuffer.cpp" />
     <ClCompile Include="Graphic\Resource\Resource.cpp" />
     <ClCompile Include="Graphic\Resource\Shader.cpp" />
+    <ClCompile Include="Graphic\Resource\StateObject.cpp" />
     <ClCompile Include="Graphic\Resource\Texture.cpp" />
     <ClCompile Include="Graphic\Resource\VertexBuffer.cpp" />
     <ClCompile Include="Graphic\Viewport.cpp" />
@@ -127,6 +130,8 @@
     <ClInclude Include="Graphic\DX\Buffer\DX11Buffer.h" />
     <ClInclude Include="Graphic\DX\Dx11.h" />
     <ClInclude Include="Graphic\DX\DX11NameTranslator.h" />
+    <ClInclude Include="Graphic\DX\Dx11StateObject.h" />
+    <ClInclude Include="Graphic\DX\Dx11PipelineStage.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\PipelineStage.h" />
@@ -135,6 +140,7 @@
     <ClInclude Include="Graphic\Resource\IndexBuffer.h" />
     <ClInclude Include="Graphic\Resource\Resource.h" />
     <ClInclude Include="Graphic\Resource\Shader.h" />
+    <ClInclude Include="Graphic\Resource\StateObject.h" />
     <ClInclude Include="Graphic\Resource\Texture.h" />
     <ClInclude Include="Graphic\Resource\VertexBuffer.h" />
     <ClInclude Include="Graphic\Viewport.h" />
@@ -153,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml" />
+    <None Include="Graphic\Resource\StateObject.inl" />
     <None Include="Math\Color.inl" />
     <None Include="Resource\Shader\ScreenQuad.ps" />
     <None Include="Resource\Shader\ScreenQuad.vs" />

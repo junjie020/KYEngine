@@ -192,5 +192,20 @@ namespace KY
 		//D3D11_INPUT_CLASSIFICATION InputSlotClass;
 		//UINT InstanceDataStepRate;
 	};
+
+	struct BlendState
+	{
+
+	};
+
+	struct DepthStencilState
+	{
+
+	};
+
+	struct RasterizerState
+	{
+
+	};
 }
 #endif // _GRAPHICDEF_H_

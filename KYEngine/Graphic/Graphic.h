@@ -36,6 +36,9 @@ namespace KY
 
 		void AddRenderOperation(RenderOperation *ro);
 
+		template<class StageType>
+		StageType* GetStage() { return mStages[StageType::Type]; }
+
 	private:
 		bool Render();
 		void CommitRenderData();

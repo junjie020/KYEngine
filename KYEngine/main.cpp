@@ -11,6 +11,7 @@
 #include "Graphic/Resource/VertexBuffer.h"
 #include "Graphic/RenderOperation.h"
 #include "Graphic/Graphic.h"
+#include "Graphic/Resource/Shader.h"
 
 #include "Math/Vector4.h"
 #include "Math/Color.h"
@@ -76,6 +77,8 @@ private:
 	private:
 		KY::RenderOperation mRO;
 		KY::VertexBuffer mBuffer;
+		KY::Shader		mShader;
+		KY::InputLayout mInputLayout;
 	};
 
 private:	

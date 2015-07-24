@@ -82,6 +82,15 @@
     <ClCompile Include="Graphic\DX\Buffer\Dx11Shader.cpp">
       <Filter>Graphic\HI\DX11\Resource\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\DX\Dx11StateObject.cpp">
+      <Filter>Graphic\HI\DX11\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DX\Dx11PipelineStage.cpp">
+      <Filter>Graphic\HI\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Resource\StateObject.cpp">
+      <Filter>Graphic\Resource\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -186,6 +195,15 @@
     <ClInclude Include="Graphic\Resource\Shader.h">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Resource\StateObject.h">
+      <Filter>Graphic\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\Dx11StateObject.h">
+      <Filter>Graphic\HI\DX11\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DX\Dx11PipelineStage.h">
+      <Filter>Graphic\HI\DX11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -254,6 +272,12 @@
     <Filter Include="Resource\Shader">
       <UniqueIdentifier>{16d53f61-21c4-4aad-b498-b66ce16e5f9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\Resource\State">
+      <UniqueIdentifier>{4662553c-36b7-437d-977d-7e3d80794292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX11\Resource\State">
+      <UniqueIdentifier>{2812dd5f-674a-4d41-9348-9ef0eaa77985}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml">
@@ -267,6 +291,9 @@
     </None>
     <None Include="Resource\Shader\ScreenQuad.vs">
       <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Graphic\Resource\StateObject.inl">
+      <Filter>Graphic\Resource\State</Filter>
     </None>
   </ItemGroup>
 </Project>
