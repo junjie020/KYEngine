@@ -28,5 +28,17 @@ namespace KY
 	{
 		return bit == (bit & v);
 	}
+
+	template<typename Type, uint32 NUM>
+	inline uint32 COUNT_OF(const Type (&arr)[NUM])
+	{
+		return sizeof(arr) / sizeof(arr[0]);
+	}
+
+	template<typename Type, uint32 NUM>
+	inline void ZERO_MEMORY(Type (&arr)[NUM])
+	{
+		::memset(arr, 0, sizeof(arr));
+	}
 }
 #endif // _COMMONUTILS_H_

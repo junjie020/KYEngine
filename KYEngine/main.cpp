@@ -10,11 +10,15 @@
 
 #include "Graphic/Resource/VertexBuffer.h"
 #include "Graphic/RenderOperation.h"
+#include "Graphic/Resource/Shader.h"
+
 #include "Graphic/Graphic.h"
 
 #include "Math/Vector4.h"
 #include "Math/Color.h"
 #include "Math/Color.inl"
+
+#include "Common/FileSystem.h"
 
 using namespace KY;
 class SimpleTriangleTest : public KY::SampleTest
@@ -41,6 +45,14 @@ private:
 		TriangleActor() 
 			: Actor(nullptr)
 		{
+			InitBufferData();
+			InitShadersAndInputLayout();
+		}
+
+		~TriangleActor(){}
+
+		void InitBufferData()
+		{
 			struct VertexColor{
 				Vec4f		v;
 				Color32B	c;
@@ -63,11 +75,46 @@ private:
 			if (mBuffer.Create(param, data))
 			{
 				RenderOperation::BufferInfo info = { 0, 3 };
-				mRO.SetVertexBuffer(&mBuffer, info);				
+				mRO.SetVertexBuffer(&mBuffer, info);
 			}
 		}
 
-		~TriangleActor(){}
+		bool InitShadersAndInputLayout()
+		{
+			auto shdrPath = KY::FileSystem::Inst()->FindFromSubPath("shader");
+
+			if (!mVertexShader.InitFromFile(ShdrT_Vertex, shdrPath / fs::path("ScreenQuad.vs")))
+				return false;
+
+			
+			BOOST_ASSERT(mVertexShader.IsValid());
+			mRO.SetShader(&mVertexShader, KY::ShdrT_Vertex);
+			
+
+			if (!mPixelShader.InitFromFile(KY::ShdrT_Pixel, shdrPath / fs::path("ScreenQuad.ps")))
+				return false;
+
+			BOOST_ASSERT(mVertexShader.IsValid());
+			mRO.SetShader(&mPixelShader, KY::ShdrT_Pixel);
+
+
+			InputElemDesc desc[] = 
+			{
+				{ "POSITION", 0, TF_R32G32B32A32_FLOAT, 0, 0 },
+				{ "COLOR", 0, TF_R8G8B8A8_UNORM, 0, sizeof(float) * 4 },
+			};
+
+			for (auto beg = std::begin(desc); beg != std::end(desc); ++beg)
+			{
+				mInputLayout.AddElem(*beg);
+			}
+
+			mInputLayout.Create(mVertexShader);
+
+			mRO.SetInputLayout(&mInputLayout);
+
+			return true;
+		}
 
 		virtual void UpdateImpl()
 		{
@@ -75,7 +122,10 @@ private:
 		}
 	private:
 		KY::RenderOperation mRO;
-		KY::VertexBuffer mBuffer;
+		KY::VertexBuffer	mBuffer;
+		KY::InputLayout		mInputLayout;
+		KY::Shader			mVertexShader;
+		KY::Shader			mPixelShader;
 	};
 
 private:	

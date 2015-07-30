@@ -22,12 +22,17 @@ namespace KY
 		Shader();
     	virtual ~Shader();
 
-		bool InitFromFile(ShaderType type, const fs::path &file, const std::string &entry);
-		bool InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry);
+		bool InitFromFile(ShaderType type, const fs::path &file, const std::string &entry = "main");
+		bool InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry = "main");
 
 		ShaderType GetType() const;
-	
+
+		bool IsValid() const;
+
+	public:
+		// internal
 		const DX::Dx11Shader* GetInternal() const { return mShaderImpl; }
+
     private:
 		DX::Dx11Shader	*mShaderImpl;
     };
@@ -39,6 +44,8 @@ namespace KY
 		~InputLayout();
 
 		void AddElem(const InputElemDesc &elems);
+		bool Create(const Shader &vs);
+		bool IsValid() const;
 		DX::DX11InputLayout* GetInternal() { return mLayout;  }
 		const DX::DX11InputLayout* GetInternal() const { return mLayout; }
 	private:

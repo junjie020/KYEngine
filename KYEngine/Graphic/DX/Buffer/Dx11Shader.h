@@ -22,6 +22,8 @@ namespace KY
 			ShaderType GetType() const { return mType;  }
 
 			const std::string& GetCode() const { return mShaderCode;  }
+
+			bool IsValid() const { return nullptr != mShader;  }
 		protected:
 
 
@@ -54,9 +56,10 @@ namespace KY
 
 			void AddElement(const InputElemDesc &desc);
 
-			void CreateLayout(const Shader &vsShader);
-			void ApplyLayout(const Shader &vsShader);
+			bool Create(const Shader &vsShader);
+			void Apply();
 
+			bool IsValid() const { return nullptr != mLayout;  }
 		private:
 			typedef std::vector<InputElemDesc>	ElemDescVec;
 			ElemDescVec	mElems;

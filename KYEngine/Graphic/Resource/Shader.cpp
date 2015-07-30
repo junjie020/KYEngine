@@ -52,6 +52,11 @@ namespace KY
 		return mShaderImpl->GetType();
 	}
 
+	bool Shader::IsValid() const
+	{
+		return mShaderImpl && mShaderImpl->IsValid();
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 
 	InputLayout::InputLayout()
@@ -71,6 +76,18 @@ namespace KY
 			mLayout = new DX::DX11InputLayout;
 
 		mLayout->AddElement(elem);
+	}
+
+	bool InputLayout::Create(const Shader &vs)
+	{
+		BOOST_ASSERT(mLayout);
+
+		return mLayout->Create(vs);
+	}
+
+	bool InputLayout::IsValid() const
+	{
+		return mLayout && mLayout->IsValid();
 	}
 
 }
