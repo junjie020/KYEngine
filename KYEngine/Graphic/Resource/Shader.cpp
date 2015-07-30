@@ -62,7 +62,7 @@ namespace KY
 
 	InputLayout::~InputLayout()
 	{
-		SafeDelete(nullptr);
+		SafeDelete(mLayout);
 	}
 
 	void InputLayout::AddElem(const InputElemDesc &elem)

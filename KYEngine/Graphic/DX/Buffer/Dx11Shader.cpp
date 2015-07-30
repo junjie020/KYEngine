@@ -106,38 +106,40 @@ namespace KY
 
 		void DX11InputLayout::ApplyLayout(const Shader &vsShader)
 		{
-			auto dx11 = Graphic::Inst()->GetDx11();
-
-			if (nullptr != mLayout)
-			{
-				const D3D11_INPUT_ELEMENT_DESC zeroDesc = { 0 };
-				std::vector<D3D11_INPUT_ELEMENT_DESC>	elems11(mElems.size(), zeroDesc);
-
-				auto it11 = elems11.begin();
-				for (auto it = mElems.begin(); it != mElems.end(); ++it, ++it11)
-				{
-					it11->SemanticName = it->semanticName;
-					it11->SemanticIndex = it->semanticIndex;
-					it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
-					it11->InputSlot = it->inputSlot;
-					it11->AlignedByteOffset = it->alignedByteOffset;
-				}
-
-				BOOST_ASSERT(nullptr == mLayout);
-				auto device = dx11->GetDevice();
-
-				auto vs11 = vsShader.GetInternal();
-				auto code = vs11->GetCode();
-
-				BOOST_ASSERT(!code.empty());
-
-				device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*code.begin(), code.size(), &mLayout);
-
-			}
-
 			BOOST_ASSERT(mLayout);
+			auto dx11 = Graphic::Inst()->GetDx11();
+		
+			
 			auto context = dx11->GetDeviceContext();
 			context->IASetInputLayout(mLayout);
 		}
+
+		void DX11InputLayout::CreateLayout(const Shader &vsShader)
+		{
+			auto dx11 = Graphic::Inst()->GetDx11();
+			const D3D11_INPUT_ELEMENT_DESC zeroDesc = { 0 };
+			std::vector<D3D11_INPUT_ELEMENT_DESC>	elems11(mElems.size(), zeroDesc);
+
+			auto it11 = elems11.begin();
+			for (auto it = mElems.begin(); it != mElems.end(); ++it, ++it11)
+			{
+				it11->SemanticName = it->semanticName;
+				it11->SemanticIndex = it->semanticIndex;
+				it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
+				it11->InputSlot = it->inputSlot;
+				it11->AlignedByteOffset = it->alignedByteOffset;
+			}
+
+			BOOST_ASSERT(nullptr == mLayout);
+			auto device = dx11->GetDevice();
+
+			auto vs11 = vsShader.GetInternal();
+			auto code = vs11->GetCode();
+
+			BOOST_ASSERT(!code.empty());
+
+			device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*code.begin(), code.size(), &mLayout);
+		}
+
 	}
 }

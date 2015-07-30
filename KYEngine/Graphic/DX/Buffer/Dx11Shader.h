@@ -54,6 +54,7 @@ namespace KY
 
 			void AddElement(const InputElemDesc &desc);
 
+			void CreateLayout(const Shader &vsShader);
 			void ApplyLayout(const Shader &vsShader);
 
 		private:
