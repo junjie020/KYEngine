@@ -51,11 +51,12 @@ namespace KY
 
 	enum ShaderType
 	{
-		ST_Vertex = 0,
-		ST_Hull,
-		ST_Domain,
-		ST_Geometry,
-		ST_Pixel,
+		ShdrT_Vertex = 0,
+		ShdrT_Hull,
+		ShdrT_Domain,
+		ShdrT_Geometry,
+		ShdrT_Pixel,
+		ShdrT_Count,
 	};
 
 	enum TexFormat

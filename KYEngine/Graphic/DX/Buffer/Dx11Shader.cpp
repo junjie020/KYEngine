@@ -21,11 +21,11 @@ namespace KY
 		static inline void FOR_EACH_TYPE_PERFORM(ShaderType type, VSOp vs, HSOp hs, DSOp ds, GSOp gs, PSOp ps)
 		{
 			switch (type){
-			case ST_Vertex: vs(); break;
-			case ST_Hull: hs(); break;
-			case ST_Domain: ds(); break;
-			case ST_Geometry: gs(); break;
-			case ST_Pixel: ps(); break;
+			case ShdrT_Vertex: vs(); break;
+			case ShdrT_Hull: hs(); break;
+			case ShdrT_Domain: ds(); break;
+			case ShdrT_Geometry: gs(); break;
+			case ShdrT_Pixel: ps(); break;
 			default:
 				BOOST_ASSERT("invaild shader type!");
 				break;
@@ -104,40 +104,42 @@ namespace KY
 			mElems.push_back(desc);
 		}
 
-		void DX11InputLayout::ApplyLayout(const Shader &vsShader)
+		void DX11InputLayout::Apply()
 		{
-			auto dx11 = Graphic::Inst()->GetDx11();
-
-			if (nullptr != mLayout)
-			{
-				const D3D11_INPUT_ELEMENT_DESC zeroDesc = { 0 };
-				std::vector<D3D11_INPUT_ELEMENT_DESC>	elems11(mElems.size(), zeroDesc);
-
-				auto it11 = elems11.begin();
-				for (auto it = mElems.begin(); it != mElems.end(); ++it, ++it11)
-				{
-					it11->SemanticName = it->semanticName;
-					it11->SemanticIndex = it->semanticIndex;
-					it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
-					it11->InputSlot = it->inputSlot;
-					it11->AlignedByteOffset = it->alignedByteOffset;
-				}
-
-				BOOST_ASSERT(nullptr == mLayout);
-				auto device = dx11->GetDevice();
-
-				auto vs11 = vsShader.GetInternal();
-				auto code = vs11->GetCode();
-
-				BOOST_ASSERT(!code.empty());
-
-				device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*code.begin(), code.size(), &mLayout);
-
-			}
-
 			BOOST_ASSERT(mLayout);
+			auto dx11 = Graphic::Inst()->GetDx11();
+		
+			
 			auto context = dx11->GetDeviceContext();
 			context->IASetInputLayout(mLayout);
 		}
+
+		bool DX11InputLayout::Create(const Shader &vsShader)
+		{
+			auto dx11 = Graphic::Inst()->GetDx11();
+			const D3D11_INPUT_ELEMENT_DESC zeroDesc = { 0 };
+			std::vector<D3D11_INPUT_ELEMENT_DESC>	elems11(mElems.size(), zeroDesc);
+
+			auto it11 = elems11.begin();
+			for (auto it = mElems.begin(); it != mElems.end(); ++it, ++it11)
+			{
+				it11->SemanticName = it->semanticName;
+				it11->SemanticIndex = it->semanticIndex;
+				it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
+				it11->InputSlot = it->inputSlot;
+				it11->AlignedByteOffset = it->alignedByteOffset;
+			}
+
+			BOOST_ASSERT(nullptr == mLayout);
+			auto device = dx11->GetDevice();
+
+			auto vs11 = vsShader.GetInternal();
+			auto code = vs11->GetCode();
+
+			BOOST_ASSERT(!code.empty());
+
+			return SUCCEEDED(device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*code.begin(), code.size(), &mLayout));
+		}
+
 	}
 }
