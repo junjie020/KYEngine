@@ -18,8 +18,9 @@ namespace KY
 
 	enum BufferType
 	{
-		BT_Vertex,
+		BT_Vertex = 0,
 		BT_Index,
+		BT_Const,
 	};
 	enum BufferCPUAccess
 	{
@@ -172,6 +173,11 @@ namespace KY
 
 		size_t sizeInBytes;
 		size_t elemInBytes;
+	};
+
+	struct BufferInfo{
+		uint32 startIdx;
+		uint32 elemNum;
 	};
 
 	struct ResourceData

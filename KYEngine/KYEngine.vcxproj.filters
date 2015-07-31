@@ -91,6 +91,9 @@
     <ClCompile Include="Graphic\Resource\StateObject.cpp">
       <Filter>Graphic\Resource\State</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Resource\Buffer.cpp">
+      <Filter>Graphic\Resource\Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="Graphic\DX\Dx11PipelineStage.h">
       <Filter>Graphic\HI\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\Buffer.h">
+      <Filter>Graphic\Resource\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

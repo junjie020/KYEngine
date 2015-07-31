@@ -13,7 +13,7 @@ namespace KY
 		public:
 			D3D11_USAGE ToD3DUsage(ResourceUsage usage) const;
 			DXGI_FORMAT ToDXGI_FORMAT(TexFormat ft) const;
-
+			D3D11_BIND_FLAG ToBingFlag(BufferType type) const;
 
 		protected:
 

@@ -36,12 +36,14 @@ namespace KY
 
 		void AddRenderOperation(RenderOperation *ro);
 
-		template<class StageType>
-		StageType* GetStage() { return mStages[StageType::Type]; }
+		PipelineStage* GetStage(StageType type, bool bInit = false);
 
 	private:
 		bool Render();
 		void CommitRenderData();
+
+		template<class StageClass>
+		StageClass* GetStage(bool bInit);
 
 	private:
 		GraphicInitParam	mInitParam;
@@ -55,7 +57,7 @@ namespace KY
 				IAStage* mIAStage;
 				VSStage* mVSStage;
 				HSStage* mHSStage;
-				TessStage* mTessStage;
+				TSStage* mTessStage;
 				DSStage* mDSStage;
 				GSStage* mGSStage;
 				SOStage* mSOStage;

@@ -6,17 +6,23 @@
 #include "DX/Dx11.h"
 #include "Common/CommonUtils.h"
 #include "Graphic/RenderCommandQueue.h"
+#include "Graphic/RenderOperation.h"
 namespace KY
 {
 	Graphic::Graphic()
 		: mDx(nullptr)
 	{
+		ZERO_MEMORY(mStages);
 	}
 
 
 	Graphic::~Graphic()
 	{
 		SafeDelete(mDx);
+		//{@
+		std::for_each(std::begin(mStages), std::end(mStages), [](PipelineStage *stage){ if (stage) delete stage; });
+		ZERO_MEMORY(mStages);
+		//@}
 	}
 
 
@@ -67,6 +73,64 @@ namespace KY
 		{
 			auto ro = mQueue->Pop();
 
+			//{@
+			{
+				IAStage* ia = GetStage<IAStage>(true);
+
+				auto vb = ro->GetVertexBuffer();
+				BOOST_ASSERT(vb);
+				ia->SetVertexBuffer(vb, ro->GetVertexBufferInfo());
+				ia->SetIndexBuffer(ro->GetIndexBuffer(), ro->GetIndexBufferInfo());
+				ia->SetPrimitiveType(ro->GetPrimitiveType());
+				ia->SetInputLayout(ro->GetInputLayout());
+			}
+			//@}
+
+			//{@
+			{
+				VSStage* vs = GetStage<VSStage>(true);
+				vs->SetShader(ro->GetShader(ShdrT_Vertex));
+			}
+			
+			//@}
+
+
+
+		}
+	}
+	template<class StageClass>
+	StageClass* Graphic::GetStage(bool bInit)
+	{
+		StageClass* stage = static_cast<StageClass*>(mStages[StageClass::Type]);
+		if (nullptr != stage)
+			return stage;
+
+		if (bInit)
+		{
+			stage = new StageClass;
+			mStages[StageClass::Type] = stage;
+		}
+		
+		return stage;
+	}
+
+	PipelineStage* Graphic::GetStage(StageType type, bool bInit /*= false*/)
+	{
+		switch (type)
+		{
+		case ST_IA: return GetStage<IAStage>(bInit);
+		case ST_VS: return GetStage<VSStage>(bInit);
+		case ST_HS: return GetStage<HSStage>(bInit);
+		case ST_TS: return GetStage<TSStage>(bInit);
+		case ST_DS: return GetStage<DSStage>(bInit);
+		case ST_GS: return GetStage<GSStage>(bInit);
+		case ST_SO: return GetStage<SOStage>(bInit);
+		case ST_RS: return GetStage<RSStage>(bInit);
+		case ST_PS: return GetStage<PSStage>(bInit);
+		case ST_OM: return GetStage<OMStage>(bInit);
+		default:
+			BOOST_ASSERT(false && "not support stage type");
+			return nullptr;
 		}
 	}
 

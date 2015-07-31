@@ -10,7 +10,7 @@ namespace KY
 		class DX11Buffer
 		{
 		public:
-			DX11Buffer(const BufferParam &param);
+			DX11Buffer(const BufferParam &param, const ResourceData &resData);
 			virtual ~DX11Buffer();
 
 			BufferType GetType() const { return mParam.type; }

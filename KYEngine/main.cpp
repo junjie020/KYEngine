@@ -74,7 +74,7 @@ private:
 
 			if (mBuffer.Create(param, data))
 			{
-				RenderOperation::BufferInfo info = { 0, 3 };
+				BufferInfo info = { 0, 3 };
 				mRO.SetVertexBuffer(&mBuffer, info);
 			}
 		}

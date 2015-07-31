@@ -28,6 +28,13 @@ namespace KY
 			return DXGI_FORMAT(tf);
 		}
 
+		D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(BufferType type) const
+		{
+			D3D11_BIND_FLAG flags[] = { D3D11_BIND_VERTEX_BUFFER, D3D11_BIND_INDEX_BUFFER, D3D11_BIND_CONSTANT_BUFFER, };
+			BOOST_ASSERT(COUNT_OF(flags) > type);
+			return flags[type];
+		}
+
 	}
 
 
