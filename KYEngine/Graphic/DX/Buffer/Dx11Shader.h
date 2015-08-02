@@ -24,6 +24,18 @@ namespace KY
 			const std::string& GetCode() const { return mShaderCode;  }
 
 			bool IsValid() const { return nullptr != mShader;  }
+
+
+			//{@	internal
+			template<typename D3DShaderType>
+			D3DShaderType* GetInternal() const { return reinterpret_cast<D3DShaderType*>(mShader); }
+
+			ID3D11ClassLinkage* GetClassLinkage() const { return mClassLinkage; }
+			uint32 GetNumClassLinkageInstances() const { return mClassInstance; }
+			//@}
+
+				
+
 		protected:
 
 
@@ -31,6 +43,7 @@ namespace KY
 			const ShaderType  mType;
 			const std::string mEntryName;
 			const std::string mShaderCode;
+			uint32 mClassInstance;
 			ID3D11ClassLinkage *mClassLinkage;
 			//{@
 			union{
@@ -60,6 +73,8 @@ namespace KY
 			void Apply();
 
 			bool IsValid() const { return nullptr != mLayout;  }
+
+			ID3D11InputLayout* GetInternal() const{ return mLayout; }
 		private:
 			typedef std::vector<InputElemDesc>	ElemDescVec;
 			ElemDescVec	mElems;

@@ -57,7 +57,7 @@ namespace KY
 	}
 
 
-	void RSStage::SetViewPort(Viewport *v)
+	void RSStage::SetViewPort(const Viewport *v)
 	{
 		mRS->SetViewPort(v);
 	}

@@ -16,6 +16,8 @@ namespace KY
     	IndexBuffer();
     	~IndexBuffer();
 
+		const DX::DX11Buffer* GetInternal() const { return mBuffer; }
+
     protected:
     	
 

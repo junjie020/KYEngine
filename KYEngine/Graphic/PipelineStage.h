@@ -111,7 +111,7 @@ namespace KY
 	};
 
 	class RasterizerStateObj;	
-	class Viewport;
+	struct Viewport;
 	class RSStage : public PipelineStage
 	{
 	public:
@@ -119,7 +119,7 @@ namespace KY
 		~RSStage();
 
 		enum { Type = ST_RS };
-		void SetViewPort(Viewport *v);
+		void SetViewPort(const Viewport *v);
 		void SetRasterizerState(const RasterizerStateObj *obj);
 
 	};

@@ -14,6 +14,7 @@ namespace KY
 			D3D11_USAGE ToD3DUsage(ResourceUsage usage) const;
 			DXGI_FORMAT ToDXGI_FORMAT(TexFormat ft) const;
 			D3D11_BIND_FLAG ToBingFlag(BufferType type) const;
+			D3D11_PRIMITIVE_TOPOLOGY ToPrimitiveTopology(PrimitiveType type) const;
 
 		protected:
 

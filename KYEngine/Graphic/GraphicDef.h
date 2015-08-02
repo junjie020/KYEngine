@@ -41,10 +41,15 @@ namespace KY
 	{
 		PT_Unknown = -1,
 		PT_Point = 0,
-		PT_Line,
+		PT_LineList,
 		PT_LineStrip,
 		PT_TriList,
 		PT_TriStrip,
+
+		PT_LineList_ADJ,		
+		PT_LineStrip_ADJ,
+		PT_TriList_ADJ,
+		PT_TriStrip_ADJ,		
 
 		PT_ControlPointBeg,
 		PT_ControlPointEnd = PT_ControlPointBeg + 32,
@@ -176,8 +181,9 @@ namespace KY
 	};
 
 	struct BufferInfo{
-		uint32 startIdx;
-		uint32 elemNum;
+		uint32 offset;
+		uint32 strides;
+		uint32 slotIdx;		
 	};
 
 	struct ResourceData

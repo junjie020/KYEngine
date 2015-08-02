@@ -10,7 +10,7 @@ namespace KY
 	class IndexBuffer;
 	class Buffer;
 
-	class Viewport;
+	struct Viewport;
 
 	class RasterizerStateObj;
 	class DepthStencilStateObj;
@@ -37,7 +37,7 @@ namespace KY
 		class Dx11RSStage
 		{
 		public:
-			void SetViewPort(Viewport *vp);
+			void SetViewPort(const Viewport *vp);
 			void SetRasterizerState(const RasterizerStateObj *obj);
 
 		};

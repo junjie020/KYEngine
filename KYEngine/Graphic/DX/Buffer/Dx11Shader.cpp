@@ -38,7 +38,9 @@ namespace KY
 			, mShaderCode(shaderCode)
 			, mEntryName(entry)
 			, mClassLinkage(classLinkage)
+			, mClassInstance(0)
 			, mShader(nullptr)
+
 		{
 			auto device = Graphic::Inst()->GetDx11()->GetDevice();
 			bool success = false;

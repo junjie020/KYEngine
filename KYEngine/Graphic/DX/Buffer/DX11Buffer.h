@@ -15,6 +15,8 @@ namespace KY
 
 			BufferType GetType() const { return mParam.type; }
 			ResourceUsage GetUsage()const { return mParam.usage; }
+
+			ID3D11Buffer* GetInternal() const { return mBuffer; }
 		protected:
 			BufferParam		mParam;
 			ID3D11Buffer *mBuffer;
