@@ -2,6 +2,7 @@
 #define _PIPELINESTAGE_H_
 #include "Graphic/GraphicDef.h"
 #include "Graphic/DX/Dx11PipelineStage.h"
+#include "Graphic/Resource/StateObject.h"
 
 namespace KY
 {
@@ -110,7 +111,6 @@ namespace KY
 		enum { Type = ST_SO };
 	};
 
-	class RasterizerStateObj;	
 	struct Viewport;
 	class RSStage : public PipelineStage
 	{
@@ -136,8 +136,6 @@ namespace KY
 		void SetConstBuffer(const Buffer &buffer, BufferInfo &info);
 	};
 
-	class DepthStencilStateObj;
-	class BlendStateObj;
 	class OMStage : public PipelineStage
 	{
 	public:

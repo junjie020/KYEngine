@@ -18,6 +18,8 @@ namespace KY
 				SafeRelease(mInternalObj);
 			}
 
+			DX11STATEOBJTYPE* GetInternal() { return mInternalObj; }
+
 
 		protected:
 			DX11STATEOBJTYPE *mInternalObj;

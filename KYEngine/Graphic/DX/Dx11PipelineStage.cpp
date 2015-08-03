@@ -21,6 +21,10 @@
 #include "Graphic/DX/Buffer/Dx11Shader.h"
 #include "Graphic/DX/DX11NameTranslator.h"
 
+#include "Graphic/Resource/StateObject.h"
+#include "Graphic/Resource/StateObject.inl"
+#include "Graphic/DX/Dx11StateObject.h"
+
 
 namespace KY
 {
@@ -104,29 +108,47 @@ namespace KY
 
 	void DX::Dx11RSStage::SetRasterizerState(const RasterizerStateObj *obj)
 	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
 
+		context->RSSetState(obj->GetInternal()->GetInternal());
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	void DX::Dx11PSStage::SetShader(const Shader *shader)
 	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
 
+		context->PSSetShader(shader->GetInternal()->GetInternal<ID3D11PixelShader>(), nullptr, 0);
 	}
 
 	void DX::Dx11PSStage::SetConstBuffer(const Buffer &buffer, const BufferInfo &info)
 	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
 
+		auto d3dBuffer = buffer.GetInternal()->GetInternal();
+		context->PSSetConstantBuffers(info.slotIdx, 1, &d3dBuffer);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	void DX::Dx11OMStage::SetDepthStencilState(const DepthStencilStateObj *obj)
 	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
 
+		context->OMSetDepthStencilState(obj->GetInternal()->GetInternal(), obj->GetStencilRef());
 	}
 
 	void DX::Dx11OMStage::SetBlendState(const BlendStateObj *obj)
 	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
 
+		context->OMSetBlendState(obj->GetInternal()->GetInternal(),
+			reinterpret_cast<const float*>(&obj->GetBlendFactor()),
+			obj->GetSampleMask());
 	}
 
 }
