@@ -73,7 +73,7 @@ namespace KY
 		{
 			auto ro = mQueue->Pop();
 
-			//{@
+			//{@ input asm
 			{
 				IAStage* ia = GetStage<IAStage>(true);
 
@@ -86,16 +86,39 @@ namespace KY
 			}
 			//@}
 
-			//{@
+			//{@	vertex
 			{
 				VSStage* vs = GetStage<VSStage>(true);
 				vs->SetShader(ro->GetShader(ShdrT_Vertex));
 			}
-			
 			//@}
 
+			//{@	rasterizer
+			{
+				RSStage* rs = GetStage<RSStage>(true);
+				auto obj = ro->GetRasterizerStateObj();
+				if (obj)
+					rs->SetRasterizerState(obj);
 
+				auto vp = ro->GetViewport();
+				if (vp)
+					rs->SetViewPort(vp);
+			}
+			//@}
 
+			//{@	output merage
+			{
+				OMStage* om = GetStage<OMStage>(true);
+
+				auto dsobj = ro->GetDepthStencilStateObj();
+				if (dsobj)
+					om->SetDepthStencilState(dsobj);
+
+				auto blendobj = ro->GetBlendStateObj();
+				if (blendobj)
+					om->SetBlendState(blendobj);
+			}
+			//@}
 		}
 	}
 	template<class StageClass>

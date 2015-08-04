@@ -14,11 +14,16 @@
 
 #include "Graphic/Graphic.h"
 
+#include "Graphic/Resource/StateObject.h"
+
 #include "Math/Vector4.h"
 #include "Math/Color.h"
 #include "Math/Color.inl"
 
+#include "DebugUtils/TraceUtils.h"
+
 #include "Common/FileSystem.h"
+
 
 using namespace KY;
 class SimpleTriangleTest : public KY::SampleTest
@@ -118,6 +123,37 @@ private:
 
 		bool InitState()
 		{
+			KY::RasterizerState rsState;
+			mRSObj = new KY::RasterizerStateObj;
+			if (mRSObj->CreateObj(rsState))
+			{
+				KY::DebugOutline("create rs state failed!");
+				delete mRSObj;
+				mRSObj = nullptr;
+			}
+			mRO.SetRasterizerStateObj(mRSObj);
+
+			KY::DepthStencilState dsState;
+			mDSObj = new KY::DepthStencilStateObj;		
+			if (mDSObj->CreateObj(dsState))
+			{
+				KY::DebugOutline("create depth stencil state failed!");
+				delete mDSObj;
+				mDSObj = nullptr;
+			}
+
+			mRO.SetDepthStencilStateObj(mDSObj);
+
+			KY::BlendState blendState;
+			mBlendObj = new KY::BlendStateObj;
+			if (mBlendObj->CreateObj(blendState))
+			{
+				KY::DebugOutline("create blend state failed!");
+				delete mBlendObj;
+				mBlendObj = nullptr;
+			}
+
+			mRO.SetBlendStateObj(mBlendObj);
 
 			return true;
 		}
@@ -136,7 +172,7 @@ private:
 		//{@	state
 		KY::RasterizerStateObj*		mRSObj;
 		KY::DepthStencilStateObj*	mDSObj;
-		KY::BlendStateObj*			mBSObj;
+		KY::BlendStateObj*			mBlendObj;
 		//@}
 	};
 

@@ -15,6 +15,8 @@ namespace KY
 	class DepthStencilStateObj;
 	class BlendStateObj;
 
+	struct Viewport;
+
     class RenderOperation
     {
     public:
@@ -24,6 +26,7 @@ namespace KY
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
 			, mBlendStateObj(nullptr)
+			, mViewport(nullptr)
 			, mPriType(PT_Unknown)
 		{
 			ZERO_MEMORY(mShaders);
@@ -109,6 +112,16 @@ namespace KY
 		}
 		//@}
 
+		//{@
+		const Viewport* GetViewport() const {
+			return mViewport;
+		}
+
+		void SetViewport(const Viewport *vp){
+			mViewport = vp;
+		}
+		//@}
+
 	private:
 		VertexBuffer *mVertexBuf;
 		BufferInfo	mVertexInfo;
@@ -124,7 +137,8 @@ namespace KY
 		DepthStencilStateObj*	mDepthStencilStateObj;
 		BlendStateObj*			mBlendStateObj;
 
-		PrimitiveType mPriType;
+		const Viewport *mViewport;
+		PrimitiveType	mPriType;
     };
 }
 #endif // _RENDEROPERATION_H_
