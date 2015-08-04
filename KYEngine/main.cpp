@@ -116,6 +116,12 @@ private:
 			return true;
 		}
 
+		bool InitState()
+		{
+
+			return true;
+		}
+
 		virtual void UpdateImpl()
 		{
 			KY::Graphic::Inst()->AddRenderOperation(&mRO);			
@@ -126,6 +132,12 @@ private:
 		KY::InputLayout		mInputLayout;
 		KY::Shader			mVertexShader;
 		KY::Shader			mPixelShader;
+
+		//{@	state
+		KY::RasterizerStateObj*		mRSObj;
+		KY::DepthStencilStateObj*	mDSObj;
+		KY::BlendStateObj*			mBSObj;
+		//@}
 	};
 
 private:	

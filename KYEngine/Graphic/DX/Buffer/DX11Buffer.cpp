@@ -20,7 +20,7 @@ namespace KY
 			D3D11_BUFFER_DESC desc = { 0 };
 			desc.BindFlags = DX11NameTranslator::Inst()->ToBingFlag(param.type);
 
-			desc.Usage = DX11NameTranslator::Inst()->ToD3DUsage(param.usage);
+			desc.Usage = DX11NameTranslator::Inst()->ToUsage(param.usage);
 
 			if (QueryBit(BA_Read, param.access))
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_READ;

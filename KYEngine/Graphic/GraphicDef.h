@@ -159,8 +159,8 @@ namespace KY
 
 	enum FillMode
 	{
-		FILL_WIREFRAME = 0,
-		FILL_SOLID,
+		FM_WireFrame = 0,
+		FM_Solid,
 	};
 
 	enum CullMode
@@ -222,6 +222,16 @@ namespace KY
 		BlendOP_RevSubtract,
 		BlendOP_Min,
 		BlendOP_Max,		
+	};
+
+	enum RenderTargetColorWirteMask
+	{
+		RTCW_Red	= 0x01,
+		RTCW_Green	= 0x02,
+		RTCW_Blue	= 0x04,
+		RTCW_Alpha	= 0x08,
+
+		RTCW_All = RTCW_Red | RTCW_Green | RTCW_Blue | RTCW_Alpha,
 	};
 
 	struct GraphicInitParam
@@ -298,6 +308,12 @@ namespace KY
 
 	struct DepthStencilState
 	{
+		DepthStencilState() 
+			: depthEnable(true)
+			, enableDepthWrite(true)
+		{
+
+		}
 		//{@
 		bool	depthEnable;
 		bool	enableDepthWrite;
@@ -338,7 +354,7 @@ namespace KY
 			BlendOpDesc clrOpDesc;
 			BlendOpDesc alphaOpDesc;
 
-			uint8		renderTargetWriteMask;
+			RenderTargetColorWirteMask		renderTargetWriteMask;
 		};
 
 		RenderTargetBlendDesc renderTargetDesc[8];
