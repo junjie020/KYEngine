@@ -1,13 +1,15 @@
 #include "stdafx.h"
 
+
 #include "Dx11StateObject.h"
+
+#include "Graphic/GraphicDef.h"
 
 namespace KY
 {
-	
-
 	bool DX::Dx11RasterizerStateObj::Create(const RasterizerState &state)
 	{
+		
 		return true;
 	}
 

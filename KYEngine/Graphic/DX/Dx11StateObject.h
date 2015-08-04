@@ -2,8 +2,13 @@
 #define _DX11STATEOBJECT_H_
 
 #include <d3d11.h>
+
 namespace KY
 {
+	struct RasterizerState;
+	struct BlendState;
+	struct DepthStencilState;
+
 	namespace DX
 	{
 		template<class DX11STATEOBJTYPE>
@@ -13,19 +18,19 @@ namespace KY
 			Dx11StateObj() : mInternalObj(nullptr)
 			{}
 
-			~Dx11StateObj()
-			{
+			~Dx11StateObj() {
 				SafeRelease(mInternalObj);
 			}
 
 			DX11STATEOBJTYPE* GetInternal() { return mInternalObj; }
+
+			bool IsValid() const { return nullptr != mInternalObj; }
 
 
 		protected:
 			DX11STATEOBJTYPE *mInternalObj;
 		};
 
-		class RasterizerState;
 		class Dx11RasterizerStateObj : public Dx11StateObj<ID3D11RasterizerState>
 		{
 		public:
@@ -33,7 +38,6 @@ namespace KY
 		
 		};
 
-		class BlendState;
 		class Dx11BlendStateObj : public Dx11StateObj<ID3D11BlendState>
 		{
 		public:			
@@ -41,7 +45,6 @@ namespace KY
 		
 		};
 
-		class DepthStencilState;
 		class Dx11DepthStencilStateObj : public Dx11StateObj<ID3D11DepthStencilState>
 		{
 		public:

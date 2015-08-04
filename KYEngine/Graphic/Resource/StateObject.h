@@ -19,7 +19,9 @@ namespace KY
 		typedef StateType State;
 		StateObj() : mInternalObj(nullptr){}
 		~StateObj();
+
 		bool CreateObj(const State &s);
+		bool IsValid() const;
 
 		InternalType* GetInternal() const { return mInternalObj;  }
 		
@@ -27,21 +29,28 @@ namespace KY
 		InternalType *mInternalObj;
 	};
 
-	typedef StateObj<RasterizerState, DX::Dx11RasterizerStateObj>		RasterizerStateObj;
+	class RasterizerStateObj : public StateObj<RasterizerState, DX::Dx11RasterizerStateObj>
+	{
+	public:
+
+	};
 
 	class BlendStateObj : public StateObj<BlendState, DX::Dx11BlendStateObj>
 	{
 	public:
 		BlendStateObj() : mBlendFactor(0.0f, 0.0f, 0.0f, 0.0f), mSampleMask(0){}
 
+	public:
+		//{@ modify in runtime
 		const Vec4f& GetBlendFactor() const { return mBlendFactor; }
-		void SetBlendFactor(const Vec4f& bf) { mBlendFactor = bf; }
+		void		 SetBlendFactor(const Vec4f& bf) { mBlendFactor = bf; }
 
-		uint32 GetSampleMask() const { return mSampleMask; }
-		void SetSampleMask(uint32 mask) { mSampleMask = mask; }
+		uint32		GetSampleMask() const { return mSampleMask; }
+		void		SetSampleMask(uint32 mask) { mSampleMask = mask; }
+		//@}
 	private:
-		Vec4f mBlendFactor;
-		uint32 mSampleMask;
+		Vec4f		mBlendFactor;
+		uint32		mSampleMask;
 	};
 
 	class DepthStencilStateObj : public StateObj<DepthStencilState, DX::Dx11DepthStencilStateObj>
@@ -49,8 +58,8 @@ namespace KY
 	public:
 		DepthStencilStateObj() : mStencilRef(0){}
 
-		uint32 GetStencilRef() const { return mStencilRef; }
-		void SetStencilRef(uint32 ref) { mStencilRef = ref; }
+		uint32	GetStencilRef() const { return mStencilRef; }
+		void	SetStencilRef(uint32 ref) { mStencilRef = ref; }
 	private:
 		uint32 mStencilRef;
 	};

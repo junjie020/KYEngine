@@ -3,19 +3,6 @@
 
 namespace KY
 {
-	struct GraphicInitParam
-	{
-		uint32 width, height;
-		uint32 featureLevel;
-		struct SampleDesc
-		{
-			uint32 count;
-			uint32 level;
-		};
-		SampleDesc sampleDesc;
-		HWND hwnd;
-	};
-
 	enum BufferType
 	{
 		BT_Vertex = 0,
@@ -170,6 +157,86 @@ namespace KY
 		TF_FORCE_UINT = 0xffffffff
 	};
 
+	enum FillMode
+	{
+		FILL_WIREFRAME = 0,
+		FILL_SOLID,
+	};
+
+	enum CullMode
+	{
+		CM_None = 0,
+		CM_Front,
+		CM_Back,
+	};
+
+	enum CompareFunc
+	{
+		CF_Never = 0,
+		CF_Less,
+		CF_Equal,
+		CF_LessEqual,
+		CF_Greater,
+		CF_NotEqual,
+		CF_GreaterEqual,
+		CF_Always,
+	};
+
+	enum StencilOperation
+	{
+		StencilOP_Keep = 0,
+		StencilOP_Zero,
+		StencilOP_Replace,
+		StencilOP_Incr_Sat,
+		StencilOP_Decr_Sat,
+		StencilOP_Invert,
+		StencilOP_Incr,
+		StencilOP_Decr,
+	};
+
+	enum BlendType
+	{
+		BlendType_Zero = 0,
+		BlendType_One,
+		BlendType_SrcColor,
+		BlendType_InvSrcColor,
+		BlendType_SrcAlpha,
+		BlendType_InvSrcAlpha,
+		BlendType_DestAlpha,
+		BlendType_InvDestAlpha,
+		BlendType_DestColor,
+		BlendType_InvDestColor,
+		BlendType_SrcAlphaSat,
+		BlendType_BlendFactor,
+		BlendType_InvBlendFactor,
+		BlendType_Src1Color,
+		BlendType_InvSRC1Color,
+		BlendType_Src1Alpha,
+		BlendType_InvSrc1Alpha,
+	};
+
+	enum BlendOperation
+	{
+		BlendOP_Add = 0,		
+		BlendOP_Subtract,
+		BlendOP_RevSubtract,
+		BlendOP_Min,
+		BlendOP_Max,		
+	};
+
+	struct GraphicInitParam
+	{
+		uint32 width, height;
+		uint32 featureLevel;
+		struct SampleDesc
+		{
+			uint32 count;
+			uint32 level;
+		};
+		SampleDesc sampleDesc;
+		HWND hwnd;
+	};
+
 	struct BufferParam
 	{
 		BufferType type;
@@ -206,19 +273,75 @@ namespace KY
 		//UINT InstanceDataStepRate;
 	};
 
-	struct BlendState
+	struct RasterizerState
 	{
+		//{@
+		FillMode	fillMode;
+		CullMode	cullMode;
+		bool		frontCCW;
+		//@}
 
+		//{@
+		int32		depthBias;
+		float		depthBiasClamp;
+		float		slopeScaledDepthBias;
+
+		bool		depthClipEnable;
+		//@}
+
+		//{@
+		bool		scissorEnable;
+		bool		multisampleEnable;
+		bool		antialiasedLineEnable;
+		//@}
 	};
 
 	struct DepthStencilState
 	{
+		//{@
+		bool	depthEnable;
+		bool	enableDepthWrite;
+		CompareFunc depthFunc;
+		//@}
 
+		bool	stencilEnable;
+		uint8	stencilReadMask;
+		uint8	stencilWriteMask;
+
+		struct StencilOpDesc
+		{
+			StencilOperation	stencilFailOp;
+			StencilOperation	stencilDepthFailOp;
+			StencilOperation	stencilPassOp;
+			CompareFunc			stencilFunc;
+		};
+
+		StencilOpDesc frontFaceOp;
+		StencilOpDesc backFaceOp;
 	};
 
-	struct RasterizerState
+	struct BlendState
 	{
+		bool alphaToCoverageEnable;
+		bool independentBlendEnable;
 
+		struct RenderTargetBlendDesc
+		{
+			bool blendEnable;
+
+			struct BlendOpDesc{
+				BlendType		src;
+				BlendType		dst;
+				BlendOperation	op;
+			};
+
+			BlendOpDesc clrOpDesc;
+			BlendOpDesc alphaOpDesc;
+
+			uint8		renderTargetWriteMask;
+		};
+
+		RenderTargetBlendDesc renderTargetDesc[8];
 	};
 }
 #endif // _GRAPHICDEF_H_

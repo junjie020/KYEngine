@@ -1,7 +1,8 @@
 #ifndef _STATEOBJECT_INL_
 #define _STATEOBJECT_INL_
 
-#include "Graphic/Resource/StateObject.h"
+#include "Graphic/GraphicDef.h"
+
 #include "Graphic/DX/Dx11StateObject.h"
 namespace KY
 {
@@ -19,6 +20,12 @@ namespace KY
 			mInternalObj = new InternalType;
 
 		return mInternalObj->Create(s);		
+	}
+
+	template<class StateType, class InternalType>
+	bool KY::StateObj<StateType, InternalType>::IsValid() const
+	{
+		return mInternalObj->IsValid();
 	}
 
 

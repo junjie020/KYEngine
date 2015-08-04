@@ -10,12 +10,20 @@ namespace KY
 	class InputLayout;
 	class Shader;
 
+
+	class RasterizerStateObj;
+	class DepthStencilStateObj;
+	class BlendStateObj;
+
     class RenderOperation
     {
     public:
 		RenderOperation()
 			: mVertexBuf(nullptr)
 			, mIndexBuf(nullptr)
+			, mRSStateObj(nullptr)
+			, mDepthStencilStateObj(nullptr)
+			, mBlendStateObj(nullptr)
 			, mPriType(PT_Unknown)
 		{
 			ZERO_MEMORY(mShaders);
@@ -75,6 +83,32 @@ namespace KY
 		}
 		//@}
 
+		//{@
+		RasterizerStateObj* GetRasterizerStateObj() const {
+			return mRSStateObj;
+		}
+
+		void SetRasterizerStateObj(RasterizerStateObj *obj){
+			mRSStateObj = obj;
+		}
+
+		DepthStencilStateObj* GetDepthStencilStateObj() const{
+			return mDepthStencilStateObj;
+		}
+		
+		void SetDepthStencilStateObj(DepthStencilStateObj* obj){
+			mDepthStencilStateObj = obj;
+		}
+
+		BlendStateObj* GetBlendStateObj() const {
+			return mBlendStateObj;
+		}
+
+		void SetBlendStateObj(BlendStateObj *obj){
+			mBlendStateObj = obj;
+		}
+		//@}
+
 	private:
 		VertexBuffer *mVertexBuf;
 		BufferInfo	mVertexInfo;
@@ -85,6 +119,10 @@ namespace KY
 		Shader* mShaders[ShdrT_Count];
 
 		InputLayout *mInputLayout;
+
+		RasterizerStateObj*		mRSStateObj;
+		DepthStencilStateObj*	mDepthStencilStateObj;
+		BlendStateObj*			mBlendStateObj;
 
 		PrimitiveType mPriType;
     };

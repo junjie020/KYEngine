@@ -2,7 +2,6 @@
 #define _PIPELINESTAGE_H_
 #include "Graphic/GraphicDef.h"
 #include "Graphic/DX/Dx11PipelineStage.h"
-#include "Graphic/Resource/StateObject.h"
 
 namespace KY
 {
@@ -18,6 +17,10 @@ namespace KY
 		class Dx11PSStage;
 		class Dx11OMStage;
 	}
+
+	class RasterizerStateObj;
+	class DepthStencilStateObj;
+	class BlendStateObj;
 
     class PipelineStage
     {

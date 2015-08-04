@@ -2,8 +2,6 @@
 #define _DX11PIPELINESTAGE_H_
 
 #include "Graphic/GraphicDef.h"
-
-#include "Graphic/Resource/StateObject.h"
 namespace KY
 {
 	class InputLayout;
@@ -13,6 +11,10 @@ namespace KY
 	class Buffer;
 
 	struct Viewport;
+
+	class RasterizerStateObj;
+	class DepthStencilStateObj;
+	class BlendStateObj;
 
 
 	namespace DX
