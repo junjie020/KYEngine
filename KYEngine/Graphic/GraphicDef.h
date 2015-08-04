@@ -285,6 +285,20 @@ namespace KY
 
 	struct RasterizerState
 	{
+		RasterizerState()
+			: fillMode(FM_Solid)
+			, cullMode(CM_Back)
+			, frontCCW(false)
+			, depthBias(0)
+			, slopeScaledDepthBias(0.0f)
+			, depthBiasClamp(0.0f)
+			, depthClipEnable(true)
+			, scissorEnable(false)
+			, multisampleEnable(false)
+			, antialiasedLineEnable(false)
+		{
+
+		}
 		//{@
 		FillMode	fillMode;
 		CullMode	cullMode;
@@ -311,8 +325,12 @@ namespace KY
 		DepthStencilState() 
 			: depthEnable(true)
 			, enableDepthWrite(true)
+			, depthFunc(CF_Less)
+			, stencilEnable(false)
+			, stencilReadMask(0xff)
+			, stencilWriteMask(0xff)			
 		{
-
+			
 		}
 		//{@
 		bool	depthEnable;
@@ -326,6 +344,12 @@ namespace KY
 
 		struct StencilOpDesc
 		{
+			StencilOpDesc()
+				: stencilFailOp(StencilOP_Keep)
+				, stencilDepthFailOp(StencilOP_Keep)
+				, stencilPassOp(StencilOP_Keep)
+				, stencilFunc(CF_Always)
+			{}
 			StencilOperation	stencilFailOp;
 			StencilOperation	stencilDepthFailOp;
 			StencilOperation	stencilPassOp;
@@ -338,14 +362,31 @@ namespace KY
 
 	struct BlendState
 	{
+		BlendState() 
+			: alphaToCoverageEnable(false)
+			, independentBlendEnable(false)
+		{
+
+		}
 		bool alphaToCoverageEnable;
 		bool independentBlendEnable;
 
 		struct RenderTargetBlendDesc
 		{
+			RenderTargetBlendDesc()
+				: blendEnable(false)
+				, renderTargetWriteMask(RTCW_All)
+			{}
+
 			bool blendEnable;
 
 			struct BlendOpDesc{
+				BlendOpDesc()
+					: src(BlendType_One)
+					, dst(BlendType_Zero)
+					, op(BlendOP_Add)
+				{}
+
 				BlendType		src;
 				BlendType		dst;
 				BlendOperation	op;
