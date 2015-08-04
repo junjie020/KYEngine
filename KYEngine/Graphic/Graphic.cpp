@@ -119,6 +119,19 @@ namespace KY
 					om->SetBlendState(blendobj);
 			}
 			//@}
+
+			auto context = GetDx11()->GetDeviceContext();
+
+			if (ro->GetIndexBuffer())
+			{
+				auto idxParam = ro->GetIndexDrawInfo();
+				context->DrawIndexed(idxParam.mIndexCount, idxParam.mStartIndexLocation, idxParam.mBaseVertexLocation);
+			}
+			else
+			{
+				auto vtxParam = ro->GetVertexDrawInfo();
+				context->Draw(vtxParam.mVertexCount, vtxParam.mStartVertexLocation);
+			}
 		}
 	}
 	template<class StageClass>

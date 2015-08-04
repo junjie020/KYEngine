@@ -15,6 +15,7 @@
 #include "Graphic/Graphic.h"
 
 #include "Graphic/Resource/StateObject.h"
+#include "Graphic/Resource/StateObject.inl"
 
 #include "Math/Vector4.h"
 #include "Math/Color.h"
@@ -29,7 +30,7 @@ using namespace KY;
 class SimpleTriangleTest : public KY::SampleTest
 {
 public:
-	SimpleTriangleTest(){
+	SimpleTriangleTest() : mActor(nullptr){
 
 	}
 	~SimpleTriangleTest(){}
@@ -52,6 +53,7 @@ private:
 		{
 			InitBufferData();
 			InitShadersAndInputLayout();
+			InitState();
 		}
 
 		~TriangleActor(){}
@@ -70,6 +72,7 @@ private:
 			};
 
 			BufferParam param;
+			param.type = BT_Vertex;
 			param.access = BA_None;
 			param.usage = RU_Immutable;
 			param.elemInBytes = sizeof(VertexColor);
@@ -79,8 +82,10 @@ private:
 
 			if (mBuffer.Create(param, data))
 			{
-				BufferInfo info = { 0, 3 };
+				BufferInfo info = { 0, sizeof(VertexColor), 0 };
 				mRO.SetVertexBuffer(&mBuffer, info);
+				DrawVertexBufferParam pp = { 3, 0 };
+				mRO.SetVertexDrawInfo(pp);
 			}
 		}
 
@@ -186,8 +191,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 {
 	// Create the system object.
 	KY::FileSystem::Create();
-
-	KY::FileSystem::Inst()->SetRootPath(fs::current_path<fs::path>().parent_path().parent_path());
+	auto curPath = fs::current_path<fs::path>();
+	KY::FileSystem::Inst()->SetRootPath(curPath);
 	KY::FileSystem::Inst()->ReigstPath("shader", KY::FileSystem::Inst()->RootPath() / fs::path("Resource/Shader"));
 
 	auto system = KY::System::Create();

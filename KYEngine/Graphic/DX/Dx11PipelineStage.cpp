@@ -54,6 +54,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		auto d3d11buffer = vb->GetInternal()->GetInternal();
+
+		BOOST_ASSERT(info.slotIdx < D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT);
 		context->IASetVertexBuffers(info.slotIdx, 1, &d3d11buffer, &info.strides, &info.offset);
 	}
 
@@ -88,6 +90,8 @@ namespace KY
 		auto context = GET_CONTEXT();
 		BOOST_ASSERT(context);
 		auto dx11Buf = buffer.GetInternal()->GetInternal();
+
+		BOOST_ASSERT(info.slotIdx < D3D11_COMMONSHADER_CONSTANT_BUFFER_API_SLOT_COUNT);
 		context->VSSetConstantBuffers(info.slotIdx, 1, &dx11Buf);
 	}
 

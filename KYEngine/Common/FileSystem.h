@@ -11,6 +11,7 @@ namespace KY
 		~FileSystem(){}
 
 		void ReigstPath(const std::string &subPath, const fs::path &p){
+			BOOST_ASSERT(fs::exists(p));
 			mSysPaths[subPath] = p;
 		}
 

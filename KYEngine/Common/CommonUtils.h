@@ -40,5 +40,12 @@ namespace KY
 	{
 		::memset(arr, 0, sizeof(arr));
 	}
+
+	template<typename Type>
+	inline void ZERO_MEMORY(Type &t)
+	{
+		::memset(&t, 0, sizeof(t));
+	}
+
 }
 #endif // _COMMONUTILS_H_

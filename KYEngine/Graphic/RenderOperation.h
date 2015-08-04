@@ -17,6 +17,17 @@ namespace KY
 
 	struct Viewport;
 
+	struct DrawVertexBufferParam{		
+		uint32 mVertexCount;
+		uint32 mStartVertexLocation;
+	};
+
+	struct DrawIndexBufferParam{
+		uint32 mIndexCount;
+		uint32 mStartIndexLocation;
+		uint32 mBaseVertexLocation;
+	};
+
     class RenderOperation
     {
     public:
@@ -26,9 +37,10 @@ namespace KY
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
 			, mBlendStateObj(nullptr)
-			, mViewport(nullptr)
+			, mViewport(nullptr)			
 			, mPriType(PT_Unknown)
 		{
+			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
 			ZERO_MEMORY(mShaders);
 		}
 		~RenderOperation(){}
@@ -41,6 +53,8 @@ namespace KY
 
 		const VertexBuffer* GetVertexBuffer() const { return mVertexBuf; }
 		const BufferInfo& GetVertexBufferInfo() const { return mVertexInfo; }
+		void SetVertexDrawInfo(const DrawVertexBufferParam &vparam) { mvDrawParam = vparam; }
+		const DrawVertexBufferParam& GetVertexDrawInfo() const { return mvDrawParam; }
 		//@}
 
 		//{@
@@ -51,6 +65,9 @@ namespace KY
 
 		const IndexBuffer* GetIndexBuffer() const { return mIndexBuf; }
 		const BufferInfo& GetIndexBufferInfo() const { return mIndexInfo; }
+
+		void SetIndexDrawInfo(const DrawIndexBufferParam &iparam) { miDrawParam = iparam; }
+		const DrawIndexBufferParam& GetIndexDrawInfo() const { return miDrawParam; }
 		//@}
 
 		//{@
@@ -123,6 +140,11 @@ namespace KY
 		//@}
 
 	private:
+		union{
+			DrawVertexBufferParam	mvDrawParam;
+			DrawIndexBufferParam	miDrawParam;
+		};
+
 		VertexBuffer *mVertexBuf;
 		BufferInfo	mVertexInfo;
 
