@@ -9,6 +9,7 @@
 // Class name: System
 ////////////////////////////////////////////////////////////////////////////////
 #include "Common/Singleton.h"
+#include "Math/Vector2.h"
 
 namespace KY
 {
@@ -27,7 +28,7 @@ namespace KY
 		
 		~System();
 
-		bool Initialize();
+		bool Initialize(Size2U &dim, bool windowed);
 		void Shutdown();
 		void Run();
 
@@ -41,7 +42,7 @@ namespace KY
 	private:
 		bool Frame();
 		void Update();
-		void InitializeWindows(int&, int&);
+		void InitializeWindows(Size2U &dim, bool windowed);
 		void ShutdownWindows();
 
 	private:
@@ -55,6 +56,9 @@ namespace KY
 		Input*		mInput;
 		Graphic*	mGraphics;
 		Scene*		mScene;
+
+		Size2U		mDimension;
+		bool		mWindowedMode;
 
 		typedef std::vector<SampleTest*>	SampleTestVec;
 		SampleTestVec	mSamples;

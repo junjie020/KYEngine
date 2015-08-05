@@ -22,6 +22,8 @@
 namespace fs = std::tr2::sys;
 //@}
 
+#pragma warning(disable:4201)
+
 //{@	boost
 #include "boost/assert.hpp"
 #include "boost/noncopyable.hpp"

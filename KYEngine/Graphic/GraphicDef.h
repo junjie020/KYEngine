@@ -295,8 +295,8 @@ namespace KY
 		TexFormat	format;
 		uint32		inputSlot;
 		uint32		alignedByteOffset;
-		//D3D11_INPUT_CLASSIFICATION InputSlotClass;
-		//UINT InstanceDataStepRate;
+		uint32		instanceDataStepRate;
+		bool		instanceData;
 	};
 
 	struct RasterizerState

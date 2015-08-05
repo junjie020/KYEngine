@@ -16,6 +16,8 @@ namespace KY
 		: mInput(nullptr)
 		, mGraphics(nullptr)
 		, mScene(nullptr)
+		, mDimension(0, 0)
+		, mWindowedMode(true)
 	{
 	}
 
@@ -26,11 +28,13 @@ namespace KY
 	}
 
 
-	bool System::Initialize()
+	bool System::Initialize(Size2U &dim, bool windowed)
 	{
-		int screenWidth = 0, screenHeight = 0;
-		InitializeWindows(screenWidth, screenHeight);
+		mWindowedMode = windowed;
+		InitializeWindows(dim, windowed);
 
+		GraphicInitParam param = { dim.w, dim.h, 1, 0, FL_11_1, mhWnd, mWindowedMode };
+		
 		mInput = new Input;
 		mInput->Initialize();
 
@@ -38,8 +42,7 @@ namespace KY
 
 		mGraphics = new Graphic;
 
-		// Initialize the graphics object.
-		GraphicInitParam param = { screenWidth, screenHeight, 1, 0, FL_11_1, mhWnd, true };
+		// Initialize the graphics object.		
 		return mGraphics->Initialize(param);
 	}
 
@@ -125,17 +128,16 @@ namespace KY
 	}
 
 
-	void System::InitializeWindows(int& screenWidth, int& screenHeight)
+	void System::InitializeWindows(Size2U &dim, bool windowed)
 	{
-		WNDCLASSEX wc;
-		DEVMODE dmScreenSettings;
+		WNDCLASSEX wc;		
 		int posX, posY;
 
 		// Get the instance of this application.
 		mhinstance = GetModuleHandle(NULL);
 
 		// Give the application a name.
-		mApplicationName = L"Engine";
+		mApplicationName = L"KYEngine";
 
 		// Setup the windows class with default settings.
 		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -154,42 +156,45 @@ namespace KY
 		// Register the window class.
 		RegisterClassEx(&wc);
 
-		// Determine the resolution of the clients desktop screen.
-		screenWidth = GetSystemMetrics(SM_CXSCREEN);
-		screenHeight = GetSystemMetrics(SM_CYSCREEN);
-
 		// Setup the screen settings depending on whether it is running in full screen or in windowed mode.
-		if (FULL_SCREEN)
+		if (windowed)
 		{
+			// If windowed then set it to 800x600 resolution.
+			if (0 == dim.w)
+				dim.w = 800;
+			if (0 == dim.h)
+				dim.h = 600;
+
+			// Place the window in the middle of the screen.
+			posX = (GetSystemMetrics(SM_CXSCREEN) - dim.w) / 2;
+			posY = (GetSystemMetrics(SM_CYSCREEN) - dim.h) / 2;
+		}
+		else
+		{
+			dim.w = uint32(GetSystemMetrics(SM_CXSCREEN));
+			dim.h = uint32(GetSystemMetrics(SM_CYSCREEN));
+
 			// If full screen set the screen to maximum size of the users desktop and 32bit.
-			memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));
-			dmScreenSettings.dmSize = sizeof(dmScreenSettings);
-			dmScreenSettings.dmPelsWidth = (unsigned long)screenWidth;
-			dmScreenSettings.dmPelsHeight = (unsigned long)screenHeight;
-			dmScreenSettings.dmBitsPerPel = 32;
-			dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+			DEVMODE dmScreenSettings = { 0 };
+			dmScreenSettings.dmSize			= sizeof(dmScreenSettings);
+			dmScreenSettings.dmPelsWidth	= dim.w;
+			dmScreenSettings.dmPelsHeight	= dim.h;
+			dmScreenSettings.dmBitsPerPel	= 32;
+			dmScreenSettings.dmFields		= DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
 
 			// Change the display settings to full screen.
 			ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN);
 
 			// Set the position of the window to the top left corner.
 			posX = posY = 0;
-		}
-		else
-		{
-			// If windowed then set it to 800x600 resolution.
-			screenWidth = 800;
-			screenHeight = 600;
 
-			// Place the window in the middle of the screen.
-			posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
-			posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
+
 		}
 
 		// Create the window with the screen settings and get the handle to it.
 		mhWnd = CreateWindowEx(WS_EX_APPWINDOW, mApplicationName, mApplicationName,
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-			posX, posY, screenWidth, screenHeight, NULL, NULL, mhinstance, NULL);
+			posX, posY, dim.w, dim.h, NULL, NULL, mhinstance, NULL);
 
 		// Bring the window up on the screen and set it as main focus.
 		ShowWindow(mhWnd, SW_SHOW);
@@ -197,7 +202,8 @@ namespace KY
 		SetFocus(mhWnd);
 
 		// Hide the mouse cursor.
-		ShowCursor(false);
+		if (!mWindowedMode)
+			ShowCursor(false);
 
 		return;
 	}
@@ -209,7 +215,7 @@ namespace KY
 		ShowCursor(true);
 
 		// Fix the display settings if leaving full screen mode.
-		if (FULL_SCREEN)
+		if (!mWindowedMode)
 		{
 			ChangeDisplaySettings(NULL, 0);
 		}

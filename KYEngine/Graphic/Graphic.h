@@ -36,6 +36,8 @@ namespace KY
 
 		PipelineStage* GetStage(StageType type, bool bInit = false);
 
+		Size2U GetBackBufferSize() const { return Size2U(mInitParam.width, mInitParam.height); }
+
 	public:
 		//{@	internal
 		DX::Dx11* GetDx11();

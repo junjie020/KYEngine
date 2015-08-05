@@ -11,6 +11,7 @@ namespace KY
 {
 	Graphic::Graphic()
 		: mDx(nullptr)
+		, mQueue(new RenderCommandQueue)
 	{
 		ZERO_MEMORY(mStages);
 	}
@@ -19,6 +20,7 @@ namespace KY
 	Graphic::~Graphic()
 	{
 		SafeDelete(mDx);
+		SafeDelete(mQueue);
 		//{@
 		std::for_each(std::begin(mStages), std::end(mStages), [](PipelineStage *stage){ if (stage) delete stage; });
 		ZERO_MEMORY(mStages);

@@ -9,6 +9,7 @@ namespace KY
     struct Viewport
     {
 		Viewport() : mRect(0, 0, 1, 1), mDepthRange(0, 1.f){}
+		Viewport(const RectU& rt, const Range2F &depthrange) : mRect(rt), mDepthRange(depthrange){}
 
 		~Viewport(){}
 

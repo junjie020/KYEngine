@@ -16,6 +16,7 @@
 
 #include "Graphic/Resource/StateObject.h"
 #include "Graphic/Resource/StateObject.inl"
+#include "Graphic/Viewport.h"
 
 #include "Math/Vector4.h"
 #include "Math/Color.h"
@@ -86,6 +87,8 @@ private:
 				mRO.SetVertexBuffer(&mBuffer, info);
 				DrawVertexBufferParam pp = { 3, 0 };
 				mRO.SetVertexDrawInfo(pp);
+
+				mRO.SetPrimitiveType(PT_TriList);
 			}
 		}
 
@@ -110,8 +113,8 @@ private:
 
 			InputElemDesc desc[] = 
 			{
-				{ "POSITION", 0, TF_R32G32B32A32_FLOAT, 0, 0 },
-				{ "COLOR", 0, TF_R8G8B8A8_UNORM, 0, sizeof(float) * 4 },
+				{ "POSITION",	0, TF_R32G32B32A32_FLOAT,	0, 0,					0, false },
+				{ "COLOR",		0, TF_R8G8B8A8_UNORM,		0, sizeof(float) * 4,	0, false },
 			};
 
 			for (auto beg = std::begin(desc); beg != std::end(desc); ++beg)
@@ -119,7 +122,11 @@ private:
 				mInputLayout.AddElem(*beg);
 			}
 
-			mInputLayout.Create(mVertexShader);
+			if (!mInputLayout.Create(mVertexShader))
+			{
+				DebugOutline("create input layout failed!");
+				return false;
+			}
 
 			mRO.SetInputLayout(&mInputLayout);
 
@@ -160,6 +167,11 @@ private:
 
 			mRO.SetBlendStateObj(mBlendObj);
 
+			const auto backBufferDim = Graphic::Inst()->GetBackBufferSize();
+			mViewport.mRect = RectU(0, 0, backBufferDim.w, backBufferDim.h);
+			mViewport.mDepthRange = Range2F(0, 1.0f);
+			mRO.SetViewport(&mViewport);
+
 			return true;
 		}
 
@@ -179,6 +191,8 @@ private:
 		KY::DepthStencilStateObj*	mDSObj;
 		KY::BlendStateObj*			mBlendObj;
 		//@}
+
+		KY::Viewport		mViewport;
 	};
 
 private:	
@@ -189,6 +203,11 @@ private:
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
 {
+	iCmdshow;
+	pScmdline;
+	hPrevInstance;
+	hInstance;
+
 	// Create the system object.
 	KY::FileSystem::Create();
 	auto curPath = fs::current_path<fs::path>();
@@ -197,7 +216,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 
 	auto system = KY::System::Create();
 
-	if (system->Initialize())
+	Size2U dim(0, 0);
+	if (system->Initialize(dim, true))
 	{
 		SimpleTriangleTest tt;
 		tt.Init();

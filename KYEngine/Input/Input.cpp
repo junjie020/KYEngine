@@ -15,6 +15,7 @@ namespace KY
 
 	Input::Input(const Input& other)
 	{
+		other;
 	}
 
 

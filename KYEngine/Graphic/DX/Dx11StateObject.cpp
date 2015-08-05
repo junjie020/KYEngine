@@ -49,7 +49,7 @@ namespace KY
 		d3dRTDesc.DestBlendAlpha= dx11Trans->ToBlendType(rtDesc.alphaOpDesc.dst);
 		d3dRTDesc.BlendOpAlpha	= dx11Trans->ToBlendOperation(rtDesc.alphaOpDesc.op);
 
-		d3dRTDesc.RenderTargetWriteMask = dx11Trans->ToColorWriteEnable(rtDesc.renderTargetWriteMask);
+		d3dRTDesc.RenderTargetWriteMask = uint8(dx11Trans->ToColorWriteEnable(rtDesc.renderTargetWriteMask));
 	}
 
 	bool DX::Dx11BlendStateObj::Create(const BlendState &state)

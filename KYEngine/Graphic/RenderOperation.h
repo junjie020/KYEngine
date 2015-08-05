@@ -34,6 +34,7 @@ namespace KY
 		RenderOperation()
 			: mVertexBuf(nullptr)
 			, mIndexBuf(nullptr)
+			, mInputLayout(nullptr)
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
 			, mBlendStateObj(nullptr)

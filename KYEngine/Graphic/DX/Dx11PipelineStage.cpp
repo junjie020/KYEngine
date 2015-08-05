@@ -64,10 +64,16 @@ namespace KY
 		auto context = GET_CONTEXT();
 		BOOST_ASSERT(context);
 
-		auto d3d11buffer = ib->GetInternal()->GetInternal();
-
-		BOOST_ASSERT(info.strides == 16 || info.strides == 32);
-		context->IASetIndexBuffer(d3d11buffer, info.strides == 16 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, info.offset);
+		if (ib)
+		{
+			auto d3d11buffer = ib->GetInternal()->GetInternal();
+			BOOST_ASSERT(info.strides == 16 || info.strides == 32);
+			context->IASetIndexBuffer(d3d11buffer, info.strides == 16 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, info.offset);
+		}
+		else
+		{
+			context->IASetIndexBuffer(nullptr, DXGI_FORMAT_R16_UINT, 0);
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////

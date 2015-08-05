@@ -32,6 +32,7 @@ namespace KY
 	template<typename Type, uint32 NUM>
 	inline uint32 COUNT_OF(const Type (&arr)[NUM])
 	{
+		arr;
 		return sizeof(arr) / sizeof(arr[0]);
 	}
 

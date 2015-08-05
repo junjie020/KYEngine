@@ -71,8 +71,6 @@ namespace KY
 
 		{
 			auto device = Graphic::Inst()->GetDx11()->GetDevice();
-			bool success = false;
-
 
 			ID3DBlob *pByteCode = nullptr;
 			ID3DBlob *pError = nullptr;
@@ -103,8 +101,10 @@ namespace KY
 				return ;
 			}
 
-			mShaderByteCode.assign((const char*)pByteCode->GetBufferPointer(), pByteCode->GetBufferSize());
+			auto beg = reinterpret_cast<const uint8*>(pByteCode->GetBufferPointer());
+			auto end = beg + pByteCode->GetBufferSize();
 
+			mShaderByteCode.assign(beg, end);
 
 			FOR_EACH_TYPE_PERFORM(mType,
 				[&](){device->CreateVertexShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mVertexShader); },
@@ -191,6 +191,8 @@ namespace KY
 				it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
 				it11->InputSlot = it->inputSlot;
 				it11->AlignedByteOffset = it->alignedByteOffset;
+				it11->InputSlotClass = it->instanceData ? D3D11_INPUT_PER_VERTEX_DATA : D3D11_INPUT_PER_INSTANCE_DATA;
+				it11->InstanceDataStepRate = it->instanceDataStepRate;
 			}
 
 			BOOST_ASSERT(nullptr == mLayout);
