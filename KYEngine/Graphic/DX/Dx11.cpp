@@ -18,6 +18,7 @@ namespace KY
 			, mDebug(nullptr)
 			, mSwapChain(nullptr)
 			, mDepthStencilView(nullptr)
+			, mFeatureLevel(FL_Unknown)
 		{
 			DX11NameTranslator::Create();
 		}
@@ -44,12 +45,36 @@ namespace KY
 				0;
 #endif // _DEBUG
 		
-			const D3D_FEATURE_LEVEL levels[] = { D3D_FEATURE_LEVEL_11_0 };
+			D3D_FEATURE_LEVEL returnLevel = D3D_FEATURE_LEVEL_11_1;
+
+			auto wantedLevel = param.featureLevel;
+
+			std::vector<D3D_FEATURE_LEVEL>	levels;
 			
-			D3D_FEATURE_LEVEL returnLevel = D3D_FEATURE_LEVEL_11_0;
+			if (wantedLevel == FL_Unknown)
+			{
+				std::vector<D3D_FEATURE_LEVEL> tmplevels = {
+					D3D_FEATURE_LEVEL_11_1, D3D_FEATURE_LEVEL_11_0,
+					D3D_FEATURE_LEVEL_10_1, D3D_FEATURE_LEVEL_10_0,
+					D3D_FEATURE_LEVEL_9_3, D3D_FEATURE_LEVEL_9_2,
+					D3D_FEATURE_LEVEL_9_1,
+				};
+
+				levels.swap(tmplevels);
+			}
+			else
+			{
+				for (int32 ii = wantedLevel; ii  >= 0; --ii)
+					levels.push_back(DX11NameTranslator::Inst()->ToFeatureLevel(FeatureLevel(ii)));
+			
+			}
+			
 			if (FAILED(::D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags,
-				levels, _countof(levels), D3D11_SDK_VERSION, &mDevice, &returnLevel, &mDeviceContext)))
+				&*levels.begin(), levels.size(), D3D11_SDK_VERSION, &mDevice, &returnLevel, &mDeviceContext)))
 				return false;
+
+			mFeatureLevel = DX11NameTranslator::Inst()->FromeFeatureLevel(returnLevel);
+			BOOST_ASSERT(mFeatureLevel != FL_Unknown);
 
 			IDXGIFactory *dxgi = nullptr;
 			if (FAILED(::CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void **>(&dxgi))))

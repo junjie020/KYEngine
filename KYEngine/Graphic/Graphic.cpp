@@ -32,7 +32,13 @@ namespace KY
 		SafeDelete(mDx);
 		mDx = new DX::Dx11;
 
-		return mDx->Init(param);
+		if (mDx->Init(param))
+		{
+			mInitParam.featureLevel = mDx->GetSelectedFeatureLevel();
+			return true;
+		}
+
+		return false;
 	}
 
 

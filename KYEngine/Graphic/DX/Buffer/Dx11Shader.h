@@ -32,6 +32,8 @@ namespace KY
 
 			ID3D11ClassLinkage* GetClassLinkage() const { return mClassLinkage; }
 			uint32 GetNumClassLinkageInstances() const { return mClassInstance; }
+
+			const std::string& GetShaderByteCode() const { return mShaderByteCode; }
 			//@}
 
 				
@@ -43,18 +45,21 @@ namespace KY
 			const ShaderType  mType;
 			const std::string mEntryName;
 			const std::string mShaderCode;
+			std::string mShaderByteCode;
+
 			uint32 mClassInstance;
 			ID3D11ClassLinkage *mClassLinkage;
 			//{@
 			union{
 				void* mShader;
-				struct {
-					ID3D11VertexShader *mVertexShader;
-					ID3D11HullShader *mHullShader;
-					ID3D11DomainShader *mDomainShader;
-					ID3D11GeometryShader *mGeometryShader;
-					ID3D11PixelShader *mPixelShader;
-				};
+				
+				//{@
+				ID3D11VertexShader *mVertexShader;
+				ID3D11HullShader *mHullShader;
+				ID3D11DomainShader *mDomainShader;
+				ID3D11GeometryShader *mGeometryShader;
+				ID3D11PixelShader *mPixelShader;
+				//@}
 			};
 			//@}
 
@@ -79,6 +84,7 @@ namespace KY
 			typedef std::vector<InputElemDesc>	ElemDescVec;
 			ElemDescVec	mElems;
 			ID3D11InputLayout *mLayout;
+			
 		};
 	}
     

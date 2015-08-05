@@ -28,6 +28,7 @@ namespace KY
 
 			ID3D11Device* GetDevice();
 			ID3D11DeviceContext* GetDeviceContext();
+			FeatureLevel GetSelectedFeatureLevel() const;
 
 		private:
 
@@ -40,6 +41,7 @@ namespace KY
 			ID3D11DeviceContext *mDeviceContext;
 
 			IDXGISwapChain		*mSwapChain;
+			FeatureLevel		mFeatureLevel;
 		};
 
 		inline ID3D11Device* Dx11::GetDevice(){
@@ -49,6 +51,11 @@ namespace KY
 		inline ID3D11DeviceContext* Dx11::GetDeviceContext(){
 			return mDeviceContext;
 		}
+
+		inline FeatureLevel Dx11::GetSelectedFeatureLevel() const{
+			return mFeatureLevel;
+		}
+			
 	}
 }
 

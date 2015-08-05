@@ -30,13 +30,17 @@ namespace KY
 
 		bool Initialize(const GraphicInitParam& param);
 		void Shutdown();
-		bool Frame();
-
-		DX::Dx11* GetDx11();
+		bool Frame();		
 
 		void AddRenderOperation(RenderOperation *ro);
 
 		PipelineStage* GetStage(StageType type, bool bInit = false);
+
+	public:
+		//{@	internal
+		DX::Dx11* GetDx11();
+		FeatureLevel GetDXFeatureLevel() const;
+		//@}
 
 	private:
 		bool Render();
@@ -73,5 +77,9 @@ namespace KY
 	inline DX::Dx11* Graphic::GetDx11(){
 		return mDx;
 	}
+	inline FeatureLevel Graphic::GetDXFeatureLevel() const{
+		return mInitParam.featureLevel;
+	}
+
 }
 #endif

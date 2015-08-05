@@ -23,9 +23,9 @@ namespace KY
 
 		if (iftm)
 		{
-			iftm.seekg(std::ios::end);
+			iftm.seekg(0, std::ios::end);
 			const std::streamoff sizeInBytes = iftm.tellg();
-			iftm.seekg(std::ios::beg);
+			iftm.seekg(0, std::ios::beg);
 
 			if (sizeInBytes != 0)
 			{
@@ -72,7 +72,7 @@ namespace KY
 
 	void InputLayout::AddElem(const InputElemDesc &elem)
 	{
-		if (mLayout)
+		if (nullptr == mLayout)
 			mLayout = new DX::DX11InputLayout;
 
 		mLayout->AddElement(elem);

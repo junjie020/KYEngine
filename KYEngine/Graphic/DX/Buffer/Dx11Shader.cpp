@@ -11,6 +11,14 @@
 
 #include <functional>
 
+//{@	we need replace it by LoadLibrary("D3DCompiler_43.dll"), and get the function process which name is "D3DCompile"
+#include <D3Dcompiler.h>
+
+#pragma comment(lib,"d3dcompiler.lib")
+//@}
+
+
+
 namespace KY
 {
 	namespace DX
@@ -33,6 +41,26 @@ namespace KY
 			}
 		}
 
+		static inline const char* get_shader_target(FeatureLevel level, ShaderType type)
+		{
+			const char* targets[][ShdrT_Count] = {
+				"",		  "",		"",		  "",		"ps_1_0",
+				"vs_2_0", "",		"",		  "",		"ps_2_0",
+				"vs_3_0", "",		"",		  "",		"ps_3_0",
+				"vs_4_0", "",		"",		  "gs_4_0", "ps_4_0",
+				"vs_4_1", "",		"",		  "gs_4_1", "ps_4_1",
+				"vs_5_0", "hs_5_0", "ds_5_0", "gs_5_0", "ps_5_0",
+				"vs_5_0", "hs_5_0", "ds_5_0", "gs_5_0", "ps_5_0",
+			};
+
+			BOOST_ASSERT(COUNT_OF(targets) > uint32(level));
+			BOOST_ASSERT(COUNT_OF(targets[0]) > uint32(type));
+
+			return targets[level][type];
+
+			
+		}
+
 		Dx11Shader::Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry /*= "main"*/, ID3D11ClassLinkage *classLinkage /*= nullptr*/)
 			: mType(type)
 			, mShaderCode(shaderCode)
@@ -45,12 +73,45 @@ namespace KY
 			auto device = Graphic::Inst()->GetDx11()->GetDevice();
 			bool success = false;
 
+
+			ID3DBlob *pByteCode = nullptr;
+			ID3DBlob *pError = nullptr;
+
+			const auto level = Graphic::Inst()->GetDXFeatureLevel();
+
+			const uint32 flags1 =
+#ifdef _DEBUG
+				D3DCOMPILE_DEBUG |
+#endif // _DEBUG
+				D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_WARNINGS_ARE_ERRORS;
+			const uint32 flags2 = 0; // not support effect
+
+			const char* srcFileName = "";
+			const D3D_SHADER_MACRO* pDefines = nullptr;
+			ID3DInclude* pInclude = nullptr;
+			
+			if (FAILED(D3DCompile(shaderCode.c_str(), shaderCode.size(),
+				srcFileName, pDefines, pInclude,
+				entry.c_str(), get_shader_target(level, mType),
+				flags1, flags2, &pByteCode, &pError)))
+			{
+				std::ostringstream oss;
+				oss << "compile shader failed, level : " << level << std::endl
+					<< ", error info : " << (const char*)pError->GetBufferPointer() << std::endl
+					<< ", shader code : " << shaderCode;
+				DebugOutline(oss.str());
+				return ;
+			}
+
+			mShaderByteCode.assign((const char*)pByteCode->GetBufferPointer(), pByteCode->GetBufferSize());
+
+
 			FOR_EACH_TYPE_PERFORM(mType,
-				[&](){device->CreateVertexShader(mShaderCode.c_str(), mShaderCode.length(), classLinkage, &mVertexShader); },
-				[&](){device->CreateHullShader(mShaderCode.c_str(), mShaderCode.length(), classLinkage, &mHullShader); },
-				[&](){device->CreateDomainShader(mShaderCode.c_str(), mShaderCode.length(), classLinkage, &mDomainShader); },
-				[&](){device->CreateGeometryShader(mShaderCode.c_str(), mShaderCode.length(), classLinkage, &mGeometryShader); },
-				[&](){device->CreatePixelShader(mShaderCode.c_str(), mShaderCode.length(), classLinkage, &mPixelShader); });
+				[&](){device->CreateVertexShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mVertexShader); },
+				[&](){device->CreateHullShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mHullShader); },
+				[&](){device->CreateDomainShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mDomainShader); },
+				[&](){device->CreateGeometryShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mGeometryShader); },
+				[&](){device->CreatePixelShader(pByteCode->GetBufferPointer(), pByteCode->GetBufferSize(), classLinkage, &mPixelShader); });
 
 
 			if (nullptr == mShader)
@@ -136,11 +197,10 @@ namespace KY
 			auto device = dx11->GetDevice();
 
 			auto vs11 = vsShader.GetInternal();
-			auto code = vs11->GetCode();
+			auto byteCode = vs11->GetShaderByteCode();
 
-			BOOST_ASSERT(!code.empty());
-
-			return SUCCEEDED(device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*code.begin(), code.size(), &mLayout));
+			BOOST_ASSERT(!byteCode.empty());
+			return SUCCEEDED(device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*byteCode.begin(), byteCode.size(), &mLayout));
 		}
 
 	}

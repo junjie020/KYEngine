@@ -28,6 +28,9 @@ namespace KY
 
 			inline D3D11_COLOR_WRITE_ENABLE ToColorWriteEnable(RenderTargetColorWirteMask mask) const;
 
+			inline D3D_FEATURE_LEVEL ToFeatureLevel(FeatureLevel level) const;
+			inline FeatureLevel	FromeFeatureLevel(D3D_FEATURE_LEVEL level) const;
+
 			D3D11_PRIMITIVE_TOPOLOGY ToPrimitiveTopology(PrimitiveType type) const;
 		};
 
@@ -171,6 +174,33 @@ namespace KY
 
 			return D3D11_COLOR_WRITE_ENABLE(d3dmask);
 
+		}
+
+		inline D3D_FEATURE_LEVEL DX11NameTranslator::ToFeatureLevel(FeatureLevel level) const
+		{
+			const D3D_FEATURE_LEVEL levels[] =
+			{
+				D3D_FEATURE_LEVEL_9_1, D3D_FEATURE_LEVEL_9_2, D3D_FEATURE_LEVEL_9_3,
+				D3D_FEATURE_LEVEL_10_0, D3D_FEATURE_LEVEL_10_1,
+				D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_11_1,
+			};
+
+			BOOST_ASSERT(COUNT_OF(levels) > uint32(level));
+			return levels[level];
+		}
+		inline FeatureLevel	DX11NameTranslator::FromeFeatureLevel(D3D_FEATURE_LEVEL level) const
+		{
+			switch (level)
+			{
+			case D3D_FEATURE_LEVEL_11_1: return FL_11_1;
+			case D3D_FEATURE_LEVEL_11_0: return FL_11_0;
+			case D3D_FEATURE_LEVEL_10_1: return FL_10_1;
+			case D3D_FEATURE_LEVEL_10_0: return FL_10_0;
+			case D3D_FEATURE_LEVEL_9_3:	 return FL_9_3;
+			case D3D_FEATURE_LEVEL_9_2:	 return FL_9_2;
+			case D3D_FEATURE_LEVEL_9_1:	 return FL_9_1;
+			default:	return FL_Unknown;
+			}
 		}
 	}
 

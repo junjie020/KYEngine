@@ -3,6 +3,17 @@
 
 namespace KY
 {
+	enum FeatureLevel
+	{
+		FL_Unknown = -1,
+		FL_9_1	= 0,
+		FL_9_2,
+		FL_9_3,
+		FL_10_0,
+		FL_10_1,
+		FL_11_0,
+		FL_11_1,
+	};
 	enum BufferType
 	{
 		BT_Vertex = 0,
@@ -236,15 +247,20 @@ namespace KY
 
 	struct GraphicInitParam
 	{
-		uint32 width, height;
-		uint32 featureLevel;
+		uint32 width, height;		
 		struct SampleDesc
 		{
 			uint32 count;
 			uint32 level;
 		};
 		SampleDesc sampleDesc;
+
+		//{@	only dx
+		FeatureLevel featureLevel;
 		HWND hwnd;
+		//@}
+
+		bool windowed;
 	};
 
 	struct BufferParam
