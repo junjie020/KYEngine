@@ -16,7 +16,7 @@ namespace KY
 	template<class StateType, class InternalType>
 	bool KY::StateObj<StateType, InternalType>::CreateObj(const State &s)
 	{
-		if (nullptr != mInternalObj)
+		if (nullptr == mInternalObj)
 			mInternalObj = new InternalType;
 
 		return mInternalObj->Create(s);		

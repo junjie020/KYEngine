@@ -136,8 +136,9 @@ private:
 		bool InitState()
 		{
 			KY::RasterizerState rsState;
+			rsState.cullMode = CM_None;
 			mRSObj = new KY::RasterizerStateObj;
-			if (mRSObj->CreateObj(rsState))
+			if (!mRSObj->CreateObj(rsState))
 			{
 				KY::DebugOutline("create rs state failed!");
 				delete mRSObj;
@@ -147,7 +148,7 @@ private:
 
 			KY::DepthStencilState dsState;
 			mDSObj = new KY::DepthStencilStateObj;		
-			if (mDSObj->CreateObj(dsState))
+			if (!mDSObj->CreateObj(dsState))
 			{
 				KY::DebugOutline("create depth stencil state failed!");
 				delete mDSObj;
@@ -158,7 +159,7 @@ private:
 
 			KY::BlendState blendState;
 			mBlendObj = new KY::BlendStateObj;
-			if (mBlendObj->CreateObj(blendState))
+			if (!mBlendObj->CreateObj(blendState))
 			{
 				KY::DebugOutline("create blend state failed!");
 				delete mBlendObj;
