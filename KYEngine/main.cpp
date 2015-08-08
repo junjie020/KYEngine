@@ -25,9 +25,10 @@
 #include "DebugUtils/TraceUtils.h"
 
 #include "Common/FileSystem.h"
-
+#include "Graphic/DX/Dx11.h"
 
 #include <d3d11.h>
+#include <D3Dcompiler.h>
 
 using namespace KY;
 class SimpleTriangleTest : public KY::SampleTest
@@ -41,7 +42,7 @@ public:
 	{		
 		auto scene = System::Inst()->GetScene();
 		BOOST_ASSERT(nullptr == mActor);
-		mActor = new TriangleActor;
+		mActor = new TriangleActor11;
 		scene->AddActor(mActor);
 
 		return true;
@@ -53,8 +54,8 @@ private:
 	public:
 		TriangleActor11() : Actor(nullptr)
 		{
-			mDevice = Graphic::Inst()->GetDx11()->GetDevice();
-			mContext = Graphic::Inst()->GetDx11()->GetDeviceContext();
+			mDevice = KY::Graphic::Inst()->GetDx11()->GetDevice();
+			mContext = KY::Graphic::Inst()->GetDx11()->GetDeviceContext();
 
 			InitBuffer();
 			InitShaderAndInputLayout();
@@ -62,19 +63,96 @@ private:
 
 		void InitBuffer()
 		{
+			Vec4f vv[] =
+			{
+				Vec4f(-1.0f, -1.0f, 0.0f, 1.0f),
+				Vec4f(0.0f, 1.0f, 0.0f, 1.0f),
+				Vec4f(1.0f, -1.0f, 0.0f, 1.0f),
+			};
 
-			D3D11_BUFFER_DESC desc;
-			desc
+			D3D11_BUFFER_DESC desc = { 0 };
+			desc.Usage = D3D11_USAGE_IMMUTABLE;
+			desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			desc.ByteWidth = sizeof(vv);
+			D3D11_SUBRESOURCE_DATA data = { vv, 0, 0 };
+			if (mDevice->CreateBuffer(&desc, &data, &mVertexBuffer))
+			{
+
+			}
 		}
 
 		void InitShaderAndInputLayout()
 		{
+			auto shdrPath = KY::FileSystem::Inst()->FindFromSubPath("shader");
+			
+			ID3DBlob *pVSCode = nullptr;
+			ID3DBlob *pError = nullptr;
 
+			
+			D3DCompileFromFile(L"Resource/Shader/ScreenQuad.vs", nullptr, nullptr, "main", "vs_5_0", D3DCOMPILE_DEBUG, 0, &pVSCode, &pError);
+
+			if (pError)
+			{
+				OutputDebugStringA((const char*)pError->GetBufferPointer());
+				return ;
+			}
+
+			if (FAILED(mDevice->CreateVertexShader(pVSCode->GetBufferPointer(), pVSCode->GetBufferSize(), nullptr, &mVertexShader)))
+			{
+				return;
+			}
+			
+			ID3DBlob *pPSCode = nullptr;
+			D3DCompileFromFile(L"Resource/Shader/ScreenQuad.ps", nullptr, nullptr, "main", "ps_5_0", D3DCOMPILE_DEBUG, 0, &pPSCode, &pError);
+
+			if (pError)
+			{
+				OutputDebugStringA((const char*)pError->GetBufferPointer());
+				return;
+			}
+
+			if (FAILED(mDevice->CreatePixelShader(pPSCode->GetBufferPointer(), pPSCode->GetBufferSize(), nullptr, &mPixelShader)))
+			{
+				return;
+			}
+
+			D3D11_INPUT_ELEMENT_DESC desc[] = 
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+
+			if (FAILED(mDevice->CreateInputLayout(desc, _countof(desc), pVSCode->GetBufferPointer(), pVSCode->GetBufferSize(), &mInputLayout)))
+			{
+				return;
+			}
 		}
 
 		void UpdateImpl()
 		{
+			auto mDx = Graphic::Inst()->GetDx11();
+			if (mDx->Prepare())
+			{
+				
+				mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+				UINT stride = sizeof(Vec4f);
+				UINT offset = 0;
+				mContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+
+				mContext->IASetInputLayout(mInputLayout);
+
+				mContext->VSSetShader(mVertexShader, nullptr, 0);
+
+
+				D3D11_VIEWPORT vp = { 0.0f, 0.0f, 800, 600, 0.0f, 1.0f };
+				mContext->RSSetViewports(1, &vp);
+
+				mContext->PSSetShader(mPixelShader, nullptr, 0);
+
+				mContext->Draw(3, 0);
+
+				mDx->Swap();
+			}
 		}
 
 	private:

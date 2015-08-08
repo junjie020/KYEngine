@@ -145,10 +145,13 @@ namespace KY
 
 		bool Dx11::Prepare()
 		{
-			mDeviceContext->OMSetRenderTargets(mRenderTargetViewArray.size(), &*mRenderTargetViewArray.begin(), mDepthStencilView);
+			
+			mDeviceContext->OMSetRenderTargets(1, &mRenderTargetViewArray[0], mDepthStencilView);
 
 			float colors[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			mDeviceContext->ClearRenderTargetView(mRenderTargetViewArray[0], colors);
+
+			mDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 			
 			return true;
 		}
