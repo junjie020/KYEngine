@@ -114,6 +114,13 @@ namespace KY
 			}
 			//@}
 
+			//{@	pixel stage
+			{
+				PSStage *ps = GetStage<PSStage>(true);
+				ps->SetShader(ro->GetShader(ShdrT_Pixel));
+			}
+			//@}
+
 			//{@	output merage
 			{
 				OMStage* om = GetStage<OMStage>(true);

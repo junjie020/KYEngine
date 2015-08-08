@@ -27,6 +27,8 @@
 #include "Common/FileSystem.h"
 
 
+#include <d3d11.h>
+
 using namespace KY;
 class SimpleTriangleTest : public KY::SampleTest
 {
@@ -46,6 +48,54 @@ public:
 	}
 
 private:
+	class TriangleActor11 : public KY::Actor
+	{
+	public:
+		TriangleActor11() : Actor(nullptr)
+		{
+			mDevice = Graphic::Inst()->GetDx11()->GetDevice();
+			mContext = Graphic::Inst()->GetDx11()->GetDeviceContext();
+
+			InitBuffer();
+			InitShaderAndInputLayout();
+		}
+
+		void InitBuffer()
+		{
+
+			D3D11_BUFFER_DESC desc;
+			desc
+		}
+
+		void InitShaderAndInputLayout()
+		{
+
+		}
+
+		void UpdateImpl()
+		{
+
+		}
+
+	private:
+		//{@
+		ID3D11Device *mDevice;
+		ID3D11DeviceContext *mContext;
+		//@}
+
+		//{@
+		ID3D11VertexShader *mVertexShader;
+		ID3D11PixelShader *mPixelShader;
+
+		ID3D11Buffer		*mVertexBuffer;
+		ID3D11InputLayout	*mInputLayout;
+		//@}
+
+
+
+
+	};
+
 	class TriangleActor : public KY::Actor
 	{
 	public:
@@ -70,6 +120,10 @@ private:
 				{ Vec4f(-0.5f, 0.0f, 0.0f, 1.0f), Color32B::Red },
 				{ Vec4f(0.0f, 0.5f, 0.0f, 1.0f), Color32B::Green },
 				{ Vec4f(5.0f, 0.0f, 0.0f, 1.0f), Color32B::Blue },
+				//{ Vec4f(5, 8.0f, 0.0f, 1.0f), Color32B::Red },
+				//{ Vec4f(1, 0.5f, 0.0f, 1.0f), Color32B::Green },
+				//{ Vec4f(1, 0.0f, 0.0f, 1.0f), Color32B::Blue },
+
 			};
 
 			BufferParam param;
