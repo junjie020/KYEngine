@@ -65,14 +65,14 @@ namespace KY
 
 	bool Graphic::Render()
 	{
-		return true;
-		//if (mDx->Prepare())
-		//{
-		//	mDx->Swap();
-		//	CommitRenderData();			
-		//}
+//		return true;
+		if (mDx->Prepare())
+		{
+			mDx->Swap();
+			CommitRenderData();			
+		}
 
-		//return true;
+		return true;
 	}
 
 	void Graphic::CommitRenderData()

@@ -42,7 +42,7 @@ public:
 	{		
 		auto scene = System::Inst()->GetScene();
 		BOOST_ASSERT(nullptr == mActor);
-		mActor = new TriangleActor11;
+		mActor = new TriangleActor;
 		scene->AddActor(mActor);
 
 		return true;
@@ -279,6 +279,7 @@ private:
 			mRO.SetRasterizerStateObj(mRSObj);
 
 			KY::DepthStencilState dsState;
+			dsState.depthEnable = false;
 			mDSObj = new KY::DepthStencilStateObj;		
 			if (!mDSObj->CreateObj(dsState))
 			{

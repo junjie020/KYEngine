@@ -191,7 +191,7 @@ namespace KY
 				it11->Format = DX11NameTranslator::Inst()->ToDXGI_FORMAT(it->format);
 				it11->InputSlot = it->inputSlot;
 				it11->AlignedByteOffset = it->alignedByteOffset;
-				it11->InputSlotClass = it->instanceData ? D3D11_INPUT_PER_VERTEX_DATA : D3D11_INPUT_PER_INSTANCE_DATA;
+				it11->InputSlotClass = it->instanceData ? D3D11_INPUT_PER_INSTANCE_DATA : D3D11_INPUT_PER_VERTEX_DATA;
 				it11->InstanceDataStepRate = it->instanceDataStepRate;
 			}
 

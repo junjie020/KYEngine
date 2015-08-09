@@ -35,8 +35,10 @@ namespace KY
 			typedef std::vector<ID3D11RenderTargetView*>	RenderTargetViewArray;
 			RenderTargetViewArray	mRenderTargetViewArray;
 			ID3D11DepthStencilView	* mDepthStencilView;
-			
+#ifdef _DEBUG
 			ID3D11Debug			*mDebug;
+#endif // _DEBUG
+			
 			ID3D11Device		*mDevice;
 			ID3D11DeviceContext *mDeviceContext;
 

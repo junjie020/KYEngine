@@ -15,7 +15,9 @@ namespace KY
 		Dx11::Dx11()
 			: mDevice(nullptr)
 			, mDeviceContext(nullptr)
+#ifdef _DEBUG
 			, mDebug(nullptr)
+#endif // _DEBUG			
 			, mSwapChain(nullptr)
 			, mDepthStencilView(nullptr)
 			, mFeatureLevel(FL_Unknown)
@@ -80,8 +82,10 @@ namespace KY
 			if (FAILED(::CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void **>(&dxgi))))
 				return false;
 
+#ifdef _DEBUG
 			if (FAILED(mDevice->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void **>(&mDebug))))
 				return false;
+#endif //_DEBUG
 			
 			DXGI_SWAP_CHAIN_DESC swapDesc = { 0 };
 			

@@ -28,12 +28,10 @@ namespace KY
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_WRITE;
 
 			desc.ByteWidth = param.sizeInBytes;
-			desc.StructureByteStride = param.elemInBytes;
+			desc.StructureByteStride = 0;// param.elemInBytes;
 
-			D3D11_SUBRESOURCE_DATA data;
-			data.pSysMem = resData.pData;
-			data.SysMemPitch = resData.pitch;
-			data.SysMemSlicePitch = resData.slicePitch;
+			D3D11_SUBRESOURCE_DATA data = { resData.pData, resData.pitch, resData.slicePitch };
+			
 			if (FAILED(device->CreateBuffer(&desc, &data, &mBuffer)))
 			{
 				DebugOutline("info vertex buffer failed");
