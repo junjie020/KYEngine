@@ -38,7 +38,7 @@ namespace KY
 	class BlendStateObj : public StateObj<BlendState, DX::Dx11BlendStateObj>
 	{
 	public:
-		BlendStateObj() : mBlendFactor(0.0f, 0.0f, 0.0f, 0.0f), mSampleMask(0){}
+		BlendStateObj() : mBlendFactor(0.0f, 0.0f, 0.0f, 0.0f), mSampleMask(0xFFFFFFFF){}
 
 	public:
 		//{@ modify in runtime

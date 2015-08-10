@@ -157,8 +157,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		context->OMSetBlendState(obj->GetInternal()->GetInternal(),
-			reinterpret_cast<const float*>(&obj->GetBlendFactor()),
-			obj->GetSampleMask());
+								obj->GetBlendFactor().m,
+								obj->GetSampleMask());
 	}
 
 }

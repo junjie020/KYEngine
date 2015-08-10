@@ -65,12 +65,9 @@ namespace KY
 
 	bool Graphic::Render()
 	{
-//		return true;
+		mDx->Swap();
 		if (mDx->Prepare())
-		{
-			mDx->Swap();
-			CommitRenderData();			
-		}
+			CommitRenderData();
 
 		return true;
 	}
