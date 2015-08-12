@@ -94,6 +94,21 @@
     <ClCompile Include="Graphic\Resource\Buffer.cpp">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Frustum.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Plane.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtils.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -210,6 +225,18 @@
     <ClInclude Include="Graphic\Resource\Buffer.h">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Math\Quaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Frustum.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Plane.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtils.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -300,6 +327,9 @@
     </None>
     <None Include="Graphic\Resource\StateObject.inl">
       <Filter>Graphic\Resource\State</Filter>
+    </None>
+    <None Include="Math\Matrix.inl">
+      <Filter>Math</Filter>
     </None>
   </ItemGroup>
 </Project>

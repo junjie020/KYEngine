@@ -21,6 +21,8 @@
 #include "Math/Vector4.h"
 #include "Math/Color.h"
 #include "Math/Color.inl"
+#include "Math/Matrix.h"
+#include "Math/MathUtils.h"
 
 #include "DebugUtils/TraceUtils.h"
 
@@ -40,6 +42,27 @@ public:
 		BOOST_ASSERT(nullptr == mActor);
 		mActor = new TriangleActor;
 		scene->AddActor(mActor);
+
+		//Vec4f v(100.f, 0.f, 900.f, 1.0f);
+
+
+		//Mat4x4F matView = ConstructViewMatrix(Vec4f(0.0f, 0.0f, -100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
+		//Mat4x4F matProj = ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), 1.0f, 1.0f, 1000.f);
+
+		//Mat4x4F matViewProj = matView * matProj;
+
+		//Vec4f vView = v * matView;
+		//Vec4f vViewProj0 = vView * matProj;
+
+		//Vec4f vViewProj1 = v * matViewProj;
+
+		//vViewProj1 /= vViewProj1.w;
+
+
+
+		//Mat4x4F mm1 = ConstructOrthoMatrix(100.f, 100.f, 1.f, 1000.f);
+
+
 
 		return true;
 	}
