@@ -28,7 +28,7 @@ namespace KY
 		}
 
 		VecType Cross(const VecType &rhs) const {
-			return VecType(y * rhs.z - z * rhs.y, x * rhs.z - z * rhs.x, x * rhs.y - y * rhs.x, w);
+			return VecType(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x, w);
 		}
 
 		Type SquareLength() const {
@@ -88,9 +88,32 @@ namespace KY
 			return *this;
 		}
 
-
+		static Vector4<Type>	ZERO;
+		static Vector4<Type>	XAXIS;
+		static Vector4<Type>	YAXIS;
+		static Vector4<Type>	ZAXIS;
+		static Vector4<Type>	WAXIS;
     };
 
+	//////////////////////////////////////////////////////////////////////////
+	template<typename Type>
+	Vector4<Type> Vector4<Type>::ZERO(0.0f, 0.0f, 0.0f, 0.0f);
+
+	template<typename Type>
+	Vector4<Type>	Vector4<Type>::XAXIS(1.0f, 0.0f, 0.0f, 0.0f);
+
+	template<typename Type>
+	Vector4<Type>	Vector4<Type>::YAXIS(0.0f, 1.0f, 0.0f, 0.0f);
+
+	template<typename Type>
+	Vector4<Type>	Vector4<Type>::ZAXIS(0.0f, 0.0f, 1.0f, 0.0f);
+
+	template<typename Type>
+	Vector4<Type>	Vector4<Type>::WAXIS(0.0f, 0.0f, 0.0f, 1.0f);
+
+	//////////////////////////////////////////////////////////////////////////
+
 	typedef Vector4<float>	Vec4f;
+	
 }
 #endif // _VECTOR4_H_

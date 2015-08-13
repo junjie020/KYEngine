@@ -7,6 +7,8 @@
 #include "Common/CommonUtils.h"
 #include "Graphic/RenderCommandQueue.h"
 #include "Graphic/RenderOperation.h"
+#include "Graphic/Resource/Shader.h"
+
 namespace KY
 {
 	Graphic::Graphic()
@@ -95,7 +97,17 @@ namespace KY
 			//{@	vertex
 			{
 				VSStage* vs = GetStage<VSStage>(true);
-				vs->SetShader(ro->GetShader(ShdrT_Vertex));
+				auto vsShader = ro->GetShader(ShdrT_Vertex);
+				vs->SetShader(vsShader);
+
+				const auto& buffers = vsShader->GetConstBuffers();
+
+				std::for_each(std::begin(buffers), std::end(buffers),
+					[vs](const BufferPair &p){
+					BufferInfo info = { p.first, 0, 0 };
+					BOOST_ASSERT(p.second);
+					vs->SetConstBuffer(*(p.second), info);
+				});
 			}
 			//@}
 
@@ -115,7 +127,18 @@ namespace KY
 			//{@	pixel stage
 			{
 				PSStage *ps = GetStage<PSStage>(true);
-				ps->SetShader(ro->GetShader(ShdrT_Pixel));
+				auto psShader = ro->GetShader(ShdrT_Pixel);
+
+				ps->SetShader(psShader);
+				
+				const auto& buffers = psShader->GetConstBuffers();
+
+				std::for_each(std::begin(buffers), std::end(buffers),
+					[ps](const BufferPair &p){
+					BufferInfo info = { p.first, 0, 0 };
+					BOOST_ASSERT(p.second);
+					ps->SetConstBuffer(*(p.second), info);
+				});
 			}
 			//@}
 

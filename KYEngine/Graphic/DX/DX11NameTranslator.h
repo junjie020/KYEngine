@@ -15,7 +15,7 @@ namespace KY
 		public:
 			inline D3D11_USAGE ToUsage(ResourceUsage usage) const;
 			inline DXGI_FORMAT ToDXGI_FORMAT(TexFormat ft) const;
-			inline D3D11_BIND_FLAG ToBingFlag(BufferType type) const;
+			inline D3D11_BIND_FLAG ToBingFlag(ResourceType type) const;
 			
 			inline D3D11_FILL_MODE ToFillMode(FillMode fm) const;
 			inline D3D11_CULL_MODE ToCullMode(CullMode cm) const;
@@ -30,6 +30,8 @@ namespace KY
 
 			inline D3D_FEATURE_LEVEL ToFeatureLevel(FeatureLevel level) const;
 			inline FeatureLevel	FromeFeatureLevel(D3D_FEATURE_LEVEL level) const;
+
+			inline D3D11_MAP TopMap(ResourceMapType type) const;
 
 			D3D11_PRIMITIVE_TOPOLOGY ToPrimitiveTopology(PrimitiveType type) const;
 		};
@@ -48,16 +50,19 @@ namespace KY
 			return DXGI_FORMAT(tf);
 		}
 
-		inline D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(BufferType type) const
+		inline D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(ResourceType type) const
 		{
-			D3D11_BIND_FLAG flags[] = { D3D11_BIND_VERTEX_BUFFER, D3D11_BIND_INDEX_BUFFER, D3D11_BIND_CONSTANT_BUFFER, };
+			const D3D11_BIND_FLAG flags[] = 
+			{ 
+				D3D11_BIND_VERTEX_BUFFER, D3D11_BIND_INDEX_BUFFER, D3D11_BIND_CONSTANT_BUFFER, 
+			};
 			BOOST_ASSERT(COUNT_OF(flags) > uint32(type));
 			return flags[type];
 		}
 
 		inline D3D11_FILL_MODE DX11NameTranslator::ToFillMode(FillMode fm) const
 		{
-			D3D11_FILL_MODE modes[] = { D3D11_FILL_WIREFRAME, D3D11_FILL_SOLID, };
+			const D3D11_FILL_MODE modes[] = { D3D11_FILL_WIREFRAME, D3D11_FILL_SOLID, };
 
 			BOOST_ASSERT(COUNT_OF(modes) > uint32(fm));
 
@@ -66,7 +71,7 @@ namespace KY
 
 		inline D3D11_CULL_MODE DX11NameTranslator::ToCullMode(CullMode cm) const
 		{
-			D3D11_CULL_MODE modes[] = { D3D11_CULL_NONE, D3D11_CULL_FRONT, D3D11_CULL_BACK };
+			const D3D11_CULL_MODE modes[] = { D3D11_CULL_NONE, D3D11_CULL_FRONT, D3D11_CULL_BACK };
 			BOOST_ASSERT(COUNT_OF(modes) > uint32(cm));
 
 			return modes[cm];
@@ -94,7 +99,7 @@ namespace KY
 
 		inline D3D11_STENCIL_OP DX11NameTranslator::ToStencialOp(StencilOperation op) const
 		{
-			D3D11_STENCIL_OP ops[] =
+			const D3D11_STENCIL_OP ops[] =
 			{
 				D3D11_STENCIL_OP_KEEP,
 				D3D11_STENCIL_OP_ZERO,
@@ -140,7 +145,7 @@ namespace KY
 
 		inline D3D11_BLEND_OP DX11NameTranslator::ToBlendOperation(BlendOperation op) const
 		{
-			D3D11_BLEND_OP ops[] =
+			const D3D11_BLEND_OP ops[] =
 			{
 				D3D11_BLEND_OP_ADD,
 				D3D11_BLEND_OP_SUBTRACT,
@@ -201,6 +206,19 @@ namespace KY
 			case D3D_FEATURE_LEVEL_9_1:	 return FL_9_1;
 			default:	return FL_Unknown;
 			}
+		}
+
+		inline D3D11_MAP DX11NameTranslator::TopMap(ResourceMapType type) const
+		{
+			D3D11_MAP maps[] = {
+				D3D11_MAP_READ,
+				D3D11_MAP_WRITE,
+				D3D11_MAP_READ_WRITE,
+				D3D11_MAP_WRITE_DISCARD,
+				D3D11_MAP_WRITE_NO_OVERWRITE, };
+			BOOST_ASSERT(COUNT_OF(maps) > uint32(type));
+
+			return maps[type];
 		}
 	}
 

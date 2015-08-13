@@ -76,6 +76,11 @@ namespace KY
 
 		}
 
+
+		//Matrix operator*=(const Matrix &rhs){
+		//	m
+		//}
+
 	public:
 		static Matrix INDENTIFY;
 		static Matrix ZERO;
@@ -86,7 +91,20 @@ namespace KY
 	template<typename Type>
 	inline 	Vector4<Type> operator*(const Matrix<Type>& mat, const Vector4<Type>& v) {
 		// not effective
-		return Vector4<Type>(mat.Col(0).Dot(v), mat.Col(1).Dot(v), mat.Col(2).Dot(v), mat.Col(3).Dot(v));
+		const auto col0 = mat.Col(0);
+		const auto col1 = mat.Col(1);
+		const auto col2 = mat.Col(2);
+		const auto col3 = mat.Col(3);
+
+		return Vector4<Type>(col0.Dot(v), col1.Dot(v), col2.Dot(v), col3.Dot(v));
+		//const float *f = mat.m;
+		//Vector4<Type> vPost;
+		//vPost.x = v.x*f[0] + v.y*f[4] + v.z*f[8] + v.w*f[12];
+		//vPost.y = v.x*f[1] + v.y*f[5] + v.z*f[9] + v.w*f[13];
+		//vPost.z = v.x*f[2] + v.y*f[6] + v.z*f[10] + v.w*f[14];
+		//vPost.w = v.x*f[3] + v.y*f[7] + v.z*f[11] + v.w*f[15];
+
+		//return vPost;
 	}
 
 	template<typename Type>
@@ -131,7 +149,27 @@ namespace KY
 		const Type height = Type(std::tan(fov / 2));
 		const Type width = aspect * height;
 
-		return ConstructPrespectiveMatrix(-width, width, -height, height, n, f);
+		/*
+		xScale     0          0               0
+		0        yScale       0               0
+		0          0       zf/(zf-zn)         1
+		0          0       -zn*zf/(zf-zn)     0
+		where:
+		yScale = cot(fovY/2)
+
+		xScale = yScale / aspect ratio
+		*/
+
+		Matrix<Type> m = Matrix<Type>::ZERO;
+		m.m00 = 1 / width;		
+
+		m.m11 = 1 / height;
+	
+		m.m22 = f / (f - n);
+		m.m23 = 1;
+		m.m32 = n * f / (n - f);
+
+		return m;
 	}
 
 	template<typename Type>

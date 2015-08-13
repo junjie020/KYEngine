@@ -2,7 +2,7 @@
 #define _VERTEXBUFFER_H_
 
 #include "Resource.h"
-#include "Graphic/DX/Buffer/DX11Buffer.h"
+#include "Graphic/Resource/Buffer.h"
 #include "Graphic/GraphicDef.h"
 
 namespace KY
@@ -13,17 +13,11 @@ namespace KY
 	}
 
 
-    class VertexBuffer : public Resource
+    class VertexBuffer : public Buffer
     {
     public:    	
-		VertexBuffer();
-		~VertexBuffer();
-
-		bool Create(const BufferParam &param, const ResourceData &resData);
-
-		const DX::DX11Buffer* GetInternal() const { return mBuffer; }
-    protected:
-		DX::DX11Buffer	*mBuffer;
+		VertexBuffer() : Buffer(ResT_Vertex){}
+		~VertexBuffer(){}
     };
 }
 #endif // _VERTEXBUFFER_H_

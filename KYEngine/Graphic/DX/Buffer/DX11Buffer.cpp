@@ -27,8 +27,7 @@ namespace KY
 			if (QueryBit(BA_Write, param.access))
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_WRITE;
 
-			desc.ByteWidth = param.sizeInBytes;
-			desc.StructureByteStride = 0;// param.elemInBytes;
+			desc.ByteWidth = param.sizeInBytes;			
 
 			D3D11_SUBRESOURCE_DATA data = { resData.pData, resData.pitch, resData.slicePitch };
 			
@@ -42,5 +41,33 @@ namespace KY
 		{
 			SafeRelease(mBuffer);
 		}
+
+		bool DX11Buffer::Map(ResourceMapParam &param)
+		{
+			auto context = Graphic::Inst()->GetDx11()->GetDeviceContext();
+
+			
+			D3D11_MAPPED_SUBRESOURCE subres = { 0 };
+
+			static_assert(sizeof(subres) == sizeof(param.mapData), "incompaitable size for D3D11_MAPPED_SUBRESOURCE with ResourceMapParam::MapData");
+			auto result = context->Map(mBuffer, param.subRes,
+									DX11NameTranslator::Inst()->TopMap(param.mapType), 
+									param.waitWhenGpuBusy ? D3D11_MAP_FLAG_DO_NOT_WAIT : 0, &subres);
+			if (SUCCEEDED(result))
+			{
+				param.mapData = *(reinterpret_cast<ResourceMapParam::MapData*>(&subres));				
+				return true;
+			}
+
+			// print_dx_error()
+			return false;
+		}
+
+		void DX11Buffer::UnMap(uint32 subRes)
+		{
+			auto context = Graphic::Inst()->GetDx11()->GetDeviceContext();
+			context->Unmap(mBuffer, subRes);
+		}
+
 	}
 }

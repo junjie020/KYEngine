@@ -11,12 +11,8 @@ namespace KY
     	Texture();
     	~Texture();
 
-    	
+	private:
 
-    protected:
-    	
-
-    private:
 
     };
 }

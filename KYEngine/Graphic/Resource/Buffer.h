@@ -2,6 +2,7 @@
 #define _BUFFER_H_
 
 #include "Graphic/Resource/Resource.h"
+#include "Graphic/DX/Buffer/DX11Buffer.h"
 
 namespace KY
 {
@@ -12,9 +13,13 @@ namespace KY
 	class Buffer : public Resource
 	{
 	public:
-		Buffer();
+		Buffer(ResourceType type);
 		~Buffer();
 
+		bool Map(ResourceMapParam &param);
+		void UnMap(uint32 subRes);
+
+		bool Create(const BufferParam &param, const ResourceData &resData);
 		const DX::DX11Buffer* GetInternal() const{ return mBuffer; }
 
 	private:

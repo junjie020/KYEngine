@@ -1,8 +1,7 @@
 #ifndef _INDEXBUFFER_H_
 #define _INDEXBUFFER_H_
 
-#include "Resource.h"
-
+#include "Graphic/Resource/Buffer.h"
 namespace KY
 {
 	namespace DX
@@ -10,19 +9,11 @@ namespace KY
 		class DX11Buffer;
 	}
 
-    class IndexBuffer : public Resource
+    class IndexBuffer : public Buffer
     {
     public:
-    	IndexBuffer();
-    	~IndexBuffer();
-
-		const DX::DX11Buffer* GetInternal() const { return mBuffer; }
-
-    protected:
-    	
-
-    private:
-		DX::DX11Buffer	*mBuffer;
+		IndexBuffer() : Buffer(ResT_Index){}
+		~IndexBuffer(){}
     };
 }
 #endif // _INDEXBUFFER_H_

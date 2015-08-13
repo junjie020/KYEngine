@@ -14,17 +14,31 @@ namespace KY
 		FL_11_0,
 		FL_11_1,
 	};
-	enum BufferType
+	enum ResourceType
 	{
-		BT_Vertex = 0,
-		BT_Index,
-		BT_Const,
+		ResT_Vertex = 0,
+		ResT_Index,
+		ResT_Const,
+
+		ResT_Shader,
+
+		ResT_Texture,		
 	};
-	enum BufferCPUAccess
+	enum ResourceCPUAccess
 	{
 		BA_None = 0,
 		BA_Read = 0x01,
 		BA_Write = 0x02,
+	};
+
+	enum ResourceMapType
+	{
+		ResMT_Read = 0,
+		ResMT_Write,
+		ResMT_ReadWrite,
+
+		ResMT_WriteDiscard,
+		ResMT_WriteNoOverwrite,
 	};
 
 	enum ResourceUsage
@@ -265,12 +279,27 @@ namespace KY
 
 	struct BufferParam
 	{
-		BufferType type;
-		BufferCPUAccess access;
+		ResourceType type;
+		ResourceCPUAccess access;
 		ResourceUsage usage;
 
-		size_t sizeInBytes;
-		size_t elemInBytes;
+		uint32 sizeInBytes;
+		uint32 byteStrideForStructureBuffer;
+	};
+
+	struct ResourceMapParam
+	{
+		uint32			subRes;
+		ResourceMapType mapType;
+		struct MapData{
+			uint8* data;
+			uint32 rowPitch;
+			uint32 depthPitch;
+		};
+		MapData			mapData;
+
+		bool			waitWhenGpuBusy;
+
 	};
 
 	struct BufferInfo{

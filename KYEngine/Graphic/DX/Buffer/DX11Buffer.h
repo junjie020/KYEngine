@@ -13,7 +13,10 @@ namespace KY
 			DX11Buffer(const BufferParam &param, const ResourceData &resData);
 			virtual ~DX11Buffer();
 
-			BufferType GetType() const { return mParam.type; }
+			bool Map(ResourceMapParam &param);
+			void UnMap(uint32 subRes);
+
+			ResourceType GetType() const { return mParam.type; }
 			ResourceUsage GetUsage()const { return mParam.usage; }
 
 			ID3D11Buffer* GetInternal() const { return mBuffer; }

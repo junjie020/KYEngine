@@ -198,6 +198,7 @@ private:
 	public:
 		TriangleActor() 
 			: Actor(nullptr)
+			, mDynConstBuffer(ResT_Const)
 		{
 			InitBufferData();
 			InitShadersAndInputLayout();
@@ -205,6 +206,12 @@ private:
 		}
 
 		~TriangleActor(){}
+
+		struct MatrixConstBuffer{
+			Mat4x4F matWorld;
+			Mat4x4F matView;
+			Mat4x4F matProj;
+		};
 
 		void InitBufferData()
 		{
@@ -214,9 +221,14 @@ private:
 			};
 
 			VertexColor vc[] = {
-				Vec4f(-1.0f, -1.0f, 0.0f, 1.0f),
-				Vec4f(0.0f, 1.0f, 0.0f, 1.0f),
-				Vec4f(1.0f, -1.0f, 0.0f, 1.0f),
+				Vec4f(-1.0f, -1.0f, 100, 1.0f),				
+				Vec4f(0.0f, 1.0f, 100, 1.0f),
+				Vec4f(1.0f, -1.0f, 100, 1.0f),
+				
+
+				//Vec4f(-1.0f, -1.0f, 0.0f, 1.0f),
+				//Vec4f(0.0f, 1.0f, 0.0f, 1.0f),
+				//Vec4f(1.0f, -1.0f, 0.0f, 1.0f),
 				//{ Vec4f(-0.5f, 0.0f, 0.0f, 1.0f), Color32B::Red },
 				//{ Vec4f(0.0f, 0.5f, 0.0f, 1.0f), Color32B::Green },
 				//{ Vec4f(5.0f, 0.0f, 0.0f, 1.0f), Color32B::Blue },
@@ -227,10 +239,9 @@ private:
 			};
 
 			BufferParam param;
-			param.type = BT_Vertex;
+			param.type = ResT_Vertex;
 			param.access = BA_None;
-			param.usage = RU_Immutable;
-			param.elemInBytes = sizeof(VertexColor);
+			param.usage = RU_Immutable;			
 			param.sizeInBytes = sizeof(vc);
 
 			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
@@ -284,6 +295,26 @@ private:
 
 			mRO.SetInputLayout(&mInputLayout);
 
+
+			//////////////////////////////////////////////////////////////////////////
+			BufferParam constParam;
+			constParam.type = ResT_Const;
+			constParam.access = BA_Write;
+			constParam.usage = RU_Dynamic;
+			constParam.sizeInBytes = sizeof(MatrixConstBuffer);
+
+			mMatBuffer.matWorld = Mat4x4F::INDENTIFY;
+			mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+			const Size2U dim = Graphic::Inst()->GetBackBufferSize();
+			mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
+
+			ResourceData constData = { reinterpret_cast<const uint8*>(&mMatBuffer), 0, 0 };
+			if (mDynConstBuffer.Create(constParam, constData))
+			{
+				mVertexShader.AddConstBuffer(0, &mDynConstBuffer);
+			}
+
 			return true;
 		}
 
@@ -291,6 +322,7 @@ private:
 		{
 			KY::RasterizerState rsState;
 			rsState.cullMode = CM_None;
+			rsState.depthClipEnable = false;
 			mRSObj = new KY::RasterizerStateObj;
 			if (!mRSObj->CreateObj(rsState))
 			{
@@ -301,7 +333,7 @@ private:
 			mRO.SetRasterizerStateObj(mRSObj);
 
 			KY::DepthStencilState dsState;
-			dsState.depthEnable = false;
+			dsState.depthEnable = false;			
 			mDSObj = new KY::DepthStencilStateObj;		
 			if (!mDSObj->CreateObj(dsState))
 			{
@@ -333,11 +365,47 @@ private:
 
 		virtual void UpdateImpl()
 		{
+			//{@
+			{
+				Vec4f vc[] = {
+					Vec4f(-10.0f, -10.0f, 0, 1.0f),
+					Vec4f(0.0f, 10.0f, 0, 1.0f),
+					Vec4f(10.0f, -10.0f, 0, 1.0f), };
+				std::for_each(std::begin(vc), std::end(vc), [&](const Vec4f &vc)
+				{
+					auto v = vc * mMatBuffer.matWorld;
+					auto v1 = v * mMatBuffer.matView;
+					auto v2 = v1 * mMatBuffer.matProj;
+
+					v2 /= v2.w;
+					
+				});
+
+				ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+				if (mDynConstBuffer.Map(param))
+				{
+					BOOST_ASSERT(param.mapData.data);
+					BOOST_ASSERT(param.mapData.rowPitch != 0);
+					BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
+					memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
+					mDynConstBuffer.UnMap(param.subRes);
+				}
+				else
+				{
+					KY::DebugOutline("map const buffer failed!");
+				}
+			}			
+			//@}
 			KY::Graphic::Inst()->AddRenderOperation(&mRO);			
 		}
 	private:
 		KY::RenderOperation mRO;
+		//{@
 		KY::VertexBuffer	mBuffer;
+		MatrixConstBuffer	mMatBuffer;
+		KY::Buffer			mDynConstBuffer;
+		//@}
+		
 		KY::InputLayout		mInputLayout;
 		KY::Shader			mVertexShader;
 		KY::Shader			mPixelShader;

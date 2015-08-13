@@ -7,7 +7,8 @@
 namespace KY
 {
 	Shader::Shader()	
-		: mShaderImpl(nullptr)
+		: Resource(ResT_Shader)
+		, mShaderImpl(nullptr)
 	{
 
 	}
@@ -47,7 +48,7 @@ namespace KY
 		return mShaderImpl != nullptr;
 	}
 
-	KY::ShaderType Shader::GetType() const
+	KY::ShaderType Shader::GetShaderType() const
 	{
 		return mShaderImpl->GetType();
 	}
