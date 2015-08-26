@@ -20,10 +20,10 @@ cbuffer MatBuffer : register(b0)
 
 Output main(Input i)
 {
-	Output o;	
-	o.position = mul(i.position, matWorld);
-	o.position = mul(o.position, matView);
-	o.position = mul(o.position, matProj);
+	Output o;
+	o.position = mul(matWorld, i.position);
+	o.position = mul(matView, o.position);
+	o.position = mul(matProj, o.position);
 
 	return o;
 }

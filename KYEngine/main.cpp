@@ -221,21 +221,9 @@ private:
 			};
 
 			VertexColor vc[] = {
-				Vec4f(-1.0f, -1.0f, 100, 1.0f),				
-				Vec4f(0.0f, 1.0f, 100, 1.0f),
-				Vec4f(1.0f, -1.0f, 100, 1.0f),
-				
-
-				//Vec4f(-1.0f, -1.0f, 0.0f, 1.0f),
-				//Vec4f(0.0f, 1.0f, 0.0f, 1.0f),
-				//Vec4f(1.0f, -1.0f, 0.0f, 1.0f),
-				//{ Vec4f(-0.5f, 0.0f, 0.0f, 1.0f), Color32B::Red },
-				//{ Vec4f(0.0f, 0.5f, 0.0f, 1.0f), Color32B::Green },
-				//{ Vec4f(5.0f, 0.0f, 0.0f, 1.0f), Color32B::Blue },
-				//{ Vec4f(5, 8.0f, 0.0f, 1.0f), Color32B::Red },
-				//{ Vec4f(1, 0.5f, 0.0f, 1.0f), Color32B::Green },
-				//{ Vec4f(1, 0.0f, 0.0f, 1.0f), Color32B::Blue },
-
+				Vec4f(-1.0f, -1.0f, 50, 1.0f),				
+				Vec4f(0.0f, 1.0f, 50, 1.0f),
+				Vec4f(1.0f, -1.0f, 50, 1.0f),
 			};
 
 			BufferParam param;
@@ -367,20 +355,6 @@ private:
 		{
 			//{@
 			{
-				Vec4f vc[] = {
-					Vec4f(-10.0f, -10.0f, 0, 1.0f),
-					Vec4f(0.0f, 10.0f, 0, 1.0f),
-					Vec4f(10.0f, -10.0f, 0, 1.0f), };
-				std::for_each(std::begin(vc), std::end(vc), [&](const Vec4f &vc)
-				{
-					auto v = vc * mMatBuffer.matWorld;
-					auto v1 = v * mMatBuffer.matView;
-					auto v2 = v1 * mMatBuffer.matProj;
-
-					v2 /= v2.w;
-					
-				});
-
 				ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
 				if (mDynConstBuffer.Map(param))
 				{
