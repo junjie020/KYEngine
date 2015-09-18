@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>./;$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(BOOST_DIR);$(ASSIMP_DIR)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -75,7 +75,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(BOOST_DIR);$(ASSIMP_DIR)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -118,6 +118,9 @@
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Scene\Actor.cpp" />
+    <ClCompile Include="Scene\Model\Assimp\AssimpMeshImporter.cpp" />
+    <ClCompile Include="Scene\Model\Mesh.cpp" />
+    <ClCompile Include="Scene\Model\MeshImporter.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -165,6 +168,9 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Platform\Win32DefHeader.h" />
     <ClInclude Include="Scene\Actor.h" />
+    <ClInclude Include="Scene\Model\Assimp\AssimpMeshImporter.h" />
+    <ClInclude Include="Scene\Model\Mesh.h" />
+    <ClInclude Include="Scene\Model\MeshImporter.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\SampleTest.h" />

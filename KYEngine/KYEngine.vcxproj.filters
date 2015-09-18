@@ -109,6 +109,15 @@
     <ClCompile Include="Math\MathUtils.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Model\Mesh.cpp">
+      <Filter>Scene\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Model\MeshImporter.cpp">
+      <Filter>Scene\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Model\Assimp\AssimpMeshImporter.cpp">
+      <Filter>Scene\Model\Assimp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -237,6 +246,15 @@
     <ClInclude Include="Math\MathUtils.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Model\Mesh.h">
+      <Filter>Scene\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Model\MeshImporter.h">
+      <Filter>Scene\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Model\Assimp\AssimpMeshImporter.h">
+      <Filter>Scene\Model\Assimp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -310,6 +328,12 @@
     </Filter>
     <Filter Include="Graphic\HI\DX11\Resource\State">
       <UniqueIdentifier>{2812dd5f-674a-4d41-9348-9ef0eaa77985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Model">
+      <UniqueIdentifier>{8ded5805-cbe1-4f34-847d-bbefe974a54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Model\Assimp">
+      <UniqueIdentifier>{f7ecb0ea-b0c4-4de6-afdc-61bb5be7f0b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
