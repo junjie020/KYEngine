@@ -217,13 +217,13 @@ private:
 		{
 			struct VertexColor{
 				Vec4f		v;
-				//Color32B	c;
+				Color32B	c;
 			};
 
 			VertexColor vc[] = {
-				Vec4f(-1.0f, -1.0f, 50, 1.0f),				
-				Vec4f(0.0f, 1.0f, 50, 1.0f),
-				Vec4f(1.0f, -1.0f, 50, 1.0f),
+				Vec4f(-1.0f,	-1.0f, 50, 1.0f),	Color32B::Red,
+				Vec4f(0.0f,		1.0f,	50, 1.0f),	Color32B::Blue,
+				Vec4f(1.0f,		-1.0f,	50, 1.0f),	Color32B::Green,
 			};
 
 			BufferParam param;
@@ -267,7 +267,7 @@ private:
 			InputElemDesc desc[] = 
 			{
 				{ "POSITION",	0, TF_R32G32B32A32_FLOAT,	0, 0,					0, false },
-				//{ "COLOR",		0, TF_R8G8B8A8_UNORM,		0, sizeof(float) * 4,	0, false },
+				{ "COLOR",		0, TF_R8G8B8A8_UNORM,		0, sizeof(float) * 4,	0, false },
 			};
 
 			for (auto beg = std::begin(desc); beg != std::end(desc); ++beg)

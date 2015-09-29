@@ -2,17 +2,16 @@
 #define _ASSIMPMESHIMPORTER_H_
 
 #include "Scene/Model/MeshImporter.h"
-#include "assimp/Importer.hpp"
 
 namespace KY
 {
     class AssimpMeshImporter : public MeshImporter
     {
     public:
-		AssimpMeshImporter();
+		AssimpMeshImporter(Mesh *m);
 		~AssimpMeshImporter();
 
-		bool Import(const std::string &filename);
+		bool Import(const fs::path &filename);
 
     protected:
     	

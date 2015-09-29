@@ -10,7 +10,7 @@ namespace KY
 		MeshImporter(Mesh *m) : m_Mesh(m){}
 		~MeshImporter(){}
 
-		virtual bool Import(const std::string &filename) = 0;
+		virtual bool Import(const fs::path &filename) = 0;
 
     protected:
 		Mesh *m_Mesh;

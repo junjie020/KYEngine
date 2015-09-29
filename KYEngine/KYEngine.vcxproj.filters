@@ -118,6 +118,9 @@
     <ClCompile Include="Scene\Model\Assimp\AssimpMeshImporter.cpp">
       <Filter>Scene\Model\Assimp</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Model\Assimp\AssimpResourceManager.cpp">
+      <Filter>Scene\Model\Assimp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -254,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="Scene\Model\Assimp\AssimpMeshImporter.h">
       <Filter>Scene\Model\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Model\Assimp\AssimpResourceManager.h">
+      <Filter>Scene\Model\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\HashImpl.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

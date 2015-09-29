@@ -119,6 +119,7 @@
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Scene\Actor.cpp" />
     <ClCompile Include="Scene\Model\Assimp\AssimpMeshImporter.cpp" />
+    <ClCompile Include="Scene\Model\Assimp\AssimpResourceManager.cpp" />
     <ClCompile Include="Scene\Model\Mesh.cpp" />
     <ClCompile Include="Scene\Model\MeshImporter.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Common\BaseTypes.h" />
     <ClInclude Include="Common\CommonUtils.h" />
     <ClInclude Include="Common\FileSystem.h" />
+    <ClInclude Include="Common\HashImpl.h" />
     <ClInclude Include="Common\Singleton.h" />
     <ClInclude Include="DebugUtils\TraceUtils.h" />
     <ClInclude Include="Graphic\DX\Buffer\DX11IndexBuffer.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="Platform\Win32DefHeader.h" />
     <ClInclude Include="Scene\Actor.h" />
     <ClInclude Include="Scene\Model\Assimp\AssimpMeshImporter.h" />
+    <ClInclude Include="Scene\Model\Assimp\AssimpResourceManager.h" />
     <ClInclude Include="Scene\Model\Mesh.h" />
     <ClInclude Include="Scene\Model\MeshImporter.h" />
     <ClInclude Include="Scene\Scene.h" />
