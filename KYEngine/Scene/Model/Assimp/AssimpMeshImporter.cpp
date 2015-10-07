@@ -28,19 +28,6 @@ namespace KY
 
 	}
 
-#define MAX_SLOT_ELEM_IDX 4
-
-	enum SlotIndex
-	{
-		SI_Position	= 0,		
-		SI_Normal	= 1,
-		SI_Tangent	= 2,
-		SI_Bitangent= 3,
-
-		SI_Color	= 4,
-		SI_Texcoord = SI_Color + MAX_SLOT_ELEM_IDX,
-	};
-
 	static inline size_t get_slot_elem_size(SlotIndex idx)
 	{
 		size_t ss[] = 
@@ -145,7 +132,7 @@ namespace KY
 			if (mesh->HasTangentsAndBitangents())
 			{
 				add_vb_info(SI_Tangent, mesh->mTangents, mesh->mNumVertices, renderHelper);
-				add_vb_info(SI_Bitangent, mesh->mBitangents, mesh->mNumVertices, renderHelper);
+				add_vb_info(SI_Binormal, mesh->mBitangents, mesh->mNumVertices, renderHelper);
 			}
 
 			for (auto iC = 0U; iC < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++iC)

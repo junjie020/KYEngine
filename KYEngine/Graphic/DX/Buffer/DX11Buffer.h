@@ -16,6 +16,8 @@ namespace KY
 			bool Map(ResourceMapParam &param);
 			void UnMap(uint32 subRes);
 
+			const BufferParam& GetBufferParam() const { return mParam; }
+
 			ResourceType GetType() const { return mParam.type; }
 			ResourceUsage GetUsage()const { return mParam.usage; }
 

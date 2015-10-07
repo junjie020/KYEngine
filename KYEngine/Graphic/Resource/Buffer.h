@@ -22,6 +22,7 @@ namespace KY
 		bool Create(const BufferParam &param, const ResourceData &resData);
 		const DX::DX11Buffer* GetInternal() const{ return mBuffer; }
 
+		const BufferParam& GetBufferParam() const;
 	private:
 		DX::DX11Buffer *mBuffer;
 	};

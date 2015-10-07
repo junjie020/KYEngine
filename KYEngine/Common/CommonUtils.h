@@ -39,6 +39,12 @@ namespace KY
 		return bit == (bit & v);
 	}
 
+	template<typename Type>
+	inline bool IS_C_STR_EMPTY(const Type* ss)
+	{
+		return nullptr == ss || *ss == '0';
+	}
+
 	template<typename Type, uint32 NUM>
 	inline uint32 COUNT_OF(const Type (&arr)[NUM])
 	{

@@ -30,5 +30,10 @@ namespace KY
 		mBuffer->UnMap(subRes);
 	}
 
+	const BufferParam& Buffer::GetBufferParam() const
+	{
+		return mBuffer->GetBufferParam();
+	}
+
 
 }

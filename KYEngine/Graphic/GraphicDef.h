@@ -259,6 +259,20 @@ namespace KY
 		RTCW_All = RTCW_Red | RTCW_Green | RTCW_Blue | RTCW_Alpha,
 	};
 
+#define MAX_SLOT_ELEM_IDX 4
+
+	enum SlotIndex
+	{
+		SI_Position		= 0,
+		SI_Normal,
+		SI_Tangent,
+		SI_Binormal,
+		SI_BlendWeight,
+		SI_BlendIndices,
+		SI_Color,
+		SI_Texcoord = SI_Color + MAX_SLOT_ELEM_IDX,
+	};
+
 	struct GraphicInitParam
 	{
 		uint32 width, height;		

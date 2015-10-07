@@ -52,12 +52,15 @@ namespace KY
 			BufferInfo	mVertexInfo;
 		};
 
+		typedef std::vector<VertexBufferInfo> VBIVec;
+
 		void AddVertexBuffer(VertexBuffer *buf, BufferInfo &info){			
-			mVBs.push_back({buf, info});
+			mVBIs.push_back({buf, info});
 		}
 
-		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVBs[idx]; }
-		size_t GetVertexBufferInfoCount() const { return mVBs.size(); }
+		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVBIs[idx]; }
+		size_t GetVertexBufferInfoCount() const { return mVBIs.size(); }
+		const VBIVec& GetVertexBufferInfos() const { return mVBIs; }
 		
 		void SetVertexDrawInfo(const DrawVertexBufferParam &vparam) { mvDrawParam = vparam; }
 		const DrawVertexBufferParam& GetVertexDrawInfo() const { return mvDrawParam; }
@@ -151,8 +154,8 @@ namespace KY
 			DrawIndexBufferParam	miDrawParam;
 		};
 
-		typedef std::vector<VertexBufferInfo> VBIVec;
-		VBIVec	mVBs;	
+		
+		VBIVec	mVBIs;	
 
 		IndexBuffer *mIndexBuf;
 		BufferInfo mIndexInfo;
