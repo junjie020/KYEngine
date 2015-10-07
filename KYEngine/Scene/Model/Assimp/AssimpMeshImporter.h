@@ -8,7 +8,7 @@ namespace KY
     class AssimpMeshImporter : public MeshImporter
     {
     public:
-		AssimpMeshImporter(Mesh *m);
+		AssimpMeshImporter(Model *m);
 		~AssimpMeshImporter();
 
 		bool Import(const fs::path &filename);

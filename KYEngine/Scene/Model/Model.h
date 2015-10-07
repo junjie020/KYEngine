@@ -7,9 +7,15 @@ namespace KY
 	class Model
 	{
 	public:
+		typedef std::vector<Mesh*> MeshVec;
+
+		Model(){}
+		~Model();
+
+		MeshVec& GetMeshes() { return mMeshes;  }
 
 	private:
-		std::vector<Mesh> mMeshes;
+		MeshVec mMeshes;
 	};
 }
 #endif	//_MODEL_H_

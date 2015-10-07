@@ -3,6 +3,7 @@
 
 #include "AssimpResourceManager.h"
 #include "Scene/Model/Mesh.h"
+#include "Scene/Model/Model.h"
 
 #include "Graphic/Resource/VertexBuffer.h"
 #include "Graphic/Resource/IndexBuffer.h"
@@ -16,7 +17,7 @@ namespace KY
 {
 	
 
-	AssimpMeshImporter::AssimpMeshImporter(Mesh *m)
+	AssimpMeshImporter::AssimpMeshImporter(Model *m)
 		: MeshImporter(m)
 	{
 
@@ -87,21 +88,24 @@ namespace KY
 	}
 
 	template<class SrcBufferType>
-	static void add_vb_info(SlotIndex slotIdx, const SrcBufferType* src, uint32 numElems, RenderOperation &ro)
+	static void add_vb_info(SlotIndex slotIdx, const SrcBufferType* src, uint32 numElems, MeshRenderOperationHelper &meshHelper)
 	{
-		VertexBuffer *vb = new VertexBuffer();
+		auto& VBs = meshHelper.GetVBs();
+
+		VBs.push_back(VertexBuffer());
+		auto& vb = VBs.back();
 
 		const auto stride = get_slot_elem_size(slotIdx);
 		BufferParam param = { ResT_Vertex, BA_None, RU_Immutable, numElems * stride, 0 };
 
 		ResourceData data = { reinterpret_cast<const uint8 *>(src), 0, 0 };
-		vb->Create(param, data);
+		vb.Create(param, data);
 
 		BufferInfo posInfo = { 0, stride, slotIdx };
-		ro.AddVertexBuffer(vb, posInfo);
+		meshHelper.GetRO().AddVertexBuffer(&vb, posInfo);
 	}
 
-	static void extract_render_info(const aiScene *scene, const aiNode *node, RenderOperation &ro)
+	static void extract_render_info(const aiScene *scene, const aiNode *node, Model *model)
 	{
 		for (auto iMesh = 0U; iMesh < node->mNumMeshes; ++iMesh)
 		{
@@ -109,35 +113,41 @@ namespace KY
 
 			auto mesh = scene->mMeshes[meshIdx];
 
-			add_vb_info(SI_Position, mesh->mVertices, mesh->mNumVertices, ro);
+			auto& renderMeshVec = model->GetMeshes();
+			auto renderMesh = new Mesh;
+			renderMeshVec.push_back(renderMesh);
+
+			auto &renderHelper = renderMesh->GetRenderHelper();
+
+			add_vb_info(SI_Position, mesh->mVertices, mesh->mNumVertices, renderHelper);
 
 			if (mesh->HasNormals())
-				add_vb_info(SI_Normal, mesh->mNormals, mesh->mNumVertices, ro);
+				add_vb_info(SI_Normal, mesh->mNormals, mesh->mNumVertices, renderHelper);
 
 			if (mesh->HasTangentsAndBitangents())
 			{
-				add_vb_info(SI_Tangent, mesh->mTangents, mesh->mNumVertices, ro);
-				add_vb_info(SI_Bitangent, mesh->mBitangents, mesh->mNumVertices, ro);
+				add_vb_info(SI_Tangent, mesh->mTangents, mesh->mNumVertices, renderHelper);
+				add_vb_info(SI_Bitangent, mesh->mBitangents, mesh->mNumVertices, renderHelper);
 			}
 
 			for (auto iC = 0U; iC < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++iC)
 			{
 				if (mesh->HasVertexColors(iC))
-					add_vb_info(static_cast<SlotIndex>(SI_Color + iC), mesh->mColors[iC], mesh->mNumVertices, ro);
+					add_vb_info(static_cast<SlotIndex>(SI_Color + iC), mesh->mColors[iC], mesh->mNumVertices, renderHelper);
 			}
 
 
 			for (auto iT = 0U; iT < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++iT)
 			{
 				if (mesh->HasTextureCoords(iT))
-					add_vb_info(static_cast<SlotIndex>(SI_Texcoord + iT), mesh->mTextureCoords[iT], mesh->mNumVertices, ro);
+					add_vb_info(static_cast<SlotIndex>(SI_Texcoord + iT), mesh->mTextureCoords[iT], mesh->mNumVertices, renderHelper);
 			}
 		
 			const uint32 idxCount = mesh->mNumFaces * mesh->mPrimitiveTypes;
 
 			if (idxCount != mesh->mNumVertices)
 			{
-				IndexBuffer *ib = new IndexBuffer();
+				auto& ib = renderHelper.GetIB();
 
 				const uint32 elemSize = idxCount < 65536 ? sizeof(uint16) : sizeof(uint32);
 				const uint32 sizeInBytes = elemSize * idxCount;
@@ -152,24 +162,24 @@ namespace KY
 
 				ResourceData ibResData = {reinterpret_cast<const uint8*>(&ibData[0]), 0, 0};
 
-				ib->Create(ibParam, ibResData);
+				ib.Create(ibParam, ibResData);
 
 				BufferInfo ibInfo = {0, elemSize, 0};
-				ro.SetIndexBuffer(ib, ibInfo);			
+				renderHelper.GetRO().SetIndexBuffer(&ib, ibInfo);
 			}
 		}
 
 		for (auto iChild = 0U; iChild < node->mNumChildren; ++iChild)
-			extract_render_info(scene, node->mChildren[iChild], ro);
+			extract_render_info(scene, node->mChildren[iChild], model);
 	}
 
 	bool AssimpMeshImporter::Import(const fs::path &filename)
 	{
 		auto scene = AssimpResourceManager::Inst()->FindRes(filename);
 
-		BOOST_ASSERT(m_Mesh);
+		BOOST_ASSERT(m_Model);
 
-		extract_render_info(scene, scene->mRootNode, m_Mesh->GetRO());
+		extract_render_info(scene, scene->mRootNode, m_Model);
 		return false;
 	}
 

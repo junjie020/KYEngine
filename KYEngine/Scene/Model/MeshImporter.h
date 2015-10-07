@@ -3,17 +3,17 @@
 
 namespace KY
 {
-	class Mesh;
+	class Model;
     class MeshImporter
     {
     public:
-		MeshImporter(Mesh *m) : m_Mesh(m){}
+		MeshImporter(Model *m) : m_Model(m){}
 		~MeshImporter(){}
 
 		virtual bool Import(const fs::path &filename) = 0;
 
     protected:
-		Mesh *m_Mesh;
+		Model *m_Model;
 
     private:
 
