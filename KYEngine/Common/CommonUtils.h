@@ -14,6 +14,16 @@ namespace KY
 	}
 
 	template<typename Type>
+	inline void SafeDeleteArray(Type* &p)
+	{
+		if (p)
+		{
+			delete []p;
+			p = nullptr;
+		}
+	}
+
+	template<typename Type>
 	inline void SafeRelease(Type* &p)
 	{
 		if (p)

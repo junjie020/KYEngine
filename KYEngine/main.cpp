@@ -237,7 +237,7 @@ private:
 			if (mBuffer.Create(param, data))
 			{
 				BufferInfo info = { 0, sizeof(VertexColor), 0 };
-				mRO.SetVertexBuffer(&mBuffer, info);
+				mRO.AddVertexBuffer(&mBuffer, info);
 				DrawVertexBufferParam pp = { 3, 0 };
 				mRO.SetVertexDrawInfo(pp);
 

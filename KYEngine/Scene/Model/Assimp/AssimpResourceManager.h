@@ -2,6 +2,7 @@
 #define _ASSIMPRESOURCEMANAGER_H_
 
 #include "Common/Singleton.h"
+#include "Common/HashImpl.h"
 
 struct aiScene;
 namespace KY
@@ -12,10 +13,10 @@ namespace KY
 		AssimpResourceManager();
 		~AssimpResourceManager();
 
-		aiScene* FindRes(const fs::path &resName);
+		const aiScene* FindRes(const fs::path &resName);
 
 	private:
-		typedef std::unordered_map<fs::path, aiScene*> ResourceMap;
+		typedef std::unordered_map<fs::path, const aiScene*> ResourceMap;
 
 		ResourceMap	mResMap;
 	};

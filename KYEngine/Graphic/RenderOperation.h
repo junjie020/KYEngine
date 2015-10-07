@@ -28,17 +28,18 @@ namespace KY
 		uint32 mBaseVertexLocation;
 	};
 
-    class RenderOperation
-    {
-    public:
+	class RenderOperation
+	{
+	public:
 		RenderOperation()
-			: mVertexBuf(nullptr)
+			: mVB(nullptr)
+			, mNumVB(0)
 			, mIndexBuf(nullptr)
 			, mInputLayout(nullptr)
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
 			, mBlendStateObj(nullptr)
-			, mViewport(nullptr)			
+			, mViewport(nullptr)
 			, mPriType(PT_Unknown)
 		{
 			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
@@ -47,13 +48,33 @@ namespace KY
 		~RenderOperation(){}
 
 		//{@
-		void SetVertexBuffer(VertexBuffer *buf, BufferInfo &info){
-			mVertexBuf = buf;
-			mVertexInfo = info;
+
+		struct VertexBufferInfo{
+			VertexBuffer *mVertexBuf;
+			BufferInfo	mVertexInfo;
+		};
+
+		void AddVertexBuffer(VertexBuffer *buf, BufferInfo &info){
+			++mNumVB;
+			if (1 != mNumVB){
+				auto newVB = new VertexBufferInfo[mNumVB];
+				memcpy_s(newVB, mNumVB - 1, mVB, 16);
+				SafeDeleteArray(mVB);
+
+				mVB = newVB;
+			}else{
+				BOOST_ASSERT(nullptr == mVB);
+				mVB = new VertexBufferInfo[mNumVB];
+			}
+
+			auto& vbi = mVB[mNumVB - 1];
+			vbi.mVertexBuf = buf;
+			vbi.mVertexInfo = info;
 		}
 
-		const VertexBuffer* GetVertexBuffer() const { return mVertexBuf; }
-		const BufferInfo& GetVertexBufferInfo() const { return mVertexInfo; }
+		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVB[idx]; }
+		const uint32 GetVertexBufferInfoCount() const { return mNumVB; }
+		
 		void SetVertexDrawInfo(const DrawVertexBufferParam &vparam) { mvDrawParam = vparam; }
 		const DrawVertexBufferParam& GetVertexDrawInfo() const { return mvDrawParam; }
 		//@}
@@ -61,7 +82,7 @@ namespace KY
 		//{@
 		void SetIndexBuffer(IndexBuffer *buf, BufferInfo &info){
 			mIndexBuf = buf;
-			mVertexInfo = info;
+			mIndexInfo = info;
 		}
 
 		const IndexBuffer* GetIndexBuffer() const { return mIndexBuf; }
@@ -146,8 +167,8 @@ namespace KY
 			DrawIndexBufferParam	miDrawParam;
 		};
 
-		VertexBuffer *mVertexBuf;
-		BufferInfo	mVertexInfo;
+		uint32 mNumVB;
+		VertexBufferInfo *mVB;
 
 		IndexBuffer *mIndexBuf;
 		BufferInfo mIndexInfo;

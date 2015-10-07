@@ -82,12 +82,17 @@ namespace KY
 			auto ro = mQueue->Pop();
 
 			//{@ input asm
-			{
-				IAStage* ia = GetStage<IAStage>(true);
+			IAStage* ia = GetStage<IAStage>(true);
 
-				auto vb = ro->GetVertexBuffer();
-				BOOST_ASSERT(vb);
-				ia->SetVertexBuffer(vb, ro->GetVertexBufferInfo());
+			const uint32 numVB = ro->GetVertexBufferInfoCount();
+			for (auto iVB = 0U; iVB < numVB; ++iVB)
+			{
+				const auto& vbi = ro->GetVertexBufferInfo(iVB);
+				BOOST_ASSERT(vbi.mVertexBuf);
+				ia->SetVertexBuffer(vbi.mVertexBuf, vbi.mVertexInfo);
+			}
+
+			{
 				ia->SetIndexBuffer(ro->GetIndexBuffer(), ro->GetIndexBufferInfo());
 				ia->SetPrimitiveType(ro->GetPrimitiveType());
 				ia->SetInputLayout(ro->GetInputLayout());

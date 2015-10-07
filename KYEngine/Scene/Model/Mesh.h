@@ -11,7 +11,7 @@ namespace KY
     	Mesh();
     	~Mesh();
 
-    	
+		RenderOperation& GetRO(){ return m_ro; }
 
     protected:
     	

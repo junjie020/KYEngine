@@ -1,9 +1,11 @@
 #include "stdafx.h"
 
-#include "Common/HashImpl.h"
 #include "AssimpResourceManager.h"
 
 #include "assimp/Importer.hpp"
+#include "assimp/cimport.h"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
 namespace KY
 {
@@ -17,13 +19,16 @@ namespace KY
 
 	}
 
-	aiScene* AssimpResourceManager::FindRes(const fs::path &resName)
+	const aiScene* AssimpResourceManager::FindRes(const fs::path &resName)
 	{
 		auto itFound = mResMap.find(resName);
 		if (itFound != mResMap.end())
 			return itFound->second;
 
-		return nullptr;
+		auto scene = aiImportFile(resName.string().c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+
+		mResMap[resName] = scene;
+		return scene;
 	}
 
 }
