@@ -32,9 +32,7 @@ namespace KY
 	{
 	public:
 		RenderOperation()
-			: mVB(nullptr)
-			, mNumVB(0)
-			, mIndexBuf(nullptr)
+			: mIndexBuf(nullptr)
 			, mInputLayout(nullptr)
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
@@ -54,26 +52,12 @@ namespace KY
 			BufferInfo	mVertexInfo;
 		};
 
-		void AddVertexBuffer(VertexBuffer *buf, BufferInfo &info){
-			++mNumVB;
-			if (1 != mNumVB){
-				auto newVB = new VertexBufferInfo[mNumVB];
-				memcpy_s(newVB, mNumVB - 1, mVB, 16);
-				SafeDeleteArray(mVB);
-
-				mVB = newVB;
-			}else{
-				BOOST_ASSERT(nullptr == mVB);
-				mVB = new VertexBufferInfo[mNumVB];
-			}
-
-			auto& vbi = mVB[mNumVB - 1];
-			vbi.mVertexBuf = buf;
-			vbi.mVertexInfo = info;
+		void AddVertexBuffer(VertexBuffer *buf, BufferInfo &info){			
+			mVBs.push_back({buf, info});
 		}
 
-		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVB[idx]; }
-		const uint32 GetVertexBufferInfoCount() const { return mNumVB; }
+		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVBs[idx]; }
+		size_t GetVertexBufferInfoCount() const { return mVBs.size(); }
 		
 		void SetVertexDrawInfo(const DrawVertexBufferParam &vparam) { mvDrawParam = vparam; }
 		const DrawVertexBufferParam& GetVertexDrawInfo() const { return mvDrawParam; }
@@ -167,8 +151,8 @@ namespace KY
 			DrawIndexBufferParam	miDrawParam;
 		};
 
-		uint32 mNumVB;
-		VertexBufferInfo *mVB;
+		typedef std::vector<VertexBufferInfo> VBIVec;
+		VBIVec	mVBs;	
 
 		IndexBuffer *mIndexBuf;
 		BufferInfo mIndexInfo;

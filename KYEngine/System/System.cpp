@@ -9,6 +9,8 @@
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
 #include "Common/CommonUtils.h"
+#include "Scene/Model/Assimp/AssimpResourceManager.h"
+
 namespace KY
 {
 
@@ -41,6 +43,8 @@ namespace KY
 		mScene = new Scene;
 
 		mGraphics = new Graphic;
+
+		AssimpResourceManager::Create();
 
 		// Initialize the graphics object.		
 		return mGraphics->Initialize(param);

@@ -105,6 +105,24 @@ namespace KY
 		meshHelper.GetRO().AddVertexBuffer(&vb, posInfo);
 	}
 
+	static uint32 face_vertex_num(const aiMesh *mesh)
+	{
+		switch (mesh->mPrimitiveTypes)
+		{
+		case aiPrimitiveType_POINT:
+			return 1;
+		case aiPrimitiveType_LINE:
+			return 2;
+		case aiPrimitiveType_TRIANGLE:
+			return 3;
+		case aiPrimitiveType_POLYGON:
+			BOOST_ASSERT(false && "not support polygon!");
+			return 4;
+		default:
+			return 0;
+		}
+	}
+
 	static void extract_render_info(const aiScene *scene, const aiNode *node, Model *model)
 	{
 		for (auto iMesh = 0U; iMesh < node->mNumMeshes; ++iMesh)
@@ -143,7 +161,7 @@ namespace KY
 					add_vb_info(static_cast<SlotIndex>(SI_Texcoord + iT), mesh->mTextureCoords[iT], mesh->mNumVertices, renderHelper);
 			}
 		
-			const uint32 idxCount = mesh->mNumFaces * mesh->mPrimitiveTypes;
+			const uint32 idxCount = mesh->mNumFaces * face_vertex_num(mesh);
 
 			if (idxCount != mesh->mNumVertices)
 			{
@@ -155,7 +173,7 @@ namespace KY
 
 				std::vector<uint32>	ibData(sizeInBytes / sizeof(uint32));
 
-				if (elemSize == sizeof(16))
+				if (elemSize == sizeof(uint16))
 					fill_index_buffer<uint16>(mesh, ibData);
 				else
 					fill_index_buffer<uint32>(mesh, ibData);
@@ -177,9 +195,14 @@ namespace KY
 	{
 		auto scene = AssimpResourceManager::Inst()->FindRes(filename);
 
-		BOOST_ASSERT(m_Model);
+		if (nullptr != scene)
+		{
+			BOOST_ASSERT(m_Model);
 
-		extract_render_info(scene, scene->mRootNode, m_Model);
+			extract_render_info(scene, scene->mRootNode, m_Model);
+			return true;
+		}
+
 		return false;
 	}
 

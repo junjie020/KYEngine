@@ -13,6 +13,8 @@ namespace KY
 		void Update();
 		void AddActor(Actor *act);
 		void RemoveActor(Actor *act);
+
+		Actor* GetRootActor() { return mRoot; }
 	private:
 		Actor	*mRoot;
 	};

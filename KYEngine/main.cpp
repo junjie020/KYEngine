@@ -28,7 +28,28 @@
 
 #include "Common/FileSystem.h"
 
+#include "Scene/Model/Model.h"
+
 using namespace KY;
+
+class ModelTest : public KY::SampleTest
+{
+public:
+	bool Init() override
+	{
+		auto scene = System::Inst()->GetScene();
+		
+		auto actor = new Model(scene->GetRootActor());
+		scene->AddActor(actor);
+
+		auto modelPath = FileSystem::Inst()->FindFromSubPath("model");
+
+		return actor->InitFromFile(modelPath / fs::path("test_cube_text.x"));
+	}
+private:
+
+};
+
 class SimpleTriangleTest : public KY::SampleTest
 {
 public:
@@ -370,7 +391,7 @@ private:
 				}
 			}			
 			//@}
-			KY::Graphic::Inst()->AddRenderOperation(&mRO);			
+			KY::Graphic::Inst()->AddRenderOperation(&mRO);
 		}
 	private:
 		KY::RenderOperation mRO;
@@ -411,13 +432,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 	auto curPath = fs::current_path<fs::path>();
 	KY::FileSystem::Inst()->SetRootPath(curPath);
 	KY::FileSystem::Inst()->ReigstPath("shader", KY::FileSystem::Inst()->RootPath() / fs::path("Resource/Shader"));
+	KY::FileSystem::Inst()->ReigstPath("model", KY::FileSystem::Inst()->RootPath() / fs::path("Resource/Model"));
 
 	auto system = KY::System::Create();
 
 	Size2U dim(0, 0);
 	if (system->Initialize(dim, true))
 	{
-		SimpleTriangleTest tt;
+		//SimpleTriangleTest tt;
+		//tt.Init();
+		// 
+		ModelTest tt;
 		tt.Init();
 		system->Run();
 	}
