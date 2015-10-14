@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <sstream>
 #include <filesystem>
-namespace fs = std::tr2::sys;
+namespace fs = std::experimental::filesystem::v1;
 //@}
 
 #pragma warning(disable:4201)

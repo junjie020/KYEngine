@@ -5,7 +5,7 @@
 
 namespace KY
 {
-	static std::pair<const char*, uint32> get_semantic_name(const VertexBuffer &vb, const RenderOperation &ro)
+	static auto get_semantic_name(const VertexBuffer &vb, const RenderOperation &ro)
 	{
 		const char* semanticNames[] = 
 		{

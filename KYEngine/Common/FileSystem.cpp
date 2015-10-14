@@ -7,7 +7,7 @@ namespace KY
 	FileSystem::FilePathList FileSystem::ListPaths(const fs::path &path)
 	{
 		FilePathList paths;
-		for (fs::directory_iterator it = path; it != fs::directory_iterator(); ++it)
+		for (fs::directory_iterator it(path); it != fs::directory_iterator(); ++it)
 		{
 			const auto &p = it->path();
 			if (fs::is_regular_file(p))
@@ -23,7 +23,7 @@ namespace KY
 	FileSystem::FilePathList FileSystem::ListPathsRecursive(const fs::path &path)
 	{
 		FilePathList paths;
-		for (fs::directory_iterator it = path; it != fs::directory_iterator(); ++it)
+		for (fs::directory_iterator it(path); it != fs::directory_iterator(); ++it)
 		{
 			const fs::path &curPath = it->path();
 			if (fs::is_directory(curPath))

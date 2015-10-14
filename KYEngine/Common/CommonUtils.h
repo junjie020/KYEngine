@@ -46,10 +46,9 @@ namespace KY
 	}
 
 	template<typename Type, uint32 NUM>
-	inline uint32 COUNT_OF(const Type (&arr)[NUM])
+	inline uint32 COUNT_OF(const Type (&)[NUM])
 	{
-		arr;
-		return sizeof(arr) / sizeof(arr[0]);
+		return NUM;
 	}
 
 	template<typename Type, uint32 NUM>
@@ -63,6 +62,14 @@ namespace KY
 	{
 		::memset(&t, 0, sizeof(t));
 	}
+
+	//{@	use like : auto x = 10; FindVarName<decltype(x)> xType;
+	template<typename Type>
+	class FindVarName;
+
+#define FIND_VAR_NAME(_VAR)	{FindVarName<decltype(_VAR)>	_VarTYPE;}
+#define	SHOW_VAR_TYPE_IN_RUNTIME	
+	//@}
 
 }
 #endif // _COMMONUTILS_H_

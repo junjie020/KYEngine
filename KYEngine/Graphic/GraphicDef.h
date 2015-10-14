@@ -261,7 +261,7 @@ namespace KY
 
 #define MAX_SLOT_ELEM_IDX 4
 
-	enum SlotIndex
+	enum SlotIndex : uint32
 	{
 		SI_Position		= 0,
 		SI_Normal,

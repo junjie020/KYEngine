@@ -3,6 +3,7 @@
 
 #include "Graphic/GraphicDef.h"
 #include "Graphic/DX/Buffer/Dx11Shader.h"
+#include <fstream>
 
 namespace KY
 {

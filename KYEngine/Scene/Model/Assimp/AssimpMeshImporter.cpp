@@ -15,12 +15,10 @@
 
 namespace KY
 {
-	
-
 	AssimpMeshImporter::AssimpMeshImporter(Model *m)
 		: MeshImporter(m)
 	{
-
+		
 	}
 
 	AssimpMeshImporter::~AssimpMeshImporter()
@@ -88,7 +86,7 @@ namespace KY
 		ResourceData data = { reinterpret_cast<const uint8 *>(src), 0, 0 };
 		vb.Create(param, data);
 
-		BufferInfo posInfo = { 0, stride, slotIdx };
+		BufferInfo posInfo = { 0U, stride, slotIdx };
 		meshHelper.GetRO().AddVertexBuffer(&vb, posInfo);
 	}
 
