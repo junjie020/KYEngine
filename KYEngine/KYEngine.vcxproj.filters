@@ -121,7 +121,9 @@
     <ClCompile Include="Scene\Model\Assimp\AssimpResourceManager.cpp">
       <Filter>Scene\Model\Assimp</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Model\Model.cpp" />
+    <ClCompile Include="Scene\Model\Model.cpp">
+      <Filter>Scene\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -359,14 +361,20 @@
     <None Include="Resource\Shader\ScreenQuad.ps">
       <Filter>Resource\Shader</Filter>
     </None>
-    <None Include="Resource\Shader\ScreenQuad.vs">
-      <Filter>Resource\Shader</Filter>
-    </None>
     <None Include="Graphic\Resource\StateObject.inl">
       <Filter>Graphic\Resource\State</Filter>
     </None>
     <None Include="Math\Matrix.inl">
       <Filter>Math</Filter>
+    </None>
+    <None Include="Resource\Shader\ScreenQuad.vs">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\Object.vs">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\Object.ps">
+      <Filter>Resource\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>

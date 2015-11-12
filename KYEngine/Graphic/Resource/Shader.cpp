@@ -92,4 +92,9 @@ namespace KY
 		return mLayout && mLayout->IsValid();
 	}
 
+	void InputLayout::Clean()
+	{
+		SafeDelete(mLayout);
+	}
+
 }

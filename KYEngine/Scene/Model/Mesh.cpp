@@ -2,10 +2,13 @@
 #include "Mesh.h"
 
 #include "Graphic/RenderOperation.h"
+#include "DebugUtils/TraceUtils.h"
+
+#include "Platform/Win32DefHeader.h"
 
 namespace KY
 {
-	static auto get_semantic_name(const VertexBuffer &vb, const RenderOperation &ro)
+	static auto get_semantic_name(const VertexBuffer *vb, const RenderOperation &ro)
 	{
 		const char* semanticNames[] = 
 		{
@@ -30,43 +33,82 @@ namespace KY
 
 		for (const auto& vbi : vbis)
 		{
-			if (&vb == vbi.mVertexBuf)
+			if (vb == vbi.mVertexBuf)
 			{
 				uint32 semanticIdx = 0U;
-				const uint32 slotIdx = vbi.mVertexInfo.slotIdx;
+			
+				const uint32 slotIdx = std::min(vbi.mVertexInfo.slotIdx, COUNT_OF(semanticNames));
 				if (SI_Color <= slotIdx && slotIdx < (SI_Color + MAX_SLOT_ELEM_IDX))
 					semanticIdx = slotIdx - SI_Color;
-
-				if (SI_Texcoord <= slotIdx && slotIdx < (SI_Texcoord + MAX_SLOT_ELEM_IDX))
+				else if (SI_Texcoord <= slotIdx && slotIdx < (SI_Texcoord + MAX_SLOT_ELEM_IDX)) 
 					semanticIdx = slotIdx - SI_Texcoord;
 
-				return std::make_pair(semanticNames[slotIdx], semanticIdx);
+				return std::make_tuple(semanticNames[slotIdx], semanticIdx, SlotIndex(slotIdx));
 			}
 				
 		}
 
-		return std::make_pair("", uint32(-1));
+		return std::make_tuple("", uint32(-1), SI_Unknown);
 	}
+
+	static auto get_tex_format(SlotIndex slotIdx)
+	{
+		switch (slotIdx)
+		{
+		case SI_Position:
+			return TF_R32G32B32_FLOAT;
+		case SI_Color:
+			return TF_R8G8B8A8_UINT;
+		case SI_Normal:
+			return TF_R32G32B32_FLOAT;
+		case SI_Texcoord:
+			return TF_R32G32_FLOAT;
+
+		default:
+			return TF_FORCE_UINT;
+		}
+	}
+
 	void MeshRenderOperationHelper::Update()
 	{
-		for (const auto& m : mVBs)
+		mIP.Clean();
+
+		for (const VertexBuffer* vb : mVBs)
 		{
-			//const auto& bufParam = m.GetBufferParam();
+			const auto semanticInfo = get_semantic_name(vb, mRO);
+			const auto slotIdx = std::get<2>(semanticInfo);
+			const InputElemDesc elem =
+			{
+				std::get<0>(semanticInfo),
+				std::get<1>(semanticInfo),
+				get_tex_format(slotIdx),
+				slotIdx,
+				0,	// struct arrays
+				0,
+				false,
+			};
 
-			//const auto semanticInfo = get_semantic_name(m, mRO);
- 		//	const InputElemDesc elem = 
- 		//	{
-			//	semanticInfo.first,
-			//	semanticInfo.second,
-
-
- 		//	};
-
+			mIP.AddElem(elem);
 		}
+
+		BOOST_ASSERT(!mVS.IsValid());
+
+		if (!mIP.Create(mVS))
+		{
+			DebugOutline("create mesh input layout failed!");
+			return;
+		}
+		mRO.SetInputLayout(&mIP);
+		
 	}
 
 	void Mesh::Update()
 	{
-		mRenderHelper.Update();
+		if (mNeedUpdate)
+		{
+			mRenderHelper.Update();
+			mNeedUpdate = false;
+		}
+			
 	}
 }

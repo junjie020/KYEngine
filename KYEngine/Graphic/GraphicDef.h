@@ -271,6 +271,8 @@ namespace KY
 		SI_BlendIndices,
 		SI_Color,
 		SI_Texcoord = SI_Color + MAX_SLOT_ELEM_IDX,
+
+		SI_Unknown = SI_Texcoord + MAX_SLOT_ELEM_IDX,
 	};
 
 	struct GraphicInitParam

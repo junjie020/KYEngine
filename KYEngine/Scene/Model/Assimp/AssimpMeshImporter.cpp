@@ -72,22 +72,21 @@ namespace KY
 		}
 	}
 
-	template<class SrcBufferType>
-	static void add_vb_info(SlotIndex slotIdx, const SrcBufferType* src, uint32 numElems, MeshRenderOperationHelper &meshHelper)
+	static void add_vb_info(SlotIndex slotIdx, const uint8* src, uint32 numElems, MeshRenderOperationHelper &meshHelper)
 	{
 		auto& VBs = meshHelper.GetVBs();
 
-		VBs.push_back(VertexBuffer());
-		auto& vb = VBs.back();
+		VBs.push_back(new VertexBuffer);
+		VertexBuffer* vb = VBs.back();
 
 		const auto stride = get_slot_elem_size(slotIdx);
 		BufferParam param = { ResT_Vertex, BA_None, RU_Immutable, numElems * stride, 0 };
 
-		ResourceData data = { reinterpret_cast<const uint8 *>(src), 0, 0 };
-		vb.Create(param, data);
+		ResourceData data = { src, 0, 0 };
+		vb->Create(param, data);
 
 		BufferInfo posInfo = { 0U, stride, slotIdx };
-		meshHelper.GetRO().AddVertexBuffer(&vb, posInfo);
+		meshHelper.GetRO().AddVertexBuffer(vb, posInfo);
 	}
 
 	static uint32 face_vertex_num(const aiMesh *mesh)
@@ -122,28 +121,28 @@ namespace KY
 
 			auto &renderHelper = renderMesh->GetRenderHelper();
 
-			add_vb_info(SI_Position, mesh->mVertices, mesh->mNumVertices, renderHelper);
+			add_vb_info(SI_Position, reinterpret_cast<const uint8*>(mesh->mVertices), mesh->mNumVertices, renderHelper);
 
 			if (mesh->HasNormals())
-				add_vb_info(SI_Normal, mesh->mNormals, mesh->mNumVertices, renderHelper);
+				add_vb_info(SI_Normal, reinterpret_cast<const uint8*>(mesh->mNormals), mesh->mNumVertices, renderHelper);
 
 			if (mesh->HasTangentsAndBitangents())
 			{
-				add_vb_info(SI_Tangent, mesh->mTangents, mesh->mNumVertices, renderHelper);
-				add_vb_info(SI_Binormal, mesh->mBitangents, mesh->mNumVertices, renderHelper);
+				add_vb_info(SI_Tangent, reinterpret_cast<const uint8*>(mesh->mTangents), mesh->mNumVertices, renderHelper);
+				add_vb_info(SI_Binormal, reinterpret_cast<const uint8*>(mesh->mBitangents), mesh->mNumVertices, renderHelper);
 			}
 
 			for (auto iC = 0U; iC < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++iC)
 			{
 				if (mesh->HasVertexColors(iC))
-					add_vb_info(static_cast<SlotIndex>(SI_Color + iC), mesh->mColors[iC], mesh->mNumVertices, renderHelper);
+					add_vb_info(static_cast<SlotIndex>(SI_Color + iC), reinterpret_cast<const uint8*>(mesh->mColors[iC]), mesh->mNumVertices, renderHelper);
 			}
 
 
 			for (auto iT = 0U; iT < AI_MAX_NUMBER_OF_TEXTURECOORDS; ++iT)
 			{
 				if (mesh->HasTextureCoords(iT))
-					add_vb_info(static_cast<SlotIndex>(SI_Texcoord + iT), mesh->mTextureCoords[iT], mesh->mNumVertices, renderHelper);
+					add_vb_info(static_cast<SlotIndex>(SI_Texcoord + iT), reinterpret_cast<const uint8*>(mesh->mTextureCoords[iT]), mesh->mNumVertices, renderHelper);
 			}
 		
 			const uint32 idxCount = mesh->mNumFaces * face_vertex_num(mesh);
@@ -170,6 +169,9 @@ namespace KY
 				BufferInfo ibInfo = {0, elemSize, 0};
 				renderHelper.GetRO().SetIndexBuffer(&ib, ibInfo);
 			}
+
+			renderMesh->NeedUpdate();
+			renderMesh->Update();
 		}
 
 		for (auto iChild = 0U; iChild < node->mNumChildren; ++iChild)
@@ -184,7 +186,7 @@ namespace KY
 		{
 			BOOST_ASSERT(m_Model);
 
-			extract_render_info(scene, scene->mRootNode, m_Model);
+			extract_render_info(scene, scene->mRootNode, m_Model);			
 			return true;
 		}
 

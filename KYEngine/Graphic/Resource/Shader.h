@@ -60,6 +60,7 @@ namespace KY
 		bool IsValid() const;
 		DX::DX11InputLayout* GetInternal() { return mLayout;  }
 		const DX::DX11InputLayout* GetInternal() const { return mLayout; }
+		void Clean();
 	private:
 		DX::DX11InputLayout *mLayout;
 	};

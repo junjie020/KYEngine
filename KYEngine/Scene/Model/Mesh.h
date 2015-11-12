@@ -14,11 +14,13 @@ namespace KY
 		MeshRenderOperationHelper(){}
 
 		~MeshRenderOperationHelper(){	
-
+			for (auto vb : mVBs) {
+				delete vb;
+			}
 		}
 		RenderOperation& GetRO(){ return mRO; }
 
-		typedef std::vector<VertexBuffer> VertexBufferVec;
+		typedef std::vector<VertexBuffer*> VertexBufferVec;
 		VertexBufferVec& GetVBs() { return mVBs; }
 		IndexBuffer& GetIB() { return mIB; }
 
@@ -32,23 +34,26 @@ namespace KY
 		Shader			mVS;
 		Shader			mPS;
 
-		RenderOperation mRO;
+		RenderOperation mRO;		
 	};
 
     class Mesh
     {
     public:
-		Mesh(){}
+		Mesh(): mNeedUpdate(true){}
 		~Mesh(){}
 
 		MeshRenderOperationHelper& GetRenderHelper() { return mRenderHelper; }
 
 		void Update();
+
+		void NeedUpdate() { mNeedUpdate = true; }
     protected:
     	
 
     private:
 		MeshRenderOperationHelper mRenderHelper;
+		bool			mNeedUpdate;
     };
 }
 #endif // _MESH_H_
