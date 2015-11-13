@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="Common\FileSystem.cpp" />
     <ClCompile Include="DebugUtils\TraceUtils.cpp" />
+    <ClCompile Include="Graphic\Camera.cpp" />
     <ClCompile Include="Graphic\DX\Buffer\DX11IndexBuffer.cpp" />
     <ClCompile Include="Graphic\DX\Buffer\Dx11Shader.cpp" />
     <ClCompile Include="Graphic\DX\Buffer\DX11VertexBuffer.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Common\HashImpl.h" />
     <ClInclude Include="Common\Singleton.h" />
     <ClInclude Include="DebugUtils\TraceUtils.h" />
+    <ClInclude Include="Graphic\Camera.h" />
     <ClInclude Include="Graphic\DX\Buffer\DX11IndexBuffer.h" />
     <ClInclude Include="Graphic\DX\Buffer\Dx11Shader.h" />
     <ClInclude Include="Graphic\DX\Buffer\DX11VertexBuffer.h" />

@@ -127,6 +127,9 @@
     <ClCompile Include="Graphic\Resource\StateHelper.cpp">
       <Filter>Graphic\Resource\State</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Camera.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -275,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="Graphic\Resource\StateHelper.h">
       <Filter>Graphic\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Camera.h">
+      <Filter>Graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

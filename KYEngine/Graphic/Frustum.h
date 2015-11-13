@@ -14,11 +14,9 @@ namespace KY
 
     	~Frustum();
 
-
-
-
     private:
-		Vec4f mPts;	// in world space
+		using FrustumPts = std::array<Vec4f, 4>;
+		FrustumPts mPts; // in world space		
     };
 }
 #endif // _FRUSTUM_H_
