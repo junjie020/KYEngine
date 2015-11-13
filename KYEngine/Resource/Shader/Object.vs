@@ -20,14 +20,6 @@ cbuffer MatBuffer : register(b0)
 	matrix matViewProj;
 };
 
-cbuffer LightBuffer : register(b1)
-{
-	float3 lightDir;
-	float3 eyeDir;
-	float4 ambColor;
-}
-
-
 Output main(Input i)
 {
 	Output o;

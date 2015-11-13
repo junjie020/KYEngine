@@ -1,5 +1,28 @@
-
-float4 main(float4 pos : SV_POSITION, float4 color : COLOR0) : SV_TARGET0
+cbuffer MatBuffer : register(b0)
 {
-	return float4(1.0f, 0.0f, 0.0f, 1.0f);
+	matrix matWorld;
+	matrix matView;
+	matrix matProj;
+	matrix matViewProj;
+};
+
+cbuffer LightBuffer : register(b1)
+{
+	float3 lightDir;
+	float3 eyeDir;
+	float4 ambColor;
+}
+
+struct Output
+{
+	float4 position : SV_POSITION;
+	float4 color	: COLOR0;
+	float4 normal	: NORMAL0;
+};
+
+
+float4 main(Output o) : SV_TARGET0
+{
+
+	return;
 }

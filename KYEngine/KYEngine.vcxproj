@@ -109,6 +109,7 @@
     <ClCompile Include="Graphic\Resource\IndexBuffer.cpp" />
     <ClCompile Include="Graphic\Resource\Resource.cpp" />
     <ClCompile Include="Graphic\Resource\Shader.cpp" />
+    <ClCompile Include="Graphic\Resource\StateHelper.cpp" />
     <ClCompile Include="Graphic\Resource\StateObject.cpp" />
     <ClCompile Include="Graphic\Resource\Texture.cpp" />
     <ClCompile Include="Graphic\Resource\VertexBuffer.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Graphic\Resource\IndexBuffer.h" />
     <ClInclude Include="Graphic\Resource\Resource.h" />
     <ClInclude Include="Graphic\Resource\Shader.h" />
+    <ClInclude Include="Graphic\Resource\StateHelper.h" />
     <ClInclude Include="Graphic\Resource\StateObject.h" />
     <ClInclude Include="Graphic\Resource\Texture.h" />
     <ClInclude Include="Graphic\Resource\VertexBuffer.h" />
@@ -190,6 +192,8 @@
     <None Include="Graphic\Resource\StateObject.inl" />
     <None Include="Math\Color.inl" />
     <None Include="Math\Matrix.inl" />
+    <None Include="Resource\Shader\Object.ps" />
+    <None Include="Resource\Shader\Object.vs" />
     <None Include="Resource\Shader\ScreenQuad.ps" />
     <None Include="Resource\Shader\ScreenQuad.vs" />
   </ItemGroup>

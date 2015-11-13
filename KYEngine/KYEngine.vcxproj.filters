@@ -124,6 +124,9 @@
     <ClCompile Include="Scene\Model\Model.cpp">
       <Filter>Scene\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Resource\StateHelper.cpp">
+      <Filter>Graphic\Resource\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -269,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="Scene\Model\Model.h">
       <Filter>Scene\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\StateHelper.h">
+      <Filter>Graphic\Resource\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

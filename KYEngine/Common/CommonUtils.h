@@ -46,7 +46,7 @@ namespace KY
 	}
 
 	template<typename Type, uint32 NUM>
-	inline uint32 COUNT_OF(const Type (&)[NUM])
+	inline constexpr uint32 COUNT_OF(const Type (&)[NUM])
 	{
 		return NUM;
 	}
