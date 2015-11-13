@@ -39,15 +39,15 @@ public:
 	{
 		auto scene = System::Inst()->GetScene();
 		
-		auto actor = new Model(scene->GetRootActor());
-		scene->AddActor(actor);
+		mModel = new Model(scene->GetRootActor());
+		scene->AddActor(mModel);
 
 		auto modelPath = FileSystem::Inst()->FindFromSubPath("model");
 
-		return actor->InitFromFile(modelPath / fs::path("test_cube_text.x"));
+		return mModel->InitFromFile(modelPath / fs::path("test_cube_text.x"));
 	}
 private:
-
+	Model *mModel;
 };
 
 class SimpleTriangleTest : public KY::SampleTest

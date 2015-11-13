@@ -6,6 +6,8 @@
 
 #include "Platform/Win32DefHeader.h"
 
+#include "Common/FileSystem.h"
+
 namespace KY
 {
 	static auto get_semantic_name(const VertexBuffer *vb, const RenderOperation &ro)
@@ -69,7 +71,52 @@ namespace KY
 		}
 	}
 
-	void MeshRenderOperationHelper::Update()
+	bool MeshRenderOperationHelper::Init()
+	{
+		if (!mVBs.empty())
+		{
+			if (!InitShader())
+				return false;
+
+			if (!InitInputLayout())
+				return false;
+
+			if (!InitStates())
+				return false;
+		}
+
+		mStates.Init(&mRO);
+		
+		return true;
+	}
+
+	bool MeshRenderOperationHelper::InitShader()
+	{
+		//{@	hard code here, we need to follow the mesh's properties to define which shader should use or which macro should define
+		auto shaderPath = FileSystem::Inst()->FindFromSubPath("shader");
+		if (!mVS.InitFromFile(ShdrT_Vertex, shaderPath / fs::path("Object.vs")))
+		{
+			DebugOutline("init object.vs failed!");
+			return false;
+		}
+
+		if (!mPS.InitFromFile(ShdrT_Pixel, shaderPath / fs::path("Object.ps")))
+		{
+			DebugOutline("init object.ps failed!");
+			return false;
+		}
+		//@}
+
+		return true;
+	}
+
+	bool MeshRenderOperationHelper::InitStates()
+	{
+		// should follow the mesh settings, hard code here
+		return mStates.Init(&mRO);	//use default states
+	}
+
+	bool MeshRenderOperationHelper::InitInputLayout()
 	{
 		mIP.Clean();
 
@@ -96,10 +143,18 @@ namespace KY
 		if (!mIP.Create(mVS))
 		{
 			DebugOutline("create mesh input layout failed!");
-			return;
+			return false;
 		}
+
 		mRO.SetInputLayout(&mIP);
-		
+
+		return true;
+
+	}
+
+	void MeshRenderOperationHelper::Update()
+	{
+		// do nothing right now
 	}
 
 	void Mesh::Update()
