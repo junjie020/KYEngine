@@ -6,6 +6,8 @@
 #include "Graphic/Resource/IndexBuffer.h"
 #include "Graphic/Resource/Shader.h"
 
+#include "Graphic/Resource/StateHelper.h"
+
 namespace KY
 {
 	class MeshRenderOperationHelper
@@ -24,8 +26,15 @@ namespace KY
 		VertexBufferVec& GetVBs() { return mVBs; }
 		IndexBuffer& GetIB() { return mIB; }
 
-		void Update();
+		
 
+		bool Init();
+		
+		void Update();
+	private:
+		bool InitShader();
+		bool InitInputLayout();
+		bool InitStates();
 	private:
 		VertexBufferVec	mVBs;
 		IndexBuffer		mIB;
@@ -34,7 +43,9 @@ namespace KY
 		Shader			mVS;
 		Shader			mPS;
 
-		RenderOperation mRO;		
+		StateHelper		mStates;
+
+		RenderOperation mRO;
 	};
 
     class Mesh

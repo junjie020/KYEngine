@@ -26,6 +26,7 @@ namespace KY
 		InternalType* GetInternal() const { return mInternalObj;  }
 		
 	protected:
+		///-----Hardware object should cache in a singleton object
 		InternalType *mInternalObj;
 	};
 

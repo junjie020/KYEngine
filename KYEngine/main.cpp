@@ -14,8 +14,8 @@
 
 #include "Graphic/Graphic.h"
 
-#include "Graphic/Resource/StateObject.h"
-#include "Graphic/Resource/StateObject.inl"
+#include "Graphic/Resource/StateHelper.h"
+
 #include "Graphic/Viewport.h"
 
 #include "Math/Vector4.h"
@@ -39,15 +39,15 @@ public:
 	{
 		auto scene = System::Inst()->GetScene();
 		
-		auto actor = new Model(scene->GetRootActor());
-		scene->AddActor(actor);
+		mModel = new Model(scene->GetRootActor());
+		scene->AddActor(mModel);
 
 		auto modelPath = FileSystem::Inst()->FindFromSubPath("model");
 
-		return actor->InitFromFile(modelPath / fs::path("test_cube_text.x"));
+		return mModel->InitFromFile(modelPath / fs::path("test_cube_text.x"));
 	}
 private:
-
+	Model *mModel;
 };
 
 class SimpleTriangleTest : public KY::SampleTest
@@ -332,37 +332,13 @@ private:
 			KY::RasterizerState rsState;
 			rsState.cullMode = CM_None;
 			rsState.depthClipEnable = false;
-			mRSObj = new KY::RasterizerStateObj;
-			if (!mRSObj->CreateObj(rsState))
-			{
-				KY::DebugOutline("create rs state failed!");
-				delete mRSObj;
-				mRSObj = nullptr;
-			}
-			mRO.SetRasterizerStateObj(mRSObj);
 
 			KY::DepthStencilState dsState;
-			dsState.depthEnable = false;			
-			mDSObj = new KY::DepthStencilStateObj;		
-			if (!mDSObj->CreateObj(dsState))
-			{
-				KY::DebugOutline("create depth stencil state failed!");
-				delete mDSObj;
-				mDSObj = nullptr;
-			}
-
-			mRO.SetDepthStencilStateObj(mDSObj);
+			dsState.depthEnable = false;
 
 			KY::BlendState blendState;
-			mBlendObj = new KY::BlendStateObj;
-			if (!mBlendObj->CreateObj(blendState))
-			{
-				KY::DebugOutline("create blend state failed!");
-				delete mBlendObj;
-				mBlendObj = nullptr;
-			}
-
-			mRO.SetBlendStateObj(mBlendObj);
+			
+			mStates.Init(&rsState, &dsState, &blendState, &mRO);
 
 			const auto backBufferDim = Graphic::Inst()->GetBackBufferSize();
 			mViewport.mRect = RectU(0, 0, backBufferDim.w, backBufferDim.h);
@@ -405,11 +381,7 @@ private:
 		KY::Shader			mVertexShader;
 		KY::Shader			mPixelShader;
 
-		//{@	state
-		KY::RasterizerStateObj*		mRSObj;
-		KY::DepthStencilStateObj*	mDSObj;
-		KY::BlendStateObj*			mBlendObj;
-		//@}
+		KY::StateHelper		mStates;
 
 		KY::Viewport		mViewport;
 	};
