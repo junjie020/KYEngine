@@ -1,13 +1,12 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
+#include "Graphic/SpaceNode.h"
 #include "Graphic/Frustum.h"
-#include "Math/Vector4.h"
-#include "Math/Matrix.h"
 
 namespace KY
 {
-	class Camera
+	class Camera : public SpaceNode
 	{
 	public:
 		

@@ -15,7 +15,7 @@ namespace KY
     	~Frustum();
 
     private:
-		using FrustumPts = std::array<Vec4f, 4>;
+		using FrustumPts = std::array<Vec4f, 8>;
 		FrustumPts mPts; // in world space		
     };
 }

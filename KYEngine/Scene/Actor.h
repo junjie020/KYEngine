@@ -1,9 +1,12 @@
 #ifndef _ACTOR_H_
 #define _ACTOR_H_
 
+#include "Graphic/SpaceNode.h"
+#include "Graphic/IRenderable.h"
 namespace KY
 {
-    class Actor
+    class Actor : public SpaceNode
+				, public IRenderable
     {
     public:
 		Actor(Actor *pParent) : mParent(pParent){}

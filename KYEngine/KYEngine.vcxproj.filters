@@ -130,6 +130,9 @@
     <ClCompile Include="Graphic\Camera.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\SpaceNode.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -280,6 +283,12 @@
       <Filter>Graphic\Resource\State</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Camera.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\SpaceNode.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\IRenderable.h">
       <Filter>Graphic</Filter>
     </ClInclude>
   </ItemGroup>
