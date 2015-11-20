@@ -12,22 +12,32 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 					
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/ImpLib/lib)
 
-function(append_src_files name_list local_dir arg)
-	foreach(name ${ARGN})
-		if ($name NOTEQUAL ${name_list} AND $name NOTEQUAL ${local_dir})
-			${name_list} = ${name_list} ${local_dir}/${name}
-		endif()
-	endforeach()
-endfunciton(append_src_files)
-
-append_src_files(
-
-set(SRC_FILES main.cpp stdafx.cpp)
-
-append_src_files(SRC_FILES "Common" BaseType.h CommonUtils.h)
-
-message("===the src files : " ${SRC_FILES})
+function(append_src_files name_list local_dir)
+	math(EXPR idx 2)
+	set(temp_list "")
 	
+	while(idx LESS ${ARGC})
+		list(GET ARGV ${idx} arg)
+		list(APPEND temp_list ${local_dir}/${arg})
+		math(EXPR idx ${idx}+1)
+	endwhile()
+	set(${name_list} ${temp_list} PARENT_SCOPE)
+	
+endfunction(append_src_files)
+
+append_src_files(COMMON_HEADERS "Common" 
+	BaseTypes.h 
+	CommonUtils.h 
+	HashImpl.h 
+	Singleton.h 
+	FileSystem.h)
+	
+append_src_files(COMMON_SRC "Common" FileSystem.cpp)
+
+source_group("Common\\Headers" FILES ${COMMON_HEADERS})
+source_group("Common\\Sources" FILES ${COMMON_SRC})
+		
+set(SRC_FILES main.cpp stdafx.cpp ${COMMON_HEADERS} ${COMMON_SRC})	
 
 #KYEngine will be a shared library for example to use, for simple, I just make it as a executable file right now
 add_executable(${PROJECT_NAME} ${SRC_FILES})
