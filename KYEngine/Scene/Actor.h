@@ -14,15 +14,18 @@ namespace KY
 
 		virtual void Update(){
 			UpdateImpl();
-			std::for_each(std::begin(mChildren), std::end(mChildren), 
-				[](Actor *child){
-					child->Update();
-			});
+			for(auto &child : mChildren){
+				child->Update();
+			} 
 		}
 
 		virtual void UpdateImpl(){}
 
-		//virtual void Render(){}
+		virtual void Render(){
+			for(auto &child : mChildren){
+				child->Render();
+			}
+		}
 
 		bool IsRoot() const {
 			return nullptr != mParent;
