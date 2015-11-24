@@ -12,29 +12,18 @@
 		47CD737D1C04A6D700DE5A20 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 47CD737C1C04A6D700DE5A20 /* Shaders.metal */; };
 		47CD737F1C04A6D700DE5A20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47CD737E1C04A6D700DE5A20 /* Assets.xcassets */; };
 		47CD73821C04A6D700DE5A20 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73801C04A6D700DE5A20 /* MainMenu.xib */; };
-		47CD73CC1C04AA6700DE5A20 /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73BF1C04AA6700DE5A20 /* Common */; };
-		47CD73CD1C04AA6700DE5A20 /* DebugUtils in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C01C04AA6700DE5A20 /* DebugUtils */; };
-		47CD73CE1C04AA6700DE5A20 /* Graphic in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C11C04AA6700DE5A20 /* Graphic */; };
-		47CD73CF1C04AA6700DE5A20 /* ImpLib in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C21C04AA6700DE5A20 /* ImpLib */; };
-		47CD73D01C04AA6700DE5A20 /* Input in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C31C04AA6700DE5A20 /* Input */; };
-		47CD73D11C04AA6700DE5A20 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C41C04AA6700DE5A20 /* main.cpp */; };
-		47CD73D21C04AA6700DE5A20 /* Math in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C51C04AA6700DE5A20 /* Math */; };
-		47CD73D31C04AA6700DE5A20 /* Platform in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C61C04AA6700DE5A20 /* Platform */; };
 		47CD73D41C04AA6700DE5A20 /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C71C04AA6700DE5A20 /* Resource */; };
-		47CD73D51C04AA6700DE5A20 /* Scene in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C81C04AA6700DE5A20 /* Scene */; };
-		47CD73D61C04AA6700DE5A20 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C91C04AA6700DE5A20 /* stdafx.cpp */; };
-		47CD73D71C04AA6700DE5A20 /* System in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73CB1C04AA6700DE5A20 /* System */; };
-		47CD73D81C04AB1F00DE5A20 /* Common in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73BF1C04AA6700DE5A20 /* Common */; };
-		47CD73D91C04AB1F00DE5A20 /* DebugUtils in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C01C04AA6700DE5A20 /* DebugUtils */; };
-		47CD73DA1C04AB1F00DE5A20 /* Graphic in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C11C04AA6700DE5A20 /* Graphic */; };
-		47CD73DB1C04AB1F00DE5A20 /* ImpLib in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C21C04AA6700DE5A20 /* ImpLib */; };
-		47CD73DC1C04AB1F00DE5A20 /* Input in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C31C04AA6700DE5A20 /* Input */; };
-		47CD73DD1C04AB1F00DE5A20 /* Math in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C51C04AA6700DE5A20 /* Math */; };
-		47CD73DE1C04AB1F00DE5A20 /* Platform in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C61C04AA6700DE5A20 /* Platform */; };
-		47CD73DF1C04AB1F00DE5A20 /* Resource in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C71C04AA6700DE5A20 /* Resource */; };
-		47CD73E01C04AB1F00DE5A20 /* Scene in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73C81C04AA6700DE5A20 /* Scene */; };
-		47CD73E11C04AB1F00DE5A20 /* stdafx.h in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73CA1C04AA6700DE5A20 /* stdafx.h */; };
-		47CD73E21C04AB1F00DE5A20 /* System in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73CB1C04AA6700DE5A20 /* System */; };
+		47CD73F01C04AFD600DE5A20 /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E51C04AFD600DE5A20 /* Common */; };
+		47CD73F11C04AFD600DE5A20 /* DebugUtils in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E61C04AFD600DE5A20 /* DebugUtils */; };
+		47CD73F21C04AFD600DE5A20 /* Graphic in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E71C04AFD600DE5A20 /* Graphic */; };
+		47CD73F31C04AFD600DE5A20 /* Input in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E81C04AFD600DE5A20 /* Input */; };
+		47CD73F41C04AFD600DE5A20 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73E91C04AFD600DE5A20 /* main.cpp */; };
+		47CD73F51C04AFD600DE5A20 /* Math in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EA1C04AFD600DE5A20 /* Math */; };
+		47CD73F61C04AFD600DE5A20 /* Platform in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EB1C04AFD600DE5A20 /* Platform */; };
+		47CD73F71C04AFD600DE5A20 /* Scene in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EC1C04AFD600DE5A20 /* Scene */; };
+		47CD73F81C04AFD600DE5A20 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */; };
+		47CD73F91C04AFD600DE5A20 /* System in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EF1C04AFD600DE5A20 /* System */; };
+		47CD73FA1C04AFEC00DE5A20 /* Graphic in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73E71C04AFD600DE5A20 /* Graphic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,19 +53,18 @@
 		47CD73831C04A6D700DE5A20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47CD73881C04A6D700DE5A20 /* KYEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47CD73931C04A6D700DE5A20 /* KYEngineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYEngineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		47CD73BF1C04AA6700DE5A20 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = ../../KYEngine/Common; sourceTree = "<group>"; };
-		47CD73C01C04AA6700DE5A20 /* DebugUtils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DebugUtils; path = ../../KYEngine/DebugUtils; sourceTree = "<group>"; };
-		47CD73C11C04AA6700DE5A20 /* Graphic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Graphic; path = ../../KYEngine/Graphic; sourceTree = "<group>"; };
-		47CD73C21C04AA6700DE5A20 /* ImpLib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ImpLib; path = ../../KYEngine/ImpLib; sourceTree = "<group>"; };
-		47CD73C31C04AA6700DE5A20 /* Input */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Input; path = ../../KYEngine/Input; sourceTree = "<group>"; };
-		47CD73C41C04AA6700DE5A20 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../KYEngine/main.cpp; sourceTree = "<group>"; };
-		47CD73C51C04AA6700DE5A20 /* Math */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Math; path = ../../KYEngine/Math; sourceTree = "<group>"; };
-		47CD73C61C04AA6700DE5A20 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../../KYEngine/Platform; sourceTree = "<group>"; };
-		47CD73C71C04AA6700DE5A20 /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resource; path = ../../KYEngine/Resource; sourceTree = "<group>"; };
-		47CD73C81C04AA6700DE5A20 /* Scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Scene; path = ../../KYEngine/Scene; sourceTree = "<group>"; };
-		47CD73C91C04AA6700DE5A20 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../KYEngine/stdafx.cpp; sourceTree = "<group>"; };
-		47CD73CA1C04AA6700DE5A20 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../KYEngine/stdafx.h; sourceTree = "<group>"; };
-		47CD73CB1C04AA6700DE5A20 /* System */ = {isa = PBXFileReference; lastKnownFileType = folder; name = System; path = ../../KYEngine/System; sourceTree = "<group>"; };
+		47CD73C71C04AA6700DE5A20 /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resource; path = /Users/kit/Documents/program/github/KYEngine/KYEngine/Resource; sourceTree = "<absolute>"; };
+		47CD73E51C04AFD600DE5A20 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = ../../KYEngine/Common; sourceTree = "<group>"; };
+		47CD73E61C04AFD600DE5A20 /* DebugUtils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DebugUtils; path = ../../KYEngine/DebugUtils; sourceTree = "<group>"; };
+		47CD73E71C04AFD600DE5A20 /* Graphic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Graphic; path = ../../KYEngine/Graphic; sourceTree = "<group>"; };
+		47CD73E81C04AFD600DE5A20 /* Input */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Input; path = ../../KYEngine/Input; sourceTree = "<group>"; };
+		47CD73E91C04AFD600DE5A20 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../KYEngine/main.cpp; sourceTree = "<group>"; };
+		47CD73EA1C04AFD600DE5A20 /* Math */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Math; path = ../../KYEngine/Math; sourceTree = "<group>"; };
+		47CD73EB1C04AFD600DE5A20 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../../KYEngine/Platform; sourceTree = "<group>"; };
+		47CD73EC1C04AFD600DE5A20 /* Scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Scene; path = ../../KYEngine/Scene; sourceTree = "<group>"; };
+		47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../KYEngine/stdafx.cpp; sourceTree = "<group>"; };
+		47CD73EE1C04AFD600DE5A20 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../KYEngine/stdafx.h; sourceTree = "<group>"; };
+		47CD73EF1C04AFD600DE5A20 /* System */ = {isa = PBXFileReference; lastKnownFileType = folder; name = System; path = ../../KYEngine/System; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,19 +127,17 @@
 		47CD73A51C04A70D00DE5A20 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
-				47CD73BF1C04AA6700DE5A20 /* Common */,
-				47CD73C01C04AA6700DE5A20 /* DebugUtils */,
-				47CD73C11C04AA6700DE5A20 /* Graphic */,
-				47CD73C21C04AA6700DE5A20 /* ImpLib */,
-				47CD73C31C04AA6700DE5A20 /* Input */,
-				47CD73C41C04AA6700DE5A20 /* main.cpp */,
-				47CD73C51C04AA6700DE5A20 /* Math */,
-				47CD73C61C04AA6700DE5A20 /* Platform */,
-				47CD73C71C04AA6700DE5A20 /* Resource */,
-				47CD73C81C04AA6700DE5A20 /* Scene */,
-				47CD73C91C04AA6700DE5A20 /* stdafx.cpp */,
-				47CD73CA1C04AA6700DE5A20 /* stdafx.h */,
-				47CD73CB1C04AA6700DE5A20 /* System */,
+				47CD73E51C04AFD600DE5A20 /* Common */,
+				47CD73E61C04AFD600DE5A20 /* DebugUtils */,
+				47CD73E71C04AFD600DE5A20 /* Graphic */,
+				47CD73E81C04AFD600DE5A20 /* Input */,
+				47CD73E91C04AFD600DE5A20 /* main.cpp */,
+				47CD73EA1C04AFD600DE5A20 /* Math */,
+				47CD73EB1C04AFD600DE5A20 /* Platform */,
+				47CD73EC1C04AFD600DE5A20 /* Scene */,
+				47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */,
+				47CD73EE1C04AFD600DE5A20 /* stdafx.h */,
+				47CD73EF1C04AFD600DE5A20 /* System */,
 			);
 			name = Engine;
 			sourceTree = "<group>";
@@ -260,18 +246,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CD73D51C04AA6700DE5A20 /* Scene in Resources */,
-				47CD73CE1C04AA6700DE5A20 /* Graphic in Resources */,
-				47CD73CF1C04AA6700DE5A20 /* ImpLib in Resources */,
 				47CD737F1C04A6D700DE5A20 /* Assets.xcassets in Resources */,
 				47CD73821C04A6D700DE5A20 /* MainMenu.xib in Resources */,
-				47CD73D31C04AA6700DE5A20 /* Platform in Resources */,
-				47CD73CD1C04AA6700DE5A20 /* DebugUtils in Resources */,
-				47CD73D71C04AA6700DE5A20 /* System in Resources */,
+				47CD73F11C04AFD600DE5A20 /* DebugUtils in Resources */,
+				47CD73F21C04AFD600DE5A20 /* Graphic in Resources */,
+				47CD73F61C04AFD600DE5A20 /* Platform in Resources */,
+				47CD73F71C04AFD600DE5A20 /* Scene in Resources */,
 				47CD73D41C04AA6700DE5A20 /* Resource in Resources */,
-				47CD73D01C04AA6700DE5A20 /* Input in Resources */,
-				47CD73D21C04AA6700DE5A20 /* Math in Resources */,
-				47CD73CC1C04AA6700DE5A20 /* Common in Resources */,
+				47CD73F31C04AFD600DE5A20 /* Input in Resources */,
+				47CD73F91C04AFD600DE5A20 /* System in Resources */,
+				47CD73F51C04AFD600DE5A20 /* Math in Resources */,
+				47CD73F01C04AFD600DE5A20 /* Common in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,22 +281,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CD73D81C04AB1F00DE5A20 /* Common in Sources */,
-				47CD73D91C04AB1F00DE5A20 /* DebugUtils in Sources */,
-				47CD73DA1C04AB1F00DE5A20 /* Graphic in Sources */,
-				47CD73DB1C04AB1F00DE5A20 /* ImpLib in Sources */,
-				47CD73DC1C04AB1F00DE5A20 /* Input in Sources */,
-				47CD73DD1C04AB1F00DE5A20 /* Math in Sources */,
-				47CD73DE1C04AB1F00DE5A20 /* Platform in Sources */,
-				47CD73DF1C04AB1F00DE5A20 /* Resource in Sources */,
-				47CD73E01C04AB1F00DE5A20 /* Scene in Sources */,
-				47CD73E11C04AB1F00DE5A20 /* stdafx.h in Sources */,
-				47CD73E21C04AB1F00DE5A20 /* System in Sources */,
+				47CD73FA1C04AFEC00DE5A20 /* Graphic in Sources */,
 				47CD737D1C04A6D700DE5A20 /* Shaders.metal in Sources */,
 				47CD737B1C04A6D700DE5A20 /* GameViewController.swift in Sources */,
-				47CD73D11C04AA6700DE5A20 /* main.cpp in Sources */,
+				47CD73F41C04AFD600DE5A20 /* main.cpp in Sources */,
 				47CD73791C04A6D700DE5A20 /* AppDelegate.swift in Sources */,
-				47CD73D61C04AA6700DE5A20 /* stdafx.cpp in Sources */,
+				47CD73F81C04AFD600DE5A20 /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,8 +417,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				INFOPLIST_FILE = KYEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OBJROOT = "$(PROJECT_DIR)/build";
 				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -456,8 +433,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				INFOPLIST_FILE = KYEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OBJROOT = "${PROJECT_DIR}/build";
 				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
