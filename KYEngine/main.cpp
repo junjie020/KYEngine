@@ -348,8 +348,9 @@ private:
 			return true;
 		}
 
-		virtual void UpdateImpl() override
+		virtual void UpdateImpl(Camera *camera) override
 		{
+			Actor::UpdateImpl(camera);
 			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{

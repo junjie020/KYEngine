@@ -4,6 +4,8 @@
 namespace KY
 {
 	class Actor;
+	class Camera;
+
 	class Scene
 	{
 	public:
@@ -13,10 +15,19 @@ namespace KY
 		void Update();
 		void AddActor(Actor *act);
 		void RemoveActor(Actor *act);
-
+		void Render();
 		Actor* GetRootActor() { return mRoot; }
+
+		void SetCamera(Camera *camera) {
+			mCamera = camera;
+		}
+
 	private:
 		Actor	*mRoot;
+		Camera  *mCamera;
+
+		using VisableActorVec = std::vector<Actor*>;
+		VisableActorVec mVisableActors;
 	};
 }
 #endif //_SCENE_H_

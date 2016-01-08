@@ -12,8 +12,6 @@ namespace KY
 		// costruct a frustum in world space
 		Frustum(const Mat4x4F &viewProj);
 
-    	~Frustum();
-
     private:
 		using FrustumPts = std::array<Vec4f, 8>;
 		FrustumPts mPts; // in world space		

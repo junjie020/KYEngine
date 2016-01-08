@@ -5,27 +5,35 @@
 #include "Graphic/IRenderable.h"
 namespace KY
 {
+	class Camera;
+	class Actor;
+	using VisableActorVec = std::vector<Actor*>;
+
     class Actor : public SpaceNode
 				, public IRenderable
     {
     public:
-		Actor(Actor *pParent) : mParent(pParent){}
+		Actor(Actor *pParent) 
+			: mParent(pParent)
+			, mVisable(false)
+		{}
 		virtual ~Actor(){}
 
-		virtual void Update(){
-			UpdateImpl();
-			std::for_each(std::begin(mChildren), std::end(mChildren), 
-				[](Actor *child){
-					child->Update();
-			});
-		}
+		virtual void Update(Camera *camera, VisableActorVec &visableActors);
 
-		virtual void UpdateImpl(){}
+		virtual void UpdateImpl(Camera *){
+			// todo, set always visable
+			mVisable = true;
+		}
 
 		virtual void Render(){}
 
 		bool IsRoot() const {
 			return nullptr != mParent;
+		}
+
+		bool IsVisable() const {
+			return mVisable;
 		}
 
 		bool HasChild(Actor *rhs) const {
@@ -58,6 +66,8 @@ namespace KY
 		typedef std::vector<Actor*> ActorVec;
 
 		ActorVec mChildren;
+
+		bool mVisable : 1;
     };
 }
 #endif // _ACTOR_H_

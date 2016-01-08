@@ -18,7 +18,8 @@ namespace KY
 
 		MeshVec& GetMeshes() { return mMeshes;  }
 
-		virtual void UpdateImpl() override;
+		virtual void UpdateImpl(Camera *camera) override;
+		virtual void Render() override;
 	private:
 		MeshVec mMeshes;
 	};

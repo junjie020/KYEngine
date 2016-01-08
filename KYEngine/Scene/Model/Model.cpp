@@ -12,7 +12,12 @@ namespace KY
 		std::for_each(mMeshes.begin(), mMeshes.end(), SafeDelete<Mesh>);
 	}
 
-	void Model::UpdateImpl()
+	void Model::UpdateImpl(Camera * /*camera*/)
+	{
+
+	}
+
+	void Model::Render()
 	{
 		for (auto &m : mMeshes)
 		{

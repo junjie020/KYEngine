@@ -73,8 +73,7 @@ namespace KY
 	{
 		MSG msg = { 0 };
 
-		bool done = false;
-		while (!done)
+		while (true)
 		{
 			// Handle the windows messages.
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -83,13 +82,10 @@ namespace KY
 				DispatchMessage(&msg);
 			}
 
-			if (mInput->IsKeyDown(VK_ESCAPE))
-			{
-				done = true;
-				continue;
-			}
+			if (mInput->IsKeyDown(VK_ESCAPE) || msg.message == WM_QUIT)
+				break;
 
-			done = (msg.message != WM_QUIT) ? !Frame() : true;
+			Frame();
 		}
 
 		return;
@@ -99,6 +95,7 @@ namespace KY
 	bool System::Frame()
 	{
 		mScene->Update();
+		mScene->Render();
 		return mGraphics->Frame();
 	}
 
