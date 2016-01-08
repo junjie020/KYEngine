@@ -348,25 +348,25 @@ private:
 			return true;
 		}
 
-		virtual void UpdateImpl()
+		virtual void UpdateImpl() override
 		{
-			//{@
+			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+			if (mDynConstBuffer.Map(param))
 			{
-				ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
-				if (mDynConstBuffer.Map(param))
-				{
-					BOOST_ASSERT(param.mapData.data);
-					BOOST_ASSERT(param.mapData.rowPitch != 0);
-					BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
-					memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
-					mDynConstBuffer.UnMap(param.subRes);
-				}
-				else
-				{
-					KY::DebugOutline("map const buffer failed!");
-				}
+				BOOST_ASSERT(param.mapData.data);
+				BOOST_ASSERT(param.mapData.rowPitch != 0);
+				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
+				memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
+				mDynConstBuffer.UnMap(param.subRes);
+			}
+			else
+			{
+				KY::DebugOutline("map const buffer failed!");
 			}			
-			//@}
+		}
+
+		virtual void Render() override
+		{
 			KY::Graphic::Inst()->AddRenderOperation(&mRO);
 		}
 	private:

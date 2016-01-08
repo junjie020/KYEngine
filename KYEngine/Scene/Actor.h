@@ -22,7 +22,7 @@ namespace KY
 
 		virtual void UpdateImpl(){}
 
-		//virtual void Render(){}
+		virtual void Render(){}
 
 		bool IsRoot() const {
 			return nullptr != mParent;
