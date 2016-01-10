@@ -2,6 +2,7 @@
 #include "Mesh.h"
 
 #include "Graphic/RenderOperation.h"
+#include "Graphic/Resource/ResourceManager.h"
 #include "DebugUtils/TraceUtils.h"
 
 #include "Platform/Win32DefHeader.h"
@@ -93,18 +94,11 @@ namespace KY
 	bool MeshRenderOperationHelper::InitShader()
 	{
 		//{@	hard code here, we need to follow the mesh's properties to define which shader should use or which macro should define
-		auto shaderPath = FileSystem::Inst()->FindFromSubPath("shader");
-		if (!mVS.InitFromFile(ShdrT_Vertex, shaderPath / fs::path("Object.vs")))
-		{
-			DebugOutline("init object.vs failed!");
-			return false;
-		}
+		BOOST_ASSERT(mVS == nullptr);
+		mVS = ResourceManager::Inst()->FindAddShader("Object.vs");
 
-		if (!mPS.InitFromFile(ShdrT_Pixel, shaderPath / fs::path("Object.ps")))
-		{
-			DebugOutline("init object.ps failed!");
-			return false;
-		}
+		BOOST_ASSERT(mPS == nullptr);
+		mPS = ResourceManager::Inst()->FindAddShader("Object.ps");
 		//@}
 
 		return true;
@@ -138,9 +132,9 @@ namespace KY
 			mIP.AddElem(elem);
 		}
 
-		BOOST_ASSERT(!mVS.IsValid());
+		BOOST_ASSERT(!mVS->IsValid());
 
-		if (!mIP.Create(mVS))
+		if (!mIP.Create(*mVS))
 		{
 			DebugOutline("create mesh input layout failed!");
 			return false;

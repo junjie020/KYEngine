@@ -35,6 +35,14 @@ namespace KY
 			mRootPath = rootPath;
 		}
 
+		enum class ReadFileResult : uint8
+		{
+			RFR_Success = 0,
+			RFR_CouldNotFindTheFile,				
+		};
+
+		ReadFileResult ReadFileContent(const fs::path &fullFileName, std::string &fileContent) const;
+
 	private:
 		fs::path mRootPath;
 

@@ -43,4 +43,22 @@ namespace KY
 		return paths;
 	}
 
+	FileSystem::ReadFileResult FileSystem::ReadFileContent(const fs::path &fullFileName, std::string &fileContent) const
+	{
+		std::ifstream iftm(fullFileName.string().c_str());
+
+		if (!iftm)
+			return ReadFileResult::RFR_CouldNotFindTheFile;
+
+		iftm.seekg(std::ios::end, 0);
+		const auto fileSize = size_t(iftm.tellg());
+		iftm.seekg(std::ios::beg, 0);
+
+		fileContent.resize(fileSize);
+
+		iftm.read(&*fileContent.begin(), fileSize);
+
+		return ReadFileResult::RFR_Success;
+	}
+
 }

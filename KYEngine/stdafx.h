@@ -18,6 +18,7 @@
 #include <memory>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
 #include <filesystem>
 namespace fs = std::experimental::filesystem::v1;
 //@}

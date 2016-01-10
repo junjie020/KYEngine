@@ -7,13 +7,19 @@
 #include "Graphic/Resource/Shader.h"
 
 #include "Graphic/Resource/StateHelper.h"
+#include "Graphic/Resource/Buffer.h"
 
 namespace KY
 {
 	class MeshRenderOperationHelper
 	{
 	public:
-		MeshRenderOperationHelper(){}
+		MeshRenderOperationHelper()
+			: mDynConstBuffer(ResT_Const)
+			, mLightConstBuffer(ResT_Const)
+			, mVS(nullptr)
+			, mPS(nullptr)
+		{}
 
 		~MeshRenderOperationHelper(){	
 			for (auto vb : mVBs) {
@@ -40,8 +46,11 @@ namespace KY
 		IndexBuffer		mIB;
 
 		InputLayout		mIP;
-		Shader			mVS;
-		Shader			mPS;
+		Shader*			mVS;
+		Shader*			mPS;
+
+		Buffer			mDynConstBuffer;
+		Buffer			mLightConstBuffer;
 
 		StateHelper		mStates;
 
