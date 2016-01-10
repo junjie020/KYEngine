@@ -1,12 +1,20 @@
 #ifndef _PLANE_H_
 #define _PLANE_H_
 
+#include "Math/Vector4.h"
+#include "Math/Vector3.h"
+
 namespace KY
 {
     class Plane
     {
 	public:
-		float x, y, z;	// normal
+		union {
+			struct {
+				float x, y, z;
+			};
+			Vec3f v;
+		};
 		float dist;
 
     public:
@@ -15,7 +23,7 @@ namespace KY
 
 		~Plane(){}
 
-
+		Vec3f interset(const Plane &p);
 
     };
 }

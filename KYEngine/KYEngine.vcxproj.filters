@@ -297,6 +297,9 @@
     <ClInclude Include="Graphic\Resource\ResourceManager.h">
       <Filter>Graphic\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

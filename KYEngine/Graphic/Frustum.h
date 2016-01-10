@@ -12,8 +12,30 @@ namespace KY
 		// costruct a frustum in world space
 		Frustum(const Mat4x4F &viewProj);
 
+		enum FrustumPlaneName : uint8
+		{
+			Left, Right,
+			Top, Bottom,
+			Near, Far,
+
+			PlaneCount,
+		};
+
+
     private:
-		using FrustumPts = std::array<Vec4f, 8>;
+	
+		enum FrustumPointIndex : uint8
+		{
+			NearTopLeft, NearTopRight,
+			NearBottomLeft, NearBottomRight,
+
+			FarTopLeft, FarTopRight,
+			FarBottomLeft, FarBottomRight,
+
+			IndexCount,
+		};
+
+		using FrustumPts = std::array<Vec4f, FrustumPointIndex::IndexCount>;
 		FrustumPts mPts; // in world space		
     };
 }
