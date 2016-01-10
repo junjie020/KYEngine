@@ -1,0 +1,545 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		47CD73791C04A6D700DE5A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73781C04A6D700DE5A20 /* AppDelegate.swift */; };
+		47CD737B1C04A6D700DE5A20 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD737A1C04A6D700DE5A20 /* GameViewController.swift */; };
+		47CD737D1C04A6D700DE5A20 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 47CD737C1C04A6D700DE5A20 /* Shaders.metal */; };
+		47CD737F1C04A6D700DE5A20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47CD737E1C04A6D700DE5A20 /* Assets.xcassets */; };
+		47CD73821C04A6D700DE5A20 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73801C04A6D700DE5A20 /* MainMenu.xib */; };
+		47CD73D41C04AA6700DE5A20 /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73C71C04AA6700DE5A20 /* Resource */; };
+		47CD73F01C04AFD600DE5A20 /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E51C04AFD600DE5A20 /* Common */; };
+		47CD73F11C04AFD600DE5A20 /* DebugUtils in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E61C04AFD600DE5A20 /* DebugUtils */; };
+		47CD73F21C04AFD600DE5A20 /* Graphic in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E71C04AFD600DE5A20 /* Graphic */; };
+		47CD73F31C04AFD600DE5A20 /* Input in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73E81C04AFD600DE5A20 /* Input */; };
+		47CD73F41C04AFD600DE5A20 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73E91C04AFD600DE5A20 /* main.cpp */; };
+		47CD73F51C04AFD600DE5A20 /* Math in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EA1C04AFD600DE5A20 /* Math */; };
+		47CD73F61C04AFD600DE5A20 /* Platform in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EB1C04AFD600DE5A20 /* Platform */; };
+		47CD73F71C04AFD600DE5A20 /* Scene in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EC1C04AFD600DE5A20 /* Scene */; };
+		47CD73F81C04AFD600DE5A20 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */; };
+		47CD73F91C04AFD600DE5A20 /* System in Resources */ = {isa = PBXBuildFile; fileRef = 47CD73EF1C04AFD600DE5A20 /* System */; };
+		47CD73FA1C04AFEC00DE5A20 /* Graphic in Sources */ = {isa = PBXBuildFile; fileRef = 47CD73E71C04AFD600DE5A20 /* Graphic */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		47CD73891C04A6D700DE5A20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47CD736D1C04A6D700DE5A20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47CD73741C04A6D700DE5A20;
+			remoteInfo = KYEngine;
+		};
+		47CD73941C04A6D700DE5A20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47CD736D1C04A6D700DE5A20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47CD73741C04A6D700DE5A20;
+			remoteInfo = KYEngine;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		47CD73751C04A6D700DE5A20 /* KYEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KYEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CD73781C04A6D700DE5A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		47CD737A1C04A6D700DE5A20 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		47CD737C1C04A6D700DE5A20 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		47CD737E1C04A6D700DE5A20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		47CD73811C04A6D700DE5A20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		47CD73831C04A6D700DE5A20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47CD73881C04A6D700DE5A20 /* KYEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CD73931C04A6D700DE5A20 /* KYEngineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KYEngineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CD73C71C04AA6700DE5A20 /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resource; path = /Users/kit/Documents/program/github/KYEngine/KYEngine/Resource; sourceTree = "<absolute>"; };
+		47CD73E51C04AFD600DE5A20 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = ../../KYEngine/Common; sourceTree = "<group>"; };
+		47CD73E61C04AFD600DE5A20 /* DebugUtils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DebugUtils; path = ../../KYEngine/DebugUtils; sourceTree = "<group>"; };
+		47CD73E71C04AFD600DE5A20 /* Graphic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Graphic; path = ../../KYEngine/Graphic; sourceTree = "<group>"; };
+		47CD73E81C04AFD600DE5A20 /* Input */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Input; path = ../../KYEngine/Input; sourceTree = "<group>"; };
+		47CD73E91C04AFD600DE5A20 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../KYEngine/main.cpp; sourceTree = "<group>"; };
+		47CD73EA1C04AFD600DE5A20 /* Math */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Math; path = ../../KYEngine/Math; sourceTree = "<group>"; };
+		47CD73EB1C04AFD600DE5A20 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../../KYEngine/Platform; sourceTree = "<group>"; };
+		47CD73EC1C04AFD600DE5A20 /* Scene */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Scene; path = ../../KYEngine/Scene; sourceTree = "<group>"; };
+		47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../KYEngine/stdafx.cpp; sourceTree = "<group>"; };
+		47CD73EE1C04AFD600DE5A20 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../KYEngine/stdafx.h; sourceTree = "<group>"; };
+		47CD73EF1C04AFD600DE5A20 /* System */ = {isa = PBXFileReference; lastKnownFileType = folder; name = System; path = ../../KYEngine/System; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		47CD73721C04A6D700DE5A20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD73851C04A6D700DE5A20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD73901C04A6D700DE5A20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		47CD736C1C04A6D700DE5A20 = {
+			isa = PBXGroup;
+			children = (
+				47CD73771C04A6D700DE5A20 /* KYEngine */,
+				47CD73761C04A6D700DE5A20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		47CD73761C04A6D700DE5A20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				47CD73751C04A6D700DE5A20 /* KYEngine.app */,
+				47CD73881C04A6D700DE5A20 /* KYEngineTests.xctest */,
+				47CD73931C04A6D700DE5A20 /* KYEngineUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		47CD73771C04A6D700DE5A20 /* KYEngine */ = {
+			isa = PBXGroup;
+			children = (
+				47CD73A51C04A70D00DE5A20 /* Engine */,
+				47CD73781C04A6D700DE5A20 /* AppDelegate.swift */,
+				47CD737A1C04A6D700DE5A20 /* GameViewController.swift */,
+				47CD737C1C04A6D700DE5A20 /* Shaders.metal */,
+				47CD737E1C04A6D700DE5A20 /* Assets.xcassets */,
+				47CD73801C04A6D700DE5A20 /* MainMenu.xib */,
+				47CD73831C04A6D700DE5A20 /* Info.plist */,
+			);
+			path = KYEngine;
+			sourceTree = "<group>";
+		};
+		47CD73A51C04A70D00DE5A20 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				47CD73E51C04AFD600DE5A20 /* Common */,
+				47CD73E61C04AFD600DE5A20 /* DebugUtils */,
+				47CD73E71C04AFD600DE5A20 /* Graphic */,
+				47CD73E81C04AFD600DE5A20 /* Input */,
+				47CD73E91C04AFD600DE5A20 /* main.cpp */,
+				47CD73EA1C04AFD600DE5A20 /* Math */,
+				47CD73EB1C04AFD600DE5A20 /* Platform */,
+				47CD73EC1C04AFD600DE5A20 /* Scene */,
+				47CD73ED1C04AFD600DE5A20 /* stdafx.cpp */,
+				47CD73EE1C04AFD600DE5A20 /* stdafx.h */,
+				47CD73EF1C04AFD600DE5A20 /* System */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		47CD73741C04A6D700DE5A20 /* KYEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47CD739C1C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngine" */;
+			buildPhases = (
+				47CD73711C04A6D700DE5A20 /* Sources */,
+				47CD73721C04A6D700DE5A20 /* Frameworks */,
+				47CD73731C04A6D700DE5A20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KYEngine;
+			productName = KYEngine;
+			productReference = 47CD73751C04A6D700DE5A20 /* KYEngine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		47CD73871C04A6D700DE5A20 /* KYEngineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47CD739F1C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngineTests" */;
+			buildPhases = (
+				47CD73841C04A6D700DE5A20 /* Sources */,
+				47CD73851C04A6D700DE5A20 /* Frameworks */,
+				47CD73861C04A6D700DE5A20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				47CD738A1C04A6D700DE5A20 /* PBXTargetDependency */,
+			);
+			name = KYEngineTests;
+			productName = KYEngineTests;
+			productReference = 47CD73881C04A6D700DE5A20 /* KYEngineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		47CD73921C04A6D700DE5A20 /* KYEngineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47CD73A21C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngineUITests" */;
+			buildPhases = (
+				47CD738F1C04A6D700DE5A20 /* Sources */,
+				47CD73901C04A6D700DE5A20 /* Frameworks */,
+				47CD73911C04A6D700DE5A20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				47CD73951C04A6D700DE5A20 /* PBXTargetDependency */,
+			);
+			name = KYEngineUITests;
+			productName = KYEngineUITests;
+			productReference = 47CD73931C04A6D700DE5A20 /* KYEngineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		47CD736D1C04A6D700DE5A20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = Kit;
+				TargetAttributes = {
+					47CD73741C04A6D700DE5A20 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					47CD73871C04A6D700DE5A20 = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 47CD73741C04A6D700DE5A20;
+					};
+					47CD73921C04A6D700DE5A20 = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 47CD73741C04A6D700DE5A20;
+					};
+				};
+			};
+			buildConfigurationList = 47CD73701C04A6D700DE5A20 /* Build configuration list for PBXProject "KYEngine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 47CD736C1C04A6D700DE5A20;
+			productRefGroup = 47CD73761C04A6D700DE5A20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				47CD73741C04A6D700DE5A20 /* KYEngine */,
+				47CD73871C04A6D700DE5A20 /* KYEngineTests */,
+				47CD73921C04A6D700DE5A20 /* KYEngineUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		47CD73731C04A6D700DE5A20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47CD737F1C04A6D700DE5A20 /* Assets.xcassets in Resources */,
+				47CD73821C04A6D700DE5A20 /* MainMenu.xib in Resources */,
+				47CD73F11C04AFD600DE5A20 /* DebugUtils in Resources */,
+				47CD73F21C04AFD600DE5A20 /* Graphic in Resources */,
+				47CD73F61C04AFD600DE5A20 /* Platform in Resources */,
+				47CD73F71C04AFD600DE5A20 /* Scene in Resources */,
+				47CD73D41C04AA6700DE5A20 /* Resource in Resources */,
+				47CD73F31C04AFD600DE5A20 /* Input in Resources */,
+				47CD73F91C04AFD600DE5A20 /* System in Resources */,
+				47CD73F51C04AFD600DE5A20 /* Math in Resources */,
+				47CD73F01C04AFD600DE5A20 /* Common in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD73861C04A6D700DE5A20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD73911C04A6D700DE5A20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		47CD73711C04A6D700DE5A20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47CD73FA1C04AFEC00DE5A20 /* Graphic in Sources */,
+				47CD737D1C04A6D700DE5A20 /* Shaders.metal in Sources */,
+				47CD737B1C04A6D700DE5A20 /* GameViewController.swift in Sources */,
+				47CD73F41C04AFD600DE5A20 /* main.cpp in Sources */,
+				47CD73791C04A6D700DE5A20 /* AppDelegate.swift in Sources */,
+				47CD73F81C04AFD600DE5A20 /* stdafx.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD73841C04A6D700DE5A20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47CD738F1C04A6D700DE5A20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		47CD738A1C04A6D700DE5A20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 47CD73741C04A6D700DE5A20 /* KYEngine */;
+			targetProxy = 47CD73891C04A6D700DE5A20 /* PBXContainerItemProxy */;
+		};
+		47CD73951C04A6D700DE5A20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 47CD73741C04A6D700DE5A20 /* KYEngine */;
+			targetProxy = 47CD73941C04A6D700DE5A20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		47CD73801C04A6D700DE5A20 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47CD73811C04A6D700DE5A20 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		47CD739A1C04A6D700DE5A20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		47CD739B1C04A6D700DE5A20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		47CD739D1C04A6D700DE5A20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = KYEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OBJROOT = "$(PROJECT_DIR)/build";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "$(BOOST_DIR)/include";
+			};
+			name = Debug;
+		};
+		47CD739E1C04A6D700DE5A20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = KYEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OBJROOT = "${PROJECT_DIR}/build";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(BOOST_DIR)/include";
+			};
+			name = Release;
+		};
+		47CD73A01C04A6D700DE5A20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = KYEngineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KYEngine.app/Contents/MacOS/KYEngine";
+			};
+			name = Debug;
+		};
+		47CD73A11C04A6D700DE5A20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = KYEngineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KYEngine.app/Contents/MacOS/KYEngine";
+			};
+			name = Release;
+		};
+		47CD73A31C04A6D700DE5A20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = KYEngineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KYEngine;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		47CD73A41C04A6D700DE5A20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = KYEngineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = KitMT.KYEngineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KYEngine;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		47CD73701C04A6D700DE5A20 /* Build configuration list for PBXProject "KYEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CD739A1C04A6D700DE5A20 /* Debug */,
+				47CD739B1C04A6D700DE5A20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47CD739C1C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CD739D1C04A6D700DE5A20 /* Debug */,
+				47CD739E1C04A6D700DE5A20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47CD739F1C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CD73A01C04A6D700DE5A20 /* Debug */,
+				47CD73A11C04A6D700DE5A20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47CD73A21C04A6D700DE5A20 /* Build configuration list for PBXNativeTarget "KYEngineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CD73A31C04A6D700DE5A20 /* Debug */,
+				47CD73A41C04A6D700DE5A20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 47CD736D1C04A6D700DE5A20 /* Project object */;
+}

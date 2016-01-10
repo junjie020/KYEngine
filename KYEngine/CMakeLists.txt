@@ -25,137 +25,57 @@ function(append_src_files name_list local_dir)
 	
 endfunction(append_src_files)
 
-##################Common##################
-append_src_files(COMMON_SRC "Common" 
+append_src_files(COMMON_HEADERS "Common" 
 	BaseTypes.h 
 	CommonUtils.h 
 	HashImpl.h 
 	Singleton.h 
-	FileSystem.h FileSystem.cpp)
-source_group("Common" FILES ${COMMON_SRC})
+	FileSystem.h)
+	
+append_src_files(COMMON_SRC "Common" FileSystem.cpp)
 
-##################DebugUtils##################
-append_src_files(DEBUGUTILS_SRC "DebugUtils"
-	TraceUtils.h TraceUtils.cpp)
+source_group("Common\\Headers" FILES ${COMMON_HEADERS})
+source_group("Common\\Sources" FILES ${COMMON_SRC})
 
-source_group("DebugUtils" FILES ${DEBUGUTILS_SRC})
+append_src_files(DEBUG_HEADERS "DebugUtils" TraceUtils.h)
+append_src_files(DEBUG_SRC "DebugUtils" TraceUtils.cpp)
 
-##################Graphic##################
+source_group("DebugUtils\\Headers" ${DEBUG_HEADERS})
+source_group("DebugUtils\\Sources" ${DEBUG_SRC})
+
+append_src_files(GRAPHIC_METAL_SRC "Graphic/Metal" Metal.h Metal.cpp)
+source_group("Graphic\\Metal" ${GRAPHIC_METAL_SRC})
+
+append_src_files(GRAPHIC_RESOURCE_SRC "Graphic/Resource" 
+			Buffer.h Buffer.cpp
+			IndexBuffer.h IndexBuffer.cpp
+			Resource.h Resource.cpp
+			Shader.h Shader.cpp
+			StateHelper.h StateHelper.cpp
+			StateObject.h StateObject.inl StateObject.cpp
+			Texture.h Texture.cpp 
+			VertexBuffer.h VertexBuffer.cpp)
+source_group("Graphic\\Resource" ${GRAPHIC_RESOURCE_SRC})
+
 append_src_files(GRAPHIC_SRC "Graphic" 
-	Camera.h Camera.cpp
-	Frustum.h Frustum.cpp
-	Graphic.h Graphic.cpp
-	GraphicDef.h
-	IRenderable.h
-	PipelineStage.h PipelineStage.cpp
-	RenderCommandQueue.h RenderCommandQueue.cpp
-	RenderOperation.h RenderOperation.cpp
-	SpaceNode.h SpaceNode.cpp
-	Viewport.h Viewport.cpp)
-					
-source_group("Graphic" FILES ${GRAPHIC_SRC})
+			Camera.h Camera.cpp
+			Frustum.h Frustum.cpp
+			Graphic.h Graphic.cpp
+			GraphicDef.h
+			IRenderable.h
+			PipelineStage.h PipelineStage.cpp
+			RenderCommandQueue.h RenderCommandQueue.cpp
+			RenderOperation.h RenderOperation.cpp
+			SpaceNode.h SpaceNode.cpp
+			Viewport.h Viewport.cpp)
+			
+source_group("Graphic" ${GRAPHIC_SRC})
 
-append_src_files(GRAPHIC_METAL "Graphic/Metal" 
-	Metal.h Metal.cpp)
-					
-source_group("Graphic\\Metal" FILES ${GRAPHIC_METAL})
-
-append_src_files(GRAPHIC_RESOURCE "Graphic/Resource" 
-	Buffer.h Buffer.cpp
-	IndexBuffer.h IndexBuffer.cpp
-	Resource.h Resource.cpp
-	Shader.h Shader.cpp
-	StateHelper.h StateHelper.cpp
-	StateObject.h StateObject.inl StateObject.cpp
-	Texture.h Texture.cpp
-	VertexBuffer.h VertexBuffer.cpp)
-					
-source_group("Graphic\\Resource" FILES ${GRAPHIC_RESOURCE})
-
-##################Input##################
-append_src_files(INPUT_SRC "Input" 
-	Input.h Input.cpp)
-					
-source_group("Input" FILES ${INPUT_SRC})
-
-##################Input##################
-append_src_files(INPUT_SRC "Input" 
-	Input.h Input.cpp)
-					
-source_group("Input" FILES ${INPUT_SRC})
-
-##################Math##################
-append_src_files(MATH_SRC "Math" 
-	Color.h Color.inl Color.cpp
-	MathUtils.h MathUtils.cpp
-	Matrix.h Matrix.inl Matrix.cpp
-	Plane.h Plane.cpp
-	Quaternion.h Quaternion.cpp
-	Rectangle.h
-	Vector2.h
-	Vector4.h Vector4.cpp
-	)
-					
-source_group("Math" FILES ${MATH_SRC})
-
-##################Platform##################
-append_src_files(PLATFORM_SRC "Platform" 
-	Win32DefHeader.h)
-					
-source_group("Platform" FILES ${PLATFORM_SRC})
-
-##################Scene##################
-append_src_files(SCENE_SRC "Scene" 
-	Actor.h Actor.cpp
-	Scene.h Scene.cpp)
-					
-source_group("Scene" FILES ${SCENE_SRC})
-
-
-append_src_files(SCENE_MODEL_SRC "Scene/Model" 
-	Model.h Model.cpp
-	Mesh.h Mesh.cpp
-	MeshImporter.h MeshImporter.cpp)
-					
-source_group("Scene\\Model" FILES ${SCENE_MODEL_SRC})
-
-append_src_files(SCENE_MODEL_ASSIMP_SRC "Scene/Model/Assimp" 
-	AssimpMeshImporter.h AssimpMeshImporter.cpp
-	AssimpResourceManager.h AssimpResourceManager.cpp)
-					
-source_group("Scene\\Model\\Assimp" FILES ${SCENE_MODEL_ASSIMP_SRC})
-
-##################Scene##################
-append_src_files(SYSTEM_SRC "System" 
-	System.h System.cpp
-	SampleTest.h SampleTest.cpp)
-					
-source_group("System" FILES ${SYSTEM_SRC})
-
-
-#########################################
-
-#+++++++++++++++++++++++++++++++++++++++
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Werror")
-elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Werror -Wno-missing-field-initializers")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
-endif()
-#+++++++++++++++++++++++++++++++++++++++
 		
-set(SRC_FILES
-	main.cpp stdafx.cpp
-	${COMMON_SRC}
-	${DEBUGUTILS_SRC}
-	${GRAPHIC_SRC} ${GRAPHIC_METAL} ${GRAPHIC_RESOURCE}
-	${INPUT_SRC}
-	${MATH_SRC}
-	${PLATFORM_SRC}
-	${SCENE_SRC} ${SCENE_MODEL_SRC} ${SCENE_MODEL_ASSIMP_SRC}
-	${SYSTEM_SRC}
-	)
+set(SRC_FILES main.cpp stdafx.cpp 
+	${COMMON_HEADERS} ${COMMON_SRC}
+	${DEBUG_HEADERS} ${DEBUG_SRC}
+	${GRAPHIC_METAL_SRC} ${GRAPHIC_RESOURCE_SRC} ${GRAPHIC_SRC})	
 
 #KYEngine will be a shared library for example to use, for simple, I just make it as a executable file right now
 add_executable(${PROJECT_NAME} ${SRC_FILES})

@@ -393,12 +393,16 @@ private:
 
 #include "Common/FileSystem.h"
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, int iCmdshow)
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PSTR /*pScmdline*/, int /*iCmdshow*/)
+#else defined(__APPLE__)
+int MainEntry()
+#endif //_WIN32
 {
-	iCmdshow;
-	pScmdline;
-	hPrevInstance;
-	hInstance;
+//	iCmdshow;
+//	pScmdline;
+//	hPrevInstance;
+//	hInstance;
 
 	// Create the system object.
 	KY::FileSystem::Create();
@@ -425,3 +429,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 
 	return 0;
 }
+#endif //__APPLE__
