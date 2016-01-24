@@ -183,6 +183,7 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Math\VectorUnit.h" />
     <ClInclude Include="Platform\Win32DefHeader.h" />
     <ClInclude Include="Scene\Actor.h" />
     <ClInclude Include="Scene\Model\Assimp\AssimpMeshImporter.h" />
