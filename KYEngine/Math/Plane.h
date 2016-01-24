@@ -1,7 +1,6 @@
 #ifndef _PLANE_H_
 #define _PLANE_H_
 
-#include "Math/Vector4.h"
 #include "Math/Vector3.h"
 
 namespace KY
@@ -21,9 +20,7 @@ namespace KY
 		Plane(){}
 		Plane(float _x, float _y, float _z, float d) : x(_x), y(_y), z(_z), dist(d){}
 
-		~Plane(){}
-
-		Vec3f interset(const Plane &p);
+		Vec3f interset(const Plane &p0, const Plane &p1);
 
     };
 }

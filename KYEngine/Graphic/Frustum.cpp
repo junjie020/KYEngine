@@ -2,10 +2,11 @@
 #include "Frustum.h"
 #include "Math/MathUtils.h"
 #include "Math/Plane.h"
-
+#include "Math/VectorUnit.h"
 namespace KY
 {
-	static void extract_to_planes(const Mat4x4F &mat, Plane (&planes)[Frustum::FrustumPlaneName::PlaneCount])
+	//static
+	void Frustum::ExtractPlanes(const Mat4x4F &mat, PlaneArray &planes)
 	{
 		/**
 		projMat =	{	col0 col1 col2 col3
@@ -96,11 +97,26 @@ namespace KY
 
 	Frustum::Frustum(const Mat4x4F &viewProj)
 	{
-		Plane planes[Frustum::PlaneCount];
-		extract_to_planes(viewProj, planes);
+		Update(viewProj);
+	}
 
-		planes[Frustum::Left].interset(planes[Frustum::Top]);
 
+
+	void Frustum::Update(const Mat4x4F &viewProj)
+	{
+		ExtractPlanes(viewProj, mPlanes);
+
+		mPts[FarTopLeft] = KY::ToVec4(mPlanes[Frustum::Left].interset(mPlanes[Frustum::Top], mPlanes[Frustum::Far]));
+		mPts[FarTopRight] = KY::ToVec4(mPlanes[Frustum::Right].interset(mPlanes[Frustum::Top], mPlanes[Frustum::Far]));
+
+		mPts[FarBottomLeft] = KY::ToVec4(mPlanes[Frustum::Left].interset(mPlanes[Frustum::Bottom], mPlanes[Frustum::Far]));
+		mPts[FarBottomRight] = KY::ToVec4(mPlanes[Frustum::Right].interset(mPlanes[Frustum::Bottom], mPlanes[Frustum::Far]));
+
+		mPts[NearTopLeft] = KY::ToVec4(mPlanes[Frustum::Left].interset(mPlanes[Frustum::Top], mPlanes[Frustum::Near]));
+		mPts[NearTopRight] = KY::ToVec4(mPlanes[Frustum::Right].interset(mPlanes[Frustum::Top], mPlanes[Frustum::Near]));
+
+		mPts[NearBottomLeft] = KY::ToVec4(mPlanes[Frustum::Left].interset(mPlanes[Frustum::Bottom], mPlanes[Frustum::Near]));
+		mPts[NearBottomRight] = KY::ToVec4(mPlanes[Frustum::Right].interset(mPlanes[Frustum::Bottom], mPlanes[Frustum::Near]));
 	}
 
 }

@@ -43,7 +43,58 @@ namespace KY
 		Vector3<T> Cross(const Vector3<T> &rhs) const {
 			return Vector3<T>(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
 		}
+
+		T Dot(const Vector3<T> &rhs) const {
+			return (x * rhs.x + y * rhs.y + z * rhs.z);
+		}
+
+		Vector3<T>& operator*=(T factor) {
+			x *= factor;
+			y *= factor;
+			z *= factor;
+
+			return *this;
+		}
+
+		Vector3<T> operator+(const Vector3<T> &rhs) const {
+			return Vector3<T>(x + rhs.x, y + rhs.y, z + rhs.z);
+		}
+
+
+		Vector3<T>& operator+=(const Vector3<T> &rhs) {
+			x += rhs.x;
+			y += rhs.y;
+			z += rhs.z;
+			return *this;
+		}
+
+		Vector3<T>& operator/=(T factor) {
+			x /= factor;
+			y /= factor;
+			z /= factor;
+			return *this;
+		}
 	};
+
+	template<typename T>
+	Vector3<T> operator*(const Vector3<T>& t, T factor) {
+		return Vector3<T>(t.x * factor, t.y * factor, t.z * factor);
+	}
+
+	template<typename T>
+	Vector3<T> operator*(T factor, const Vector3<T> &t) {
+		return operator*(t, factor);
+	}
+
+	template<typename T>
+	Vector3<T> operator/(const Vector3<T> &t, T factor) {
+		return Vector3<T>(t.x / factor, t.y / factor, t.z / factor);
+	}
+
+	template<typename T>
+	Vector3<T> operator/(T factor, const Vector3<T> &t) {
+		return operator/(t, factor);
+	}
 
 	using Vec3f = Vector3<float>;
 }

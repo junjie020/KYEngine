@@ -42,8 +42,6 @@ namespace KY
 			memcpy(&Row(3), &r3, sizeof(VecType));
 		}
 
-		~Matrix(){}
-
 		VecType& Row(uint32 rowIdx){
 			return *(reinterpret_cast<VecType*>(this) + rowIdx);
 		}
@@ -145,7 +143,7 @@ namespace KY
 
 
 	template<typename Type>
-	inline Matrix<Type> ConstructPrespectiveMatrix(Type fov /*= 1.570795f*/, Type aspect /*= 1.0f*/, float n /*= 1.0f*/, float f /*= 1000.0f*/){
+	inline Matrix<Type> ConstructPrespectiveMatrix(Type fov /*= 1.570795f*/, Type aspect /*= 1.0f*/, Type n /*= 1.0f*/, Type f /*= 1000.0f*/){
 		const Type height = Type(std::tan(fov / 2));
 		const Type width = aspect * height;
 
