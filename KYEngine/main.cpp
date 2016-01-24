@@ -395,8 +395,10 @@ private:
 
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PSTR /*pScmdline*/, int /*iCmdshow*/)
-#else defined(__APPLE__)
+#elif defined(__APPLE__)
 int MainEntry()
+#else
+#error define a not valid platform
 #endif //_WIN32
 {
 //	iCmdshow;
@@ -429,4 +431,3 @@ int MainEntry()
 
 	return 0;
 }
-#endif //__APPLE__
