@@ -11,18 +11,21 @@ namespace KY
 	class SpaceNode
 	{
 	public:
+		virtual ~SpaceNode() {}
+
 		Vec4f GetPostion() const {
 			return mWorldMat.Row(3);
 		}
-		void SetPosition(const Vec4f &pos) {
+
+		virtual void SetPosition(const Vec4f &pos) {
 			mWorldMat.Row(3) = pos;
 		}
 
 		Vec4f GetDirection() const {
-			return Vec4f::ZAXIS * mWorldMat;
-			//return Vec4f();
+			return Vec4f::ZAXIS * mWorldMat;			
 		}
-		void SetDirection(const Vec4f &dir) {
+
+		virtual void SetDirection(const Vec4f &dir) {
 			auto xDir = Vec4f::YAXIS.Cross(dir).Normalize();
 			auto yDir = dir.Cross(xDir).Normalize();
 
@@ -41,7 +44,8 @@ namespace KY
 				mWorldMat.Row(1).Length(),
 				mWorldMat.Row(2).Length(), 1.0f);
 		}
-		void SetScale(const Vec4f &scale)
+
+		virtual void SetScale(const Vec4f &scale)
 		{
 			mWorldMat.Row(0).Normalize() *= scale.x;
 			mWorldMat.Row(1).Normalize() *= scale.y;
