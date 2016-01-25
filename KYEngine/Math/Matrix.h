@@ -54,24 +54,137 @@ namespace KY
 			return VecType(mm[0][colIdx], mm[1][colIdx], mm[2][colIdx], mm[3][colIdx]);
 		}
 
-		void Inverse(){
+		Type Det() const {
+			return	  m00*(m11*(m22*m33 - m23*m32) + m12*(m23*m31 - m21*m33) + m13*(m21*m32 - m22*m31))
+					- m01*(m10*(m22*m33 - m23*m32) + m12*(m23*m30 - m20*m33) + m13*(m20*m32 - m22*m30))
+					+ m02*(m10*(m21*m33 - m23*m31) + m11*(m23*m30 - m20*m33) + m13*(m20*m31 - m21*m30))
+					- m03*(m10*(m21*m32 - m22*m31) + m11*(m22*m30 - m20*m32) + m22*(m20*m31 - m21*m30));
+		}
 
+		void Inverse(){
+			Type invDet = Det();
+			if (IS_ZERO(invDet))
+			{
+				invDet = 1.0f / invDet;
+
+				Matrix<Type>	mat(*this);
+				
+				m00 = invDet * 
+					( mat.m11 * (mat.m22 * mat.m33 - mat.m23 * mat.m32)
+					+ mat.m12 * (mat.m23 * mat.m31 - mat.m21 * mat.m33)
+					+ mat.m13 * (mat.m21 * mat.m32 - mat.m22 * mat.m31));
+
+				m01 = invDet * 
+					( mat.m21 * (mat.m02 * mat.m33 - mat.m03 * mat.m32)
+					+ mat.m22 * (mat.m03 * mat.m31 - mat.m01 * mat.m33)
+					+ mat.m23 * (mat.m01 * mat.m32 - mat.m02 * mat.m31));
+
+				m02 = invDet * 
+					( mat.m31 * (mat.m02 * mat.m13 - mat.m03 * mat.m12)
+					+ mat.m32 * (mat.m03 * mat.m11 - mat.m01 * mat.m13)
+					+ mat.m33 * (mat.m01 * mat.m12 - mat.m02 * mat.m11));
+
+				m03 = invDet * 
+					( mat.m01 * (mat.m13 * mat.m22 - mat.m12 * mat.m23)
+					+ mat.m02 * (mat.m11 * mat.m23 - mat.m13 * mat.m21)
+					+ mat.m03 * (mat.m12 * mat.m21 - mat.m11 * mat.m22));
+
+				m10 = invDet * 
+					( mat.m12 * (mat.m20 * mat.m33 - mat.m23 * mat.m30)
+					+ mat.m13 * (mat.m22 * mat.m30 - mat.m20 * mat.m32)
+					+ mat.m10 * (mat.m23 * mat.m32 - mat.m22 * mat.m33));
+
+				m11 = invDet * 
+					( mat.m22 * (mat.m00 * mat.m33 - mat.m03 * mat.m30)
+					+ mat.m23 * (mat.m02 * mat.m30 - mat.m00 * mat.m32)
+					+ mat.m20 * (mat.m03 * mat.m32 - mat.m02 * mat.m33));
+
+				m12 = invDet * 
+					( mat.m32 * (mat.m00 * mat.m13 - mat.m03 * mat.m10)
+					+ mat.m33 * (mat.m02 * mat.m10 - mat.m00 * mat.m12)
+					+ mat.m30 * (mat.m03 * mat.m12 - mat.m02 * mat.m13));
+
+				m13 = invDet * 
+					( mat.m02 * (mat.m13 * mat.m20 - mat.m10 * mat.m23)
+					+ mat.m03 * (mat.m10 * mat.m22 - mat.m12 * mat.m20)
+					+ mat.m00 * (mat.m12 * mat.m23 - mat.m13 * mat.m22));
+
+				m20 = invDet * 
+					( mat.m13 * (mat.m20 * mat.m31 - mat.m21 * mat.m30)
+					+ mat.m10 * (mat.m21 * mat.m33 - mat.m23 * mat.m31)
+					+ mat.m11 * (mat.m23 * mat.m30 - mat.m20 * mat.m33));
+
+				m21 = invDet * 
+					( mat.m23 * (mat.m00 * mat.m31 - mat.m01 * mat.m30)
+					+ mat.m20 * (mat.m01 * mat.m33 - mat.m03 * mat.m31)
+					+ mat.m21 * (mat.m03 * mat.m30 - mat.m00 * mat.m33));
+
+				m22 = invDet * 
+					( mat.m33 * (mat.m00 * mat.m11 - mat.m01 * mat.m10)
+					+ mat.m30 * (mat.m01 * mat.m13 - mat.m03 * mat.m11)
+					+ mat.m31 * (mat.m03 * mat.m10 - mat.m00 * mat.m13));
+
+				m23 = invDet * 
+					( mat.m03 * (mat.m11 * mat.m20 - mat.m10 * mat.m21)
+					+ mat.m00 * (mat.m13 * mat.m21 - mat.m11 * mat.m23)
+					+ mat.m01 * (mat.m10 * mat.m23 - mat.m13 * mat.m20));
+
+				m30 = invDet * 
+					( mat.m10 * (mat.m22 * mat.m31 - mat.m21 * mat.m32)
+					+ mat.m11 * (mat.m20 * mat.m32 - mat.m22 * mat.m30)
+					+ mat.m12 * (mat.m21 * mat.m30 - mat.m20 * mat.m31));
+
+				m31 = invDet * 
+					( mat.m20 * (mat.m02 * mat.m31 - mat.m01 * mat.m32)
+					+ mat.m21 * (mat.m00 * mat.m32 - mat.m02 * mat.m30)
+					+ mat.m22 * (mat.m01 * mat.m30 - mat.m00 * mat.m31));
+
+				m32 = invDet * 
+					( mat.m30 * (mat.m02 * mat.m11 - mat.m01 * mat.m12)
+					+ mat.m31 * (mat.m00 * mat.m12 - mat.m02 * mat.m10)
+					+ mat.m32 * (mat.m01 * mat.m10 - mat.m00 * mat.m11));
+
+				m33 = invDet * 
+					( mat.m00 * (mat.m11 * mat.m22 - mat.m12 * mat.m21)
+					+ mat.m01 * (mat.m12 * mat.m20 - mat.m10 * mat.m22)
+					+ mat.m02 * (mat.m10 * mat.m21 - mat.m11 * mat.m20));
+			}				
 		}
 
 		Matrix<Type> ToInverse() const{
-
-		}
-
-		Type Det(){
-
+			Matrix<Type> mat(*this);
+			mat.Inverse();
+			return mat;
 		}
 
 		void Transpose(){
+			std::swap(m01, m10);
+			std::swap(m02, m20);
+			std::swap(m03, m30);
 
+
+			std::swap(m12, m22);
+			std::swap(m12, m31);
+
+			std::swap(m23, m32);
 		}
 
-		Matrix<Type> ToTranspose() const{
+		Matrix<Type> ToTranspose(){
+			Matrix<Type> mat = *this;
+			mat.Transpose();
 
+			return mat;
+		}
+
+		Matrix<Type> ToTranspose3x3() const {
+			Matrix<Type> mat;
+
+			std::swap(mat.m01, mat.m10);
+			std::swap(mat.m02, mat.m20);
+
+			std::swap(mat.m12, mat.m21);
+
+			return mat;
 		}
 
 
