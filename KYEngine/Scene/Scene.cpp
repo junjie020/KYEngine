@@ -42,4 +42,10 @@ namespace KY
 		}
 	}
 
+	void Scene::ReplaceCamera(Camera *camera)
+	{
+		SafeDelete(mCamera);
+		mCamera = camera;
+	}
+
 }
