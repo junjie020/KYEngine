@@ -106,6 +106,7 @@
     <ClCompile Include="Graphic\PipelineStage.cpp" />
     <ClCompile Include="Graphic\RenderCommandQueue.cpp" />
     <ClCompile Include="Graphic\RenderOperation.cpp" />
+    <ClCompile Include="Graphic\RenderTarget.cpp" />
     <ClCompile Include="Graphic\Resource\Buffer.cpp" />
     <ClCompile Include="Graphic\Resource\IndexBuffer.cpp" />
     <ClCompile Include="Graphic\Resource\Resource.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Graphic\PipelineStage.h" />
     <ClInclude Include="Graphic\RenderCommandQueue.h" />
     <ClInclude Include="Graphic\RenderOperation.h" />
+    <ClInclude Include="Graphic\RenderTarget.h" />
     <ClInclude Include="Graphic\Resource\Buffer.h" />
     <ClInclude Include="Graphic\Resource\IndexBuffer.h" />
     <ClInclude Include="Graphic\Resource\Resource.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="Graphic\Resource\VertexBuffer.h" />
     <ClInclude Include="Graphic\SpaceNode.h" />
     <ClInclude Include="Graphic\Viewport.h" />
+    <ClInclude Include="Graphic\WindowRenderTarget.h" />
     <ClInclude Include="Input\Input.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="Math\MathUtils.h" />

@@ -15,7 +15,7 @@ namespace KY
 	class DepthStencilStateObj;
 	class BlendStateObj;
 
-	struct Viewport;
+	class Viewport;
 
 	struct DrawVertexBufferParam{		
 		uint32 mVertexCount;

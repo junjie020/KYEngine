@@ -341,8 +341,8 @@ private:
 			mStates.Init(&rsState, &dsState, &blendState, &mRO);
 
 			const auto backBufferDim = Graphic::Inst()->GetBackBufferSize();
-			mViewport.mRect = RectU(0, 0, backBufferDim.w, backBufferDim.h);
-			mViewport.mDepthRange = Range2F(0, 1.0f);
+			mViewport.SetViewRect(RectI(0, 0, int32(backBufferDim.w), int32(backBufferDim.h)));
+			mViewport.SetDepthRange(Range2F(0, 1.0f));
 			mRO.SetViewport(&mViewport);
 
 			return true;
@@ -366,9 +366,10 @@ private:
 			}			
 		}
 
-		virtual void Render() override
+		virtual void ExtractRenderInfo(RenderCommandQueue &q) override
 		{
-			KY::Graphic::Inst()->AddRenderOperation(&mRO);
+			q.Push(&mRO);
+			//KY::Graphic::Inst()->AddRenderOperation(&mRO);
 		}
 	private:
 		KY::RenderOperation mRO;

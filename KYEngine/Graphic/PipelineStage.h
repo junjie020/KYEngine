@@ -114,7 +114,7 @@ namespace KY
 		enum { Type = ST_SO };
 	};
 
-	struct Viewport;
+	class Viewport;
 	class RSStage : public PipelineStage
 	{
 	public:

@@ -16,6 +16,7 @@ namespace KY
 	class Graphic;
 	class Input;
 	class Scene;
+	class Viewport;
 
 	class SampleTest;
 
@@ -56,6 +57,7 @@ namespace KY
 		Input*		mInput;
 		Graphic*	mGraphics;
 		Scene*		mScene;
+		Viewport*	mMainVP;
 
 		Size2U		mDimension;
 		bool		mWindowedMode;

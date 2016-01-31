@@ -4,16 +4,41 @@
 #include "Math/Rectangle.h"
 #include "Math/Vector2.h"
 
+#include "Graphic/RenderTarget.h"
+
 namespace KY
 {
-    struct Viewport
+    class Viewport : public RenderTarget
     {
-		Viewport() : mRect(0, 0, 1, 1), mDepthRange(0, 1.f){}
-		Viewport(const RectU& rt, const Range2F &depthrange) : mRect(rt), mDepthRange(depthrange){}
+	public:
+		Viewport() 
+			: mRect(0, 0, 1, 1)
+			, mDepthRange(0, 1.f)
+		{}
+		Viewport(const RectI& rt, const Range2F &depthrange) : mRect(rt), mDepthRange(depthrange){}
 
 		~Viewport(){}
 
-		RectU	mRect;
+		void SetViewRect(const RectI &view) {
+			mRect = view;
+		}
+
+		const RectI& GetViewRect() const {
+			return mRect;
+		}
+
+		void SetDepthRange(const Range2F &dR) {
+			mDepthRange = dR;
+		}
+
+		const Range2F& GetDepthRange() const {
+			return mDepthRange;
+		}
+
+
+
+	private:
+		RectI	mRect;
 		Range2F mDepthRange;
     };
 }

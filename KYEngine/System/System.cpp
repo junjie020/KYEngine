@@ -8,6 +8,8 @@
 #include "Scene/Scene.h"
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
+#include "Graphic/Viewport.h"
+
 #include "Common/CommonUtils.h"
 #include "Scene/Model/Assimp/AssimpResourceManager.h"
 
@@ -20,6 +22,7 @@ namespace KY
 		, mScene(nullptr)
 		, mDimension(0, 0)
 		, mWindowedMode(true)
+		, mMainVP(nullptr)
 	{
 	}
 
@@ -27,6 +30,19 @@ namespace KY
 	{
 		std::for_each(std::begin(mSamples), std::end(mSamples), SafeDelete<SampleTest>);
 		mSamples.clear();
+
+		SafeDelete(mScene);
+
+		if (mMainVP)
+		{
+			mGraphics->DestoryViewport(mMainVP);
+			mMainVP = nullptr;
+		}
+			
+
+		SafeDelete(mInput);		
+		SafeDelete(mGraphics);
+
 	}
 
 
@@ -43,6 +59,8 @@ namespace KY
 		mScene = new Scene;
 
 		mGraphics = new Graphic;
+
+		mMainVP = mGraphics->CreateViewport(RectI(0, 0, dim.x, dim.y), Range2F(0, 1.0f));
 
 		AssimpResourceManager::Create();
 
@@ -95,7 +113,9 @@ namespace KY
 	bool System::Frame()
 	{
 		mScene->Update();
-		mScene->Render();
+		//RenderCommandQueue q;
+		mScene->Render(mMainVP);
+		
 		return mGraphics->Frame();
 	}
 

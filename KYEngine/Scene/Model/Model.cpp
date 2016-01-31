@@ -3,6 +3,7 @@
 #include "Mesh.h"
 
 #include "Graphic/Graphic.h"
+#include "Graphic/RenderCommandQueue.h"
 #include "Scene/Model/Assimp/AssimpMeshImporter.h"
 
 namespace KY
@@ -17,11 +18,11 @@ namespace KY
 
 	}
 
-	void Model::Render()
+	void Model::ExtractRenderInfo(RenderCommandQueue &queue)
 	{
 		for (auto &m : mMeshes)
 		{
-			KY::Graphic::Inst()->AddRenderOperation(&m->GetRenderHelper().GetRO());
+			queue.Push(&(m->GetRenderHelper().GetRO()));
 		}
 	}
 

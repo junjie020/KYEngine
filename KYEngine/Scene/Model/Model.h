@@ -19,7 +19,7 @@ namespace KY
 		MeshVec& GetMeshes() { return mMeshes;  }
 
 		virtual void UpdateImpl(Camera *camera) override;
-		virtual void Render() override;
+		virtual void ExtractRenderInfo(RenderCommandQueue &ro) override;
 	private:
 		MeshVec mMeshes;
 	};

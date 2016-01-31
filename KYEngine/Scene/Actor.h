@@ -26,7 +26,7 @@ namespace KY
 			mVisable = true;
 		}
 
-		virtual void Render(){}
+		virtual void ExtractRenderInfo(RenderCommandQueue &/*q*/) override {}
 
 		bool IsRoot() const {
 			return nullptr != mParent;

@@ -9,11 +9,14 @@
 #include "Graphic/RenderOperation.h"
 #include "Graphic/Resource/Shader.h"
 
+#include "Graphic/WindowRenderTarget.h"
+#include "Graphic/Viewport.h"
+
+
 namespace KY
 {
 	Graphic::Graphic()
-		: mDx(nullptr)
-		, mQueue(new RenderCommandQueue)
+		: mDx(nullptr)		
 	{
 		ZERO_MEMORY(mStages);
 	}
@@ -21,8 +24,7 @@ namespace KY
 
 	Graphic::~Graphic()
 	{
-		SafeDelete(mDx);
-		SafeDelete(mQueue);
+		SafeDelete(mDx);		
 		//{@
 		std::for_each(std::begin(mStages), std::end(mStages), [](PipelineStage *stage){ if (stage) delete stage; });
 		ZERO_MEMORY(mStages);
@@ -59,12 +61,6 @@ namespace KY
 		return true;
 	}
 
-	void Graphic::AddRenderOperation(RenderOperation *ro)
-	{
-		BOOST_ASSERT(mQueue);
-		mQueue->Push(ro);
-	}
-
 	bool Graphic::Render()
 	{
 		mDx->Swap();
@@ -76,104 +72,108 @@ namespace KY
 
 	void Graphic::CommitRenderData()
 	{
-		BOOST_ASSERT(mQueue);
-		while (!mQueue->IsEmpty())
+		for (auto target : mRenderTargets)
 		{
-			auto ro = mQueue->Pop();
-
-			//{@ input asm
-			IAStage* ia = GetStage<IAStage>(true);
-
-			const uint32 numVB = ro->GetVertexBufferInfoCount();
-			for (auto iVB = 0U; iVB < numVB; ++iVB)
+			auto& queue = target->GetRenderQueue();
+			while (!queue.IsEmpty())
 			{
-				const auto& vbi = ro->GetVertexBufferInfo(iVB);
-				BOOST_ASSERT(vbi.mVertexBuf);
-				ia->SetVertexBuffer(vbi.mVertexBuf, vbi.mVertexInfo);
-			}
+				auto ro = queue.Pop();
 
-			{
-				ia->SetIndexBuffer(ro->GetIndexBuffer(), ro->GetIndexBufferInfo());
-				ia->SetPrimitiveType(ro->GetPrimitiveType());
-				ia->SetInputLayout(ro->GetInputLayout());
-			}
-			//@}
+				//{@ input asm
+				IAStage* ia = GetStage<IAStage>(true);
 
-			//{@	vertex
-			{
-				VSStage* vs = GetStage<VSStage>(true);
-				auto vsShader = ro->GetShader(ShdrT_Vertex);
-				vs->SetShader(vsShader);
+				const uint32 numVB = ro->GetVertexBufferInfoCount();
+				for (auto iVB = 0U; iVB < numVB; ++iVB)
+				{
+					const auto& vbi = ro->GetVertexBufferInfo(iVB);
+					BOOST_ASSERT(vbi.mVertexBuf);
+					ia->SetVertexBuffer(vbi.mVertexBuf, vbi.mVertexInfo);
+				}
 
-				const auto& buffers = vsShader->GetConstBuffers();
+				{
+					ia->SetIndexBuffer(ro->GetIndexBuffer(), ro->GetIndexBufferInfo());
+					ia->SetPrimitiveType(ro->GetPrimitiveType());
+					ia->SetInputLayout(ro->GetInputLayout());
+				}
+				//@}
 
-				std::for_each(std::begin(buffers), std::end(buffers),
-					[vs](const BufferPair &p){
-					BufferInfo info = { p.first, 0, 0 };
-					BOOST_ASSERT(p.second);
-					vs->SetConstBuffer(*(p.second), info);
-				});
-			}
-			//@}
+				//{@	vertex
+				{
+					VSStage* vs = GetStage<VSStage>(true);
+					auto vsShader = ro->GetShader(ShdrT_Vertex);
+					vs->SetShader(vsShader);
 
-			//{@	rasterizer
-			{
-				RSStage* rs = GetStage<RSStage>(true);
-				auto obj = ro->GetRasterizerStateObj();
-				if (obj)
-					rs->SetRasterizerState(obj);
+					const auto& buffers = vsShader->GetConstBuffers();
 
-				auto vp = ro->GetViewport();
-				if (vp)
-					rs->SetViewPort(vp);
-			}
-			//@}
+					std::for_each(std::begin(buffers), std::end(buffers),
+						[vs](const BufferPair &p) {
+						BufferInfo info = { p.first, 0, 0 };
+						BOOST_ASSERT(p.second);
+						vs->SetConstBuffer(*(p.second), info);
+					});
+				}
+				//@}
 
-			//{@	pixel stage
-			{
-				PSStage *ps = GetStage<PSStage>(true);
-				auto psShader = ro->GetShader(ShdrT_Pixel);
+				//{@	rasterizer
+				{
+					RSStage* rs = GetStage<RSStage>(true);
+					auto obj = ro->GetRasterizerStateObj();
+					if (obj)
+						rs->SetRasterizerState(obj);
 
-				ps->SetShader(psShader);
-				
-				const auto& buffers = psShader->GetConstBuffers();
+					auto vp = ro->GetViewport();
+					if (vp)
+						rs->SetViewPort(vp);
+				}
+				//@}
 
-				std::for_each(std::begin(buffers), std::end(buffers),
-					[ps](const BufferPair &p){
-					BufferInfo info = { p.first, 0, 0 };
-					BOOST_ASSERT(p.second);
-					ps->SetConstBuffer(*(p.second), info);
-				});
-			}
-			//@}
+				//{@	pixel stage
+				{
+					PSStage *ps = GetStage<PSStage>(true);
+					auto psShader = ro->GetShader(ShdrT_Pixel);
 
-			//{@	output merage
-			{
-				OMStage* om = GetStage<OMStage>(true);
+					ps->SetShader(psShader);
 
-				auto dsobj = ro->GetDepthStencilStateObj();
-				if (dsobj)
-					om->SetDepthStencilState(dsobj);
+					const auto& buffers = psShader->GetConstBuffers();
 
-				auto blendobj = ro->GetBlendStateObj();
-				if (blendobj)
-					om->SetBlendState(blendobj);
-			}
-			//@}
+					std::for_each(std::begin(buffers), std::end(buffers),
+						[ps](const BufferPair &p) {
+						BufferInfo info = { p.first, 0, 0 };
+						BOOST_ASSERT(p.second);
+						ps->SetConstBuffer(*(p.second), info);
+					});
+				}
+				//@}
 
-			auto context = GetDx11()->GetDeviceContext();
+				//{@	output merage
+				{
+					OMStage* om = GetStage<OMStage>(true);
 
-			if (ro->GetIndexBuffer())
-			{
-				auto idxParam = ro->GetIndexDrawInfo();
-				context->DrawIndexed(idxParam.mIndexCount, idxParam.mStartIndexLocation, idxParam.mBaseVertexLocation);
-			}
-			else
-			{
-				auto vtxParam = ro->GetVertexDrawInfo();
-				context->Draw(vtxParam.mVertexCount, vtxParam.mStartVertexLocation);
+					auto dsobj = ro->GetDepthStencilStateObj();
+					if (dsobj)
+						om->SetDepthStencilState(dsobj);
+
+					auto blendobj = ro->GetBlendStateObj();
+					if (blendobj)
+						om->SetBlendState(blendobj);
+				}
+				//@}
+
+				auto context = GetDx11()->GetDeviceContext();
+
+				if (ro->GetIndexBuffer())
+				{
+					auto idxParam = ro->GetIndexDrawInfo();
+					context->DrawIndexed(idxParam.mIndexCount, idxParam.mStartIndexLocation, idxParam.mBaseVertexLocation);
+				}
+				else
+				{
+					auto vtxParam = ro->GetVertexDrawInfo();
+					context->Draw(vtxParam.mVertexCount, vtxParam.mStartVertexLocation);
+				}
 			}
 		}
+		
 	}
 	template<class StageClass>
 	StageClass* Graphic::GetStage(bool bInit)
@@ -209,6 +209,36 @@ namespace KY
 			BOOST_ASSERT(false && "not support stage type");
 			return nullptr;
 		}
+	}
+
+	Viewport* Graphic::CreateViewport(const RectI &rt, const Range2F &r)
+	{
+		Viewport *vp = new Viewport(rt, r);
+
+		mRenderTargets.push_back(vp);
+		return vp;
+	}
+
+	void Graphic::DestoryViewport(Viewport *vp)
+	{
+		auto found = std::find(std::begin(mRenderTargets), std::end(mRenderTargets), vp);
+		if (found != std::end(mRenderTargets))
+			mRenderTargets.erase(found);
+	}
+
+	WindowRenderTarget* Graphic::CreateWindowRenderTarget(const RectI &rt)
+	{
+		WindowRenderTarget *wrt = new WindowRenderTarget(rt);
+		mRenderTargets.push_back(wrt);
+
+		return wrt;
+	}
+
+	void Graphic::DestoryRenderTarget(WindowRenderTarget *rt)
+	{
+		auto found = std::find(std::begin(mRenderTargets), std::end(mRenderTargets), rt);
+		if (found != std::end(mRenderTargets))
+			mRenderTargets.erase(found);
 	}
 
 }

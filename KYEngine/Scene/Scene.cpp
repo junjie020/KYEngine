@@ -3,6 +3,9 @@
 #include "Actor.h"
 #include "Scene.h"
 #include "Graphic/Camera.h"
+#include "Graphic/RenderTarget.h"
+#include "Graphic/RenderCommandQueue.h"
+#include "Graphic/RenderOperation.h"
 
 namespace KY
 {
@@ -34,12 +37,18 @@ namespace KY
 		mRoot->RemoveChild(act);
 	}
 
-	void Scene::Render()
+	void Scene::Render(RenderTarget *rt)
 	{
+		RenderCommandQueue queue;
 		for (auto actor : mVisableActors)
 		{
-			actor->Render();
+			RenderCommandQueue localQ;
+			actor->ExtractRenderInfo(localQ);
+
+			queue.Push(localQ);
 		}
+
+		rt->AddRenderQueue(queue);
 	}
 
 	void Scene::ReplaceCamera(Camera *camera)

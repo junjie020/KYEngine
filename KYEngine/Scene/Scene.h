@@ -6,6 +6,8 @@ namespace KY
 	class Actor;
 	class Camera;
 
+	class RenderTarget;
+
 	class Scene
 	{
 	public:
@@ -15,7 +17,7 @@ namespace KY
 		void Update();
 		void AddActor(Actor *act);
 		void RemoveActor(Actor *act);
-		void Render();
+		void Render(RenderTarget *rt);
 		Actor* GetRootActor() { return mRoot; }
 
 	public:

@@ -5,6 +5,7 @@
 #include "Common/Singleton.h"
 #include "Graphic/PipelineStage.h"
 #include "Math/Vector2.h"
+#include "Math/Rectangle.h"
 namespace KY
 {
 	namespace DX
@@ -14,6 +15,10 @@ namespace KY
 
 	class RenderCommandQueue;
 	class RenderOperation;
+
+	class RenderTarget;
+	class WindowRenderTarget;
+	class Viewport;
 
 	class Graphic : public Singleton<Graphic>
 	{
@@ -26,11 +31,15 @@ namespace KY
 		void Shutdown();
 		bool Frame();		
 
-		void AddRenderOperation(RenderOperation *ro);
-
 		PipelineStage* GetStage(StageType type, bool bInit = false);
-
 		Size2U GetBackBufferSize() const { return Size2U(mInitParam.width, mInitParam.height); }
+
+		Viewport* CreateViewport(const RectI &rt, const Range2F &r);
+		void DestoryViewport(Viewport *vp);
+
+		WindowRenderTarget* CreateWindowRenderTarget(const RectI &rt);
+		void DestoryRenderTarget(WindowRenderTarget *rt);
+		//RenderTexture* CreateRenderTexture();
 
 	public:
 		//{@	internal
@@ -47,8 +56,10 @@ namespace KY
 
 	private:
 		GraphicInitParam	mInitParam;
-		DX::Dx11			*mDx;
-		RenderCommandQueue	*mQueue;
+		DX::Dx11			*mDx;		
+
+		using RenderTargetVec = std::vector<RenderTarget*>;
+		RenderTargetVec		mRenderTargets;
 
 		//{@ stage
 		union{

@@ -107,11 +107,14 @@ namespace KY
 		auto context = GET_CONTEXT();
 		BOOST_ASSERT(context);
 
+		const auto &rt = vp->GetViewRect();
+		const auto &range = vp->GetDepthRange();
+
 		D3D11_VIEWPORT vpd3d = 
 		{
-			float(vp->mRect.left), float(vp->mRect.top), 
-			float(vp->mRect.width()), float(vp->mRect.height()), 
-			vp->mDepthRange.beg,  vp->mDepthRange.end,
+			float(rt.left), float(rt.top),
+			float(rt.width()), float(rt.height()),
+			range.beg,  range.end,
 		};
 		context->RSSetViewports(1, &vpd3d);
 	}

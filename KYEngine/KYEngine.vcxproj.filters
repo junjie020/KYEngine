@@ -136,6 +136,9 @@
     <ClCompile Include="Graphic\Resource\ResourceManager.cpp">
       <Filter>Graphic\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\RenderTarget.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -302,6 +305,12 @@
     </ClInclude>
     <ClInclude Include="Math\VectorUnit.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\RenderTarget.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\WindowRenderTarget.h">
+      <Filter>Graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

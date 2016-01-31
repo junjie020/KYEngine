@@ -49,7 +49,8 @@ namespace KY
 		}
     };
 
-	typedef Rectangle<float>	RectF;
-	typedef Rectangle<uint32>	RectU;
+	using RectF = Rectangle<float>;
+	using RectU = Rectangle<uint32>;
+	using RectI = Rectangle<int32>;
 }
 #endif // _RECTANGLE_H_

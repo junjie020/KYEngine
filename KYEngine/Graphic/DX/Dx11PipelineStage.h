@@ -10,7 +10,7 @@ namespace KY
 	class IndexBuffer;
 	class Buffer;
 
-	struct Viewport;
+	class Viewport;
 
 	class RasterizerStateObj;
 	class DepthStencilStateObj;

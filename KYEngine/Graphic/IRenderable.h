@@ -4,10 +4,13 @@
 
 namespace KY
 {
+	class RenderCommandQueue;
 	class IRenderable
 	{
 	public:
-		virtual void Render() = 0;
+		//virtual void Render() = 0;
+
+		virtual void ExtractRenderInfo(RenderCommandQueue &ro) = 0;
 	};
 }
 
