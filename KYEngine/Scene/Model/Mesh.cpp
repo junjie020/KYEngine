@@ -151,6 +151,11 @@ namespace KY
 		// do nothing right now
 	}
 
+	bool Mesh::Init()
+	{
+		return mRenderHelper.Init();
+	}
+
 	void Mesh::Update()
 	{
 		if (mNeedUpdate)

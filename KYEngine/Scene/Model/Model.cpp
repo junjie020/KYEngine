@@ -13,9 +13,9 @@ namespace KY
 		std::for_each(mMeshes.begin(), mMeshes.end(), SafeDelete<Mesh>);
 	}
 
-	void Model::UpdateImpl(Camera * /*camera*/)
+	void Model::UpdateImpl(Camera * camera)
 	{
-
+		Actor::UpdateImpl(camera);
 	}
 
 	void Model::ExtractRenderInfo(RenderCommandQueue &queue)
@@ -26,11 +26,24 @@ namespace KY
 		}
 	}
 
+	void Model::InitRenderData()
+	{
+		for (auto &m : mMeshes)
+		{
+			m->Init();
+		}
+	}
+
 	bool Model::InitFromFile(const fs::path &file)
 	{
 		AssimpMeshImporter assimpImporter(this);
 
-		return assimpImporter.Import(file);
+		if (assimpImporter.Import(file))
+		{
+			InitRenderData();
+		}
+
+		return false;
 	}
 
 }

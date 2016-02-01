@@ -9,6 +9,7 @@
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
 #include "Graphic/Viewport.h"
+#include "Graphic/Resource/ResourceManager.h"
 
 #include "Common/CommonUtils.h"
 #include "Scene/Model/Assimp/AssimpResourceManager.h"
@@ -63,6 +64,8 @@ namespace KY
 		mMainVP = mGraphics->CreateViewport(RectI(0, 0, dim.x, dim.y), Range2F(0, 1.0f));
 
 		AssimpResourceManager::Create();
+
+		ResourceManager::Create();
 
 		// Initialize the graphics object.		
 		return mGraphics->Initialize(param);

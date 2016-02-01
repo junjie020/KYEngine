@@ -16,10 +16,15 @@ namespace KY
 
 		bool InitFromFile(const fs::path &file);
 
-		MeshVec& GetMeshes() { return mMeshes;  }
+		MeshVec& GetMeshes() { return mMeshes;  }	
 
+	public:
 		virtual void UpdateImpl(Camera *camera) override;
 		virtual void ExtractRenderInfo(RenderCommandQueue &ro) override;
+
+	private:
+		void InitRenderData();
+
 	private:
 		MeshVec mMeshes;
 	};

@@ -65,9 +65,11 @@ namespace KY
 
 		MeshRenderOperationHelper& GetRenderHelper() { return mRenderHelper; }
 
-		void Update();
+		bool Init();
 
+		void Update();
 		void NeedUpdate() { mNeedUpdate = true; }
+		
     protected:
     	
 
