@@ -50,9 +50,9 @@ namespace KY
 		if (!iftm)
 			return ReadFileResult::RFR_CouldNotFindTheFile;
 
-		iftm.seekg(std::ios::end, 0);
+		iftm.seekg(0, std::ios::end);
 		const auto fileSize = size_t(iftm.tellg());
-		iftm.seekg(std::ios::beg, 0);
+		iftm.seekg(0, std::ios::beg);
 
 		fileContent.resize(fileSize);
 
