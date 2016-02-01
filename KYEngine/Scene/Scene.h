@@ -14,25 +14,14 @@ namespace KY
 		Scene();
 		~Scene();
 
-		void Update();
+		void Update(RenderTarget *rt);
 		void AddActor(Actor *act);
 		void RemoveActor(Actor *act);
 		void Render(RenderTarget *rt);
-		Actor* GetRootActor() { return mRoot; }
-
-	public:
-		void ReplaceCamera(Camera *camera);
-
-		// do not try to reference the camera pointer, just for temp use, like change the camera position
-		Camera* GetCameraForTempUse() {
-			return mCamera;
-		}
+		Actor* GetRootActor() { return mRoot; }	
 	
 	private:
 		Actor	*mRoot;
-
-		// maybe use the camera object not the pointer style is more safe. And not allow other object to reference the camera directly.
-		Camera  *mCamera;
 
 		using VisableActorVec = std::vector<Actor*>;
 		VisableActorVec mVisableActors;

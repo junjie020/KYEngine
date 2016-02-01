@@ -112,11 +112,10 @@ namespace KY
 
 	bool System::Frame()
 	{
-		mScene->Update();
-		//RenderCommandQueue q;
+		mScene->Update(mMainVP);		
 		mScene->Render(mMainVP);
 		
-		return mGraphics->Frame();
+		return mGraphics->CommitRenderCommands();
 	}
 
 

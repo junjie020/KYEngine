@@ -10,21 +10,19 @@
 namespace KY
 {
 	Scene::Scene()
-		: mRoot(new Actor(nullptr))
-		, mCamera(new Camera)
+		: mRoot(new Actor(nullptr))		
 	{
 
 	}
 
 	Scene::~Scene()
 	{
-		SafeDelete(mRoot);
-		SafeDelete(mCamera);
+		SafeDelete(mRoot);		
 	}
 
-	void Scene::Update()
+	void Scene::Update(RenderTarget *rt)
 	{
-		mRoot->Update(mCamera, mVisableActors);
+		mRoot->Update(rt->GetCamera(), mVisableActors);
 	}
 
 	void Scene::AddActor(Actor *act)
@@ -50,11 +48,4 @@ namespace KY
 
 		rt->AddRenderQueue(queue);
 	}
-
-	void Scene::ReplaceCamera(Camera *camera)
-	{
-		SafeDelete(mCamera);
-		mCamera = camera;
-	}
-
 }

@@ -50,24 +50,24 @@ namespace KY
 
 	void Graphic::Shutdown()
 	{
-
+		SafeDelete(mDx);
+		if (!mRenderTargets.empty())
+		{
+			BOOST_ASSERT(false && "render target container is not empty, need to call DestoryViewport/DestoryRenderTexture function when not using the render target");
+		}
 		return;
 	}
 
-
-	bool Graphic::Frame()
-	{
-		Render();
-		return true;
-	}
-
-	bool Graphic::Render()
+	bool Graphic::CommitRenderCommands()
 	{
 		mDx->Swap();
 		if (mDx->Prepare())
+		{
 			CommitRenderData();
+			return true;
+		}
 
-		return true;
+		return false;
 	}
 
 	void Graphic::CommitRenderData()

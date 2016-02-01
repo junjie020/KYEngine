@@ -28,8 +28,7 @@ namespace KY
 		~Graphic();
 
 		bool Initialize(const GraphicInitParam& param);
-		void Shutdown();
-		bool Frame();		
+		void Shutdown();		
 
 		PipelineStage* GetStage(StageType type, bool bInit = false);
 		Size2U GetBackBufferSize() const { return Size2U(mInitParam.width, mInitParam.height); }
@@ -41,6 +40,9 @@ namespace KY
 		void DestoryRenderTarget(WindowRenderTarget *rt);
 		//RenderTexture* CreateRenderTexture();
 
+
+		bool CommitRenderCommands();
+
 	public:
 		//{@	internal
 		DX::Dx11* GetDx11();
@@ -48,7 +50,7 @@ namespace KY
 		//@}
 
 	private:
-		bool Render();
+		
 		void CommitRenderData();
 
 		template<class StageClass>
@@ -56,7 +58,7 @@ namespace KY
 
 	private:
 		GraphicInitParam	mInitParam;
-		DX::Dx11			*mDx;		
+		DX::Dx11			*mDx;
 
 		using RenderTargetVec = std::vector<RenderTarget*>;
 		RenderTargetVec		mRenderTargets;
