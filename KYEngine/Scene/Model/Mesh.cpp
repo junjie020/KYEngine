@@ -96,11 +96,14 @@ namespace KY
 		//{@	hard code here, we need to follow the mesh's properties to define which shader should use or which macro should define
 		BOOST_ASSERT(mVS == nullptr);
 		mVS = ResourceManager::Inst()->FindAddShader("Object.vs");
+		mRO.SetShader(mVS, ShdrT_Vertex);
 
 		BOOST_ASSERT(mPS == nullptr);
 		mPS = ResourceManager::Inst()->FindAddShader("Object.ps");
+		mRO.SetShader(mPS, ShdrT_Pixel);
 		//@}
 
+		
 		return true;
 	}
 
