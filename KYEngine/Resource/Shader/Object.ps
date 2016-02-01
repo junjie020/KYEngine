@@ -23,7 +23,10 @@ struct Output
 
 float4 main(Output o) : SV_TARGET0
 {
-	float3 transNormal = mul(matWorld, o.normal);	// this is wrong for normal tranfrom	
+	//float3 transNormal = mul(matWorld, o.normal);	// this is wrong for normal tranfrom	
+	float3 transNormal = o.normal;	// this is wrong for normal tranfrom	
+
+
 	float cos = max(0, dot(transNormal, eyeDir));
 
 	return o.color * cos;

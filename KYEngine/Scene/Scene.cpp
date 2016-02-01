@@ -43,9 +43,9 @@ namespace KY
 			RenderCommandQueue localQ;
 			actor->ExtractRenderInfo(localQ);
 
-			queue.Push(localQ);
+			queue.Push(std::move(localQ));
 		}
 
-		rt->AddRenderQueue(queue);
+		rt->AddRenderQueue(std::move(queue));
 	}
 }

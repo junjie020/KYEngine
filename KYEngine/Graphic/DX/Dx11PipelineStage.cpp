@@ -67,8 +67,8 @@ namespace KY
 		if (ib)
 		{
 			auto d3d11buffer = ib->GetInternal()->GetInternal();
-			BOOST_ASSERT(info.strides == 16 || info.strides == 32);
-			context->IASetIndexBuffer(d3d11buffer, info.strides == 16 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, info.offset);
+			BOOST_ASSERT(info.strides == 1 || info.strides == 2);
+			context->IASetIndexBuffer(d3d11buffer, info.strides == 1 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, info.offset);
 		}
 		else
 		{

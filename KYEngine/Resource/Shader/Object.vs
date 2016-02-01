@@ -1,7 +1,7 @@
 struct Input
 {
 	float4 position : POSITION0;
-	float4 color	: COLOR0;
+	//float4 color	: COLOR0;
 	float3 normal	: NORMAL0;
 };
 
@@ -22,14 +22,14 @@ cbuffer MatBuffer : register(b0)
 
 Output main(Input i)
 {
-	Output o = {0};
+	Output o = (Output)0;
 
 	o.position = mul(matWorld, i.position);
 	o.position = mul(matView, o.position);
 	o.position = mul(matProj, o.position);
 
-	o.color = i.color;
+	o.color = float4(1.0f, 0.0f, 0.0f, 1.0f);//i.color;
 	o.normal = i.normal;
 
-	return 0;
+	return o;
 }

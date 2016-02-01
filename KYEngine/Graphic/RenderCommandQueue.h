@@ -16,7 +16,8 @@ namespace KY
 		}
 		
 		void Push(const RenderOperation *ro);
-		void Push(const RenderCommandQueue &q);
+
+		void Push(RenderCommandQueue &&q);
 
 		const RenderOperation* Pop();
 

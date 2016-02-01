@@ -340,11 +340,6 @@ private:
 			
 			mStates.Init(&rsState, &dsState, &blendState, &mRO);
 
-			const auto backBufferDim = Graphic::Inst()->GetBackBufferSize();
-			mViewport.SetViewRect(RectI(0, 0, int32(backBufferDim.w), int32(backBufferDim.h)));
-			mViewport.SetDepthRange(Range2F(0, 1.0f));
-			mRO.SetViewport(&mViewport);
-
 			return true;
 		}
 

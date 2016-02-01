@@ -12,10 +12,15 @@ namespace KY
 		mROList.push_back(ro);
 	}
 
-	void RenderCommandQueue::Push(const RenderCommandQueue &q)
+	void RenderCommandQueue::Push(RenderCommandQueue &&q)
 	{
-		mROList.splice(mROList.end(), mROList, std::begin(q.mROList), std::end(q.mROList));
+		mROList.splice(mROList.end(), std::move(q.mROList), std::begin(q.mROList), std::end(q.mROList));
 	}
+
+	//void RenderCommandQueue::Push(const RenderCommandQueue &q)
+	//{
+	//	mROList.splice(mROList.end(), mROList, std::begin(q.mROList), std::end(q.mROList));
+	//}
 
 	const RenderOperation* RenderCommandQueue::Pop()
 	{

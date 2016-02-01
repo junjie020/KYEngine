@@ -36,8 +36,7 @@ namespace KY
 			, mInputLayout(nullptr)
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
-			, mBlendStateObj(nullptr)
-			, mViewport(nullptr)
+			, mBlendStateObj(nullptr)			
 			, mPriType(PT_Unknown)
 		{
 			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
@@ -138,16 +137,6 @@ namespace KY
 		}
 		//@}
 
-		//{@
-		const Viewport* GetViewport() const {
-			return mViewport;
-		}
-
-		void SetViewport(const Viewport *vp){
-			mViewport = vp;
-		}
-		//@}
-
 	private:
 		union{
 			DrawVertexBufferParam	mvDrawParam;
@@ -168,7 +157,6 @@ namespace KY
 		DepthStencilStateObj*	mDepthStencilStateObj;
 		BlendStateObj*			mBlendStateObj;
 
-		const Viewport *mViewport;
 		PrimitiveType	mPriType;
     };
 }

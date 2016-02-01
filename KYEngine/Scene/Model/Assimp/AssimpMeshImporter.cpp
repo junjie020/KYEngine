@@ -107,6 +107,25 @@ namespace KY
 		}
 	}
 
+	static inline PrimitiveType translate_assimp_pri_type(uint32 aiType)
+	{
+		switch (aiType)
+		{
+		case aiPrimitiveType_POINT:
+			return PT_Point;
+		case aiPrimitiveType_LINE:
+			return PT_LineList;
+		case aiPrimitiveType_TRIANGLE:
+			return PT_TriList;
+		case aiPrimitiveType_POLYGON:
+			BOOST_ASSERT(false && "not support right now");
+			return PT_Unknown;
+		default:
+			BOOST_ASSERT(false && "invalid ai primitive type!");
+			return PT_Unknown;
+		}
+	}
+
 	static void extract_render_info(const aiScene *scene, const aiNode *node, Model *model)
 	{
 		for (auto iMesh = 0U; iMesh < node->mNumMeshes; ++iMesh)
@@ -120,6 +139,8 @@ namespace KY
 			renderMeshVec.push_back(renderMesh);
 
 			auto &renderHelper = renderMesh->GetRenderHelper();
+
+			renderMesh->SetMeshPrimitiveType(translate_assimp_pri_type(mesh->mPrimitiveTypes));
 
 			add_vb_info(SI_Position, reinterpret_cast<const uint8*>(mesh->mVertices), mesh->mNumVertices, renderHelper);
 

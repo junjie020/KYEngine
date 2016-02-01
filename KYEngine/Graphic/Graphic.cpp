@@ -75,6 +75,10 @@ namespace KY
 		for (auto target : mRenderTargets)
 		{
 			auto& queue = target->GetRenderQueue();
+
+			RSStage* rs = GetStage<RSStage>(true);
+			rs->SetViewPort(static_cast<Viewport *>(target));
+
 			while (!queue.IsEmpty())
 			{
 				auto ro = queue.Pop();
@@ -115,15 +119,10 @@ namespace KY
 				//@}
 
 				//{@	rasterizer
-				{
-					RSStage* rs = GetStage<RSStage>(true);
+				{				
 					auto obj = ro->GetRasterizerStateObj();
 					if (obj)
 						rs->SetRasterizerState(obj);
-
-					auto vp = ro->GetViewport();
-					if (vp)
-						rs->SetViewPort(vp);
 				}
 				//@}
 

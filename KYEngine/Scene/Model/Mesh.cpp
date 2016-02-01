@@ -132,7 +132,7 @@ namespace KY
 			mIP.AddElem(elem);
 		}
 
-		BOOST_ASSERT(!mVS->IsValid());
+		BOOST_ASSERT(mVS->IsValid());
 
 		if (!mIP.Create(*mVS))
 		{
@@ -151,6 +151,11 @@ namespace KY
 		// do nothing right now
 	}
 
+	void MeshRenderOperationHelper::SetMeshPrimitiveType(PrimitiveType type)
+	{
+		mRO.SetPrimitiveType(type);
+	}
+
 	bool Mesh::Init()
 	{
 		return mRenderHelper.Init();
@@ -165,4 +170,10 @@ namespace KY
 		}
 			
 	}
+
+	void Mesh::SetMeshPrimitiveType(PrimitiveType type)
+	{
+		mRenderHelper.SetMeshPrimitiveType(type);
+	}
+
 }

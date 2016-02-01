@@ -30,8 +30,8 @@ namespace KY
 			mQueue.Push(&ro);
 		}
 
-		void AddRenderQueue(const RenderCommandQueue &q) {
-			mQueue.Push(q);
+		void AddRenderQueue(RenderCommandQueue &&q) {
+			mQueue.Push(std::forward<RenderCommandQueue>(q));
 		}
 
     private:

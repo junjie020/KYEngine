@@ -95,8 +95,8 @@ namespace KY
 			{
 				std::ostringstream oss;
 				oss << "compile shader failed, level : " << level << std::endl
-					<< ", error info : " << (const char*)pError->GetBufferPointer() << std::endl
-					<< ", shader code : " << shaderCode;
+					<< "error info : " << (const char*)pError->GetBufferPointer() << std::endl
+					<< "shader code : " << shaderCode;
 				DebugOutline(oss.str());
 				return ;
 			}

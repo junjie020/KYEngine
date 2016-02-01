@@ -37,6 +37,8 @@ namespace KY
 		bool Init();
 		
 		void Update();
+
+		void SetMeshPrimitiveType(PrimitiveType type);
 	private:
 		bool InitShader();
 		bool InitInputLayout();
@@ -69,13 +71,15 @@ namespace KY
 
 		void Update();
 		void NeedUpdate() { mNeedUpdate = true; }
-		
+
+		void SetMeshPrimitiveType(PrimitiveType type);
+
     protected:
     	
 
     private:
 		MeshRenderOperationHelper mRenderHelper;
-		bool			mNeedUpdate;
+		bool	mNeedUpdate;
     };
 }
 #endif // _MESH_H_
