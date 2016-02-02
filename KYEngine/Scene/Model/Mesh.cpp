@@ -2,7 +2,11 @@
 #include "Mesh.h"
 
 #include "Graphic/RenderOperation.h"
+#include "Graphic/Camera.h"
+
 #include "Graphic/Resource/ResourceManager.h"
+#include "Graphic/Resource/ConstBufferDef.h"
+
 #include "DebugUtils/TraceUtils.h"
 
 #include "Platform/Win32DefHeader.h"
@@ -76,6 +80,9 @@ namespace KY
 	{
 		if (!mVBs.empty())
 		{
+			if (!InitConstBuffer())
+				return false;
+
 			if (!InitShader())
 				return false;
 
@@ -84,6 +91,8 @@ namespace KY
 
 			if (!InitStates())
 				return false;
+
+			
 		}
 
 		return true;
@@ -109,6 +118,25 @@ namespace KY
 	{
 		// should follow the mesh settings, hard code here
 		return mStates.Init(&mRO);	//use default states
+	}
+
+	bool MeshRenderOperationHelper::InitConstBuffer()
+	{
+		mDynConstBuffer.Create({ ResT_Const, BA_Write, RU_Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
+
+
+		{
+			StaticLightConstBuffer buffer;
+			//Scene *scene = System::Inst()->GetScene();
+			//LightSystem* lightSys = scene->GetLightSystem();
+
+			//StaticLightInfo* staticLightInfo = lightSys->GetStaticInfo();
+
+			mLightConstBuffer.Create({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticLightConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+		}
+
+		
+		return true;
 	}
 
 	bool MeshRenderOperationHelper::InitInputLayout()
@@ -147,9 +175,29 @@ namespace KY
 
 	}
 
-	void MeshRenderOperationHelper::Update()
+	void MeshRenderOperationHelper::Update(Camera *camera)
 	{
-		// do nothing right now
+		//camera->
+
+		ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+		if (mDynConstBuffer.Map(param))
+		{
+			BOOST_ASSERT(param.mapData.data);
+			BOOST_ASSERT(param.mapData.rowPitch != 0);
+			BOOST_ASSERT(param.mapData.rowPitch >= sizeof(TransformConstBuffer));
+
+			TransformConstBuffer bb;
+			bb.matWorld = camera->GetViewMat();
+			bb.matView = camera->GetViewMat();
+			bb.matProj = camera->GetProjMat();
+
+			param.mapData.data = reinterpret_cast<uint8*>(&bb);
+			mDynConstBuffer.UnMap(param.subRes);
+		}
+		else
+		{
+			KY::DebugOutline("map const buffer failed!");
+		}
 	}
 
 	void MeshRenderOperationHelper::SetMeshPrimitiveType(PrimitiveType type)
@@ -162,11 +210,11 @@ namespace KY
 		return mRenderHelper.Init();
 	}
 
-	void Mesh::Update()
+	void Mesh::Update(Camera *camera)
 	{
 		if (mNeedUpdate)
 		{
-			mRenderHelper.Update();
+			mRenderHelper.Update(camera);
 			mNeedUpdate = false;
 		}
 			

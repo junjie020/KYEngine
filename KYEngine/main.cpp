@@ -15,6 +15,7 @@
 #include "Graphic/Graphic.h"
 
 #include "Graphic/Resource/StateHelper.h"
+#include "Graphic/Resource/ConstBufferDef.h"
 
 #include "Graphic/Viewport.h"
 
@@ -228,12 +229,6 @@ private:
 
 		~TriangleActor(){}
 
-		struct MatrixConstBuffer{
-			Mat4x4F matWorld;
-			Mat4x4F matView;
-			Mat4x4F matProj;
-		};
-
 		void InitBufferData()
 		{
 			struct VertexColor{
@@ -310,7 +305,7 @@ private:
 			constParam.type = ResT_Const;
 			constParam.access = BA_Write;
 			constParam.usage = RU_Dynamic;
-			constParam.sizeInBytes = sizeof(MatrixConstBuffer);
+			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
 			mMatBuffer.matWorld = Mat4x4F::INDENTIFY;
 			mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
@@ -370,7 +365,7 @@ private:
 		KY::RenderOperation mRO;
 		//{@
 		KY::VertexBuffer	mBuffer;
-		MatrixConstBuffer	mMatBuffer;
+		TransformConstBuffer	mMatBuffer;
 		KY::Buffer			mDynConstBuffer;
 		//@}
 		

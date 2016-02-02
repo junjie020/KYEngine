@@ -11,6 +11,8 @@
 
 namespace KY
 {
+	class Camera;
+
 	class MeshRenderOperationHelper
 	{
 	public:
@@ -36,13 +38,14 @@ namespace KY
 
 		bool Init();
 		
-		void Update();
+		void Update(Camera *camera);
 
 		void SetMeshPrimitiveType(PrimitiveType type);
 	private:
 		bool InitShader();
 		bool InitInputLayout();
 		bool InitStates();
+		bool InitConstBuffer();
 	private:
 		VertexBufferVec	mVBs;
 		IndexBuffer		mIB;
@@ -51,8 +54,14 @@ namespace KY
 		Shader*			mVS;
 		Shader*			mPS;
 
+		//{@	those const buffer should manager from a pool by camera or other data
+		struct TransformConstData {
+
+		};
 		Buffer			mDynConstBuffer;
 		Buffer			mLightConstBuffer;
+		//@}
+
 
 		StateHelper		mStates;
 
@@ -69,7 +78,7 @@ namespace KY
 
 		bool Init();
 
-		void Update();
+		void Update(Camera *camera);
 		void NeedUpdate() { mNeedUpdate = true; }
 
 		void SetMeshPrimitiveType(PrimitiveType type);

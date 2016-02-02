@@ -16,6 +16,11 @@ namespace KY
 	void Model::UpdateImpl(Camera * camera)
 	{
 		Actor::UpdateImpl(camera);
+
+		for (auto &m : mMeshes)
+		{
+			m->Update(camera);
+		}
 	}
 
 	void Model::ExtractRenderInfo(RenderCommandQueue &queue)

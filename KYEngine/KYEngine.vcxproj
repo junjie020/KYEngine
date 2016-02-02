@@ -165,6 +165,7 @@
     <ClInclude Include="Graphic\RenderOperation.h" />
     <ClInclude Include="Graphic\RenderTarget.h" />
     <ClInclude Include="Graphic\Resource\Buffer.h" />
+    <ClInclude Include="Graphic\Resource\ConstBufferDef.h" />
     <ClInclude Include="Graphic\Resource\IndexBuffer.h" />
     <ClInclude Include="Graphic\Resource\Resource.h" />
     <ClInclude Include="Graphic\Resource\ResourceManager.h" />

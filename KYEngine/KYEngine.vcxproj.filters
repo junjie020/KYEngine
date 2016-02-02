@@ -312,6 +312,9 @@
     <ClInclude Include="Graphic\WindowRenderTarget.h">
       <Filter>Graphic</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Resource\ConstBufferDef.h">
+      <Filter>Graphic\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

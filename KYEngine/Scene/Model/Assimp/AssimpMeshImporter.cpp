@@ -197,8 +197,7 @@ namespace KY
 				renderHelper.GetRO().SetVertexDrawInfo({ mesh->mNumVertices, 0 });
 			}
 
-			renderMesh->NeedUpdate();
-			renderMesh->Update();
+			renderMesh->NeedUpdate();			
 		}
 
 		for (auto iChild = 0U; iChild < node->mNumChildren; ++iChild)

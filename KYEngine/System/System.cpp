@@ -9,6 +9,7 @@
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
 #include "Graphic/Viewport.h"
+
 #include "Graphic/Resource/ResourceManager.h"
 
 #include "Common/CommonUtils.h"
@@ -62,6 +63,13 @@ namespace KY
 		mGraphics = new Graphic;
 
 		mMainVP = mGraphics->CreateViewport(RectI(0, 0, dim.x, dim.y), Range2F(0, 1.0f));
+
+		//{@
+		Camera *camera = mMainVP->GetCamera();
+		camera->SetPosition(Vec4f(0.0f, 0.0f, -100.f, 1.0f));
+		camera->SetDirection(Vec4f(0.0f, 0.0f, 1.0f, 0.0f));
+		
+		//@}
 
 		AssimpResourceManager::Create();
 

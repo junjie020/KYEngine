@@ -31,7 +31,7 @@ namespace KY
 
 			D3D11_SUBRESOURCE_DATA data = { resData.pData, resData.pitch, resData.slicePitch };
 			
-			if (FAILED(device->CreateBuffer(&desc, &data, &mBuffer)))
+			if (FAILED(device->CreateBuffer(&desc, resData.pData ? &data : nullptr, &mBuffer)))
 			{
 				DebugOutline("info vertex buffer failed");
 			}
@@ -44,6 +44,8 @@ namespace KY
 
 		bool DX11Buffer::Map(ResourceMapParam &param)
 		{
+			BOOST_ASSERT(mBuffer);
+
 			auto context = Graphic::Inst()->GetDx11()->GetDeviceContext();
 
 			

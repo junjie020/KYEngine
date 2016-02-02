@@ -22,7 +22,7 @@ namespace KY
 		}
 
 		Vec4f GetDirection() const {
-			return Vec4f::ZAXIS * mWorldMat;			
+			return mWorldMat.Row(2);
 		}
 
 		virtual void SetDirection(const Vec4f &dir) {
