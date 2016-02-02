@@ -86,8 +86,6 @@ namespace KY
 				return false;
 		}
 
-		mStates.Init(&mRO);
-		
 		return true;
 	}
 

@@ -56,7 +56,7 @@ namespace KY
 	}
 
 	template<typename Type>
-	static inline void fill_index_buffer(const aiMesh *mesh, std::vector<uint32> &buf)
+	static inline void fill_index_buffer(const aiMesh *mesh, std::vector<uint8> &buf)
 	{
 		auto iBuf = 0U;
 
@@ -176,7 +176,7 @@ namespace KY
 				const uint32 sizeInBytes = elemSize * idxCount;
 				BufferParam ibParam = { ResT_Index, BA_None, RU_Immutable, sizeInBytes, 0};	
 
-				std::vector<uint32>	ibData(sizeInBytes / sizeof(uint32));
+				std::vector<uint8>	ibData(sizeInBytes);
 
 				if (elemSize == sizeof(uint16))
 					fill_index_buffer<uint16>(mesh, ibData);
@@ -189,6 +189,12 @@ namespace KY
 
 				BufferInfo ibInfo = {0, elemSize, 0};
 				renderHelper.GetRO().SetIndexBuffer(&ib, ibInfo);
+
+				renderHelper.GetRO().SetIndexDrawInfo({idxCount, 0, 0});
+			}
+			else
+			{
+				renderHelper.GetRO().SetVertexDrawInfo({ mesh->mNumVertices, 0 });
 			}
 
 			renderMesh->NeedUpdate();
