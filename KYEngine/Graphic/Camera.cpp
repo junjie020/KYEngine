@@ -8,16 +8,32 @@ namespace KY
 		: mOrtho(false)
 		, mDirty(true)
 	{
+		mWorldMat = Mat4x4F::INDENTIFY;
 		mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
-
-		UpdateRelatedMatrix();
 	}
 
 	Camera::Camera(bool ortho, float w, float h, float n, float f)
 		: mMatProj(ConstructOrthoMatrix(w, h, n, f))
 		, mOrtho(true)
+		, mDirty(true)
 	{
+		mWorldMat = Mat4x4F::INDENTIFY;
 		BOOST_ASSERT(mOrtho == ortho);
+	}
+
+	void Camera::ConstructAsOrtho(float w, float h, float n, float f)
+	{
+		mOrtho = true;
+		mDirty = true;
+		mMatProj = std::move(KY::ConstructOrthoMatrix(w, h, n, f));
+		
+	}
+
+	void Camera::ConstructAsPrespective(float fov, float aspect, float n, float f)
+	{
+		mOrtho = false;
+		mDirty = true;
+		mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
 	}
 
 	void Camera::SetPosition(const Vec4f & pos)

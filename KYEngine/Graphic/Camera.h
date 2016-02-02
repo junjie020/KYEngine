@@ -17,6 +17,9 @@ namespace KY
 			return mOrtho;
 		}
 
+		void ConstructAsOrtho(float w, float h, float n, float f);
+		void ConstructAsPrespective(float fov, float aspect, float n, float f);
+
 		virtual void SetPosition(const Vec4f &pos) override;
 		virtual void SetDirection(const Vec4f &dir) override;
 		virtual void SetScale(const Vec4f &scale) override;
