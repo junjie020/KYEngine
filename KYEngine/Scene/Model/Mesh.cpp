@@ -110,6 +110,13 @@ namespace KY
 		mRO.SetShader(mPS, ShdrT_Pixel);
 		//@}
 
+		mVS->AddConstBuffer(0, &mDynConstBuffer);
+		//mVS->AddConstBuffer(1, &mLightConstBuffer);
+		mPS->AddConstBuffer(0, &mDynConstBuffer);
+		//mPS->AddConstBuffer(1, &mLightConstBuffer);
+
+
+
 		
 		return true;
 	}
