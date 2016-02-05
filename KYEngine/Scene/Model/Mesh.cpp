@@ -194,11 +194,11 @@ namespace KY
 			BOOST_ASSERT(param.mapData.rowPitch >= sizeof(TransformConstBuffer));
 
 			TransformConstBuffer bb;
-			bb.matWorld = camera->GetViewMat();
+			bb.matWorld = Mat4x4F::INDENTIFY;
 			bb.matView = camera->GetViewMat();
 			bb.matProj = camera->GetProjMat();
 
-			param.mapData.data = reinterpret_cast<uint8*>(&bb);
+			memcpy(param.mapData.data, &bb, sizeof(bb));
 			mDynConstBuffer.UnMap(param.subRes);
 		}
 		else

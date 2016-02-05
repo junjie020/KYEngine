@@ -41,7 +41,7 @@ namespace KY
 		mVS->SetShader(shader);
 	}
 
-	void VSStage::SetConstBuffer(const Buffer &buffer, BufferInfo &info)
+	void VSStage::SetConstBuffer(const Buffer &buffer, const BufferInfo &info)
 	{
 		mVS->SetConstBuffer(buffer, info);
 	}
@@ -83,7 +83,7 @@ namespace KY
 		mPS->SetShader(shader);
 	}
 
-	void PSStage::SetConstBuffer(const Buffer &buffer, BufferInfo &info)
+	void PSStage::SetConstBuffer(const Buffer &buffer, const BufferInfo &info)
 	{
 		mPS->SetConstBuffer(buffer, info);
 	}

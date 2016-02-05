@@ -81,7 +81,7 @@ namespace KY
 		enum { Type = ST_VS };
 
 		void SetShader(const Shader *shader);
-		void SetConstBuffer(const Buffer &buffer, BufferInfo &info);
+		void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
 	};
 
 	class HSStage : public PipelineStage
@@ -136,7 +136,7 @@ namespace KY
 		enum { Type = ST_PS };
 
 		void SetShader(const Shader *shader);
-		void SetConstBuffer(const Buffer &buffer, BufferInfo &info);
+		void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
 	};
 
 	class OMStage : public PipelineStage

@@ -53,6 +53,10 @@ namespace KY
 		}
 
 
+		const Mat4x4F& GetWorldMat() const {
+			return mWorldMat;
+		}
+
 	protected:
 		Mat4x4F	mWorldMat;
 	};

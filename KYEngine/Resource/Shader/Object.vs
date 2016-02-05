@@ -17,7 +17,7 @@ cbuffer MatBuffer : register(b0)
 	matrix matWorld;
 	matrix matView;
 	matrix matProj;
-	matrix matViewProj;
+	//matrix matViewProj;
 };
 
 Output main(Input i)

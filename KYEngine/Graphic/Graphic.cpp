@@ -109,12 +109,11 @@ namespace KY
 
 					const auto& buffers = vsShader->GetConstBuffers();
 
-					std::for_each(std::begin(buffers), std::end(buffers),
-						[vs](const BufferPair &p) {
-						BufferInfo info = { p.first, 0, 0 };
-						BOOST_ASSERT(p.second);
-						vs->SetConstBuffer(*(p.second), info);
-					});
+					for (auto &bb : buffers)
+					{						
+						const BufferInfo info = { bb.first, 0, 0 };
+						vs->SetConstBuffer(*(bb.second), info);
+					}
 				}
 				//@}
 
@@ -135,12 +134,11 @@ namespace KY
 
 					const auto& buffers = psShader->GetConstBuffers();
 
-					std::for_each(std::begin(buffers), std::end(buffers),
-						[ps](const BufferPair &p) {
-						BufferInfo info = { p.first, 0, 0 };
-						BOOST_ASSERT(p.second);
-						ps->SetConstBuffer(*(p.second), info);
-					});
+					for (auto &bb : buffers)
+					{
+						const BufferInfo info = { bb.first, 0, 0 };
+						ps->SetConstBuffer(*(bb.second), info);
+					}
 				}
 				//@}
 
