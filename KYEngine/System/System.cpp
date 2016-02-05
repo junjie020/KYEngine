@@ -66,7 +66,7 @@ namespace KY
 
 		//{@
 		Camera *camera = mMainVP->GetCamera();
-		camera->SetPosition(Vec4f(0.0f, 0.0f, -100.f, 1.0f));
+		camera->SetPosition(Vec4f(0.0f, 0.0f, 100.f, 1.0f));
 		camera->SetDirection(Vec4f(0.0f, 0.0f, 1.0f, 0.0f));
 		
 		//@}

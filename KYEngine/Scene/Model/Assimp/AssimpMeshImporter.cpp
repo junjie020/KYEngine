@@ -28,18 +28,29 @@ namespace KY
 
 	static inline size_t get_slot_elem_size(SlotIndex idx)
 	{
-		size_t ss[] = 
+		switch (idx)
 		{
-			sizeof(float) * 3,
-			sizeof(float) * 4,
-			sizeof(float) * 3,
-			sizeof(float) * 3,
-			sizeof(float) * 3,
-			sizeof(float) * 2,
-		};
-
-		BOOST_ASSERT(_countof(ss) > idx);
-		return ss[idx];
+		case KY::SI_Position:
+			return 3;
+		case KY::SI_Normal:
+			return 3;
+		case KY::SI_Tangent:
+			return 3;
+		case KY::SI_Binormal:
+			return 3;
+		case KY::SI_BlendWeight:
+			return 3;
+		case KY::SI_BlendIndices:
+			return 3;
+		case KY::SI_Color:
+			return 4;
+		case KY::SI_Texcoord:
+			return 2;
+		case KY::SI_Unknown:			
+		default:
+			BOOST_ASSERT(false && "unkonwn enum!");
+			return 0;			
+		}
 	}
 
 	static inline uint32 get_primitive_vertex_num(aiMesh *mesh)
@@ -79,7 +90,7 @@ namespace KY
 		VBs.push_back(new VertexBuffer);
 		VertexBuffer* vb = VBs.back();
 
-		const auto stride = get_slot_elem_size(slotIdx);
+		const auto stride = get_slot_elem_size(slotIdx) * sizeof(float);
 		BufferParam param = { ResT_Vertex, BA_None, RU_Immutable, numElems * stride, 0 };
 
 		ResourceData data = { src, 0, 0 };

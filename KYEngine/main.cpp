@@ -16,6 +16,7 @@
 
 #include "Graphic/Resource/StateHelper.h"
 #include "Graphic/Resource/ConstBufferDef.h"
+#include "Graphic/Resource/ResourceManager.h"
 
 #include "Graphic/Viewport.h"
 
@@ -220,6 +221,8 @@ private:
 	public:
 		TriangleActor() 
 			: Actor(nullptr)
+			, mVertexShader(nullptr)
+			, mPixelShader(nullptr)
 			, mDynConstBuffer(ResT_Const)
 		{
 			InitBufferData();
@@ -237,9 +240,9 @@ private:
 			};
 
 			VertexColor vc[] = {
-				Vec4f(-1.0f,	-1.0f, 50, 1.0f),	Color32B::Red,
-				Vec4f(0.0f,		1.0f,	50, 1.0f),	Color32B::Blue,
-				Vec4f(1.0f,		-1.0f,	50, 1.0f),	Color32B::Green,
+				Vec4f(-1.0f,	-1.0f, 99.99f, 1.0f),	Color32B::Red,
+				Vec4f(0.0f,		1.0f,	99.99f, 1.0f),	Color32B::Blue,
+				Vec4f(1.0f,		-1.0f,	99.99f, 1.0f),	Color32B::Green,
 			};
 
 			BufferParam param;
@@ -263,22 +266,14 @@ private:
 
 		bool InitShadersAndInputLayout()
 		{
-			auto shdrPath = KY::FileSystem::Inst()->FindFromSubPath("shader");
+			mVertexShader = ResourceManager::Inst()->FindAddShader("ScreenQuad.vs");
+			BOOST_ASSERT(mVertexShader && mVertexShader->IsValid());
+			mRO.SetShader(mVertexShader, KY::ShdrT_Vertex);
 
-			if (!mVertexShader.InitFromFile(ShdrT_Vertex, shdrPath / fs::path("ScreenQuad.vs")))
-				return false;
+			mPixelShader = ResourceManager::Inst()->FindAddShader("ScreenQuad.ps");				
 
-			
-			BOOST_ASSERT(mVertexShader.IsValid());
-			mRO.SetShader(&mVertexShader, KY::ShdrT_Vertex);
-			
-
-			if (!mPixelShader.InitFromFile(KY::ShdrT_Pixel, shdrPath / fs::path("ScreenQuad.ps")))
-				return false;
-
-			BOOST_ASSERT(mVertexShader.IsValid());
-			mRO.SetShader(&mPixelShader, KY::ShdrT_Pixel);
-
+			BOOST_ASSERT(mPixelShader && mPixelShader->IsValid());
+			mRO.SetShader(mPixelShader, KY::ShdrT_Pixel);
 
 			InputElemDesc desc[] = 
 			{
@@ -291,7 +286,7 @@ private:
 				mInputLayout.AddElem(*beg);
 			}
 
-			if (!mInputLayout.Create(mVertexShader))
+			if (!mInputLayout.Create(*mVertexShader))
 			{
 				DebugOutline("create input layout failed!");
 				return false;
@@ -307,16 +302,10 @@ private:
 			constParam.usage = RU_Dynamic;
 			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
-			mMatBuffer.matWorld = Mat4x4F::INDENTIFY;
-			mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
-
-			const Size2U dim = Graphic::Inst()->GetBackBufferSize();
-			mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
-
-			ResourceData constData = { reinterpret_cast<const uint8*>(&mMatBuffer), 0, 0 };
+			ResourceData constData = { nullptr, 0, 0 };
 			if (mDynConstBuffer.Create(constParam, constData))
 			{
-				mVertexShader.AddConstBuffer(0, &mDynConstBuffer);
+				mVertexShader->AddConstBuffer(0, &mDynConstBuffer);
 			}
 
 			return true;
@@ -344,6 +333,15 @@ private:
 			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
+				mMatBuffer.matWorld = Mat4x4F::INDENTIFY;
+				//mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+				//const Size2U dim = Graphic::Inst()->GetBackBufferSize();
+				//mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
+
+				mMatBuffer.matView = camera->GetViewMat();
+				mMatBuffer.matProj = camera->GetProjMat();
+
 				BOOST_ASSERT(param.mapData.data);
 				BOOST_ASSERT(param.mapData.rowPitch != 0);
 				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
@@ -364,18 +362,16 @@ private:
 	private:
 		KY::RenderOperation mRO;
 		//{@
-		KY::VertexBuffer	mBuffer;
+		KY::VertexBuffer		mBuffer;
 		TransformConstBuffer	mMatBuffer;
-		KY::Buffer			mDynConstBuffer;
+		KY::Buffer				mDynConstBuffer;
 		//@}
 		
 		KY::InputLayout		mInputLayout;
-		KY::Shader			mVertexShader;
-		KY::Shader			mPixelShader;
+		KY::Shader			*mVertexShader;
+		KY::Shader			*mPixelShader;
 
 		KY::StateHelper		mStates;
-
-		KY::Viewport		mViewport;
 	};
 
 private:	

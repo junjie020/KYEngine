@@ -195,6 +195,7 @@ namespace KY
 
 			TransformConstBuffer bb;
 			bb.matWorld = Mat4x4F::INDENTIFY;
+			bb.matWorld.m00 = bb.matWorld.m11 = bb.matWorld.m22 = 50.0f;// 100.f;
 			bb.matView = camera->GetViewMat();
 			bb.matProj = camera->GetProjMat();
 
