@@ -47,5 +47,7 @@ namespace KY
 		}
 
 		rt->AddRenderQueue(std::move(queue));
+
+		mVisableActors.clear();
 	}
 }
