@@ -42,10 +42,10 @@ namespace KY
 		return false;
 	}
 
-	bool Shader::InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry)
+	bool Shader::InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry /*= "main"*/, const std::string &srcFileName /*= ""*/)
 	{
 		SafeDelete(mShaderImpl);
-		mShaderImpl = new DX::Dx11Shader(type, shaderCode, entry);		
+		mShaderImpl = new DX::Dx11Shader(type, shaderCode, entry, nullptr, srcFileName);		
 		return mShaderImpl != nullptr;
 	}
 

@@ -27,7 +27,7 @@ namespace KY
     	virtual ~Shader();
 
 		bool InitFromFile(ShaderType type, const fs::path &file, const std::string &entry = "main");
-		bool InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry = "main");
+		bool InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry = "main", const std::string &srcFileName = "");
 
 		ShaderType GetShaderType() const;
 

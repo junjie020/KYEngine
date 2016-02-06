@@ -62,7 +62,7 @@ namespace KY
 			}
 		}
 		
-		if (shader->InitFromCode(type, fileContent))
+		if (shader->InitFromCode(type, fileContent, "main", fullshdrFileName.string()))
 		{
 			mShaders.insert(std::make_pair(shaderName, shader));
 			return shader;

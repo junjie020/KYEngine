@@ -61,8 +61,7 @@ namespace KY
 			
 		}
 
-		Dx11Shader::Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry /*= "main"*/, ID3D11ClassLinkage *classLinkage /*= nullptr*/)
-			: mType(type)
+		Dx11Shader::Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry, ID3D11ClassLinkage *classLinkage, const std::string &srcFileName /*= ""*/) : mType(type)
 			, mShaderCode(shaderCode)
 			, mEntryName(entry)
 			, mClassLinkage(classLinkage)
@@ -79,19 +78,44 @@ namespace KY
 
 			const uint32 flags1 =
 #ifdef _DEBUG
-				D3DCOMPILE_DEBUG |
+				D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION|
 #endif // _DEBUG
 				D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_WARNINGS_ARE_ERRORS;
 			const uint32 flags2 = 0; // not support effect
 
-			const char* srcFileName = "";
 			const D3D_SHADER_MACRO* pDefines = nullptr;
 			ID3DInclude* pInclude = nullptr;
 			
+
+#ifdef _DEBUG
+			// I do not know why I use D3DCompile API with file name to compile the shader, the graphic debugger do not know where to find the source file during debug.
+			// so I just use the D3DCompileFromFile API, it will have the debug info when using graphic debugger.
+			HRESULT hr = 0;
+
+			if (!srcFileName.empty())
+			{
+				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>	cvter;
+				hr = D3DCompileFromFile(cvter.from_bytes(srcFileName).c_str(),
+					pDefines, pInclude,
+					entry.c_str(), get_shader_target(level, mType),
+					flags1, flags2, &pByteCode, &pError);
+			}
+			
+			if (FAILED(hr))
+			{
+				hr = D3DCompile(shaderCode.c_str(), shaderCode.size(),
+					srcFileName.c_str(), pDefines, pInclude,
+					entry.c_str(), get_shader_target(level, mType),
+					flags1, flags2, &pByteCode, &pError);
+			}
+
+			if (FAILED(hr))
+#else //!_DEBUG
 			if (FAILED(D3DCompile(shaderCode.c_str(), shaderCode.size(),
 				srcFileName, pDefines, pInclude,
 				entry.c_str(), get_shader_target(level, mType),
 				flags1, flags2, &pByteCode, &pError)))
+#endif // _DEBUG
 			{
 				std::ostringstream oss;
 				oss << "compile shader failed, level : " << level << std::endl
