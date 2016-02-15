@@ -111,7 +111,7 @@ namespace KY
 
 					for (auto &bb : buffers)
 					{						
-						const BufferInfo info = { bb.first, 0, 0 };
+						const BufferInfo info = { 0, 0, bb.first };
 						vs->SetConstBuffer(*(bb.second), info);
 					}
 				}
@@ -136,7 +136,7 @@ namespace KY
 
 					for (auto &bb : buffers)
 					{
-						const BufferInfo info = { bb.first, 0, 0 };
+						const BufferInfo info = { 0, 0, bb.first };
 						ps->SetConstBuffer(*(bb.second), info);
 					}
 				}
