@@ -31,21 +31,21 @@ namespace KY
 		}
 	}
 
-	void Model::InitRenderData()
-	{
+	void Model::InitRenderData(RenderTarget *rt)
+{
 		for (auto &m : mMeshes)
 		{
-			m->Init();
+			m->Init(rt);
 		}
 	}
 
-	bool Model::InitFromFile(const fs::path &file)
+	bool Model::InitFromFile(RenderTarget *rt, const fs::path &file)
 	{
 		AssimpMeshImporter assimpImporter(this);
 
 		if (assimpImporter.Import(file))
 		{
-			InitRenderData();
+			InitRenderData(rt);
 		}
 
 		return false;

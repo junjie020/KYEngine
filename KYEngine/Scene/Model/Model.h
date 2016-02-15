@@ -6,6 +6,7 @@
 namespace KY
 {
 	class Mesh;
+	class RenderTarget;
 	class Model : public Actor
 	{
 	public:
@@ -14,7 +15,7 @@ namespace KY
 		Model(Actor *pParent) : Actor(pParent){}
 		~Model();
 
-		bool InitFromFile(const fs::path &file);
+		bool InitFromFile(RenderTarget *rt, const fs::path &file);
 
 		MeshVec& GetMeshes() { return mMeshes;  }	
 
@@ -23,7 +24,7 @@ namespace KY
 		virtual void ExtractRenderInfo(RenderCommandQueue &ro) override;
 
 	private:
-		void InitRenderData();
+		void InitRenderData(RenderTarget *rt);
 
 	private:
 		MeshVec mMeshes;

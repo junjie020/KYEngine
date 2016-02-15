@@ -40,6 +40,8 @@ namespace KY
 
 		Scene* GetScene() { return mScene;  }
 
+		Viewport* GetMainVP() { return mMainVP;  }
+
 	private:
 		bool Frame();
 		void Update();

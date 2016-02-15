@@ -3,31 +3,31 @@ cbuffer MatBuffer : register(b0)
 	matrix matWorld;
 	matrix matView;
 	matrix matProj;
-	matrix matViewProj;
+	//matrix matViewProj;
 };
 
 cbuffer LightBuffer : register(b1)
 {
-	float3 lightDir;
-	float3 eyeDir;
-	float4 ambColor;
-}
+	float4		lightDiffColor;
+	float3		eyePos;
+	float3		lightVec;	
+};
+
+cbuffer MaterialBuffer : register(b2)
+{
+	float4		materialDiffColor;	
+};
 
 struct Output
 {
-	float4 position : SV_POSITION;
-	float4 color	: COLOR0;
+	float4 position : SV_POSITION;	
 	float3 normal	: NORMAL0;
 };
 
 
 float4 main(Output o) : SV_TARGET0
 {
-	//float3 transNormal = mul(matWorld, o.normal);	// this is wrong for normal tranfrom	
-	float3 transNormal = o.normal;	// this is wrong for normal tranfrom	
+	float cos = max(0, dot(o.normal, lightVec));
 
-
-	float cos = max(0, dot(transNormal, eyeDir));
-
-	return o.color * cos;
+	return materialDiffColor * lightDiffColor * cos;
 }

@@ -12,13 +12,14 @@
 namespace KY
 {
 	class Camera;
-
+	class RenderTarget;
 	class MeshRenderOperationHelper
 	{
 	public:
 		MeshRenderOperationHelper()
 			: mDynConstBuffer(ResT_Const)
 			, mLightConstBuffer(ResT_Const)
+			, mMaterialConstBuffer(ResT_Const)
 			, mVS(nullptr)
 			, mPS(nullptr)
 		{}
@@ -36,7 +37,7 @@ namespace KY
 
 		
 
-		bool Init();
+		bool Init(RenderTarget *rt);
 		
 		void Update(Camera *camera);
 
@@ -45,7 +46,7 @@ namespace KY
 		bool InitShader();
 		bool InitInputLayout();
 		bool InitStates();
-		bool InitConstBuffer();
+		bool InitConstBuffer(RenderTarget *rt);
 	private:
 		VertexBufferVec	mVBs;
 		IndexBuffer		mIB;
@@ -60,6 +61,7 @@ namespace KY
 		};
 		Buffer			mDynConstBuffer;
 		Buffer			mLightConstBuffer;
+		Buffer			mMaterialConstBuffer;
 		//@}
 
 
@@ -67,6 +69,8 @@ namespace KY
 
 		RenderOperation mRO;
 	};
+
+	class RenderTarget;
 
     class Mesh
     {
@@ -76,7 +80,7 @@ namespace KY
 
 		MeshRenderOperationHelper& GetRenderHelper() { return mRenderHelper; }
 
-		bool Init();
+		bool Init(RenderTarget *rt);
 
 		void Update(Camera *camera);
 		void NeedUpdate() { mNeedUpdate = true; }

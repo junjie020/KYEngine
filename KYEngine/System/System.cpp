@@ -267,14 +267,14 @@ namespace KY
 
 	}
 
-	void System::AddSample(SampleTest *test)
+	void System::AddSample(SampleTest *)
 	{
-		auto result = std::find(std::begin(mSamples), std::end(mSamples), test);
-		if (result != std::end(mSamples))
-			return;
+		//auto result = std::find(std::begin(mSamples), std::end(mSamples), test);
+		//if (result != std::end(mSamples))
+		//	return;
 
-		test->Init();
-		mSamples.push_back(test);
+		//test->Init();
+		//mSamples.push_back(test);
 	}
 
 	void System::RemoveSample(SampleTest *test)

@@ -3,12 +3,14 @@
 
 namespace KY
 {
+	class RenderTarget;
+
     class SampleTest
     {
     public:
 		virtual ~SampleTest(){}
 
-		virtual bool Init() = 0;		
+		virtual bool Init(RenderTarget *) = 0;
     	
 
     private:

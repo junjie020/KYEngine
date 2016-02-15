@@ -7,12 +7,11 @@ struct Input
 
 struct Output
 {
-	float4 position : SV_POSITION;
-	float4 color	: COLOR0;
+	float4 position : SV_POSITION;	
 	float3 normal	: NORMAL0;
 };
 
-cbuffer MatBuffer : register(b0)
+cbuffer TransformBuffer : register(b0)
 {
 	matrix matWorld;
 	matrix matView;
@@ -28,8 +27,7 @@ Output main(Input i)
 	o.position = mul(matView, o.position);
 	o.position = mul(matProj, o.position);
 
-	o.color = float4(1.0f, 0.0f, 0.0f, 1.0f);//i.color;
-	o.normal = i.normal;
+	o.normal	= i.normal;
 
 	return o;
 }

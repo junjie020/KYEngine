@@ -6,9 +6,10 @@
 
 #include "Graphic/Resource/ResourceManager.h"
 #include "Graphic/Resource/ConstBufferDef.h"
+#include "Graphic/RenderTarget.h"
 
 #include "DebugUtils/TraceUtils.h"
-
+#include "Math/VectorUnit.h"
 #include "Platform/Win32DefHeader.h"
 
 #include "Common/FileSystem.h"
@@ -76,11 +77,11 @@ namespace KY
 		}
 	}
 
-	bool MeshRenderOperationHelper::Init()
-	{
+	bool MeshRenderOperationHelper::Init(RenderTarget *rt)
+{
 		if (!mVBs.empty())
 		{
-			if (!InitConstBuffer())
+			if (!InitConstBuffer(rt))
 				return false;
 
 			if (!InitShader())
@@ -111,12 +112,11 @@ namespace KY
 		//@}
 
 		mVS->AddConstBuffer(0, &mDynConstBuffer);
-		//mVS->AddConstBuffer(1, &mLightConstBuffer);
+		
+
 		mPS->AddConstBuffer(0, &mDynConstBuffer);
-		//mPS->AddConstBuffer(1, &mLightConstBuffer);
-
-
-
+		mPS->AddConstBuffer(1, &mLightConstBuffer);
+		mPS->AddConstBuffer(2, &mMaterialConstBuffer);
 		
 		return true;
 	}
@@ -127,19 +127,32 @@ namespace KY
 		return mStates.Init(&mRO);	//use default states
 	}
 
-	bool MeshRenderOperationHelper::InitConstBuffer()
-	{
+	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)
+{
 		mDynConstBuffer.Create({ ResT_Const, BA_Write, RU_Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
 
 
 		{
 			StaticLightConstBuffer buffer;
+			buffer.lightVec = Vec4f(100.f, 100.f, 100.f, 0.0f);
+			buffer.lightVec.Normalize();
+
+			buffer.eyePos = rt->GetCamera()->GetPostion();
+
+			buffer.diffColor = ColorF(0.5f, 0.5f, 0.5f, 1.0f);
+
 			//Scene *scene = System::Inst()->GetScene();
 			//LightSystem* lightSys = scene->GetLightSystem();
 
 			//StaticLightInfo* staticLightInfo = lightSys->GetStaticInfo();
 
 			mLightConstBuffer.Create({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticLightConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+		}
+
+		{
+			StaticMaterialConstBuffer buffer;
+			buffer.diffColor = ColorF(1.0f, 0, 0, 1.0f);
+			mMaterialConstBuffer.Create({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
 		}
 
 		
@@ -213,9 +226,9 @@ namespace KY
 		mRO.SetPrimitiveType(type);
 	}
 
-	bool Mesh::Init()
+	bool Mesh::Init(RenderTarget *rt)
 	{
-		return mRenderHelper.Init();
+		return mRenderHelper.Init(rt);
 	}
 
 	void Mesh::Update(Camera *camera)

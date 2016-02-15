@@ -4,6 +4,8 @@
 #include "Math/Matrix.h"
 #include "Math/Vector4.h"
 #include "Math/Vector3.h"
+#include "Math/Color.h"
+//#include "Math/Color.inl"
 
 namespace KY
 {
@@ -14,8 +16,13 @@ namespace KY
 	};
 
 	struct StaticLightConstBuffer {
-		Vec4f eyePos;
-		Vec4f lightPos;
+		ColorF	diffColor;
+		Vec4f	eyePos;
+		Vec4f	lightVec;
+	};
+
+	struct StaticMaterialConstBuffer {
+		ColorF	diffColor;
 	};
 }
 #endif // _CONSTBUFFERDEF_H_

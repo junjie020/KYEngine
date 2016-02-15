@@ -16,6 +16,8 @@ namespace KY
 		};
 
 	public:
+		Vector3() {}
+
 		Vector3(T && _x, T && _y, T && _z)
 			: x(_x)
 			, y(_y)
@@ -37,7 +39,7 @@ namespace KY
 
 		float Length() const
 		{
-			std::sqrt(SquareLength());
+			return std::sqrt(SquareLength());
 		}
 
 		Vector3<T> Cross(const Vector3<T> &rhs) const {

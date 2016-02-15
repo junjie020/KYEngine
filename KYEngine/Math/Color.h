@@ -26,11 +26,20 @@ namespace KY
 		static Color Blue;
 		static Color Black;
 		static Color None;
+
+		typedef Type ElemType;
     };
 
 	typedef Color<float>	ColorF;
 	typedef Color<uint8>	Color32B;
 
 
+	inline ColorF FromColor32B(const Color32B &c) {
+		return ColorF(c.r / 255.f, c.g / 255.f, c.b / 255.f, c.a / 255.f);
+	}
+
+	inline Color32B FromColorF(const ColorF &c) {
+		return Color32B(uint8(c.r * 255.f), uint8(c.g * 255.f), uint8(c.b * 255.f), uint8(c.a * 255.f));
+	}
 }
 #endif // _COLOR_H_

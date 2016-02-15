@@ -37,7 +37,7 @@ using namespace KY;
 class ModelTest : public KY::SampleTest
 {
 public:
-	bool Init() override
+	bool Init(RenderTarget *rt) override
 	{
 		auto scene = System::Inst()->GetScene();
 		
@@ -46,7 +46,7 @@ public:
 
 		auto modelPath = FileSystem::Inst()->FindFromSubPath("model");
 
-		return mModel->InitFromFile(modelPath / fs::path("test_cube_text.x"));
+		return mModel->InitFromFile(rt, modelPath / fs::path("test_cube_text.x"));
 	}
 private:
 	Model *mModel;
@@ -59,7 +59,7 @@ public:
 
 	}
 	~SimpleTriangleTest(){}
-	bool Init() override
+	bool Init(RenderTarget *) override
 	{		
 		auto scene = System::Inst()->GetScene();
 		BOOST_ASSERT(nullptr == mActor);
@@ -409,7 +409,8 @@ int MainEntry()
 		//tt.Init();
 		// 
 		ModelTest tt;
-		tt.Init();
+		
+		tt.Init(system->GetMainVP());
 		system->Run();
 	}
 	system->Shutdown();
