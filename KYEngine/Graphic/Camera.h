@@ -39,10 +39,15 @@ namespace KY
 			return mMatViewProj;
 		}
 
+		void SetUpVector(const Vec4f &up) {
+			mUpVector = up;
+		}
+
 	private:
 		void UpdateRelatedMatrix() const;
 
 	private:
+		Vec4f mUpVector;
 		mutable Frustum mFrustum;
 
 		mutable Mat4x4F	mMatView;

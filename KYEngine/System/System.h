@@ -56,8 +56,6 @@ namespace KY
 		HINSTANCE	mhinstance;
 		HWND		mhWnd;
 
-		Input*		mInput;
-		Graphic*	mGraphics;
 		Scene*		mScene;
 		Viewport*	mMainVP;
 

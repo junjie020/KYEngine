@@ -138,7 +138,7 @@ namespace KY
 			if (FAILED(mDevice->CreateDepthStencilView(pDepthBuffer, nullptr, &mDepthStencilView)))
 				return false;
 
-			SafeRelease(dxgi);
+			SafeRelease(dxgi);				
 			return true;
 		}
 

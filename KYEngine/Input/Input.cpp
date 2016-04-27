@@ -4,18 +4,29 @@
 #include "stdafx.h"
 #include "Input.h"
 
+//{@	for handle camera
+#include "System/System.h"
+#include "Graphic/Viewport.h"
+#include "Graphic/Camera.h"
+//@}
+
+
 namespace KY
 {
 
 
 	Input::Input()
+		: mBtnDownPoint(0, 0)
+		, mBtnUpPoint(0, 0)
 	{
+		ZERO_MEMORY(mKeysPressedState);
+		ZERO_MEMORY(mMouseBtnsPressedState);
 	}
 
 
-	Input::Input(const Input& other)
+	Input::Input(const Input& /*other*/)
 	{
-		other;
+		
 	}
 
 
@@ -26,38 +37,63 @@ namespace KY
 
 	void Input::Initialize()
 	{
-		int i;
+		for (auto &key : mKeysPressedState)
+			key = false;
+	}
 
 
-		// Initialize all the keys to being released and not pressed.
-		for (i = 0; i < 256; i++)
+	void Input::KeyDown(uint32 key)
+	{
+		mKeysPressedState[key] = true;
+		return;
+	}
+
+
+	void Input::KeyUp(uint32 key)
+	{
+		mKeysPressedState[key] = false;
+		return;
+	}
+
+	class CameraController
+	{
+	public:
+		CameraController(Camera *c) : mCamera(c){}
+
+		void Rotate();
+	private:
+		Camera* mCamera;
+	};
+	static bool HandleCameraMove()
+	{
+		auto vp = System::Inst()->GetMainVP();
+		auto camera = vp->GetCamera();
+
+		const auto camerPos = camera->GetPostion();
+	}
+
+	// return false for not handle, return ture for handled
+	bool Input::MouseButtonDown(MouseButtonType type)
+	{
+		BOOST_ASSERT(type < MouseButtonType::Count);
+		mMouseBtnsPressedState[uint32(type)] = true;
+		if (type == MouseButtonType::Left)
 		{
-			mkeys[i] = false;
+			return true;
 		}
-
-		return;
+		return false;
 	}
 
-
-	void Input::KeyDown(unsigned int input)
+	bool Input::MouseMove()
 	{
-		// If a key is pressed then save that state in the key array.
-		mkeys[input] = true;
-		return;
+		return HandleCameraMove();
 	}
 
-
-	void Input::KeyUp(unsigned int input)
+	bool Input::MouseButtonUp(MouseButtonType type)
 	{
-		// If a key is released then clear that state in the key array.
-		mkeys[input] = false;
-		return;
-	}
+		BOOST_ASSERT(type < MouseButtonType::Count);
+		mMouseBtnsPressedState[uint32(type)] = false;
 
-
-	bool Input::IsKeyDown(unsigned int key)
-	{
-		// Return what state the key is in (pressed/not pressed).
-		return mkeys[key];
+		return false;
 	}
 }

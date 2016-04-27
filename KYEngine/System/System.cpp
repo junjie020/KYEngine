@@ -19,9 +19,7 @@ namespace KY
 {
 
 	System::System()
-		: mInput(nullptr)
-		, mGraphics(nullptr)
-		, mScene(nullptr)
+		: mScene(nullptr)
 		, mDimension(0, 0)
 		, mWindowedMode(true)
 		, mMainVP(nullptr)
@@ -35,16 +33,8 @@ namespace KY
 
 		SafeDelete(mScene);
 
-		if (mMainVP)
-		{
-			mGraphics->DestoryViewport(mMainVP);
-			mMainVP = nullptr;
-		}
-			
-
-		SafeDelete(mInput);		
-		SafeDelete(mGraphics);
-
+		BOOST_ASSERT(!Graphic::HasInst());
+		BOOST_ASSERT(!Input::HasInst());
 	}
 
 
@@ -53,16 +43,15 @@ namespace KY
 		mWindowedMode = windowed;
 		InitializeWindows(dim, windowed);
 
-		GraphicInitParam param = { dim.w, dim.h, 1, 0, FL_11_1, mhWnd, mWindowedMode };
 		
-		mInput = new Input;
-		mInput->Initialize();
+		GraphicInitParam param = { dim.w, dim.h, 1, 0, FL_11_1, mhWnd, mWindowedMode };
 
-		mScene = new Scene;
+		auto input = Input::Create();
+		input->Initialize();
 
-		mGraphics = new Graphic;
+		auto graphic = Graphic::Create();
 
-		mMainVP = mGraphics->CreateViewport(RectI(0, 0, dim.x, dim.y), Range2F(0, 1.0f));
+		mMainVP = graphic->CreateViewport(RectI(0, 0, dim.x, dim.y), Range2F(0, 1.0f));
 
 		//{@
 		Camera *camera = mMainVP->GetCamera();
@@ -71,26 +60,32 @@ namespace KY
 		
 		//@}
 
+		mScene = new Scene;
+
 		AssimpResourceManager::Create();
 
 		ResourceManager::Create();
 
 		// Initialize the graphics object.		
-		return mGraphics->Initialize(param);
+		return Graphic::Inst()->Initialize(param);
 	}
 
 
 	void System::Shutdown()
 	{
 		// Release the graphics object.
-		if (mGraphics)
+		
+		if (mMainVP)
 		{
-			mGraphics->Shutdown();
-			delete mGraphics;
-			mGraphics = 0;
+			Graphic::Inst()->DestoryViewport(mMainVP);
+			mMainVP = nullptr;
 		}
 
-		SafeDelete(mInput);
+		Graphic::Inst()->Shutdown();
+
+		Graphic::Destroy();
+		Input::Destroy();
+		
 		SafeDelete(mScene);
 
 		ShutdownWindows();
@@ -111,7 +106,7 @@ namespace KY
 				DispatchMessage(&msg);
 			}
 
-			if (mInput->IsKeyDown(VK_ESCAPE) || msg.message == WM_QUIT)
+			if (Input::Inst()->IsKeyPressed(VK_ESCAPE) || msg.message == WM_QUIT)
 				break;
 
 			Frame();
@@ -126,36 +121,44 @@ namespace KY
 		mScene->Update(mMainVP);		
 		mScene->Render(mMainVP);
 		
-		return mGraphics->CommitRenderCommands();
+		return Graphic::Inst()->CommitRenderCommands();
 	}
 
 
-	LRESULT CALLBACK System::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
+	LRESULT CALLBACK System::MessageHandler(HWND hwnd, uint32 msg, WPARAM wparam, LPARAM lparam)
 	{
-		switch (umsg)
+		switch (msg)
 		{
-			// Check if a key has been pressed on the keyboard.
 		case WM_KEYDOWN:
 		{
-			// If a key is pressed send it to the input object so it can record that state.
-			mInput->KeyDown((unsigned int)wparam);
-			return 0;
+			
+			Input::Inst()->KeyDown((uint32)wparam);
+			return 0UL;
 		}
 
-			// Check if a key has been released on the keyboard.
+		// Check if a key has been released on the keyboard.
 		case WM_KEYUP:
 		{
 			// If a key is released then send it to the input object so it can unset the state for that key.
-			mInput->KeyUp((unsigned int)wparam);
-			return 0;
+			Input::Inst()->KeyUp((uint32)wparam);
+			return 0UL;
 		}
 
-			// Any other messages send to the default message handler as our application won't make use of them.
-		default:
+		case WM_LBUTTONDOWN:
 		{
-			return DefWindowProc(hwnd, umsg, wparam, lparam);
+			if (Input::Inst()->MouseButtonDown(MouseButtonType::Left))
+			{
+				return 0UL;
+			}
+
+			break;
 		}
+		// Any other messages send to the default message handler as our application won't make use of them.
+		default:
+			break;
 		}
+
+		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
 
 

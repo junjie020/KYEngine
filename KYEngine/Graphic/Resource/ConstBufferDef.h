@@ -17,8 +17,9 @@ namespace KY
 
 	struct StaticLightConstBuffer {
 		ColorF	diffColor;
+		ColorF  ambientColor;
 		Vec4f	eyePos;
-		Vec4f	lightVec;
+		Vec4f	lightVec;		
 	};
 
 	struct StaticMaterialConstBuffer {

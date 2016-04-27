@@ -139,7 +139,9 @@ namespace KY
 
 			buffer.eyePos = rt->GetCamera()->GetPostion();
 
-			buffer.diffColor = ColorF(0.5f, 0.5f, 0.5f, 1.0f);
+			buffer.diffColor = ColorF(1.0f, 1.0f, 1.0f, 1.0f);
+			buffer.ambientColor = ColorF(0.02f, 0.02f, 0.02f, 1.0f);
+			
 
 			//Scene *scene = System::Inst()->GetScene();
 			//LightSystem* lightSys = scene->GetLightSystem();

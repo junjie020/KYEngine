@@ -409,8 +409,16 @@ int MainEntry()
 		//tt.Init();
 		// 
 		ModelTest tt;
+
+		auto vp = system->GetMainVP();
+		auto camera = vp->GetCamera();
+
+		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
+		auto direct = (Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 
+		direct.Normalize();
+		camera->SetDirection(direct);
 		
-		tt.Init(system->GetMainVP());
+		tt.Init(vp);
 		system->Run();
 	}
 	system->Shutdown();

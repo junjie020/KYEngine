@@ -7,6 +7,7 @@ namespace KY
 	Camera::Camera(float fov, float aspect, float n, float f)
 		: mOrtho(false)
 		, mDirty(true)
+		, mUpVector(Vec4f::YAXIS)
 	{
 		mWorldMat = Mat4x4F::INDENTIFY;
 		mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
@@ -60,7 +61,7 @@ namespace KY
 			return;
 
 		const auto pos = GetPostion();
-		mMatView = KY::ConstructViewMatrix(pos + GetDirection(), pos, Vec4f::YAXIS);
+		mMatView = KY::ConstructViewMatrix(pos + GetDirection(), pos, mUpVector);
 		mMatViewProj = mMatView * mMatProj;
 
 		mFrustum.Update(mMatViewProj);

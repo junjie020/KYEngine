@@ -9,6 +9,7 @@ cbuffer MatBuffer : register(b0)
 cbuffer LightBuffer : register(b1)
 {
 	float4		lightDiffColor;
+	float4		lightAmbientClor;
 	float3		eyePos;
 	float3		lightVec;	
 };
@@ -28,6 +29,5 @@ struct Output
 float4 main(Output o) : SV_TARGET0
 {
 	float cos = max(0, dot(o.normal, lightVec));
-
-	return materialDiffColor * lightDiffColor * cos;
+	return materialDiffColor * lightDiffColor * cos + lightAmbientClor;	
 }

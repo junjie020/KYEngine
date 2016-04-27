@@ -28,6 +28,11 @@ namespace KY
 		{
 			SafeDelete(mInst);
 		}
+
+		static bool HasInst()
+		{
+			return mInst != nullptr;
+		}
     	
     protected:
     	

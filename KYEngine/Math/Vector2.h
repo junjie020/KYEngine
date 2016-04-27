@@ -63,6 +63,7 @@ namespace KY
 
 	typedef Vector2<float>	Pos2F;
 	typedef Vector2<uint32> Pos2U;
+	typedef Vector2<int32>  Pos2I;
 
 }
 #endif // _VECTOR2_H_
