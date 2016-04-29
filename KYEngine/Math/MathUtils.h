@@ -3,8 +3,12 @@
 
 namespace KY
 {
-    namespace MathUtils
-    {
+	namespace MathUtils
+	{
+#ifdef USING_GLM
+
+
+#else //!USING_GLM
 #define	PI			3.1415926535897932384626
 #define PI_TWO		2*PI
 #define PI_Half		PI / 0.5
@@ -15,12 +19,12 @@ namespace KY
 #define ZERO_TOLERANCE 1e-6
 
 		template<typename Type>
-		Type ToRadian(Type degree){
+		Type ToRadian(Type degree) {
 			return Type(ASPECT_PI_180) * degree;
 		}
 
 		template<typename Type>
-		Type ToDegree(Type radian){
+		Type ToDegree(Type radian) {
 			return Type(ASPECT_180_PI) * radian;
 		}
 
@@ -60,7 +64,7 @@ namespace KY
 		inline float FastSqrt(float v) {
 			return Sqrt();
 		}
-
-    };
+#endif // USING_GLM
+	}
 }
 #endif // _MATHUTILS_H_

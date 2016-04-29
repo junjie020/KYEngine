@@ -44,7 +44,7 @@ namespace KY
 		InitializeWindows(dim, windowed);
 
 		
-		GraphicInitParam param = { dim.w, dim.h, 1, 0, FL_11_1, mhWnd, mWindowedMode };
+		GraphicInitParam param = { dim.x, dim.y, 1, 0, FL_11_1, mhWnd, mWindowedMode };
 
 		auto input = Input::Create();
 		input->Initialize();
@@ -194,25 +194,25 @@ namespace KY
 		if (windowed)
 		{
 			// If windowed then set it to 800x600 resolution.
-			if (0 == dim.w)
-				dim.w = 800;
-			if (0 == dim.h)
-				dim.h = 600;
+			if (0 == dim.x)
+				dim.x = 800;
+			if (0 == dim.y)
+				dim.y = 600;
 
 			// Place the window in the middle of the screen.
-			posX = (GetSystemMetrics(SM_CXSCREEN) - dim.w) / 2;
-			posY = (GetSystemMetrics(SM_CYSCREEN) - dim.h) / 2;
+			posX = (GetSystemMetrics(SM_CXSCREEN) - dim.x) >> 1;
+			posY = (GetSystemMetrics(SM_CYSCREEN) - dim.y) >> 1;
 		}
 		else
 		{
-			dim.w = uint32(GetSystemMetrics(SM_CXSCREEN));
-			dim.h = uint32(GetSystemMetrics(SM_CYSCREEN));
+			dim.x = uint32(GetSystemMetrics(SM_CXSCREEN));
+			dim.y = uint32(GetSystemMetrics(SM_CYSCREEN));
 
 			// If full screen set the screen to maximum size of the users desktop and 32bit.
 			DEVMODE dmScreenSettings = { 0 };
 			dmScreenSettings.dmSize			= sizeof(dmScreenSettings);
-			dmScreenSettings.dmPelsWidth	= dim.w;
-			dmScreenSettings.dmPelsHeight	= dim.h;
+			dmScreenSettings.dmPelsWidth	= dim.x;
+			dmScreenSettings.dmPelsHeight	= dim.y;
 			dmScreenSettings.dmBitsPerPel	= 32;
 			dmScreenSettings.dmFields		= DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
 
@@ -228,7 +228,7 @@ namespace KY
 		// Create the window with the screen settings and get the handle to it.
 		mhWnd = CreateWindowEx(WS_EX_APPWINDOW, mApplicationName, mApplicationName,
 			WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-			posX, posY, dim.w, dim.h, NULL, NULL, mhinstance, NULL);
+			posX, posY, dim.x, dim.y, NULL, NULL, mhinstance, NULL);
 
 		// Bring the window up on the screen and set it as main focus.
 		ShowWindow(mhWnd, SW_SHOW);

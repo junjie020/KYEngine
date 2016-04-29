@@ -31,6 +31,10 @@ namespace fs = std::experimental::filesystem::v1;
 
 #pragma warning(disable:4201)
 
+#include "Common/BaseDef.h"
+
+#include "glm/glm.hpp"
+
 //{@	boost
 #include "boost/assert.hpp"
 #include "boost/noncopyable.hpp"

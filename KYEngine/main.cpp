@@ -333,7 +333,7 @@ private:
 			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
-				mMatBuffer.matWorld = Mat4x4F::INDENTIFY;
+				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;
 				//mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
 
 				//const Size2U dim = Graphic::Inst()->GetBackBufferSize();
@@ -414,8 +414,7 @@ int MainEntry()
 		auto camera = vp->GetCamera();
 
 		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
-		auto direct = (Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 
-		direct.Normalize();
+		auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
 		camera->SetDirection(direct);
 		
 		tt.Init(vp);

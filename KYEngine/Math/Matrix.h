@@ -5,31 +5,34 @@
 
 namespace KY
 {
+#ifdef USING_GLM
+	using Mat4x4F = glm::mat4x4;
+#else //!USING_GLM
 	// row major
 	template<typename Type>
-    class Matrix
-    {
+	class Matrix
+	{
 	public:
-		union{
+		union {
 			struct {
 				float m00, m01, m02, m03;
 				float m10, m11, m12, m13;
 				float m20, m21, m22, m23;
 				float m30, m31, m32, m33;
 			};
-			float			m[16];	
+			float			m[16];
 			float			mm[4][4];
 		};
-    public:
-		Matrix(){}
-		Matrix( float _m00, float _m01, float _m02, float _m03,
-				float _m10, float _m11, float _m12, float _m13,
-				float _m20, float _m21, float _m22, float _m23,
-				float _m30, float _m31, float _m32, float _m33)
-				: m00(_m00), m01(_m01), m02(_m02), m03(_m03)
-				, m10(_m10), m11(_m11), m12(_m12), m13(_m13)
-				, m20(_m20), m21(_m21), m22(_m22), m23(_m23)
-				, m30(_m30), m31(_m31), m32(_m32), m33(_m33)
+	public:
+		Matrix() {}
+		Matrix(float _m00, float _m01, float _m02, float _m03,
+			float _m10, float _m11, float _m12, float _m13,
+			float _m20, float _m21, float _m22, float _m23,
+			float _m30, float _m31, float _m32, float _m33)
+			: m00(_m00), m01(_m01), m02(_m02), m03(_m03)
+			, m10(_m10), m11(_m11), m12(_m12), m13(_m13)
+			, m20(_m20), m21(_m21), m22(_m22), m23(_m23)
+			, m30(_m30), m31(_m31), m32(_m32), m33(_m33)
 		{}
 
 		typedef Vector4<Type> VecType;
@@ -42,122 +45,122 @@ namespace KY
 			memcpy(&Row(3), &r3, sizeof(VecType));
 		}
 
-		VecType& Row(uint32 rowIdx){
+		VecType& Row(uint32 rowIdx) {
 			return *(reinterpret_cast<VecType*>(this) + rowIdx);
 		}
 
-		const VecType& Row(uint32 rowIdx) const{
+		const VecType& Row(uint32 rowIdx) const {
 			return *(reinterpret_cast<const VecType*>(this) + rowIdx);
 		}
 
-		VecType Col(uint32 colIdx) const{
+		VecType Col(uint32 colIdx) const {
 			return VecType(mm[0][colIdx], mm[1][colIdx], mm[2][colIdx], mm[3][colIdx]);
 		}
 
 		Type Det() const {
 			return	  m00*(m11*(m22*m33 - m23*m32) + m12*(m23*m31 - m21*m33) + m13*(m21*m32 - m22*m31))
-					- m01*(m10*(m22*m33 - m23*m32) + m12*(m23*m30 - m20*m33) + m13*(m20*m32 - m22*m30))
-					+ m02*(m10*(m21*m33 - m23*m31) + m11*(m23*m30 - m20*m33) + m13*(m20*m31 - m21*m30))
-					- m03*(m10*(m21*m32 - m22*m31) + m11*(m22*m30 - m20*m32) + m22*(m20*m31 - m21*m30));
+				- m01*(m10*(m22*m33 - m23*m32) + m12*(m23*m30 - m20*m33) + m13*(m20*m32 - m22*m30))
+				+ m02*(m10*(m21*m33 - m23*m31) + m11*(m23*m30 - m20*m33) + m13*(m20*m31 - m21*m30))
+				- m03*(m10*(m21*m32 - m22*m31) + m11*(m22*m30 - m20*m32) + m22*(m20*m31 - m21*m30));
 		}
 
-		void Inverse(){
+		void Inverse() {
 			Type invDet = Det();
 			if (IS_ZERO(invDet))
 			{
 				invDet = 1.0f / invDet;
 
 				Matrix<Type>	mat(*this);
-				
-				m00 = invDet * 
-					( mat.m11 * (mat.m22 * mat.m33 - mat.m23 * mat.m32)
-					+ mat.m12 * (mat.m23 * mat.m31 - mat.m21 * mat.m33)
-					+ mat.m13 * (mat.m21 * mat.m32 - mat.m22 * mat.m31));
 
-				m01 = invDet * 
-					( mat.m21 * (mat.m02 * mat.m33 - mat.m03 * mat.m32)
-					+ mat.m22 * (mat.m03 * mat.m31 - mat.m01 * mat.m33)
-					+ mat.m23 * (mat.m01 * mat.m32 - mat.m02 * mat.m31));
+				m00 = invDet *
+					(mat.m11 * (mat.m22 * mat.m33 - mat.m23 * mat.m32)
+						+ mat.m12 * (mat.m23 * mat.m31 - mat.m21 * mat.m33)
+						+ mat.m13 * (mat.m21 * mat.m32 - mat.m22 * mat.m31));
 
-				m02 = invDet * 
-					( mat.m31 * (mat.m02 * mat.m13 - mat.m03 * mat.m12)
-					+ mat.m32 * (mat.m03 * mat.m11 - mat.m01 * mat.m13)
-					+ mat.m33 * (mat.m01 * mat.m12 - mat.m02 * mat.m11));
+				m01 = invDet *
+					(mat.m21 * (mat.m02 * mat.m33 - mat.m03 * mat.m32)
+						+ mat.m22 * (mat.m03 * mat.m31 - mat.m01 * mat.m33)
+						+ mat.m23 * (mat.m01 * mat.m32 - mat.m02 * mat.m31));
 
-				m03 = invDet * 
-					( mat.m01 * (mat.m13 * mat.m22 - mat.m12 * mat.m23)
-					+ mat.m02 * (mat.m11 * mat.m23 - mat.m13 * mat.m21)
-					+ mat.m03 * (mat.m12 * mat.m21 - mat.m11 * mat.m22));
+				m02 = invDet *
+					(mat.m31 * (mat.m02 * mat.m13 - mat.m03 * mat.m12)
+						+ mat.m32 * (mat.m03 * mat.m11 - mat.m01 * mat.m13)
+						+ mat.m33 * (mat.m01 * mat.m12 - mat.m02 * mat.m11));
 
-				m10 = invDet * 
-					( mat.m12 * (mat.m20 * mat.m33 - mat.m23 * mat.m30)
-					+ mat.m13 * (mat.m22 * mat.m30 - mat.m20 * mat.m32)
-					+ mat.m10 * (mat.m23 * mat.m32 - mat.m22 * mat.m33));
+				m03 = invDet *
+					(mat.m01 * (mat.m13 * mat.m22 - mat.m12 * mat.m23)
+						+ mat.m02 * (mat.m11 * mat.m23 - mat.m13 * mat.m21)
+						+ mat.m03 * (mat.m12 * mat.m21 - mat.m11 * mat.m22));
 
-				m11 = invDet * 
-					( mat.m22 * (mat.m00 * mat.m33 - mat.m03 * mat.m30)
-					+ mat.m23 * (mat.m02 * mat.m30 - mat.m00 * mat.m32)
-					+ mat.m20 * (mat.m03 * mat.m32 - mat.m02 * mat.m33));
+				m10 = invDet *
+					(mat.m12 * (mat.m20 * mat.m33 - mat.m23 * mat.m30)
+						+ mat.m13 * (mat.m22 * mat.m30 - mat.m20 * mat.m32)
+						+ mat.m10 * (mat.m23 * mat.m32 - mat.m22 * mat.m33));
 
-				m12 = invDet * 
-					( mat.m32 * (mat.m00 * mat.m13 - mat.m03 * mat.m10)
-					+ mat.m33 * (mat.m02 * mat.m10 - mat.m00 * mat.m12)
-					+ mat.m30 * (mat.m03 * mat.m12 - mat.m02 * mat.m13));
+				m11 = invDet *
+					(mat.m22 * (mat.m00 * mat.m33 - mat.m03 * mat.m30)
+						+ mat.m23 * (mat.m02 * mat.m30 - mat.m00 * mat.m32)
+						+ mat.m20 * (mat.m03 * mat.m32 - mat.m02 * mat.m33));
 
-				m13 = invDet * 
-					( mat.m02 * (mat.m13 * mat.m20 - mat.m10 * mat.m23)
-					+ mat.m03 * (mat.m10 * mat.m22 - mat.m12 * mat.m20)
-					+ mat.m00 * (mat.m12 * mat.m23 - mat.m13 * mat.m22));
+				m12 = invDet *
+					(mat.m32 * (mat.m00 * mat.m13 - mat.m03 * mat.m10)
+						+ mat.m33 * (mat.m02 * mat.m10 - mat.m00 * mat.m12)
+						+ mat.m30 * (mat.m03 * mat.m12 - mat.m02 * mat.m13));
 
-				m20 = invDet * 
-					( mat.m13 * (mat.m20 * mat.m31 - mat.m21 * mat.m30)
-					+ mat.m10 * (mat.m21 * mat.m33 - mat.m23 * mat.m31)
-					+ mat.m11 * (mat.m23 * mat.m30 - mat.m20 * mat.m33));
+				m13 = invDet *
+					(mat.m02 * (mat.m13 * mat.m20 - mat.m10 * mat.m23)
+						+ mat.m03 * (mat.m10 * mat.m22 - mat.m12 * mat.m20)
+						+ mat.m00 * (mat.m12 * mat.m23 - mat.m13 * mat.m22));
 
-				m21 = invDet * 
-					( mat.m23 * (mat.m00 * mat.m31 - mat.m01 * mat.m30)
-					+ mat.m20 * (mat.m01 * mat.m33 - mat.m03 * mat.m31)
-					+ mat.m21 * (mat.m03 * mat.m30 - mat.m00 * mat.m33));
+				m20 = invDet *
+					(mat.m13 * (mat.m20 * mat.m31 - mat.m21 * mat.m30)
+						+ mat.m10 * (mat.m21 * mat.m33 - mat.m23 * mat.m31)
+						+ mat.m11 * (mat.m23 * mat.m30 - mat.m20 * mat.m33));
 
-				m22 = invDet * 
-					( mat.m33 * (mat.m00 * mat.m11 - mat.m01 * mat.m10)
-					+ mat.m30 * (mat.m01 * mat.m13 - mat.m03 * mat.m11)
-					+ mat.m31 * (mat.m03 * mat.m10 - mat.m00 * mat.m13));
+				m21 = invDet *
+					(mat.m23 * (mat.m00 * mat.m31 - mat.m01 * mat.m30)
+						+ mat.m20 * (mat.m01 * mat.m33 - mat.m03 * mat.m31)
+						+ mat.m21 * (mat.m03 * mat.m30 - mat.m00 * mat.m33));
 
-				m23 = invDet * 
-					( mat.m03 * (mat.m11 * mat.m20 - mat.m10 * mat.m21)
-					+ mat.m00 * (mat.m13 * mat.m21 - mat.m11 * mat.m23)
-					+ mat.m01 * (mat.m10 * mat.m23 - mat.m13 * mat.m20));
+				m22 = invDet *
+					(mat.m33 * (mat.m00 * mat.m11 - mat.m01 * mat.m10)
+						+ mat.m30 * (mat.m01 * mat.m13 - mat.m03 * mat.m11)
+						+ mat.m31 * (mat.m03 * mat.m10 - mat.m00 * mat.m13));
 
-				m30 = invDet * 
-					( mat.m10 * (mat.m22 * mat.m31 - mat.m21 * mat.m32)
-					+ mat.m11 * (mat.m20 * mat.m32 - mat.m22 * mat.m30)
-					+ mat.m12 * (mat.m21 * mat.m30 - mat.m20 * mat.m31));
+				m23 = invDet *
+					(mat.m03 * (mat.m11 * mat.m20 - mat.m10 * mat.m21)
+						+ mat.m00 * (mat.m13 * mat.m21 - mat.m11 * mat.m23)
+						+ mat.m01 * (mat.m10 * mat.m23 - mat.m13 * mat.m20));
 
-				m31 = invDet * 
-					( mat.m20 * (mat.m02 * mat.m31 - mat.m01 * mat.m32)
-					+ mat.m21 * (mat.m00 * mat.m32 - mat.m02 * mat.m30)
-					+ mat.m22 * (mat.m01 * mat.m30 - mat.m00 * mat.m31));
+				m30 = invDet *
+					(mat.m10 * (mat.m22 * mat.m31 - mat.m21 * mat.m32)
+						+ mat.m11 * (mat.m20 * mat.m32 - mat.m22 * mat.m30)
+						+ mat.m12 * (mat.m21 * mat.m30 - mat.m20 * mat.m31));
 
-				m32 = invDet * 
-					( mat.m30 * (mat.m02 * mat.m11 - mat.m01 * mat.m12)
-					+ mat.m31 * (mat.m00 * mat.m12 - mat.m02 * mat.m10)
-					+ mat.m32 * (mat.m01 * mat.m10 - mat.m00 * mat.m11));
+				m31 = invDet *
+					(mat.m20 * (mat.m02 * mat.m31 - mat.m01 * mat.m32)
+						+ mat.m21 * (mat.m00 * mat.m32 - mat.m02 * mat.m30)
+						+ mat.m22 * (mat.m01 * mat.m30 - mat.m00 * mat.m31));
 
-				m33 = invDet * 
-					( mat.m00 * (mat.m11 * mat.m22 - mat.m12 * mat.m21)
-					+ mat.m01 * (mat.m12 * mat.m20 - mat.m10 * mat.m22)
-					+ mat.m02 * (mat.m10 * mat.m21 - mat.m11 * mat.m20));
-			}				
+				m32 = invDet *
+					(mat.m30 * (mat.m02 * mat.m11 - mat.m01 * mat.m12)
+						+ mat.m31 * (mat.m00 * mat.m12 - mat.m02 * mat.m10)
+						+ mat.m32 * (mat.m01 * mat.m10 - mat.m00 * mat.m11));
+
+				m33 = invDet *
+					(mat.m00 * (mat.m11 * mat.m22 - mat.m12 * mat.m21)
+						+ mat.m01 * (mat.m12 * mat.m20 - mat.m10 * mat.m22)
+						+ mat.m02 * (mat.m10 * mat.m21 - mat.m11 * mat.m20));
+			}
 		}
 
-		Matrix<Type> ToInverse() const{
+		Matrix<Type> ToInverse() const {
 			Matrix<Type> mat(*this);
 			mat.Inverse();
 			return mat;
 		}
 
-		void Transpose(){
+		void Transpose() {
 			std::swap(m01, m10);
 			std::swap(m02, m20);
 			std::swap(m03, m30);
@@ -169,7 +172,7 @@ namespace KY
 			std::swap(m23, m32);
 		}
 
-		Matrix<Type> ToTranspose(){
+		Matrix<Type> ToTranspose() {
 			Matrix<Type> mat = *this;
 			mat.Transpose();
 
@@ -195,9 +198,9 @@ namespace KY
 	public:
 		static Matrix INDENTIFY;
 		static Matrix ZERO;
-    };
+	};
 
-	typedef Matrix<float> Mat4x4F;
+	using Mat4x4F = Matrix<float>;
 
 	template<typename Type>
 	inline 	Vector4<Type> operator*(const Matrix<Type>& mat, const Vector4<Type>& v) {
@@ -230,7 +233,7 @@ namespace KY
 	}
 
 	template<typename Type>
-	inline Matrix<Type> ConstructPrespectiveMatrix(Type l, Type r, Type b, Type t, Type n, Type f){
+	inline Matrix<Type> ConstructPrespectiveMatrix(Type l, Type r, Type b, Type t, Type n, Type f) {
 		/*
 
 		2*zn/(r-l)   0            0              0
@@ -256,7 +259,7 @@ namespace KY
 
 
 	template<typename Type>
-	inline Matrix<Type> ConstructPrespectiveMatrix(Type fov /*= 1.570795f*/, Type aspect /*= 1.0f*/, Type n /*= 1.0f*/, Type f /*= 1000.0f*/){
+	inline Matrix<Type> ConstructPrespectiveMatrix(Type fov /*= 1.570795f*/, Type aspect /*= 1.0f*/, Type n /*= 1.0f*/, Type f /*= 1000.0f*/) {
 		const Type height = Type(std::tan(fov / 2));
 		const Type width = aspect * height;
 
@@ -272,10 +275,10 @@ namespace KY
 		*/
 
 		Matrix<Type> m = Matrix<Type>::ZERO;
-		m.m00 = 1 / width;		
+		m.m00 = 1 / width;
 
 		m.m11 = 1 / height;
-	
+
 		m.m22 = f / (f - n);
 		m.m23 = 1;
 		m.m32 = n * f / (n - f);
@@ -284,7 +287,7 @@ namespace KY
 	}
 
 	template<typename Type>
-	inline Matrix<Type> ConstructOrthoMatrix(Type l, Type r, Type b, Type t, Type n, Type f){
+	inline Matrix<Type> ConstructOrthoMatrix(Type l, Type r, Type b, Type t, Type n, Type f) {
 		/*
 
 		2/(r-l)      0            0           0
@@ -303,16 +306,16 @@ namespace KY
 		m.m22 = 1 / (f - n);
 		m.m32 = n / (n - f);
 
-		return m;	
+		return m;
 	}
 
 	template<typename Type>
-	inline Matrix<Type> ConstructOrthoMatrix(Type w, Type h, Type n, Type f){
+	inline Matrix<Type> ConstructOrthoMatrix(Type w, Type h, Type n, Type f) {
 		return ConstructOrthoMatrix(-w / 2, w / 2, -h / 2, h / 2, n, f);
 	}
 
 	template<typename Type>
-	inline Matrix<Type> ConstructViewMatrix(const Vector4<Type> &eye, const Vector4<Type> &at, const Vector4<Type> &up){
+	inline Matrix<Type> ConstructViewMatrix(const Vector4<Type> &eye, const Vector4<Type> &at, const Vector4<Type> &up) {
 		/*
 		zaxis = normal(At - Eye)
 		xaxis = normal(cross(Up, zaxis))
@@ -335,5 +338,17 @@ namespace KY
 			xDir.z, yDir.z, zDir.z, 0,
 			-xDir.Dot(eye), -yDir.Dot(eye), -zDir.Dot(eye), 1);
 	}
+#endif // USING_GLM
+
 }
+
+#ifdef USING_GLM
+namespace KY
+{
+	namespace mat4x4_utils
+	{
+		extern glm::mat4x4 INDENTIFY;
+	}
+}
+#endif // USING_GLM
 #endif // _MATRIX_H_

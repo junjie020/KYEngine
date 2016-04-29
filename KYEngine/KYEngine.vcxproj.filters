@@ -315,6 +315,9 @@
     <ClInclude Include="Graphic\Resource\ConstBufferDef.h">
       <Filter>Graphic\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Common\BaseDef.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

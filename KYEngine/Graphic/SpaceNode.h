@@ -14,42 +14,48 @@ namespace KY
 		virtual ~SpaceNode() {}
 
 		Vec4f GetPostion() const {
-			return mWorldMat.Row(3);
+			return mWorldMat[3];
 		}
 
 		virtual void SetPosition(const Vec4f &pos) {
-			mWorldMat.Row(3) = pos;
+			mWorldMat[3] = pos;
 		}
 
 		Vec4f GetDirection() const {
-			return mWorldMat.Row(2);
+			return mWorldMat[2];
 		}
 
 		virtual void SetDirection(const Vec4f &dir) {
-			auto xDir = Vec4f::YAXIS.Cross(dir).Normalize();
-			auto yDir = dir.Cross(xDir).Normalize();
+			auto xDir = glm::normalize(glm::cross(vec4_utils::YAXIS, dir));
+			auto yDir = glm::normalize(glm::cross(dir, xDir));
 
-			auto xDirLength = mWorldMat.Row(0).Length();
-			auto yDirLength = mWorldMat.Row(1).Length();
-			auto zDirLength = mWorldMat.Row(2).Length();
+			auto xDirLength = glm::length(mWorldMat[0]);
+			auto yDirLength = glm::length(mWorldMat[1]);
+			auto zDirLength = glm::length(mWorldMat[2]);
 
 			mWorldMat = Mat4x4F(xDir * xDirLength, 
 								yDir * yDirLength, 
-								Vec4f(dir).Normalize() * zDirLength, 
-								mWorldMat.Row(3));
+								glm::normalize(dir) * zDirLength, 
+								mWorldMat[3]);
 		}
 
 		Vec4f GetScale() const {
-			return Vec4f(mWorldMat.Row(0).Length(),
-				mWorldMat.Row(1).Length(),
-				mWorldMat.Row(2).Length(), 1.0f);
+			return Vec4f(glm::length(mWorldMat[0]),
+				         glm::length(mWorldMat[1]),
+				         glm::length(mWorldMat[2]),
+				         1.0f);
 		}
 
 		virtual void SetScale(const Vec4f &scale)
 		{
-			mWorldMat.Row(0).Normalize() *= scale.x;
-			mWorldMat.Row(1).Normalize() *= scale.y;
-			mWorldMat.Row(2).Normalize() *= scale.z;
+			mWorldMat[0] = glm::normalize(mWorldMat[0]);
+			mWorldMat[0] *= scale.x;
+
+			mWorldMat[1] = glm::normalize(mWorldMat[1]);
+			mWorldMat[1] *= scale.y;
+
+			mWorldMat[2] = glm::normalize(mWorldMat[2]); 
+			mWorldMat[2] *= scale.z;
 		}
 
 

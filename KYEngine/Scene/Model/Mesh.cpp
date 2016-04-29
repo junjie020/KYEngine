@@ -135,7 +135,7 @@ namespace KY
 		{
 			StaticLightConstBuffer buffer;
 			buffer.lightVec = Vec4f(100.f, 100.f, 100.f, 0.0f);
-			buffer.lightVec.Normalize();
+			glm::normalize(buffer.lightVec);
 
 			buffer.eyePos = rt->GetCamera()->GetPostion();
 
@@ -209,8 +209,8 @@ namespace KY
 			BOOST_ASSERT(param.mapData.rowPitch >= sizeof(TransformConstBuffer));
 
 			TransformConstBuffer bb;
-			bb.matWorld = Mat4x4F::INDENTIFY;
-			bb.matWorld.m00 = bb.matWorld.m11 = bb.matWorld.m22 = 50.0f;// 100.f;
+			bb.matWorld = mat4x4_utils::INDENTIFY;
+			bb.matWorld[0][0] = bb.matWorld[1][1] = bb.matWorld[2][2] = 50.0f;// 100.f;
 			bb.matView = camera->GetViewMat();
 			bb.matProj = camera->GetProjMat();
 

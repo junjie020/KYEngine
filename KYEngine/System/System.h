@@ -33,7 +33,7 @@ namespace KY
 		void Shutdown();
 		void Run();
 
-		LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+		LRESULT CALLBACK MessageHandler(HWND, uint32, WPARAM, LPARAM);
 
 		void AddSample(SampleTest *test);
 		void RemoveSample(SampleTest *test);

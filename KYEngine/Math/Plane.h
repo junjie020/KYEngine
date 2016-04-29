@@ -12,7 +12,7 @@ namespace KY
 			struct {
 				float x, y, z;
 			};
-			Vec3f v;
+			glm::vec3 v;
 		};
 		float dist;
 
@@ -20,7 +20,7 @@ namespace KY
 		Plane(){}
 		Plane(float _x, float _y, float _z, float d) : x(_x), y(_y), z(_z), dist(d){}
 
-		Vec3f interset(const Plane &p0, const Plane &p1);
+		glm::vec3 interset(const Plane &p0, const Plane &p1);
 
     };
 }

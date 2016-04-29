@@ -3,6 +3,9 @@
 
 namespace KY
 {
+#ifdef USING_GLM
+	using Vec3f = glm::vec3;
+#else //!USING_GLM
 	template<typename T>
 	class Vector3
 	{
@@ -32,7 +35,7 @@ namespace KY
 			z /= len;
 		}
 
-		float SquareLength() const 
+		float SquareLength() const
 		{
 			return x * x + y * y + z * z;
 		}
@@ -99,6 +102,8 @@ namespace KY
 	}
 
 	using Vec3f = Vector3<float>;
+#endif // USING_GLM
+
 }
 
 #endif // !__VECTOR3_H__
