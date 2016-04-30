@@ -114,7 +114,7 @@ namespace KY
 		{
 			float(rt.left), float(rt.top),
 			float(rt.width()), float(rt.height()),
-			range.beg,  range.end,
+			range.x,  range.y,
 		};
 		context->RSSetViewports(1, &vpd3d);
 	}
@@ -160,7 +160,7 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		context->OMSetBlendState(obj->GetInternal()->GetInternal(),
-								obj->GetBlendFactor().m,
+								((const float*)(&(obj->GetBlendFactor()))),
 								obj->GetSampleMask());
 	}
 

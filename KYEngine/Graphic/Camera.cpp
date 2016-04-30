@@ -1,24 +1,28 @@
 #include "stdafx.h"
 
 #include "Camera.h"
+#include "Math/VectorUnit.h"
+
+#include "glm/gtc/matrix_transform.inl"
 
 namespace KY
 {
 	Camera::Camera(float fov, float aspect, float n, float f)
 		: mOrtho(false)
 		, mDirty(true)
-		, mUpVector(Vec4f::YAXIS)
+		, mUpVector(vec4_utils::YAXIS)		
+		, mMatProj(glm::perspectiveLH(fov, aspect, n, f))
 	{
-		mWorldMat = Mat4x4F::INDENTIFY;
-		mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
+		
+		//mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
 	}
 
 	Camera::Camera(bool ortho, float w, float h, float n, float f)
-		: mMatProj(ConstructOrthoMatrix(w, h, n, f))
+		: mMatProj(glm::ortho(w, h, n, f))
 		, mOrtho(true)
 		, mDirty(true)
 	{
-		mWorldMat = Mat4x4F::INDENTIFY;
+		mWorldMat = mat4x4_utils::INDENTIFY;		
 		BOOST_ASSERT(mOrtho == ortho);
 	}
 
@@ -26,7 +30,7 @@ namespace KY
 	{
 		mOrtho = true;
 		mDirty = true;
-		mMatProj = std::move(KY::ConstructOrthoMatrix(w, h, n, f));
+		mMatProj = std::move(glm::ortho(w, h, n, f));
 		
 	}
 
@@ -34,7 +38,7 @@ namespace KY
 	{
 		mOrtho = false;
 		mDirty = true;
-		mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
+		mMatProj = std::move(glm::perspectiveLH(fov, aspect, n, f));
 	}
 
 	void Camera::SetPosition(const Vec4f & pos)
@@ -60,8 +64,10 @@ namespace KY
 		if (!mDirty)
 			return;
 
-		const auto pos = GetPostion();
-		mMatView = KY::ConstructViewMatrix(pos + GetDirection(), pos, mUpVector);
+		const auto center = GetPostion();
+		const auto eye = center + GetDirection();
+		
+		mMatView = glm::lookAtLH(KY::ToVec3(eye), KY::ToVec3(center), KY::ToVec3(mUpVector));
 		mMatViewProj = mMatView * mMatProj;
 
 		mFrustum.Update(mMatViewProj);

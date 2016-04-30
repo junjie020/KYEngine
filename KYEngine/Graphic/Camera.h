@@ -50,9 +50,9 @@ namespace KY
 		Vec4f mUpVector;
 		mutable Frustum mFrustum;
 
-		mutable Mat4x4F	mMatView;
-		mutable Mat4x4F	mMatProj;
-		mutable Mat4x4F mMatViewProj;
+		mutable glm::mat4x4	mMatView;
+		mutable glm::mat4x4	mMatProj;
+		mutable glm::mat4x4 mMatViewProj;
 
 		mutable bool	mDirty;
 

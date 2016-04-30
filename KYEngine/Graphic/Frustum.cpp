@@ -6,7 +6,7 @@
 namespace KY
 {
 	//static
-	void Frustum::ExtractPlanes(const Mat4x4F &mat, PlaneArray &planes)
+	void Frustum::ExtractPlanes(const Mat4x4F &/*mat*/, PlaneArray &/*planes*/)
 	{
 		/**
 		projMat =	{	col0 col1 col2 col3

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Vector4.h"
 
-namespace glm
+#ifdef USING_GLM
+namespace KY
 {
-	namespace Vec4Utils
+	namespace vec4_utils
 	{
 		glm::vec4 XAXIS(1.f, 0.f, 0.f, 0.f);
 		glm::vec4 YAXIS(0.f, 1.f, 0.f, 0.f);
@@ -12,3 +13,5 @@ namespace glm
 		glm::vec4 ZERO(0.f, 0.f, 0.f, 0.f);
 	}
 }
+#endif // USING_GLM
+

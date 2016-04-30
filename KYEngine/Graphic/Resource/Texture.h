@@ -5,11 +5,19 @@
 
 namespace KY
 {
+
+	class TextureAssertLoader
+	{
+	public:
+
+	};
     class Texture : public Resource
     {
     public:
     	Texture();
     	~Texture();
+
+		bool Init(TextureAssertLoader *loader);
 
 	private:
 

@@ -70,6 +70,8 @@ namespace KY
 		auto camera = vp->GetCamera();
 
 		const auto camerPos = camera->GetPostion();
+
+		return false;
 	}
 
 	// return false for not handle, return ture for handled
