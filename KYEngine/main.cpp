@@ -405,17 +405,16 @@ int MainEntry()
 	Size2U dim(0, 0);
 	if (system->Initialize(dim, true))
 	{
-		//SimpleTriangleTest tt;
-		//tt.Init();
-		// 
-		ModelTest tt;
-
 		auto vp = system->GetMainVP();
-		auto camera = vp->GetCamera();
 
-		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
-		auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
-		camera->SetDirection(direct);
+		SimpleTriangleTest tt;		
+
+		//ModelTest tt;
+		//auto camera = vp->GetCamera();
+
+		//camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
+		//auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
+		//camera->SetDirection(direct);
 		
 		tt.Init(vp);
 		system->Run();

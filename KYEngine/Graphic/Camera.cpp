@@ -12,9 +12,7 @@ namespace KY
 		, mDirty(true)
 		, mUpVector(vec4_utils::YAXIS)		
 		, mMatProj(glm::perspectiveLH(fov, aspect, n, f))
-	{
-		
-		//mMatProj = std::move(ConstructPrespectiveMatrix(fov, aspect, n, f));
+	{		
 	}
 
 	Camera::Camera(bool ortho, float w, float h, float n, float f)

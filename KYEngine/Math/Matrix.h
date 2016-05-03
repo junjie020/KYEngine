@@ -348,6 +348,7 @@ namespace KY
 	namespace mat4x4_utils
 	{
 		extern glm::mat4x4 INDENTIFY;
+		extern glm::mat4x4 ZERO;
 	}
 }
 #endif // USING_GLM
