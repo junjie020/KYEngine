@@ -6,7 +6,7 @@
 namespace KY
 {
 	//static
-	void Frustum::ExtractPlanes(const Mat4x4F &/*mat*/, PlaneArray &/*planes*/)
+	void Frustum::ExtractPlanes(const Mat4x4F &mat, PlaneArray &planes)
 	{
 		/**
 		projMat =	{	col0 col1 col2 col3
@@ -58,41 +58,41 @@ namespace KY
 		*/
 
 		auto &pLeft = planes[Frustum::Left];
-		pLeft.x = mat.m00 + mat.m03;
-		pLeft.y = mat.m10 + mat.m13;
-		pLeft.z = mat.m20 + mat.m23;
-		pLeft.dist = mat.m30 + mat.m33;
+		pLeft.x = mat[0][0] + mat[0][3];
+		pLeft.y = mat[1][0] + mat[1][3];
+		pLeft.z = mat[2][0] + mat[2][3];
+		pLeft.dist = mat[3][0] + mat[3][3];
 
 		auto &pRight = planes[Frustum::Right];
-		pRight.x = mat.m00 - mat.m03;
-		pRight.y = mat.m10 - mat.m13;
-		pRight.z = mat.m20 - mat.m23;
-		pRight.dist = mat.m30 - mat.m33;
+		pRight.x = mat[0][0] - mat[0][3];
+		pRight.y = mat[1][0] - mat[1][3];
+		pRight.z = mat[2][0] - mat[2][3];
+		pRight.dist = mat[3][0] - mat[3][3];
 
 
 		auto &pTop = planes[Frustum::Top];
-		pTop.x = mat.m01 + mat.m03;
-		pTop.y = mat.m11 + mat.m13;
-		pTop.z = mat.m21 + mat.m23;
-		pTop.dist = mat.m31 + mat.m33;
+		pTop.x = mat[0][1] + mat[0][3];
+		pTop.y = mat[1][1] + mat[1][3];
+		pTop.z = mat[2][1] + mat[2][3];
+		pTop.dist = mat[3][1] + mat[3][3];
 
 		auto &pBottom = planes[Frustum::Bottom];
-		pBottom.x = mat.m01 - mat.m03;
-		pBottom.y = mat.m11 - mat.m13;
-		pBottom.z = mat.m21 - mat.m23;
-		pBottom.dist = mat.m31 - mat.m33;
+		pBottom.x = mat[0][1] - mat[0][3];
+		pBottom.y = mat[1][1] - mat[1][3];
+		pBottom.z = mat[2][1] - mat[2][3];
+		pBottom.dist = mat[3][1] - mat[3][3];
 
 		auto &pNear = planes[Frustum::Near];
-		pNear.x = mat.m02;
-		pNear.y = mat.m12;
-		pNear.z = mat.m22;
-		pNear.dist = mat.m32;
+		pNear.x = mat[0][2];
+		pNear.y = mat[1][2];
+		pNear.z = mat[2][2];
+		pNear.dist = mat[3][2];
 
 		auto &pFar = planes[Frustum::Far];
-		pFar.x = mat.m02 - mat.m03;
-		pFar.y = mat.m12 - mat.m13;
-		pFar.z = mat.m22 - mat.m23;
-		pFar.dist = mat.m32 - mat.m33;
+		pFar.x = mat[0][2] - mat[0][3];
+		pFar.y = mat[1][2] - mat[1][3];
+		pFar.z = mat[2][2] - mat[2][3];
+		pFar.dist = mat[3][2] - mat[3][3];
 
 		
 	}
