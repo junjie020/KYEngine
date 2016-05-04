@@ -139,6 +139,9 @@
     <ClCompile Include="Graphic\RenderTarget.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\CameraController.cpp">
+      <Filter>Graphic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -317,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="Common\BaseDef.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\CameraController.h">
+      <Filter>Graphic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

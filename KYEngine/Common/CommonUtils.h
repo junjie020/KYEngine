@@ -63,12 +63,6 @@ namespace KY
 		::memset(&t, 0, sizeof(t));
 	}
 
-	template<typename Type>
-	inline void IS_ZERO(Type data, Type tol = 0.00001)
-	{
-		return -tol < data || data < tol;
-	}
-
 	//{@	use like : auto x = 10; FindVarName<decltype(x)> xType;
 	template<typename Type>
 	class FindVarName;

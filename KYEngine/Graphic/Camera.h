@@ -20,41 +20,39 @@ namespace KY
 		void ConstructAsOrtho(float w, float h, float n, float f);
 		void ConstructAsPrespective(float fov, float aspect, float n, float f);
 
-		virtual void SetPosition(const Vec4f &pos) override;
-		virtual void SetDirection(const Vec4f &dir) override;
-		virtual void SetScale(const Vec4f &scale) override;
+		virtual void SetPosition(const glm::vec4 &pos) override;
+		virtual void SetDirection(const glm::vec4 &dir) override;
+		virtual void SetScale(const glm::vec4 &scale) override;
+		virtual void SetWorldMat(const glm::mat4x4 &matWorld) override;
 
-		const Mat4x4F& GetViewMat() const {
-			UpdateRelatedMatrix();
+		const Mat4x4F& GetViewMat() const {			
 			return mMatView;
 		}
 
-		const Mat4x4F& GetProjMat() const {
-			UpdateRelatedMatrix();
+		const Mat4x4F& GetProjMat() const {			
 			return mMatProj;
 		}
 
-		const Mat4x4F& GetViewProjMat() const {
-			UpdateRelatedMatrix();
+		const Mat4x4F& GetViewProjMat() const {			
 			return mMatViewProj;
 		}
 
-		void SetUpVector(const Vec4f &up) {
+		void SetUpVector(const glm::vec4 &up) {
 			mUpVector = up;
+			mDirty = true;
 		}
 
-	private:
-		void UpdateRelatedMatrix() const;
+		void UpdateRelatedMatrix();
 
 	private:
-		Vec4f mUpVector;
-		mutable Frustum mFrustum;
+		glm::vec4 mUpVector;
+		Frustum mFrustum;
 
-		mutable glm::mat4x4	mMatView;
-		mutable glm::mat4x4	mMatProj;
-		mutable glm::mat4x4 mMatViewProj;
+		glm::mat4x4	mMatView;
+		glm::mat4x4	mMatProj;
+		glm::mat4x4 mMatViewProj;
 
-		mutable bool	mDirty;
+		bool	mDirty;
 
 		bool	mOrtho;
 		

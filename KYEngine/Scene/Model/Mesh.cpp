@@ -78,7 +78,7 @@ namespace KY
 	}
 
 	bool MeshRenderOperationHelper::Init(RenderTarget *rt)
-{
+	{
 		if (!mVBs.empty())
 		{
 			if (!InitConstBuffer(rt))
@@ -92,8 +92,6 @@ namespace KY
 
 			if (!InitStates())
 				return false;
-
-			
 		}
 
 		return true;
@@ -197,10 +195,8 @@ namespace KY
 
 	}
 
-	void MeshRenderOperationHelper::Update(Camera *camera)
+	void MeshRenderOperationHelper::UpdateFrameData(Camera *camera)
 	{
-		//camera->
-
 		ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
 		if (mDynConstBuffer.Map(param))
 		{
@@ -235,12 +231,8 @@ namespace KY
 
 	void Mesh::Update(Camera *camera)
 	{
-		if (mNeedUpdate)
-		{
-			mRenderHelper.Update(camera);
-			mNeedUpdate = false;
-		}
-			
+
+		mRenderHelper.UpdateFrameData(camera);
 	}
 
 	void Mesh::SetMeshPrimitiveType(PrimitiveType type)

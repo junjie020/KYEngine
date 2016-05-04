@@ -118,6 +118,7 @@ namespace KY
 
 	bool System::Frame()
 	{
+		mMainVP->GetCamera()->UpdateRelatedMatrix();
 		mScene->Update(mMainVP);		
 		mScene->Render(mMainVP);
 		
@@ -125,14 +126,14 @@ namespace KY
 	}
 
 
-	LRESULT CALLBACK System::MessageHandler(HWND hwnd, uint32 msg, WPARAM wparam, LPARAM lparam)
+	LRESULT CALLBACK System::MessageHandler(HWND hwnd, uint32 msg, WPARAM wParam, LPARAM lParam)
 	{
 		switch (msg)
 		{
 		case WM_KEYDOWN:
 		{
 			
-			Input::Inst()->KeyDown((uint32)wparam);
+			Input::Inst()->KeyDown((uint32)wParam);
 			return 0UL;
 		}
 
@@ -140,17 +141,87 @@ namespace KY
 		case WM_KEYUP:
 		{
 			// If a key is released then send it to the input object so it can unset the state for that key.
-			Input::Inst()->KeyUp((uint32)wparam);
+			Input::Inst()->KeyUp((uint32)wParam);
 			return 0UL;
 		}
 
 		case WM_LBUTTONDOWN:
 		{
-			if (Input::Inst()->MouseButtonDown(MouseButtonType::Left))
+			if (Input::Inst()->MouseButtonDown(MouseButtonMask::Left))
 			{
 				return 0UL;
 			}
 
+			break;
+		}
+
+		case WM_LBUTTONUP:
+		{
+			if (Input::Inst()->MouseButtonUp(MouseButtonMask::Left))
+			{
+				return 0UL;
+			}
+
+			break;
+		}
+
+		case WM_RBUTTONDOWN:
+		{
+			if (Input::Inst()->MouseButtonUp(MouseButtonMask::Right))
+			{
+				return 0UL;
+			}
+
+			break;
+		}
+
+		case WM_RBUTTONUP:
+		{
+			if (Input::Inst()->MouseButtonUp(MouseButtonMask::Right))
+			{
+				return 0UL;
+			}
+		}
+
+		case WM_MBUTTONDOWN:
+		{
+			if (Input::Inst()->MouseButtonUp(MouseButtonMask::Middle))
+			{
+				return 0UL;
+			}
+
+			break;
+		}
+
+		case WM_MBUTTONUP:
+		{
+			if (Input::Inst()->MouseButtonUp(MouseButtonMask::Middle))
+			{
+				return 0UL;
+			}
+
+			break;
+		}
+
+		case WM_MOUSEMOVE:
+		{
+			const uint8 mouseBtnsWin32[] = { MK_LBUTTON, MK_MBUTTON, MK_RBUTTON };
+			const MouseButtonMask mouseBtns[] = { MouseButtonMask::Left, MouseButtonMask::Middle, MouseButtonMask::Right };
+			uint8 mm = 0;
+			for (uint8 ii = 0; ii < COUNT_OF(mouseBtns); ++ii)
+			{
+				if (QueryBit(mouseBtnsWin32[ii], uint8(wParam)))
+				{
+					mm |= uint8(mouseBtns[ii]);
+				}
+			}
+
+			::POINTS pt = MAKEPOINTS(lParam);
+
+			if (Input::Inst()->MouseMove(MouseButtonMask(mm), glm::ivec2(pt.x, pt.y)))
+			{
+				return 0UL;
+			}
 			break;
 		}
 		// Any other messages send to the default message handler as our application won't make use of them.
@@ -158,7 +229,7 @@ namespace KY
 			break;
 		}
 
-		return DefWindowProc(hwnd, msg, wparam, lparam);
+		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
 
 

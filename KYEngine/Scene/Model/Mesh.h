@@ -35,11 +35,9 @@ namespace KY
 		VertexBufferVec& GetVBs() { return mVBs; }
 		IndexBuffer& GetIB() { return mIB; }
 
-		
-
 		bool Init(RenderTarget *rt);
 		
-		void Update(Camera *camera);
+		void UpdateFrameData(Camera *camera);
 
 		void SetMeshPrimitiveType(PrimitiveType type);
 	private:

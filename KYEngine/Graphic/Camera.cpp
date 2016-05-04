@@ -39,25 +39,31 @@ namespace KY
 		mMatProj = std::move(glm::perspectiveLH(fov, aspect, n, f));
 	}
 
-	void Camera::SetPosition(const Vec4f & pos)
+	void Camera::SetPosition(const glm::vec4 & pos)
 	{
 		SpaceNode::SetPosition(pos);
 		mDirty = true;
 	}
 
-	void Camera::SetDirection(const Vec4f &dir)
+	void Camera::SetDirection(const glm::vec4 &dir)
 	{
 		SpaceNode::SetDirection(dir);
 		mDirty = true;
 	}
 
-	void Camera::SetScale(const Vec4f &scale)
+	void Camera::SetScale(const glm::vec4 &scale)
 	{
 		SpaceNode::SetScale(scale);
 		mDirty = true;
 	}
 
-	void Camera::UpdateRelatedMatrix() const
+	void Camera::SetWorldMat(const glm::mat4x4 &matWorld)
+	{
+		SpaceNode::SetWorldMat(matWorld);
+		mDirty = true;		
+	}
+
+	void Camera::UpdateRelatedMatrix()
 	{
 		if (!mDirty)
 			return;

@@ -1,12 +1,18 @@
 #ifndef _MATHUTILS_H_
 #define _MATHUTILS_H_
 
+#ifdef USING_GLM
+#include "glm/gtc/epsilon.hpp"
+#endif // USING_GLM
+
 namespace KY
 {
 	namespace MathUtils
 	{
 #ifdef USING_GLM
-
+		inline bool IS_ZERO(float v, float e = 0.000001f){
+			return glm::epsilonEqual(v, 0.0f, e);
+		}
 
 #else //!USING_GLM
 #define	PI			3.1415926535897932384626
