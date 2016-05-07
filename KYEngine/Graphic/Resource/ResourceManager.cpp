@@ -4,8 +4,8 @@
 
 #include "Common/FileSystem.h"
 
-#include "Graphic/Resource/Shader.h"
-#include "Graphic/Resource/Texture.h"
+#include "Graphic/Resource/Shader/Shader.h"
+#include "Graphic/Resource/Texture/Texture.h"
 
 
 namespace KY

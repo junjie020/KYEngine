@@ -1,7 +1,7 @@
 #ifndef _PIPELINESTAGE_H_
 #define _PIPELINESTAGE_H_
 #include "Graphic/GraphicDef.h"
-#include "Graphic/DX/Dx11PipelineStage.h"
+#include "Graphic/HI/DX/Stage/Dx11PipelineStage.h"
 
 namespace KY
 {

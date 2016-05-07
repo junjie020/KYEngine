@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-#include "Graphic/RenderOperation.h"
-#include "Graphic/Camera.h"
+#include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Camera/Camera.h"
 
 #include "Graphic/Resource/ResourceManager.h"
-#include "Graphic/Resource/ConstBufferDef.h"
-#include "Graphic/RenderTarget.h"
+#include "Graphic/Resource/Buffer/ConstBufferDef.h"
+#include "Graphic/Render/RenderTarget.h"
 
 #include "DebugUtils/TraceUtils.h"
 #include "Math/VectorUnit.h"

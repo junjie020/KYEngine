@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PipelineStage.h"
 
-#include "Graphic/DX/Dx11PipelineStage.h"
+#include "Graphic/HI/DX/Stage/Dx11PipelineStage.h"
 
 namespace KY
 {

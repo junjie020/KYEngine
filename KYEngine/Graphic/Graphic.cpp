@@ -3,14 +3,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "Graphic.h"
-#include "DX/Dx11.h"
+#include "Graphic/HI/DX/Dx11.h"
 #include "Common/CommonUtils.h"
-#include "Graphic/RenderCommandQueue.h"
-#include "Graphic/RenderOperation.h"
-#include "Graphic/Resource/Shader.h"
+#include "Graphic/Render/RenderCommandQueue.h"
+#include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Resource/Shader/Shader.h"
 
-#include "Graphic/WindowRenderTarget.h"
-#include "Graphic/Viewport.h"
+#include "Graphic/Render/WindowRenderTarget.h"
+#include "Graphic/Render/Viewport.h"
 
 
 namespace KY

@@ -4,8 +4,8 @@
 #include "Graphic/Graphic.h"
 #include "DebugUtils/TraceUtils.h"
 
-#include "Graphic/DX/Dx11.h"
-#include "Graphic/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/Dx11.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 
 #include "Common/CommonUtils.h"
 

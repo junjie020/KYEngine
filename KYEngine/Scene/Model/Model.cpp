@@ -3,7 +3,7 @@
 #include "Mesh.h"
 
 #include "Graphic/Graphic.h"
-#include "Graphic/RenderCommandQueue.h"
+#include "Graphic/Render/RenderCommandQueue.h"
 #include "Scene/Model/Assimp/AssimpMeshImporter.h"
 
 namespace KY

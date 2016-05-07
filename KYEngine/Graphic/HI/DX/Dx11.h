@@ -1,7 +1,7 @@
 #ifndef __DX11_H__
 #define __DX11_H__
 
-#include "../GraphicDef.h"
+#include "Graphic/GraphicDef.h"
 
 #include <d3d11.h>
 

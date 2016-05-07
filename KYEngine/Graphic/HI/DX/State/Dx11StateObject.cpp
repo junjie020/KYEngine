@@ -4,11 +4,11 @@
 #include "Dx11StateObject.h"
 
 //{@
-#include "Graphic/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 //@}
 
 #include "Graphic/Graphic.h"
-#include "Graphic/DX/Dx11.h"
+#include "Graphic/HI/DX/Dx11.h"
 
 #include "Graphic/GraphicDef.h"
 

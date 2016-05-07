@@ -6,9 +6,9 @@
 
 //{@	for handle camera
 #include "System/System.h"
-#include "Graphic/Viewport.h"
-#include "Graphic/Camera.h"
-#include "Graphic/CameraController.h"
+#include "Graphic/Render/Viewport.h"
+#include "Graphic/Camera/Camera.h"
+#include "Graphic/Camera/CameraController.h"
 //@}
 
 #include "Math/MathUtils.h"

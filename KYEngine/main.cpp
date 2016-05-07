@@ -8,17 +8,19 @@
 #include "Scene/Actor.h"
 #include "Scene/Scene.h"
 
-#include "Graphic/Resource/VertexBuffer.h"
-#include "Graphic/RenderOperation.h"
-#include "Graphic/Resource/Shader.h"
-
 #include "Graphic/Graphic.h"
 
-#include "Graphic/Resource/StateHelper.h"
-#include "Graphic/Resource/ConstBufferDef.h"
+#include "Graphic/Resource/Buffer/VertexBuffer.h"
+#include "Graphic/Resource/Shader/Shader.h"
+
+#include "Graphic/Resource/State/StateHelper.h"
+#include "Graphic/Resource/Buffer/ConstBufferDef.h"
 #include "Graphic/Resource/ResourceManager.h"
 
-#include "Graphic/Viewport.h"
+#include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Render/Viewport.h"
+
+
 
 #include "Math/Vector4.h"
 #include "Math/Color.h"

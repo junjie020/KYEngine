@@ -16,41 +16,23 @@
     <ClCompile Include="Graphic\Graphic.cpp">
       <Filter>Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\DX\Dx11.cpp">
-      <Filter>Graphic\HI\DX11</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\RenderOperation.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\Resource\IndexBuffer.cpp">
+    <ClCompile Include="Graphic\Resource\Buffer\IndexBuffer.cpp">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Resource\VertexBuffer.cpp">
+    <ClCompile Include="Graphic\Resource\Buffer\VertexBuffer.cpp">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Resource\Texture.cpp">
+    <ClCompile Include="Graphic\Resource\Texture\Texture.cpp">
       <Filter>Graphic\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Graphic\Resource\Resource.cpp">
       <Filter>Graphic\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\DX\Buffer\DX11VertexBuffer.cpp">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\DX\Buffer\DX11IndexBuffer.cpp">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\DX\Buffer\DX11Buffer.cpp">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="DebugUtils\TraceUtils.cpp">
       <Filter>DebugUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\DX\DX11NameTranslator.cpp">
-      <Filter>Graphic\HI\DX11</Filter>
     </ClCompile>
     <ClCompile Include="Math\Vector4.cpp">
       <Filter>Math</Filter>
@@ -58,40 +40,22 @@
     <ClCompile Include="Math\Color.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\RenderCommandQueue.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\Actor.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="System\SampleTest.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\PipelineStage.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\Viewport.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="Common\FileSystem.cpp">
       <Filter>Common\FileSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Resource\Shader.cpp">
+    <ClCompile Include="Graphic\Resource\Shader\Shader.cpp">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\DX\Buffer\Dx11Shader.cpp">
-      <Filter>Graphic\HI\DX11\Resource\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\DX\Dx11StateObject.cpp">
-      <Filter>Graphic\HI\DX11\Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\DX\Dx11PipelineStage.cpp">
-      <Filter>Graphic\HI\DX11</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\Resource\StateObject.cpp">
+    <ClCompile Include="Graphic\Resource\State\StateObject.cpp">
       <Filter>Graphic\Resource\State</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Resource\Buffer.cpp">
+    <ClCompile Include="Graphic\Resource\Buffer\Buffer.cpp">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Math\Quaternion.cpp">
@@ -124,11 +88,8 @@
     <ClCompile Include="Scene\Model\Model.cpp">
       <Filter>Scene\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Resource\StateHelper.cpp">
+    <ClCompile Include="Graphic\Resource\State\StateHelper.cpp">
       <Filter>Graphic\Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphic\Camera.cpp">
-      <Filter>Graphic</Filter>
     </ClCompile>
     <ClCompile Include="Graphic\SpaceNode.cpp">
       <Filter>Graphic</Filter>
@@ -136,11 +97,50 @@
     <ClCompile Include="Graphic\Resource\ResourceManager.cpp">
       <Filter>Graphic\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\RenderTarget.cpp">
-      <Filter>Graphic</Filter>
+    <ClCompile Include="Graphic\Camera\CameraController.cpp">
+      <Filter>Graphic\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\CameraController.cpp">
-      <Filter>Graphic</Filter>
+    <ClCompile Include="Graphic\Camera\Camera.cpp">
+      <Filter>Graphic\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Render\RenderOperation.cpp">
+      <Filter>Graphic\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Render\RenderCommandQueue.cpp">
+      <Filter>Graphic\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Render\Viewport.cpp">
+      <Filter>Graphic\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Render\RenderTarget.cpp">
+      <Filter>Graphic\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Stage\PipelineStage.cpp">
+      <Filter>Graphic\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Dx11.cpp">
+      <Filter>Graphic\HI\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\DX11NameTranslator.cpp">
+      <Filter>Graphic\HI\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Buffer\DX11Buffer.cpp">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.cpp">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Buffer\DX11VertexBuffer.cpp">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Stage\Dx11PipelineStage.cpp">
+      <Filter>Graphic\HI\DX\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\State\Dx11StateObject.cpp">
+      <Filter>Graphic\HI\DX\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Shader\Dx11Shader.cpp">
+      <Filter>Graphic\HI\DX\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +162,6 @@
     <ClInclude Include="Graphic\Graphic.h">
       <Filter>Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\DX\Dx11.h">
-      <Filter>Graphic\HI\DX11</Filter>
-    </ClInclude>
     <ClInclude Include="Graphic\GraphicDef.h">
       <Filter>Graphic</Filter>
     </ClInclude>
@@ -183,53 +180,29 @@
     <ClInclude Include="Scene\Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\RenderOperation.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Resource\IndexBuffer.h">
+    <ClInclude Include="Graphic\Resource\Buffer\IndexBuffer.h">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Resource\VertexBuffer.h">
+    <ClInclude Include="Graphic\Resource\Buffer\VertexBuffer.h">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Resource\Texture.h">
+    <ClInclude Include="Graphic\Resource\Texture\Texture.h">
       <Filter>Graphic\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Resource\Resource.h">
       <Filter>Graphic\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\DX\Buffer\DX11VertexBuffer.h">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\DX\Buffer\DX11IndexBuffer.h">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\DX\Buffer\DX11Buffer.h">
-      <Filter>Graphic\HI\DX11\Resource\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="DebugUtils\TraceUtils.h">
       <Filter>DebugUtils</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\DX\DX11NameTranslator.h">
-      <Filter>Graphic\HI\DX11</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Color.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\RenderCommandQueue.h">
-      <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Actor.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="System\SampleTest.h">
       <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\PipelineStage.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Viewport.h">
-      <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Math\Rectangle.h">
       <Filter>Math</Filter>
@@ -240,22 +213,13 @@
     <ClInclude Include="Common\FileSystem.h">
       <Filter>Common\FileSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\DX\Buffer\Dx11Shader.h">
-      <Filter>Graphic\HI\DX11\Resource\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Resource\Shader.h">
+    <ClInclude Include="Graphic\Resource\Shader\Shader.h">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Resource\StateObject.h">
+    <ClInclude Include="Graphic\Resource\State\StateObject.h">
       <Filter>Graphic\Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\DX\Dx11StateObject.h">
-      <Filter>Graphic\HI\DX11\Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\DX\Dx11PipelineStage.h">
-      <Filter>Graphic\HI\DX11</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Resource\Buffer.h">
+    <ClInclude Include="Graphic\Resource\Buffer\Buffer.h">
       <Filter>Graphic\Resource\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Math\Quaternion.h">
@@ -288,16 +252,10 @@
     <ClInclude Include="Scene\Model\Model.h">
       <Filter>Scene\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Resource\StateHelper.h">
+    <ClInclude Include="Graphic\Resource\State\StateHelper.h">
       <Filter>Graphic\Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Camera.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="Graphic\SpaceNode.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\IRenderable.h">
       <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Resource\ResourceManager.h">
@@ -309,20 +267,62 @@
     <ClInclude Include="Math\VectorUnit.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\RenderTarget.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\WindowRenderTarget.h">
-      <Filter>Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\Resource\ConstBufferDef.h">
-      <Filter>Graphic\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Common\BaseDef.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\CameraController.h">
-      <Filter>Graphic</Filter>
+    <ClInclude Include="Graphic\Resource\Buffer\ConstBufferDef.h">
+      <Filter>Graphic\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Camera\CameraController.h">
+      <Filter>Graphic\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Camera\Camera.h">
+      <Filter>Graphic\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\RenderCommandQueue.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\RenderOperation.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\IRenderable.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\Viewport.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\RenderTarget.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\WindowRenderTarget.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Stage\PipelineStage.h">
+      <Filter>Graphic\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Dx11.h">
+      <Filter>Graphic\HI\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\DX11NameTranslator.h">
+      <Filter>Graphic\HI\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Buffer\DX11Buffer.h">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.h">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Buffer\DX11VertexBuffer.h">
+      <Filter>Graphic\HI\DX\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Shader\Dx11Shader.h">
+      <Filter>Graphic\HI\DX\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\State\Dx11StateObject.h">
+      <Filter>Graphic\HI\DX\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Stage\Dx11PipelineStage.h">
+      <Filter>Graphic\HI\DX\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -356,12 +356,6 @@
     <Filter Include="Graphic\HI">
       <UniqueIdentifier>{5c8e5ce7-66c4-4355-b73c-11f76996c837}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\HI\DX11">
-      <UniqueIdentifier>{5d93036a-8da4-456e-a8ff-9710959354b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphic\HI\DX11\Resource">
-      <UniqueIdentifier>{b814d5c2-1f7f-401f-8f4b-074e7a72717f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphic\Resource">
       <UniqueIdentifier>{93b24bb5-d47a-4e41-a5d3-f488e1c086be}</UniqueIdentifier>
     </Filter>
@@ -370,9 +364,6 @@
     </Filter>
     <Filter Include="Graphic\Resource\Texture">
       <UniqueIdentifier>{3837091a-bc38-45b0-9e16-1385fe8c018c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphic\HI\DX11\Resource\Buffer">
-      <UniqueIdentifier>{bd4aaf4b-f57e-4983-a790-3d76b863ba25}</UniqueIdentifier>
     </Filter>
     <Filter Include="DebugUtils">
       <UniqueIdentifier>{e178c1d6-880b-4817-9523-1b70897dd567}</UniqueIdentifier>
@@ -383,9 +374,6 @@
     <Filter Include="Graphic\Resource\Shader">
       <UniqueIdentifier>{880e26bb-c26b-47b7-8a7e-3784a9ef9d6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\HI\DX11\Resource\Shader">
-      <UniqueIdentifier>{68e9f6d7-7978-4931-9b42-971254900730}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{0097bb73-fab4-449b-bd50-b9285852a937}</UniqueIdentifier>
     </Filter>
@@ -395,14 +383,35 @@
     <Filter Include="Graphic\Resource\State">
       <UniqueIdentifier>{4662553c-36b7-437d-977d-7e3d80794292}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\HI\DX11\Resource\State">
-      <UniqueIdentifier>{2812dd5f-674a-4d41-9348-9ef0eaa77985}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Model">
       <UniqueIdentifier>{8ded5805-cbe1-4f34-847d-bbefe974a54f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\Model\Assimp">
       <UniqueIdentifier>{f7ecb0ea-b0c4-4de6-afdc-61bb5be7f0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Render">
+      <UniqueIdentifier>{a73f1ffd-fe81-4998-97f3-807c61b93428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Camera">
+      <UniqueIdentifier>{0e485cbb-0c85-48c9-a94d-82abc0342868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Stage">
+      <UniqueIdentifier>{260bf8aa-2279-4e12-830d-73c4d27d71b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX">
+      <UniqueIdentifier>{5d93036a-8da4-456e-a8ff-9710959354b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX\Stage">
+      <UniqueIdentifier>{a617ee09-4cec-4a2f-b559-541c096b4ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX\State">
+      <UniqueIdentifier>{2812dd5f-674a-4d41-9348-9ef0eaa77985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX\Shader">
+      <UniqueIdentifier>{68e9f6d7-7978-4931-9b42-971254900730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX\Buffer">
+      <UniqueIdentifier>{bd4aaf4b-f57e-4983-a790-3d76b863ba25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -415,9 +424,6 @@
     <None Include="Resource\Shader\ScreenQuad.ps">
       <Filter>Resource\Shader</Filter>
     </None>
-    <None Include="Graphic\Resource\StateObject.inl">
-      <Filter>Graphic\Resource\State</Filter>
-    </None>
     <None Include="Math\Matrix.inl">
       <Filter>Math</Filter>
     </None>
@@ -429,6 +435,9 @@
     </None>
     <None Include="Resource\Shader\Object.ps">
       <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Graphic\Resource\State\StateObject.inl">
+      <Filter>Graphic\Resource\State</Filter>
     </None>
   </ItemGroup>
 </Project>

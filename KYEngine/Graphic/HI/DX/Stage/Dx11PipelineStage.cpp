@@ -1,29 +1,29 @@
 #include "stdafx.h"
 
 #include "Dx11PipelineStage.h"
-#include "Graphic/DX/Dx11.h"
+#include "Graphic/HI/DX/Dx11.h"
 
 
 #include "Graphic/Graphic.h"
 
-#include "Graphic/Viewport.h"
+#include "Graphic/Render/Viewport.h"
 
-#include "Graphic/Resource/Shader.h"
-#include "Graphic/Resource/VertexBuffer.h"
-#include "Graphic/DX/Buffer/DX11VertexBuffer.h"
+#include "Graphic/Resource/Shader/Shader.h"
+#include "Graphic/Resource/Buffer/VertexBuffer.h"
+#include "Graphic/HI/DX/Buffer/DX11VertexBuffer.h"
 
-#include "Graphic/Resource/IndexBuffer.h"
-#include "Graphic/DX/Buffer/DX11IndexBuffer.h"
+#include "Graphic/Resource/Buffer/IndexBuffer.h"
+#include "Graphic/HI/DX/Buffer/DX11IndexBuffer.h"
 
-#include "Graphic/Resource/Buffer.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
 
 
-#include "Graphic/DX/Buffer/Dx11Shader.h"
-#include "Graphic/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/Shader/Dx11Shader.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 
-#include "Graphic/Resource/StateObject.h"
-#include "Graphic/Resource/StateObject.inl"
-#include "Graphic/DX/Dx11StateObject.h"
+#include "Graphic/Resource/State/StateObject.h"
+#include "Graphic/Resource/State/StateObject.inl"
+#include "Graphic/HI/DX/State/Dx11StateObject.h"
 
 
 namespace KY

@@ -2,7 +2,7 @@
 #define _BUFFER_H_
 
 #include "Graphic/Resource/Resource.h"
-#include "Graphic/DX/Buffer/DX11Buffer.h"
+#include "Graphic/HI/DX/Buffer/DX11Buffer.h"
 
 namespace KY
 {

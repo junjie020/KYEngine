@@ -1,7 +1,7 @@
 #ifndef _DX11VERTEXBUFFER_H_
 #define _DX11VERTEXBUFFER_H_
 
-#include "Graphic/DX/Buffer/DX11Buffer.h"
+#include "Graphic/HI/DX/Buffer/DX11Buffer.h"
 #include <d3d11.h>
 namespace KY
 {

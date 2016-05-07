@@ -2,7 +2,7 @@
 #include "Shader.h"
 
 #include "Graphic/GraphicDef.h"
-#include "Graphic/DX/Buffer/Dx11Shader.h"
+#include "Graphic/HI/DX/Shader/Dx11Shader.h"
 #include <fstream>
 
 namespace KY

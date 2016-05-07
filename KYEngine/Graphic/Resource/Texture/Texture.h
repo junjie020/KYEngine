@@ -1,7 +1,7 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
-#include "Resource.h"
+#include "Graphic/Resource/Resource.h"
 
 namespace KY
 {

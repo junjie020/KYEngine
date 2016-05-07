@@ -1,13 +1,13 @@
 #ifndef _MESH_H_
 #define _MESH_H_
 
-#include "Graphic/RenderOperation.h"
-#include "Graphic/Resource/VertexBuffer.h"
-#include "Graphic/Resource/IndexBuffer.h"
-#include "Graphic/Resource/Shader.h"
+#include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Resource/Buffer/VertexBuffer.h"
+#include "Graphic/Resource/Buffer/IndexBuffer.h"
+#include "Graphic/Resource/Shader/Shader.h"
 
-#include "Graphic/Resource/StateHelper.h"
-#include "Graphic/Resource/Buffer.h"
+#include "Graphic/Resource/State/StateHelper.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
 
 namespace KY
 {

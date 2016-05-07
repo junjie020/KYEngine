@@ -3,7 +3,7 @@
 
 #include "Graphic/GraphicDef.h"
 
-#include "Graphic/DX/Dx11StateObject.h"
+#include "Graphic/HI/DX/State/Dx11StateObject.h"
 namespace KY
 {
 

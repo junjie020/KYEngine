@@ -4,7 +4,7 @@
 
 #include "StateObject.h"
 #include "StateObject.inl"
-#include "Graphic/RenderOperation.h"
+#include "Graphic/Render/RenderOperation.h"
 
 #include "DebugUtils/TraceUtils.h"
 

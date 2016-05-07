@@ -3,7 +3,7 @@
 #include "Common/CommonUtils.h"
 
 #include "Platform/Win32DefHeader.h"
-#include "Graphic/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")

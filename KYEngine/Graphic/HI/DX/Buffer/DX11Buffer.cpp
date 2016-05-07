@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DX11Buffer.h"
-#include "Graphic/DX/DX11NameTranslator.h"
-#include "Graphic/DX/Dx11.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/Dx11.h"
 
 #include "Graphic/Graphic.h"
 

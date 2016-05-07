@@ -2,10 +2,10 @@
 #include "Dx11Shader.h"
 
 #include "Graphic/Graphic.h"
-#include "Graphic/Resource/Shader.h"
+#include "Graphic/Resource/Shader/Shader.h"
 
-#include "Graphic/DX/Dx11.h"
-#include "Graphic/DX/DX11NameTranslator.h"
+#include "Graphic/HI/DX/Dx11.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 
 #include "DebugUtils/TraceUtils.h"
 

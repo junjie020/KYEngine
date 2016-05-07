@@ -2,7 +2,7 @@
 #define _ACTOR_H_
 
 #include "Graphic/SpaceNode.h"
-#include "Graphic/IRenderable.h"
+#include "Graphic/Render/IRenderable.h"
 namespace KY
 {
 	class Camera;

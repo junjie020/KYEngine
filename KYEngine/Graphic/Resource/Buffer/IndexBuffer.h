@@ -1,7 +1,7 @@
 #ifndef _INDEXBUFFER_H_
 #define _INDEXBUFFER_H_
 
-#include "Graphic/Resource/Buffer.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
 namespace KY
 {
 	namespace DX

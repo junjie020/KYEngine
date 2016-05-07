@@ -3,7 +3,7 @@
 
 #include "GraphicDef.h"
 #include "Common/Singleton.h"
-#include "Graphic/PipelineStage.h"
+#include "Graphic/Stage/PipelineStage.h"
 #include "Math/Vector2.h"
 #include "Math/Rectangle.h"
 namespace KY

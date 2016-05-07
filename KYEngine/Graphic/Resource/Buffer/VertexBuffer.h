@@ -1,8 +1,8 @@
 #ifndef _VERTEXBUFFER_H_
 #define _VERTEXBUFFER_H_
 
-#include "Resource.h"
-#include "Graphic/Resource/Buffer.h"
+#include "Graphic/Resource/Resource.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
 #include "Graphic/GraphicDef.h"
 
 namespace KY

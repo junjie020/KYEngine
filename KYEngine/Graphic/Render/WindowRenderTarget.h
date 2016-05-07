@@ -1,7 +1,7 @@
 #ifndef _WINDOWRENDERTARGET_H_
 #define _WINDOWRENDERTARGET_H_
 
-#include "Graphic/RenderTarget.h"
+#include "Graphic/Render/RenderTarget.h"
 #include "Math/Rectangle.h"
 
 namespace KY

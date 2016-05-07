@@ -5,8 +5,8 @@
 #include "Scene/Model/Mesh.h"
 #include "Scene/Model/Model.h"
 
-#include "Graphic/Resource/VertexBuffer.h"
-#include "Graphic/Resource/IndexBuffer.h"
+#include "Graphic/Resource/Buffer/VertexBuffer.h"
+#include "Graphic/Resource/Buffer/IndexBuffer.h"
 
 
 //{@	assimp lib

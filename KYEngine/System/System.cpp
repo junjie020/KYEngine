@@ -8,7 +8,7 @@
 #include "Scene/Scene.h"
 #include "Input/Input.h"
 #include "Graphic/Graphic.h"
-#include "Graphic/Viewport.h"
+#include "Graphic/Render/Viewport.h"
 
 #include "Graphic/Resource/ResourceManager.h"
 

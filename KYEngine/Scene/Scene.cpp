@@ -2,10 +2,10 @@
 
 #include "Actor.h"
 #include "Scene.h"
-#include "Graphic/Camera.h"
-#include "Graphic/RenderTarget.h"
-#include "Graphic/RenderCommandQueue.h"
-#include "Graphic/RenderOperation.h"
+#include "Graphic/Camera/Camera.h"
+#include "Graphic/Render/RenderTarget.h"
+#include "Graphic/Render/RenderCommandQueue.h"
+#include "Graphic/Render/RenderOperation.h"
 
 namespace KY
 {

@@ -1,10 +1,10 @@
 #ifndef _RENDERTARGET_H_
 #define _RENDERTARGET_H_
 
-#include "Graphic/Camera.h"
+#include "Graphic/Camera/Camera.h"
 
-#include "Graphic/RenderCommandQueue.h"
-#include "Graphic/RenderOperation.h"
+#include "Graphic/Render/RenderCommandQueue.h"
+#include "Graphic/Render/RenderOperation.h"
 
 namespace KY
 {

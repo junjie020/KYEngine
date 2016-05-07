@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
-#include "CameraController.h"
+#include "Graphic/Camera/CameraController.h"
 
-#include "Graphic/Camera.h"
+#include "Graphic/Camera/Camera.h"
 
 #include "Math/MathUtils.h"
 
