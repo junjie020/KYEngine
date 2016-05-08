@@ -16,6 +16,18 @@ namespace KY
 			inline D3D11_USAGE ToUsage(ResourceUsage usage) const;
 			inline DXGI_FORMAT ToDXGI_FORMAT(TexFormat ft) const;
 			inline D3D11_BIND_FLAG ToBingFlag(ResourceType type) const;
+			inline D3D11_BIND_FLAG ToBingFlag(BindFlag bind) const;
+
+			inline D3D11_CPU_ACCESS_FLAG ToCPUAccessFlag(ResourceCPUAccess access) const
+			{
+				uint16 flag(0);
+				if (QueryBit(BA_Read, access))
+					flag |= D3D11_CPU_ACCESS_READ;
+				if (QueryBit(BA_Write, access))
+					flag |= D3D11_CPU_ACCESS_WRITE;
+
+				return D3D11_CPU_ACCESS_FLAG(flag);
+			}
 			
 			inline D3D11_FILL_MODE ToFillMode(FillMode fm) const;
 			inline D3D11_CULL_MODE ToCullMode(CullMode cm) const;
@@ -58,6 +70,11 @@ namespace KY
 			};
 			BOOST_ASSERT(COUNT_OF(flags) > uint32(type));
 			return flags[type];
+		}
+
+		inline D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(BindFlag bind) const
+		{
+			return D3D11_BIND_FLAG(bind);
 		}
 
 		inline D3D11_FILL_MODE DX11NameTranslator::ToFillMode(FillMode fm) const

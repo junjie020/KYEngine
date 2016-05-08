@@ -3,9 +3,9 @@
 
 namespace KY
 {
-	enum FeatureLevel
+	enum FeatureLevel : uint8
 	{
-		FL_Unknown = -1,
+		FL_Unknown = uint8(-1),
 		FL_9_1	= 0,
 		FL_9_2,
 		FL_9_3,
@@ -14,7 +14,7 @@ namespace KY
 		FL_11_0,
 		FL_11_1,
 	};
-	enum ResourceType
+	enum ResourceType : uint8
 	{
 		ResT_Vertex = 0,
 		ResT_Index,
@@ -24,14 +24,14 @@ namespace KY
 
 		ResT_Texture,		
 	};
-	enum ResourceCPUAccess
+	enum ResourceCPUAccess : uint8
 	{
 		BA_None = 0,
 		BA_Read = 0x01,
 		BA_Write = 0x02,
 	};
 
-	enum ResourceMapType
+	enum ResourceMapType : uint8
 	{
 		ResMT_Read = 0,
 		ResMT_Write,
@@ -41,7 +41,7 @@ namespace KY
 		ResMT_WriteNoOverwrite,
 	};
 
-	enum ResourceUsage
+	enum ResourceUsage : uint8
 	{
 		RU_Default = 0,
 		RU_Immutable,
@@ -49,9 +49,9 @@ namespace KY
 		RU_Stage,
 	};
 
-	enum PrimitiveType
+	enum PrimitiveType : uint16
 	{
-		PT_Unknown = -1,
+		PT_Unknown = uint16(-1),
 		PT_Point = 0,
 		PT_LineList,
 		PT_LineStrip,
@@ -67,7 +67,7 @@ namespace KY
 		PT_ControlPointEnd = PT_ControlPointBeg + 32,
 	};
 
-	enum ShaderType
+	enum ShaderType : uint8
 	{
 		ShdrT_Vertex = 0,
 		ShdrT_Hull,
@@ -77,7 +77,7 @@ namespace KY
 		ShdrT_Count,
 	};
 
-	enum TexFormat
+	enum TexFormat : uint32
 	{
 		TF_UNKNOWN = 0,
 		TF_R32G32B32A32_TYPELESS = 1,
@@ -182,20 +182,20 @@ namespace KY
 		TF_FORCE_UINT = 0xffffffff
 	};
 
-	enum FillMode
+	enum FillMode : uint8
 	{
 		FM_WireFrame = 0,
 		FM_Solid,
 	};
 
-	enum CullMode
+	enum CullMode : uint8
 	{
 		CM_None = 0,
 		CM_Front,
 		CM_Back,
 	};
 
-	enum CompareFunc
+	enum CompareFunc : uint8
 	{
 		CF_Never = 0,
 		CF_Less,
@@ -207,7 +207,7 @@ namespace KY
 		CF_Always,
 	};
 
-	enum StencilOperation
+	enum StencilOperation : uint8
 	{
 		StencilOP_Keep = 0,
 		StencilOP_Zero,
@@ -219,7 +219,7 @@ namespace KY
 		StencilOP_Decr,
 	};
 
-	enum BlendType
+	enum BlendType : uint8
 	{
 		BlendType_Zero = 0,
 		BlendType_One,
@@ -240,7 +240,7 @@ namespace KY
 		BlendType_InvSrc1Alpha,
 	};
 
-	enum BlendOperation
+	enum BlendOperation : uint8
 	{
 		BlendOP_Add = 0,		
 		BlendOP_Subtract,
@@ -249,7 +249,7 @@ namespace KY
 		BlendOP_Max,		
 	};
 
-	enum RenderTargetColorWirteMask
+	enum RenderTargetColorWirteMask : uint8
 	{
 		RTCW_Red	= 0x01,
 		RTCW_Green	= 0x02,
@@ -261,7 +261,7 @@ namespace KY
 
 #define MAX_SLOT_ELEM_IDX 4
 
-	enum SlotIndex : uint32
+	enum SlotIndex : uint16
 	{
 		SI_Position		= 0,
 		SI_Normal,
@@ -273,6 +273,20 @@ namespace KY
 		SI_Texcoord = SI_Color + MAX_SLOT_ELEM_IDX,
 
 		SI_Unknown = SI_Texcoord + MAX_SLOT_ELEM_IDX,
+	};
+
+	enum BindFlag : uint16
+	{
+		BF_VertexBuffer = 0x01,
+		BF_IndexBuffer = 0x02,
+		BF_ConstBuffer = 0x04,
+		BF_ShaderResource = 0x08,
+		BF_StreamOutput = 0x10,
+		BF_RenderTarget = 0x20,
+		BF_DepthStencil = 0x40,
+		BF_UnorderedAccess = 0x80,		
+		/*D3D11_BIND_DECODER = 0x200L,
+		D3D11_BIND_VIDEO_ENCODER = 0x400L*/
 	};
 
 	struct GraphicInitParam
@@ -301,6 +315,35 @@ namespace KY
 
 		uint32 sizeInBytes;
 		uint32 byteStrideForStructureBuffer;
+	};
+
+	struct TextureParam 
+	{
+		struct SampleDesc {
+			uint32 count;
+			uint32 quality;
+		};
+
+		uint32				mipmap;
+		uint32				arraySize;
+
+		BindFlag			bind;
+		ResourceCPUAccess	access;
+		ResourceUsage		usage;		
+		TexFormat			fmt;
+
+		SampleDesc			sample;
+		uint32				msic;
+	};
+
+	struct Texture1DParam : public TextureParam
+	{
+		uint32 width;
+	};
+
+	struct Texture2DParam : public TextureParam
+	{
+		uint32 width, height;
 	};
 
 	struct ResourceMapParam

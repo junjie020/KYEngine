@@ -142,6 +142,15 @@
     <ClCompile Include="Graphic\HI\DX\Shader\Dx11Shader.cpp">
       <Filter>Graphic\HI\DX\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp">
+      <Filter>Graphic\HI\DX\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Resource\Texture\TextureAssertLoader.cpp">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Resource\Texture\TextureFormatHelper.cpp">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -324,6 +333,18 @@
     <ClInclude Include="Graphic\HI\DX\Stage\Dx11PipelineStage.h">
       <Filter>Graphic\HI\DX\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h">
+      <Filter>Graphic\HI\DX\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\Texture\TextureTypeTraits.h">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\Texture\TextureAssertLoader.h">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -413,6 +434,9 @@
     <Filter Include="Graphic\HI\DX\Buffer">
       <UniqueIdentifier>{bd4aaf4b-f57e-4983-a790-3d76b863ba25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\HI\DX\Texture">
+      <UniqueIdentifier>{5ccdd5d2-99c3-46a4-870a-424564789e24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml">
@@ -438,6 +462,12 @@
     </None>
     <None Include="Graphic\Resource\State\StateObject.inl">
       <Filter>Graphic\Resource\State</Filter>
+    </None>
+    <None Include="Graphic\Resource\Texture\Texture.inl">
+      <Filter>Graphic\Resource\Texture</Filter>
+    </None>
+    <None Include="Graphic\Resource\Texture\TextureTypeTraits.inl">
+      <Filter>Graphic\Resource\Texture</Filter>
     </None>
   </ItemGroup>
 </Project>

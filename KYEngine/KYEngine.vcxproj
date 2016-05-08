@@ -104,6 +104,9 @@
     <ClCompile Include="Graphic\HI\DX\Stage\Dx11PipelineStage.cpp" />
     <ClCompile Include="Graphic\Frustum.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
+    <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp" />
+    <ClCompile Include="Graphic\Resource\Texture\TextureAssertLoader.cpp" />
+    <ClCompile Include="Graphic\Resource\Texture\TextureFormatHelper.cpp" />
     <ClCompile Include="Graphic\Stage\PipelineStage.cpp" />
     <ClCompile Include="Graphic\Render\RenderCommandQueue.cpp" />
     <ClCompile Include="Graphic\Render\RenderOperation.cpp" />
@@ -162,7 +165,11 @@
     <ClInclude Include="Graphic\Frustum.h" />
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
+    <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
+    <ClInclude Include="Graphic\Resource\Texture\TextureAssertLoader.h" />
+    <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h" />
+    <ClInclude Include="Graphic\Resource\Texture\TextureTypeTraits.h" />
     <ClInclude Include="Graphic\Stage\PipelineStage.h" />
     <ClInclude Include="Graphic\Render\RenderCommandQueue.h" />
     <ClInclude Include="Graphic\Render\RenderOperation.h" />
@@ -206,6 +213,8 @@
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml" />
     <None Include="Graphic\Resource\State\StateObject.inl" />
+    <None Include="Graphic\Resource\Texture\Texture.inl" />
+    <None Include="Graphic\Resource\Texture\TextureTypeTraits.inl" />
     <None Include="Math\Color.inl" />
     <None Include="Math\Matrix.inl" />
     <None Include="Resource\Shader\Object.ps" />

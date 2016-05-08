@@ -3,24 +3,33 @@
 
 #include "Graphic/Resource/Resource.h"
 
+#include "Graphic/Resource/Texture/TextureTypeTraits.h"
+
 namespace KY
 {
-
-	class TextureAssertLoader
+	class Texture : public Resource
 	{
 	public:
+		Texture()
+			: Resource(ResT_Texture)
+		{}
 
 	};
-    class Texture : public Resource
+
+	template<class TraitsType>
+    class TextureImpl : public Texture
     {
     public:
-    	Texture();
-    	~Texture();
+    	~TextureImpl();
 
-		bool Init(TextureAssertLoader *loader);
+		bool Init(const TextureParam &param, class TextureAssertLoader *loader);
+
 
 	private:
+		void Destory();
 
+	private:
+		TraitsType	mTex;
 
     };
 }
