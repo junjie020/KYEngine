@@ -14,6 +14,7 @@
 
 #include "Common/CommonUtils.h"
 #include "Scene/Model/Assimp/AssimpResourceManager.h"
+#include "Graphic/Resource/Texture/TextureFormatHelper.h"
 
 namespace KY
 {
@@ -40,6 +41,7 @@ namespace KY
 
 	bool System::Initialize(Size2U &dim, bool windowed)
 	{
+		TextureFormatHelper::Init();
 		mWindowedMode = windowed;
 		InitializeWindows(dim, windowed);
 

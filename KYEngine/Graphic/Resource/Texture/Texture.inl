@@ -27,4 +27,6 @@ namespace KY
 		mTex.Destory();
 	}
 
+	using Texture2D = TextureImpl<TextureTypeTraits<TextureType::TT_2D, DX::Dx11Texture2D>>;
+
 }

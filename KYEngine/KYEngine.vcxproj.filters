@@ -151,6 +151,9 @@
     <ClCompile Include="Graphic\Resource\Texture\TextureFormatHelper.cpp">
       <Filter>Graphic\Resource\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Shader\Dx11ShaderResourceView.cpp">
+      <Filter>Graphic\HI\DX\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -344,6 +347,15 @@
     </ClInclude>
     <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h">
       <Filter>Graphic\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Shader\Dx11ShaderResourceView.h">
+      <Filter>Graphic\HI\DX\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Dx11HardwareInterface.h">
+      <Filter>Graphic\HI\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Dx11Resource.h">
+      <Filter>Graphic\HI\DX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

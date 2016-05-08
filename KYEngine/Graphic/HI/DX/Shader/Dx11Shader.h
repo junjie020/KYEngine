@@ -2,7 +2,6 @@
 #define _DX11SHADER_H_
 
 #include "Graphic/GraphicDef.h"
-
 #include <d3d11.h>
 
 namespace KY

@@ -100,6 +100,7 @@
     <ClCompile Include="Graphic\HI\DX\Buffer\DX11Buffer.cpp" />
     <ClCompile Include="Graphic\HI\DX\Dx11.cpp" />
     <ClCompile Include="Graphic\HI\DX\DX11NameTranslator.cpp" />
+    <ClCompile Include="Graphic\HI\DX\Shader\Dx11ShaderResourceView.cpp" />
     <ClCompile Include="Graphic\HI\DX\State\Dx11StateObject.cpp" />
     <ClCompile Include="Graphic\HI\DX\Stage\Dx11PipelineStage.cpp" />
     <ClCompile Include="Graphic\Frustum.cpp" />
@@ -155,11 +156,14 @@
     <ClInclude Include="Graphic\Camera\Camera.h" />
     <ClInclude Include="Graphic\Camera\CameraController.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.h" />
+    <ClInclude Include="Graphic\HI\DX\Dx11HardwareInterface.h" />
+    <ClInclude Include="Graphic\HI\DX\Dx11Resource.h" />
     <ClInclude Include="Graphic\HI\DX\Shader\Dx11Shader.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11VertexBuffer.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11Buffer.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11.h" />
     <ClInclude Include="Graphic\HI\DX\DX11NameTranslator.h" />
+    <ClInclude Include="Graphic\HI\DX\Shader\Dx11ShaderResourceView.h" />
     <ClInclude Include="Graphic\HI\DX\State\Dx11StateObject.h" />
     <ClInclude Include="Graphic\HI\DX\Stage\Dx11PipelineStage.h" />
     <ClInclude Include="Graphic\Frustum.h" />

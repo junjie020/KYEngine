@@ -4,50 +4,50 @@
 
 #include "Graphic/GraphicDef.h"
 
+#include "Graphic/HI/DX/Dx11HardwareInterface.h"
+#include "Graphic/HI/DX/Dx11Resource.h"
+
 #include <d3d11.h>
 namespace KY
 {
-	using RawBuffer = std::vector<uint8>;
+	class TextureAssertLoader;
 
-	class Dx11Texture1D
+	namespace DX
 	{
-	public:
+		using RawBuffer = std::vector<uint8>;
 
-	};
+		class Dx11Texture1D : public Dx11HardwareInterface<ID3D11Texture1D>
+							//, public Dx11Resource
+		{
+		public:
 
-    class Dx11Texture2D
-    {
-    public:		
-		Dx11Texture2D() : mTexture(nullptr) {}
+		};
 
-		~Dx11Texture2D() {
-			SafeRelease(mTexture);			
-		}
+		class Dx11Texture2D : public Dx11HardwareInterface<ID3D11Texture2D>
+							//, public Dx11Resource
+		{
+		public:
+			bool Create(const Texture2DParam &param, const ResourceData &resData);
+			bool Create(const TextureParam &param, TextureAssertLoader *loader);
 
-		bool Create(const Texture2DParam &param, const ResourceData &resData);
-		bool Create(const TextureParam &param, class TextureAssertLoader *loader);
+			//virtual ID3D11Resource * GetDxResource() override
+			//{
+			//	return GetInternal();
+			//}
+		};
 
-		bool IsValid() const {
-			return nullptr != mTexture;
-		}
+		class Dx11Texture3D
+		{
+		public:
 
-		ID3D11Texture2D* GetInternal() const { return mTexture; }
+		};
 
-	private:
-		ID3D11Texture2D* mTexture;
+		class Dx11TextureCube
+		{
+		public:
 
-    };
+		};
+	}
 
-	class Dx11Texture3D
-	{
-	public:
-
-	};
-
-	class Dx11TextureCube
-	{
-	public:
-
-	};
 }
 #endif // _DX11TEXTURE_H_

@@ -22,10 +22,14 @@ namespace KY
 			return glm::uvec3(dim.x << mip, dim.y << mip, dim.z << mip);			
 		}
 
+		static void Init();
+
 	private:
 		struct Format
 		{
+			Format(size_t s, uint8 n) : size(s), elemNum(n){}
 			size_t size;
+			uint8 elemNum;
 		};
 
 		using FormatData = std::unordered_map<TexFormat, Format>;

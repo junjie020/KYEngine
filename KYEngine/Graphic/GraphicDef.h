@@ -346,6 +346,62 @@ namespace KY
 		uint32 width, height;
 	};
 
+
+	//{@
+	namespace SRVDataType
+	{
+		struct Buffer {
+			union  
+			{
+				uint32 idx;
+				uint32 offset;
+			};
+
+			union 
+			{
+				uint32 numElms;
+				uint32 elemWidth;
+			};
+		};
+
+		struct Tex1D {
+			uint32 mostDetailedMip;
+			uint32 mipLevels;
+		};
+
+		struct Tex2D {
+			uint32 mostDetailedMip;
+			uint32 mipLevels;
+		};
+	}
+
+	struct SRVParam
+	{
+		enum class SRVType {
+			Buffer,
+			Tex1D,
+			Tex1DArray,
+			Tex2D,
+			Tex2DArray,
+			Tex2DMS,
+			Tex2DMSArray,
+			Tex3D,
+			TexCube,
+			TexCubeArray,
+			BufferEx,
+		};
+
+		TexFormat fmt;
+		SRVType type;
+		union  
+		{
+			SRVDataType::Buffer buffer;
+			SRVDataType::Tex1D tex1D;
+			SRVDataType::Tex2D tex2D;
+		};
+	};
+	//@}	 
+
 	struct ResourceMapParam
 	{
 		uint32			subRes;

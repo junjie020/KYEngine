@@ -13,10 +13,11 @@ namespace KY
 	class TextureTypeTraits
 	{
 	public:
+		typedef HITextureType InternaleType;
 		HITextureType* Create();
 		void Destory();
 
-		HITextureType* GetDataPtr() { return mTex; }
+		HITextureType* GetInternal() { return mTex; }
 
 		static TextureType GetType() {
 			return TType;

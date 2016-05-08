@@ -24,6 +24,9 @@ namespace KY
 
 		bool Init(const TextureParam &param, class TextureAssertLoader *loader);
 
+		typename TraitsType::InternaleType* GetInternal() {
+			return mTex.GetInternal();
+		}
 
 	private:
 		void Destory();
