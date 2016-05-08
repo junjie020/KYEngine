@@ -11,13 +11,17 @@ namespace KY
 {
 	class Resource;
 
-    class Dx11ShaderResourceView : public Dx11HardwareInterface<ID3D11ShaderResourceView>
-    {
-    public:
+	namespace DX
+	{
+		class Dx11ShaderResourceView : public Dx11HardwareInterface<ID3D11ShaderResourceView>
+		{
+		public:
+			Dx11ShaderResourceView() = default;
 
-		bool Init(const SRVParam &param, Resource *res);
-		
-    };
+			bool Init(const SRVParam &param, Resource *res);
+		};
+	}
+
 
 }
 #endif // _DX11SHADERRESOURCEVIEW_H_

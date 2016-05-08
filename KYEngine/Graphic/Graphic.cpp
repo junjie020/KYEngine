@@ -112,7 +112,7 @@ namespace KY
 					for (auto &bb : buffers)
 					{						
 						const BufferInfo info = { 0, 0, bb.first };	// hard code offset and strides
-						vs->SetConstBuffer(*(bb.second), info);
+						vs->SetConstBuffer(*(bb.second), info);					
 					}
 				}
 				//@}

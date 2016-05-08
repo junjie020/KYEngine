@@ -18,16 +18,10 @@ namespace KY
 			inline D3D11_BIND_FLAG ToBingFlag(ResourceType type) const;
 			inline D3D11_BIND_FLAG ToBingFlag(BindFlag bind) const;
 
-			inline D3D11_CPU_ACCESS_FLAG ToCPUAccessFlag(ResourceCPUAccess access) const
-			{
-				uint16 flag(0);
-				if (QueryBit(BA_Read, access))
-					flag |= D3D11_CPU_ACCESS_READ;
-				if (QueryBit(BA_Write, access))
-					flag |= D3D11_CPU_ACCESS_WRITE;
+			inline D3D11_CPU_ACCESS_FLAG ToCPUAccessFlag(ResourceCPUAccess access) const;
 
-				return D3D11_CPU_ACCESS_FLAG(flag);
-			}
+			inline D3D11_FILTER ToFilterType(FilterType ft) const;
+			inline D3D11_TEXTURE_ADDRESS_MODE ToAddressMode(AddressMode am) const;
 			
 			inline D3D11_FILL_MODE ToFillMode(FillMode fm) const;
 			inline D3D11_CULL_MODE ToCullMode(CullMode cm) const;
@@ -75,6 +69,27 @@ namespace KY
 		inline D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(BindFlag bind) const
 		{
 			return D3D11_BIND_FLAG(bind);
+		}
+		inline D3D11_CPU_ACCESS_FLAG DX11NameTranslator::ToCPUAccessFlag(ResourceCPUAccess access) const
+		{
+			uint16 flag(0);
+			if (QueryBit(BA_Read, access))
+				flag |= D3D11_CPU_ACCESS_READ;
+			if (QueryBit(BA_Write, access))
+				flag |= D3D11_CPU_ACCESS_WRITE;
+
+			return D3D11_CPU_ACCESS_FLAG(flag);
+		}
+
+
+		inline D3D11_FILTER DX11NameTranslator::ToFilterType(FilterType ft) const
+		{
+			return D3D11_FILTER(ft);
+		}
+
+		inline D3D11_TEXTURE_ADDRESS_MODE DX11NameTranslator::ToAddressMode(AddressMode am) const
+		{
+			return D3D11_TEXTURE_ADDRESS_MODE(am);
 		}
 
 		inline D3D11_FILL_MODE DX11NameTranslator::ToFillMode(FillMode fm) const

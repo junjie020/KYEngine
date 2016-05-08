@@ -8,6 +8,7 @@ namespace KY
 	struct RasterizerState;
 	struct BlendState;
 	struct DepthStencilState;
+	struct SamplerState;
 
 	namespace DX
 	{
@@ -52,6 +53,12 @@ namespace KY
 			bool Create(const DepthStencilState &state);
 
 		
+		};
+
+		class Dx11SamplerStateObj : public Dx11StateObj<ID3D11SamplerState>
+		{
+		public:
+			bool Create(const SamplerState &state);
 		};
 	}
 

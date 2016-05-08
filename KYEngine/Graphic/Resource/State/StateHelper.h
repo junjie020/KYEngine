@@ -1,16 +1,19 @@
 #ifndef __STATEHELPER_H__
 #define __STATEHELPER_H__
 
+#include "Graphic/GraphicDef.h"
 namespace KY
 {
 
 	class RasterizerStateObj;
 	class DepthStencilStateObj;
 	class BlendStateObj;
+	class SamplerStateObj;
 
 	struct RasterizerState;
 	struct DepthStencilState;
 	struct BlendState;
+	struct SamplerState;
 
 	class RenderOperation;
 
@@ -29,8 +32,12 @@ namespace KY
 		DepthStencilStateObj* InitDepthStencilStateObj(const DepthStencilState &state);
 		BlendStateObj* InitBlendStateObj(const BlendState &state);
 
-		bool Init(const RasterizerState *rsState, const DepthStencilState *dsState, const BlendState *blendState, RenderOperation *ro);
-		bool Init(RenderOperation *ro);
+		SamplerStateObj* InitSamplerObj(uint32 idx, const SamplerState &state);
+
+		bool InitPipelineStateObj(const RasterizerState *rsState, const DepthStencilState *dsState, const BlendState *blendState, RenderOperation *ro);
+		bool InitPipelineStateObj(RenderOperation *ro);
+
+		bool InitSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *ro);
 
 	private:
 		void InitRO(RenderOperation *ro);		
@@ -39,6 +46,8 @@ namespace KY
 		RasterizerStateObj*		mRSObj;
 		DepthStencilStateObj*	mDSObj;
 		BlendStateObj*			mBlendObj;
+
+		SamplerStateObj*		mSamplerObjs[MAX_SAMPLER_STATE_NUM];
 	};
 }
 #endif	//__STATEHELPER_H__

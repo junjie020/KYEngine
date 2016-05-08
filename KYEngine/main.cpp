@@ -12,7 +12,7 @@
 
 #include "Graphic/Resource/Buffer/VertexBuffer.h"
 #include "Graphic/Resource/Shader/Shader.h"
-
+#include "Graphic/Resource/Shader/ShaderResourceView.h"
 #include "Graphic/Resource/State/StateHelper.h"
 #include "Graphic/Resource/Buffer/ConstBufferDef.h"
 #include "Graphic/Resource/ResourceManager.h"
@@ -218,6 +218,174 @@ private:
 
 	//};
 
+
+	class TriangleTexActor : public KY::Actor
+	{
+	public:
+		TriangleTexActor()
+			: KY::Actor(nullptr)
+			, mVertexShader(nullptr)
+			, mPixelShader(nullptr)
+			, mDynConstBuffer(ResT_Const)
+		{
+			InitBufferData();
+			InitShadersAndInputLayout();
+			InitState();
+		}
+
+		void InitBufferData()
+		{
+			struct VertexColor {
+				glm::vec4	v;
+				glm::vec2	uv;
+			};
+
+			VertexColor vc[] = {
+				glm::vec4(-1.0f,	-1.0f, 99.99f, 1.0f),	glm::vec2(0.f, 1.f),
+				glm::vec4(0.0f,		1.0f,	99.99f, 1.0f),	glm::vec2(.5f, 0.f),
+				glm::vec4(1.0f,		-1.0f,	99.99f, 1.0f),	glm::vec2(1.f, 1.f)
+			};
+
+			BufferParam param;
+			param.type = ResT_Vertex;
+			param.access = BA_None;
+			param.usage = RU_Immutable;
+			param.sizeInBytes = sizeof(vc);
+
+			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
+
+			if (mBuffer.Create(param, data))
+			{
+				BufferInfo info = { 0, sizeof(VertexColor), 0 };
+				mRO.AddVertexBuffer(&mBuffer, info);
+				DrawVertexBufferParam pp = { 3, 0 };
+				mRO.SetVertexDrawInfo(pp);
+
+				mRO.SetPrimitiveType(PT_TriList);
+			}
+		}
+
+		bool InitPSShaderResourceView()
+		{
+			return true;
+		}
+
+		bool InitShadersAndInputLayout()
+		{
+			mVertexShader = ResourceManager::Inst()->FindAddShader("ScreenTexQuad.vs");
+			BOOST_ASSERT(mVertexShader && mVertexShader->IsValid());
+			mRO.SetShader(mVertexShader, KY::ShdrT_Vertex);
+
+			mPixelShader = ResourceManager::Inst()->FindAddShader("ScreenTexQuad.ps");
+
+			BOOST_ASSERT(mPixelShader && mPixelShader->IsValid());
+			mRO.SetShader(mPixelShader, KY::ShdrT_Pixel);
+
+			InputElemDesc desc[] =
+			{
+				{ "POSITION",	0, TF_R32G32B32A32_FLOAT,	0, 0,					0, false },
+				{ "TEXCOORD",	0, TF_R32G32_FLOAT,			0, sizeof(float) * 4,	0, false },
+			};
+
+			for (auto beg = std::begin(desc); beg != std::end(desc); ++beg)
+			{
+				mInputLayout.AddElem(*beg);
+			}
+
+			if (!mInputLayout.Create(*mVertexShader))
+			{
+				DebugOutline("create input layout failed!");
+				return false;
+			}
+
+			mRO.SetInputLayout(&mInputLayout);
+
+
+			//////////////////////////////////////////////////////////////////////////
+			BufferParam constParam;
+			constParam.type = ResT_Const;
+			constParam.access = BA_Write;
+			constParam.usage = RU_Dynamic;
+			constParam.sizeInBytes = sizeof(TransformConstBuffer);
+
+			ResourceData constData = { nullptr, 0, 0 };
+			if (mDynConstBuffer.Create(constParam, constData))
+			{
+				mVertexShader->AddConstBuffer(0, &mDynConstBuffer);
+			}
+
+			return true;
+		}
+
+		bool InitState()
+		{
+			KY::RasterizerState rsState;
+			rsState.cullMode = CM_None;
+			rsState.depthClipEnable = false;
+
+			KY::DepthStencilState dsState;
+			dsState.depthEnable = false;
+
+			KY::BlendState blendState;
+
+			mStates.InitPipelineStateObj(&rsState, &dsState, &blendState, &mRO);
+
+			KY::SamplerState ss;
+			mStates.InitSamplerStateObjs(0, 1, &ss, &mRO);
+
+			return true;
+		}
+
+		virtual void UpdateImpl(Camera *camera)
+		{
+			Actor::UpdateImpl(camera);
+			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+			if (mDynConstBuffer.Map(param))
+			{
+				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;
+				//mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+				//const Size2U dim = Graphic::Inst()->GetBackBufferSize();
+				//mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
+
+				mMatBuffer.matView = camera->GetViewMat();
+				mMatBuffer.matProj = camera->GetProjMat();
+
+				BOOST_ASSERT(param.mapData.data);
+				BOOST_ASSERT(param.mapData.rowPitch != 0);
+				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
+				memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
+				mDynConstBuffer.UnMap(param.subRes);
+			}
+			else
+			{
+				KY::DebugOutline("map const buffer failed!");
+			}
+		}
+
+		virtual void ExtractRenderInfo(RenderCommandQueue &q) override
+		{
+			q.Push(&mRO);
+			//KY::Graphic::Inst()->AddRenderOperation(&mRO);
+		}
+
+	private:
+		KY::RenderOperation mRO;
+		//{@
+		KY::VertexBuffer		mBuffer;
+		TransformConstBuffer	mMatBuffer;
+		KY::Buffer				mDynConstBuffer;
+		//@}
+
+		KY::InputLayout		mInputLayout;
+		KY::Shader			*mVertexShader;
+		KY::Shader			*mPixelShader;
+
+		KY::ShaderResourceView *mSRV;
+
+		KY::StateHelper		mStates;
+	};
+
 	class TriangleActor : public KY::Actor
 	{
 	public:
@@ -237,14 +405,14 @@ private:
 		void InitBufferData()
 		{
 			struct VertexColor{
-				Vec4f		v;
+				glm::vec4	v;
 				Color32B	c;
 			};
 
 			VertexColor vc[] = {
-				Vec4f(-1.0f,	-1.0f, 99.99f, 1.0f),	Color32B::Red,
-				Vec4f(0.0f,		1.0f,	99.99f, 1.0f),	Color32B::Blue,
-				Vec4f(1.0f,		-1.0f,	99.99f, 1.0f),	Color32B::Green,
+				glm::vec4(-1.0f,	-1.0f, 99.99f, 1.0f),	Color32B::Red,
+				glm::vec4(0.0f,		1.0f,	99.99f, 1.0f),	Color32B::Blue,
+				glm::vec4(1.0f,		-1.0f,	99.99f, 1.0f),	Color32B::Green,
 			};
 
 			BufferParam param;
@@ -280,7 +448,7 @@ private:
 			InputElemDesc desc[] = 
 			{
 				{ "POSITION",	0, TF_R32G32B32A32_FLOAT,	0, 0,					0, false },
-				{ "COLOR",		0, TF_R8G8B8A8_UNORM,		0, sizeof(float) * 4,	0, false },
+				{ "COLOR",		0, TF_R8G8B8A8_UNORM,		0, sizeof(float) * 4,	0, false },				
 			};
 
 			for (auto beg = std::begin(desc); beg != std::end(desc); ++beg)
@@ -324,7 +492,7 @@ private:
 
 			KY::BlendState blendState;
 			
-			mStates.Init(&rsState, &dsState, &blendState, &mRO);
+			mStates.InitPipelineStateObj(&rsState, &dsState, &blendState, &mRO);
 
 			return true;
 		}

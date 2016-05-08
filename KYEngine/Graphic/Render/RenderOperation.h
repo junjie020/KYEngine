@@ -14,6 +14,9 @@ namespace KY
 	class RasterizerStateObj;
 	class DepthStencilStateObj;
 	class BlendStateObj;
+	class SamplerStateObj;
+
+	class ShaderResourceView;
 
 	class Viewport;
 
@@ -28,6 +31,8 @@ namespace KY
 		uint32 mBaseVertexLocation;
 	};
 
+	using ShaderResourceViewVec = std::vector<ShaderResourceView*>;
+
 	class RenderOperation
 	{
 	public:
@@ -41,6 +46,7 @@ namespace KY
 		{
 			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
 			ZERO_MEMORY(mShaders);
+			ZERO_MEMORY(mSamplerStateoObjs);
 		}
 		~RenderOperation(){}
 
@@ -85,6 +91,43 @@ namespace KY
 
 		const InputLayout* GetInputLayout() const{
 			return mInputLayout;
+		}
+		//@}
+
+		//{@
+		void SetSamplerState(uint32 idx, SamplerStateObj *stateObj) {
+			mSamplerStateoObjs[idx] = stateObj;
+		}
+
+		void SetSamplerState(uint32 idx, uint32 count, SamplerStateObj *stateObj) {
+			BOOST_ASSERT((idx + count) < COUNT_OF(mSamplerStateoObjs));
+			memcpy(mSamplerStateoObjs[idx], stateObj, count);
+		}
+
+		SamplerStateObj* GetSamplerObj(uint32 idx) const {
+			return mSamplerStateoObjs[idx];
+		}
+
+		void SetShaderResourceView(uint32 idx, ShaderResourceView *srv, ShaderResourceViewVec &srvs){
+			if (idx < srvs.size()) {
+				srvs[idx] = srv;
+				return;
+			}
+
+			for (size_t ii = srvs.size(); ii < idx; ++ii)
+			{
+				srvs.push_back(nullptr);
+			}
+
+			srvs.push_back(srv);
+		}
+
+		void SetVSShaderResourceView(uint32 idx, ShaderResourceView *srv) {
+			SetShaderResourceView(idx, srv, mVSSRV);
+		}
+
+		void SetPSShaderResourceView(uint32 idx, ShaderResourceView *srv) {
+			SetShaderResourceView(idx, srv, mPSSRV);
 		}
 		//@}
 
@@ -156,6 +199,11 @@ namespace KY
 		RasterizerStateObj*		mRSStateObj;
 		DepthStencilStateObj*	mDepthStencilStateObj;
 		BlendStateObj*			mBlendStateObj;
+
+		ShaderResourceViewVec	mVSSRV;
+		ShaderResourceViewVec	mPSSRV;
+		
+		SamplerStateObj*		mSamplerStateoObjs[MAX_SAMPLER_STATE_NUM];
 
 		PrimitiveType	mPriType;
     };

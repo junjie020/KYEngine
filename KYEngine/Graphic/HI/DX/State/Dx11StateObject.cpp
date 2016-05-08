@@ -105,4 +105,26 @@ namespace KY
 		return SUCCEEDED(device->CreateDepthStencilState(&desc, &mInternalObj));
 	}
 
+	bool DX::Dx11SamplerStateObj::Create(const SamplerState &state)
+	{
+		auto dx11NameTrans = DX::DX11NameTranslator::Inst();
+		const D3D11_SAMPLER_DESC desc = {
+			dx11NameTrans->ToFilterType(state.filter),
+			dx11NameTrans->ToAddressMode(state.addrU),
+			dx11NameTrans->ToAddressMode(state.addrV),
+			dx11NameTrans->ToAddressMode(state.addrW),
+			state.mipLODBias,
+			state.maxAnisotropy,
+
+			dx11NameTrans->ToComparisonFunc(state.compFunc),
+			state.borderClr[0], state.borderClr[1], state.borderClr[2], state.borderClr[3],
+
+			state.minLOD,
+			state.maxLOD,
+		};
+
+		auto device = Graphic::Inst()->GetDx11()->GetDevice();
+		return SUCCEEDED(device->CreateSamplerState(&desc, &mInternalObj));
+	}
+
 }

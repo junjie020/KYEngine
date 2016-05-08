@@ -3,6 +3,9 @@
 
 namespace KY
 {
+
+#define MAX_SAMPLER_STATE_NUM 16
+
 	enum FeatureLevel : uint8
 	{
 		FL_Unknown = uint8(-1),
@@ -289,6 +292,60 @@ namespace KY
 		D3D11_BIND_VIDEO_ENCODER = 0x400L*/
 	};
 
+	enum FilterType : uint16
+	{
+		FT_MinMagMip_Point = 0,
+		FT_MinMag_Point_Mip_Linear = 0x01,
+		FT_Min_Point_Mag_Linear_Mip_Point = 0x04,
+		FT_Min_Point_MagMip_Linear = 0x05,
+		FT_Min_Linear_MagMip_Point = 0x10,
+		FT_Min_Linear_Mag_Point_Mip_Linear = 0x11,
+		FT_MinMag_Linear_Mip_Point = 0x14,
+		FT_MinMagMip_Linear = 0x15,
+		FT_Anisotropic = 0x55,
+
+		FT_Comparision_MinMagMip_Point = 0x80,
+		FT_Comparision_MinMag_Point_Mip_Linear = 0x81,
+		FT_Comparision_Min_Point_Mag_Linear_Mip_Point = 0x84,
+		FT_Comparision_Min_Point_MagMip_Linear = 0x85,
+		FT_Comparision_Min_Linear_MagMip_Point = 0x90,
+		FT_Comparision_Min_Linear_Mag_Point_Mip_Linear = 0x91,
+		FT_Comparision_MinMag_Linear_Mip_Point = 0x94,
+		FT_Comparision_MinMagMip_Linear = 0x95,
+		FT_Comparision_Anisotropic = 0xd5,
+		
+		FT_MinNum_MinMagMip_Point = 0x100,
+		FT_MinNum_MinMag_Point_Mip_Linear = 0x101,
+		FT_MinNum_Min_Point_Mag_Linear_Mip_Point = 0x104,
+		FT_MinNum_Min_Point_MagMip_Linear = 0x105,
+		FT_MinNum_Min_Linear_MagMip_Point = 0x110,
+		FT_MinNum_Min_Linear_Mag_Point_Mip_Linear = 0x111,
+		FT_MinNum_MinMag_Linear_Mip_Point = 0x114,
+		FT_MinNum_MinMagMip_Linear = 0x115,
+		FT_MinNum_Anisotropic = 0x155,
+
+
+		FT_MaxNum_MinMagMip = 0x180,
+
+		FT_MaxNum_MinMag_Point_Mip_Linear = 0x181,
+		FT_MaxNum_Min_Point_Mag_Linear_Mip_Point = 0x184,
+		FT_MaxNum_Min_Point_MagMip_Linear = 0x185,
+		FT_MaxNum_Min_Linear_MagMip_Point = 0x190,
+		FT_MaxNum_Min_Linear_Mag_Point_Mip_Linear = 0x191,
+		FT_MaxNum_MinMag_Linear_Mip_Point = 0x194,
+		FT_MaxNum_MinMagMip_Linear = 0x195,
+		FT_MaxNum_Anisotropic = 0x1d5,
+	} ;
+
+	enum AddressMode : uint8
+	{
+		AddrM_Wrap = 1,
+		AddrM_Mirror,
+		AddrM_Clamp,
+		AddrM_Border,
+		AddrM_MirrorOnce,		
+	};
+
 	struct GraphicInitParam
 	{
 		uint32 width, height;		
@@ -560,5 +617,38 @@ namespace KY
 
 		RenderTargetBlendDesc renderTargetDesc[8];
 	};
+
+	struct SamplerState
+	{
+		SamplerState()
+			: filter(FT_MinMagMip_Linear)
+			, addrU(AddrM_Clamp)
+			, addrV(AddrM_Clamp)
+			, addrW(AddrM_Clamp)
+			, mipLODBias(0)
+			, maxAnisotropy(1)
+			, compFunc(CF_Never)
+			, minLOD(-FLT_MAX)
+			, maxLOD(FLT_MAX)
+		{
+			borderClr[0] = borderClr[1] = borderClr[2] = borderClr[3];
+		}
+
+		FilterType filter;
+
+		AddressMode addrU;
+		AddressMode addrV;
+		AddressMode addrW;
+
+		float mipLODBias;
+		uint32 maxAnisotropy;
+		CompareFunc compFunc;
+
+		float borderClr[4];
+		float minLOD;
+		float maxLOD;
+	};
+
+
 }
 #endif // _GRAPHICDEF_H_

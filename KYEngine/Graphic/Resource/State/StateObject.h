@@ -10,6 +10,7 @@ namespace KY
 		class Dx11RasterizerStateObj;
 		class Dx11BlendStateObj;
 		class Dx11DepthStencilStateObj;
+		class Dx11SamplerStateObj;
 	}
 
 	template<class StateType, class InternalType>
@@ -63,6 +64,11 @@ namespace KY
 		void	SetStencilRef(uint32 ref) { mStencilRef = ref; }
 	private:
 		uint32 mStencilRef;
+	};
+
+	class SamplerStateObj : public StateObj<SamplerState, DX::Dx11SamplerStateObj>
+	{
+		
 	};
 
 	//class RasterizerStateObj : public StateObj<RasterizerState>

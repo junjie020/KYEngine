@@ -33,6 +33,9 @@ namespace KY
 		public:
 			void SetShader(const Shader *shader);
 			void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
+
+			void SetSamplers();
+			void SetShaderResourceViews();
 		};
 
 		class Dx11RSStage

@@ -106,6 +106,7 @@
     <ClCompile Include="Graphic\Frustum.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp" />
+    <ClCompile Include="Graphic\Resource\Shader\ShaderResourceView.cpp" />
     <ClCompile Include="Graphic\Resource\Texture\TextureAssertLoader.cpp" />
     <ClCompile Include="Graphic\Resource\Texture\TextureFormatHelper.cpp" />
     <ClCompile Include="Graphic\Stage\PipelineStage.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
+    <ClInclude Include="Graphic\Resource\Shader\ShaderResourceView.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureAssertLoader.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureTypeTraits.h" />
@@ -225,6 +227,8 @@
     <None Include="Resource\Shader\Object.vs" />
     <None Include="Resource\Shader\ScreenQuad.ps" />
     <None Include="Resource\Shader\ScreenQuad.vs" />
+    <None Include="Resource\Shader\ScreenTexQuad.ps" />
+    <None Include="Resource\Shader\ScreenTexQuad.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

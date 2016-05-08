@@ -56,7 +56,12 @@ namespace KY
 		return InitStateObj(mBlendObj, state);
 	}
 
-	bool StateHelper::Init(RenderOperation *ro)
+	SamplerStateObj* StateHelper::InitSamplerObj(uint32 idx, const SamplerState &state)
+	{
+		return InitStateObj(mSamplerObjs[idx], state);
+	}
+
+	bool StateHelper::InitPipelineStateObj(RenderOperation *ro)
 	{
 		InitRasterizerStateObj(RasterizerState());
 		InitDepthStencilStateObj(DepthStencilState());
@@ -68,7 +73,7 @@ namespace KY
 		return true;
 	}
 
-	bool StateHelper::Init(const RasterizerState *rsState, const DepthStencilState *dsState, const BlendState *blendState, RenderOperation *ro)
+	bool StateHelper::InitPipelineStateObj(const RasterizerState *rsState, const DepthStencilState *dsState, const BlendState *blendState, RenderOperation *ro)
 	{
 		if (rsState)
 			InitRasterizerStateObj(*rsState);
@@ -81,6 +86,22 @@ namespace KY
 
 		if (ro)
 			InitRO(ro);
+
+		return true;
+	}
+
+	bool StateHelper::InitSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *op)
+	{
+		while (idx < count)
+		{
+			const SamplerState *ss = sState + idx;
+			if (ss)
+			{
+				auto obj = InitSamplerObj(idx, *ss);
+
+				op->SetSamplerState(idx, obj);
+			}
+		}
 
 		return true;
 	}

@@ -122,7 +122,7 @@ namespace KY
 	bool MeshRenderOperationHelper::InitStates()
 	{
 		// should follow the mesh settings, hard code here
-		return mStates.Init(&mRO);	//use default states
+		return mStates.InitPipelineStateObj(&mRO);	//use default states
 	}
 
 	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)

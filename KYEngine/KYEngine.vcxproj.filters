@@ -154,6 +154,9 @@
     <ClCompile Include="Graphic\HI\DX\Shader\Dx11ShaderResourceView.cpp">
       <Filter>Graphic\HI\DX\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Resource\Shader\ShaderResourceView.cpp">
+      <Filter>Graphic\Resource\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -357,6 +360,9 @@
     <ClInclude Include="Graphic\HI\DX\Dx11Resource.h">
       <Filter>Graphic\HI\DX</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Resource\Shader\ShaderResourceView.h">
+      <Filter>Graphic\Resource\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -480,6 +486,12 @@
     </None>
     <None Include="Graphic\Resource\Texture\TextureTypeTraits.inl">
       <Filter>Graphic\Resource\Texture</Filter>
+    </None>
+    <None Include="Resource\Shader\ScreenTexQuad.ps">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\ScreenTexQuad.vs">
+      <Filter>Resource\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>
