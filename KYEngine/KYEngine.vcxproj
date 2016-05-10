@@ -156,6 +156,7 @@
     <ClInclude Include="DebugUtils\TraceUtils.h" />
     <ClInclude Include="Graphic\Camera\Camera.h" />
     <ClInclude Include="Graphic\Camera\CameraController.h" />
+    <ClInclude Include="Graphic\GraphicDataDef.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11HardwareInterface.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11Resource.h" />

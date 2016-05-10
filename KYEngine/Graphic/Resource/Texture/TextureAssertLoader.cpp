@@ -6,13 +6,13 @@
 
 namespace KY
 {
-	size_t TextureAssertLoader::GetSizeInBytes() const
+	uint32 TextureAssertLoader::GetSizeInBytes() const
 	{
-		const glm::uvec3 dim(RowPitch(), Height(), Depth());
+		const glm::uvec3 dim(RowPitchInElem(), Height(), Depth());
 
-		size_t sizeInBytes = 0;
-		size_t elemSize =	TextureFormatHelper::GetElemSize(GetTexFormat());
-		for (size_t ii = 0; ii < MipMapNum(); ++ii)
+		uint32 sizeInBytes = 0;
+		uint32 elemSize =	TextureFormatHelper::GetElemSize(GetTexFormat());
+		for (uint32 ii = 0; ii < MipMapNum(); ++ii)
 		{
 			const glm::uvec3 dimMip = TextureFormatHelper::GetMipmapLevelSize(ii, dim);
 			sizeInBytes += elemSize * dimMip.x * dimMip.y * dimMip.z;
@@ -22,5 +22,10 @@ namespace KY
 	}
 
 
+
+	KY::uint32 TextureAssertLoader::RowPitchInBytes() const
+	{
+		return TextureFormatHelper::GetElemSize(GetTexFormat()) * RowPitchInElem();
+	}
 
 }

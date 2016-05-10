@@ -53,7 +53,8 @@ namespace KY
 
 			ResourceData data = {
 				loader->GetData(),
-				0, 0,
+				loader->RowPitchInBytes(), 
+				0,
 			};
 
 			return Create(tex2dParam, data);

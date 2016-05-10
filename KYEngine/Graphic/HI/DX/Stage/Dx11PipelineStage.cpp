@@ -112,7 +112,12 @@ namespace KY
 
 		for (uint32 ii = 0; ii < objs.size(); ++ii)
 		{
-			dx11Objs[ii] = objs[ii]->GetInternal()->GetInternal();
+			if (objs[ii])
+			{
+				auto objImpl = objs[ii]->GetInternal();
+				if (objImpl)
+					dx11Objs[ii] = objImpl->GetInternal();
+			}
 		}
 
 		return dx11Objs;
@@ -124,7 +129,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
-		context->VSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+		if (!dx11Objs.empty())
+			context->VSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
 	}
 
 	void DX::Dx11VSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
@@ -133,7 +139,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
-		context->VSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
+		if (!dx11Objs.empty())
+			context->VSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -186,7 +193,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
-		context->PSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+		if (!dx11Objs.empty())
+			context->PSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
 	}
 
 	void DX::Dx11PSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
@@ -195,7 +203,8 @@ namespace KY
 		BOOST_ASSERT(context);
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
-		context->PSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
+		if (!dx11Objs.empty())
+			context->PSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
 	}
 
 	//////////////////////////////////////////////////////////////////////////

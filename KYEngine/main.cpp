@@ -16,6 +16,10 @@
 #include "Graphic/Resource/State/StateHelper.h"
 #include "Graphic/Resource/Buffer/ConstBufferDef.h"
 #include "Graphic/Resource/ResourceManager.h"
+#include "Graphic/Resource/Texture/TextureAssertLoader.h"
+#include "Graphic/Resource/Texture/Texture.h"
+#include "Graphic/Resource/Texture/Texture.inl"
+#include "Graphic/Resource/Texture/TextureTypeTraits.inl"
 
 #include "Graphic/Render/RenderOperation.h"
 #include "Graphic/Render/Viewport.h"
@@ -65,7 +69,7 @@ public:
 	{		
 		auto scene = System::Inst()->GetScene();
 		BOOST_ASSERT(nullptr == mActor);
-		mActor = new TriangleActor;
+		mActor = new TriangleTexActor;
 		scene->AddActor(mActor);
 
 		//Vec4f v(100.f, 0.f, 900.f, 1.0f);
@@ -227,9 +231,13 @@ private:
 			, mVertexShader(nullptr)
 			, mPixelShader(nullptr)
 			, mDynConstBuffer(ResT_Const)
+			, mSRV(nullptr)
+			, mTex2D(nullptr)
 		{
 			InitBufferData();
 			InitShadersAndInputLayout();
+
+			InitPSShaderResourceView();
 			InitState();
 		}
 
@@ -267,6 +275,33 @@ private:
 
 		bool InitPSShaderResourceView()
 		{
+			BOOST_ASSERT(nullptr == mTex2D);
+			BOOST_ASSERT(nullptr == mSRV);
+
+			mTex2D = new KY::Texture2D;
+
+			//{@
+			const uint32 width = 2, height = 2;
+
+			//@}
+			std::vector<uint8> rawBuffer(width * height * 4); // 2 x 2 rgba texture
+
+			Color32B *clr = (Color32B*)(&rawBuffer[0]);
+
+			*clr++ = Color32B::Red;
+			*clr++ = Color32B::Green;
+			*clr++ = Color32B::Blue;
+			*clr++ = Color32B::Black;
+
+			TextureMemoryLoader loader(width, height, 1, TF_R8G8B8A8_UNORM, std::move(rawBuffer));
+			TextureParam tp = { 1, 1, BF_ShaderResource, BA_None, RU_Default, TF_R8G8B8A8_UNORM, {1, 0},  0};
+			BOOST_VERIFY(mTex2D->Init(tp, &loader));
+
+			mSRV = new KY::ShaderResourceView;
+			SRVParam p = { TF_R8G8B8A8_UNORM, SRVParam::SRVType::Tex2D, {0, 1} };
+			mSRV->Init(p, mTex2D);
+
+			mRO.SetPSShaderResourceView(0, mSRV);
 			return true;
 		}
 
@@ -331,7 +366,7 @@ private:
 			mStates.InitPipelineStateObj(&rsState, &dsState, &blendState, &mRO);
 
 			KY::SamplerState ss;
-			mStates.InitSamplerStateObjs(0, 1, &ss, &mRO);
+			mStates.InitPSSamplerStateObjs(0, 1, &ss, &mRO);
 
 			return true;
 		}
@@ -382,6 +417,7 @@ private:
 		KY::Shader			*mPixelShader;
 
 		KY::ShaderResourceView *mSRV;
+		KY::Texture2D* mTex2D;
 
 		KY::StateHelper		mStates;
 	};
@@ -577,14 +613,14 @@ int MainEntry()
 	{
 		auto vp = system->GetMainVP();
 
-		//SimpleTriangleTest tt;		
+		SimpleTriangleTest tt;		
 
-		ModelTest tt;
-		auto camera = vp->GetCamera();
+		//ModelTest tt;
+		//auto camera = vp->GetCamera();
 
-		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
-		auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
-		camera->SetDirection(direct);
+		//camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
+		//auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
+		//camera->SetDirection(direct);
 		
 		tt.Init(vp);
 		system->Run();

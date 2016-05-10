@@ -363,6 +363,9 @@
     <ClInclude Include="Graphic\Resource\Shader\ShaderResourceView.h">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\GraphicDataDef.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

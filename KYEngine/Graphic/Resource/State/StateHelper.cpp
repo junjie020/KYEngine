@@ -16,7 +16,7 @@ namespace KY
 		, mDSObj(nullptr)
 		, mBlendObj(nullptr)
 	{
-
+		ZERO_MEMORY(mPSSamplerObjs);
 	}
 
 	StateHelper::~StateHelper()
@@ -24,6 +24,9 @@ namespace KY
 		SafeDelete(mRSObj);
 		SafeDelete(mDSObj);
 		SafeDelete(mBlendObj);
+
+		for (auto &s : mPSSamplerObjs)
+			SafeDelete(s);
 	}
 
 	template<class StateObjType>
@@ -58,7 +61,7 @@ namespace KY
 
 	SamplerStateObj* StateHelper::InitSamplerObj(uint32 idx, const SamplerState &state)
 	{
-		return InitStateObj(mSamplerObjs[idx], state);
+		return InitStateObj(mPSSamplerObjs[idx], state);
 	}
 
 	bool StateHelper::InitPipelineStateObj(RenderOperation *ro)
@@ -90,7 +93,7 @@ namespace KY
 		return true;
 	}
 
-	bool StateHelper::InitSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *op)
+	bool StateHelper::InitPSSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *op)
 	{
 		while (idx < count)
 		{
@@ -99,8 +102,10 @@ namespace KY
 			{
 				auto obj = InitSamplerObj(idx, *ss);
 
-				op->SetVSSamplerState(idx, obj);
+				op->SetPSSamplerState(idx, obj);
 			}
+
+			++idx;
 		}
 
 		return true;

@@ -14,6 +14,8 @@ namespace KY
 	{
 	public:
 		typedef HITextureType InternaleType;
+		TextureTypeTraits() : mTex(nullptr){ }
+		~TextureTypeTraits();
 		HITextureType* Create();
 		void Destory();
 

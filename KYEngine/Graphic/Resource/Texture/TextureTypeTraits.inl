@@ -5,6 +5,12 @@
 namespace KY
 {
 	template<TextureType TType, class HITextureType>
+	TextureTypeTraits<TType, HITextureType>::~TextureTypeTraits() 
+	{
+		Destory();
+	}
+
+	template<TextureType TType, class HITextureType>
 	void TextureTypeTraits<TType, HITextureType>::Destory()
 	{
 		SafeDelete(mTex);

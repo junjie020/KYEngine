@@ -435,6 +435,7 @@ namespace KY
 	struct SRVParam
 	{
 		enum class SRVType {
+			Unknown = 0,
 			Buffer,
 			Tex1D,
 			Tex1DArray,

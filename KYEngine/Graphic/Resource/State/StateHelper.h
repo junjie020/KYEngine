@@ -37,7 +37,7 @@ namespace KY
 		bool InitPipelineStateObj(const RasterizerState *rsState, const DepthStencilState *dsState, const BlendState *blendState, RenderOperation *ro);
 		bool InitPipelineStateObj(RenderOperation *ro);
 
-		bool InitSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *ro);
+		bool InitPSSamplerStateObjs(uint32 idx, uint32 count, const SamplerState *sState, RenderOperation *ro);
 
 	private:
 		void InitRO(RenderOperation *ro);		
@@ -47,7 +47,7 @@ namespace KY
 		DepthStencilStateObj*	mDSObj;
 		BlendStateObj*			mBlendObj;
 
-		SamplerStateObj*		mSamplerObjs[MAX_SAMPLER_STATE_NUM];
+		SamplerStateObj*		mPSSamplerObjs[MAX_SAMPLER_STATE_NUM];
 	};
 }
 #endif	//__STATEHELPER_H__
