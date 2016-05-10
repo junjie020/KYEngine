@@ -99,7 +99,7 @@ namespace KY
 			{
 				auto obj = InitSamplerObj(idx, *ss);
 
-				op->SetSamplerState(idx, obj);
+				op->SetVSSamplerState(idx, obj);
 			}
 		}
 

@@ -23,7 +23,7 @@ namespace KY
 
 		bool Init(const SRVParam &param, Resource *res);
 
-		DX::Dx11ShaderResourceView* GetInternal() {
+		DX::Dx11ShaderResourceView* GetInternal() const {
 			return mSRV;
 		}
     private:

@@ -1,6 +1,8 @@
 #ifndef _PIPELINESTAGE_H_
 #define _PIPELINESTAGE_H_
 #include "Graphic/GraphicDef.h"
+#include "Graphic/GraphicDataDef.h"
+
 #include "Graphic/HI/DX/Stage/Dx11PipelineStage.h"
 
 namespace KY
@@ -21,6 +23,9 @@ namespace KY
 	class RasterizerStateObj;
 	class DepthStencilStateObj;
 	class BlendStateObj;
+	class SamplerStateObj;
+
+	class ShaderResourceView;
 
     class PipelineStage
     {
@@ -82,6 +87,12 @@ namespace KY
 
 		void SetShader(const Shader *shader);
 		void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
+
+		void SetSamplerState(uint32 idx, const SamplerStateObj *obj);
+		void SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs);
+
+		void SetShaderResourceView(uint32 idx, const ShaderResourceView *srv);
+		void SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs);
 	};
 
 	class HSStage : public PipelineStage
@@ -137,6 +148,12 @@ namespace KY
 
 		void SetShader(const Shader *shader);
 		void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
+
+		void SetSamplerState(uint32 idx, const SamplerStateObj *obj);
+		void SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs);
+
+		void SetShaderResourceView(uint32 idx, const ShaderResourceView *srv);
+		void SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs);
 	};
 
 	class OMStage : public PipelineStage

@@ -2,6 +2,8 @@
 #define _DX11PIPELINESTAGE_H_
 
 #include "Graphic/GraphicDef.h"
+#include "Graphic/GraphicDataDef.h"
+
 namespace KY
 {
 	class InputLayout;
@@ -15,7 +17,9 @@ namespace KY
 	class RasterizerStateObj;
 	class DepthStencilStateObj;
 	class BlendStateObj;
-
+	class SamplerStateObj;
+	
+	class ShaderResourceView;
 
 	namespace DX
 	{
@@ -34,8 +38,8 @@ namespace KY
 			void SetShader(const Shader *shader);
 			void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
 
-			void SetSamplers();
-			void SetShaderResourceViews();
+			void SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs);
+			void SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs);
 		};
 
 		class Dx11RSStage
@@ -51,6 +55,9 @@ namespace KY
 		public:
 			void SetShader(const Shader *shader);
 			void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
+
+			void SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs);
+			void SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs);
 		};
 
 		class Dx11OMStage

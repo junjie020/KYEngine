@@ -2,6 +2,7 @@
 #define _RENDEROPERATION_H_
 
 #include "Graphic/GraphicDef.h"
+#include "Graphic/GraphicDataDef.h"
 
 namespace KY
 {
@@ -31,8 +32,6 @@ namespace KY
 		uint32 mBaseVertexLocation;
 	};
 
-	using ShaderResourceViewVec = std::vector<ShaderResourceView*>;
-
 	class RenderOperation
 	{
 	public:
@@ -46,7 +45,8 @@ namespace KY
 		{
 			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
 			ZERO_MEMORY(mShaders);
-			ZERO_MEMORY(mSamplerStateoObjs);
+			ZERO_MEMORY(mVSSamplerStateoObjs);
+			ZERO_MEMORY(mPSSamplerStateoObjs);
 		}
 		~RenderOperation(){}
 
@@ -95,17 +95,38 @@ namespace KY
 		//@}
 
 		//{@
-		void SetSamplerState(uint32 idx, SamplerStateObj *stateObj) {
-			mSamplerStateoObjs[idx] = stateObj;
+		void SetVSSamplerState(uint32 idx, SamplerStateObj *stateObj) {
+			mVSSamplerStateoObjs[idx] = stateObj;
 		}
 
-		void SetSamplerState(uint32 idx, uint32 count, SamplerStateObj *stateObj) {
-			BOOST_ASSERT((idx + count) < COUNT_OF(mSamplerStateoObjs));
-			memcpy(mSamplerStateoObjs[idx], stateObj, count);
+		void SetVSSamplerState(uint32 idx, uint32 count, SamplerStateObj *stateObj) {
+			BOOST_ASSERT((idx + count) < COUNT_OF(mVSSamplerStateoObjs));
+			memcpy(mVSSamplerStateoObjs[idx], stateObj, count);
 		}
 
-		SamplerStateObj* GetSamplerObj(uint32 idx) const {
-			return mSamplerStateoObjs[idx];
+		SamplerStateObj* GetVSSamplerObj(uint32 idx) const {
+			return mVSSamplerStateoObjs[idx];
+		}
+
+		SamplerStateObj** GetVSSamplerObjs() const {
+			return (SamplerStateObj**)mVSSamplerStateoObjs;
+		}
+
+		void SetPSSamplerState(uint32 idx, SamplerStateObj *stateObj) {
+			mPSSamplerStateoObjs[idx] = stateObj;
+		}
+
+		void SetPSSamplerState(uint32 idx, uint32 count, SamplerStateObj *stateObj) {
+			BOOST_ASSERT((idx + count) < COUNT_OF(mPSSamplerStateoObjs));
+			memcpy(mPSSamplerStateoObjs[idx], stateObj, count);
+		}
+
+		SamplerStateObj* GetPSSamplerObj(uint32 idx) const {
+			return mPSSamplerStateoObjs[idx];
+		}
+
+		SamplerStateObj** GetPSSamplerObjs() const {
+			return (SamplerStateObj**)mPSSamplerStateoObjs;
 		}
 
 		void SetShaderResourceView(uint32 idx, ShaderResourceView *srv, ShaderResourceViewVec &srvs){
@@ -128,6 +149,24 @@ namespace KY
 
 		void SetPSShaderResourceView(uint32 idx, ShaderResourceView *srv) {
 			SetShaderResourceView(idx, srv, mPSSRV);
+		}
+
+		ShaderResourceView* GetVSShaderResourceView(uint32 idx) const {
+			BOOST_ASSERT(idx < mVSSRV.size());
+			return mVSSRV[idx];
+		}
+
+		const ShaderResourceViewVec& GetVSShaderResourceViews() const {
+			return mVSSRV;
+		}
+
+		ShaderResourceView* GetPSShaderResourceView(uint32 idx) const {
+			BOOST_ASSERT(idx < mPSSRV.size());
+			return mPSSRV[idx];
+		}
+
+		const ShaderResourceViewVec& GetPSShaderResourceViews() const {
+			return mPSSRV;
 		}
 		//@}
 
@@ -203,7 +242,8 @@ namespace KY
 		ShaderResourceViewVec	mVSSRV;
 		ShaderResourceViewVec	mPSSRV;
 		
-		SamplerStateObj*		mSamplerStateoObjs[MAX_SAMPLER_STATE_NUM];
+		SamplerStateObj*		mVSSamplerStateoObjs[MAX_SAMPLER_STATE_NUM];
+		SamplerStateObj*		mPSSamplerStateoObjs[MAX_SAMPLER_STATE_NUM];
 
 		PrimitiveType	mPriType;
     };

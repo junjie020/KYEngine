@@ -46,6 +46,26 @@ namespace KY
 		mVS->SetConstBuffer(buffer, info);
 	}
 
+	void VSStage::SetSamplerState(uint32 idx, const SamplerStateObj *obj)
+	{
+		mVS->SetSamplerStates(idx, { obj });
+	}
+
+	void VSStage::SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs)
+	{
+		mVS->SetSamplerStates(idx, objs);
+	}
+
+	void VSStage::SetShaderResourceView(uint32 idx, const ShaderResourceView *srv)
+	{
+		mVS->SetShaderResourceViews(idx, {srv});
+	}
+
+	void VSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
+	{
+		mVS->SetShaderResourceViews(idx, srvs);
+	}
+
 	VSStage::VSStage()
 	{
 		mVS = new DX::Dx11VSStage;
@@ -86,6 +106,26 @@ namespace KY
 	void PSStage::SetConstBuffer(const Buffer &buffer, const BufferInfo &info)
 	{
 		mPS->SetConstBuffer(buffer, info);
+	}
+
+	void PSStage::SetSamplerState(uint32 idx, const SamplerStateObj *obj)
+	{
+		mPS->SetSamplerStates(idx, {obj});
+	}
+
+	void PSStage::SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs)
+	{
+		mPS->SetSamplerStates(idx, objs);
+	}
+
+	void PSStage::SetShaderResourceView(uint32 idx, const ShaderResourceView *srv)
+	{
+		mPS->SetShaderResourceViews(idx, { srv });
+	}
+
+	void PSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
+	{
+		mPS->SetShaderResourceViews(idx, srvs);
 	}
 
 	PSStage::PSStage()

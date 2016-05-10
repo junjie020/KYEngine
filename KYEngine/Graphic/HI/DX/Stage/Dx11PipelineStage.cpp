@@ -19,6 +19,10 @@
 
 
 #include "Graphic/HI/DX/Shader/Dx11Shader.h"
+
+#include "Graphic/Resource/Shader/ShaderResourceView.h"
+#include "Graphic/HI/DX/Shader/Dx11ShaderResourceView.h"
+
 #include "Graphic/HI/DX/DX11NameTranslator.h"
 
 #include "Graphic/Resource/State/StateObject.h"
@@ -101,6 +105,37 @@ namespace KY
 		context->VSSetConstantBuffers(info.slotIdx, 1, &dx11Buf);
 	}
 
+	template<class DataObjContainer>
+	static auto ExtractDx11ObjFromCArray(const DataObjContainer &objs)
+	{
+		std::vector<decltype(objs[0]->GetInternal()->GetInternal())> dx11Objs(objs.size());
+
+		for (uint32 ii = 0; ii < objs.size(); ++ii)
+		{
+			dx11Objs[ii] = objs[ii]->GetInternal()->GetInternal();
+		}
+
+		return dx11Objs;
+	}
+
+	void DX::Dx11VSStage::SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs)
+	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
+
+		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
+		context->VSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+	}
+
+	void DX::Dx11VSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
+	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
+
+		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
+		context->VSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 	void DX::Dx11RSStage::SetViewPort(const Viewport *vp)
 	{
@@ -143,6 +178,24 @@ namespace KY
 
 		auto d3dBuffer = buffer.GetInternal()->GetInternal();
 		context->PSSetConstantBuffers(info.slotIdx, 1, &d3dBuffer);
+	}
+
+	void DX::Dx11PSStage::SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs)
+	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
+
+		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
+		context->PSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+	}
+
+	void DX::Dx11PSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
+	{
+		auto context = GET_CONTEXT();
+		BOOST_ASSERT(context);
+
+		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
+		context->PSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
 	}
 
 	//////////////////////////////////////////////////////////////////////////

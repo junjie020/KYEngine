@@ -114,6 +114,14 @@ namespace KY
 						const BufferInfo info = { 0, 0, bb.first };	// hard code offset and strides
 						vs->SetConstBuffer(*(bb.second), info);					
 					}
+
+					auto samples = ro->GetVSSamplerObjs();
+					SamplerStateObjConstVec sampleVec(MAX_SAMPLER_STATE_NUM);
+					memcpy(&sampleVec[0], samples, MAX_SAMPLER_STATE_NUM * sizeof(SamplerStateObj*));
+					vs->SetSamplerStates(0, sampleVec);
+
+					auto srvs = ro->GetVSShaderResourceViews();
+					vs->SetShaderResourceViews(0, ShaderResourceViewConstVec(srvs.begin(), srvs.end()));
 				}
 				//@}
 
@@ -138,7 +146,16 @@ namespace KY
 					{
 						const BufferInfo info = { 0, 0, bb.first };	// hard code offset and strides
 						ps->SetConstBuffer(*(bb.second), info);
+
 					}
+
+					auto samples = ro->GetPSSamplerObjs();
+					SamplerStateObjConstVec sampleVec(MAX_SAMPLER_STATE_NUM);
+					memcpy(&sampleVec[0], samples, MAX_SAMPLER_STATE_NUM * sizeof(SamplerStateObj*));
+					ps->SetSamplerStates(0, sampleVec);
+
+					auto srvs = ro->GetPSShaderResourceViews();
+					ps->SetShaderResourceViews(0, ShaderResourceViewConstVec(srvs.begin(), srvs.end()));
 				}
 				//@}
 
