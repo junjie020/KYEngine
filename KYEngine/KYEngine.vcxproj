@@ -95,6 +95,7 @@
     <ClCompile Include="Graphic\Camera\Camera.cpp" />
     <ClCompile Include="Graphic\Camera\CameraController.cpp" />
     <ClCompile Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.cpp" />
+    <ClCompile Include="Graphic\HI\DX\Render\Dx11RenderTargetView.cpp" />
     <ClCompile Include="Graphic\HI\DX\Shader\Dx11Shader.cpp" />
     <ClCompile Include="Graphic\HI\DX\Buffer\DX11VertexBuffer.cpp" />
     <ClCompile Include="Graphic\HI\DX\Buffer\DX11Buffer.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="Graphic\Frustum.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp" />
+    <ClCompile Include="Graphic\Render\RenderTargetView.cpp" />
     <ClCompile Include="Graphic\Resource\Shader\ShaderResourceView.cpp" />
     <ClCompile Include="Graphic\Resource\Texture\TextureAssertLoader.cpp" />
     <ClCompile Include="Graphic\Resource\Texture\TextureFormatHelper.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11HardwareInterface.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11Resource.h" />
+    <ClInclude Include="Graphic\HI\DX\Render\Dx11RenderTargetView.h" />
     <ClInclude Include="Graphic\HI\DX\Shader\Dx11Shader.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11VertexBuffer.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11Buffer.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
+    <ClInclude Include="Graphic\Render\RenderTargetView.h" />
     <ClInclude Include="Graphic\Resource\Shader\ShaderResourceView.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureAssertLoader.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h" />

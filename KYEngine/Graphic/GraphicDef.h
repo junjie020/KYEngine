@@ -405,16 +405,16 @@ namespace KY
 
 
 	//{@
-	namespace SRVDataType
+	struct SRVParam
 	{
 		struct Buffer {
-			union  
+			union
 			{
 				uint32 idx;
 				uint32 offset;
 			};
 
-			union 
+			union
 			{
 				uint32 numElms;
 				uint32 elemWidth;
@@ -429,11 +429,8 @@ namespace KY
 		struct Tex2D {
 			uint32 mostDetailedMip;
 			uint32 mipLevels;
-		};
-	}
 
-	struct SRVParam
-	{
+		};
 		enum class SRVType {
 			Unknown = 0,
 			Buffer,
@@ -453,12 +450,93 @@ namespace KY
 		SRVType type;
 		union  
 		{
-			SRVDataType::Buffer buffer;
-			SRVDataType::Tex1D tex1D;
-			SRVDataType::Tex2D tex2D;
+			SRVParam::Buffer buffer;
+			SRVParam::Tex1D tex1D;
+			SRVParam::Tex2D tex2D;
 		};
 	};
 	//@}	 
+
+	//{@
+	struct RTVParam
+	{
+		struct Buffer{
+			union{
+				uint32 startElem;
+				uint32 offset;
+			};
+			union{
+				uint32 elemCount;
+				uint32 elemWidth;
+			};
+		};
+
+		struct Tex1D {
+			uint32 mipSlice;
+		};
+
+		struct Tex1DArray
+		{
+			uint32 mipSlice;
+			uint32 firstArraySlice;
+			uint32 arraySize;
+		};
+
+		struct Tex2D
+		{
+			uint32 mipSlice;
+		};
+
+		struct Tex2DMS
+		{
+			uint32 UnusedField_NothingToDefine;
+		};
+
+		struct Tex2DArray
+		{
+			uint32 mipSlice;
+			uint32 firstArraySlice;
+			uint32 arraySize;
+		} ;
+
+		struct Tex2DMSArray
+		{
+			uint32 firstArraySlice;
+			uint32 arraySize;
+		} ;
+
+		struct Tex3D
+		{
+			uint32 mipSlice;
+			uint32 firstWSlice;
+			uint32 wSize;
+		} ;
+
+		enum class RTVType {
+			Unknown = 0,
+			Buffer,
+			Tex1D,
+			Tex1DArray,
+			Tex2D,
+			Tex2DArray,
+			Tex2DMS,
+			Tex2DMSArray,
+			Tex3D,		
+		};
+
+		TexFormat fmt;
+		RTVType type;
+		union {
+			RTVParam::Tex1D tex1D;
+			RTVParam::Tex1DArray tex1DArray;
+			RTVParam::Tex2D tex2D;
+			RTVParam::Tex2DMS tex2DMS;
+			RTVParam::Tex2DArray tex2DArray;
+			RTVParam::Tex2DMSArray tex2DMSArray;
+			RTVParam::Tex3D tex3D;
+		};
+	};
+	//@}
 
 	struct ResourceMapParam
 	{

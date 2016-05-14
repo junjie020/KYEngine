@@ -157,6 +157,12 @@
     <ClCompile Include="Graphic\Resource\Shader\ShaderResourceView.cpp">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Render\RenderTargetView.cpp">
+      <Filter>Graphic\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\HI\DX\Render\Dx11RenderTargetView.cpp">
+      <Filter>Graphic\HI\DX\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -366,6 +372,12 @@
     <ClInclude Include="Graphic\GraphicDataDef.h">
       <Filter>Graphic</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Render\RenderTargetView.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\HI\DX\Render\Dx11RenderTargetView.h">
+      <Filter>Graphic\HI\DX\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -457,6 +469,9 @@
     </Filter>
     <Filter Include="Graphic\HI\DX\Texture">
       <UniqueIdentifier>{5ccdd5d2-99c3-46a4-870a-424564789e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\HI\DX\Render">
+      <UniqueIdentifier>{0461408f-96d9-4c96-bbba-5f38e86d5fb3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

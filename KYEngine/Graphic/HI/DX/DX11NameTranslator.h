@@ -8,6 +8,8 @@
 #include <d3d11.h>
 namespace KY
 {
+	class Resource;
+
 	namespace DX
 	{
 		class DX11NameTranslator : public Singleton<DX11NameTranslator>
@@ -38,8 +40,11 @@ namespace KY
 			inline FeatureLevel	FromeFeatureLevel(D3D_FEATURE_LEVEL level) const;
 
 			inline D3D11_MAP TopMap(ResourceMapType type) const;
+			ID3D11Resource* ToD3DResource(Resource *res) const;
 
 			D3D11_PRIMITIVE_TOPOLOGY ToPrimitiveTopology(PrimitiveType type) const;
+
+			
 		};
 
 		inline D3D11_USAGE DX11NameTranslator::ToUsage(ResourceUsage usage) const

@@ -16,33 +16,12 @@
 
 #include "Graphic/HI/DX/Buffer/DX11Buffer.h"
 #include "Graphic/HI/DX/Texture/Dx11Texture.h"
+#include "Graphic/HI/DX/DX11NameTranslator.h"
 
 namespace KY
 {
 	namespace DX
 	{
-
-
-		static inline ID3D11Resource* get_dx_res(Resource *res)
-		{
-			switch (res->GetResourceType())
-			{
-			case ResourceType::ResT_Vertex:
-			case ResourceType::ResT_Index:
-			case ResourceType::ResT_Const:
-				return static_cast<Buffer*>(res)->GetInternal()->GetInternal();
-				break;
-
-			case ResourceType::ResT_Texture:
-				return static_cast<Texture2D*>(res)->GetInternal()->GetInternal();
-
-			default:
-				break;
-			}
-
-			BOOST_ASSERT(false && "not support enum");
-			return nullptr;
-		}
 		bool Dx11ShaderResourceView::Init(const SRVParam &param, Resource *res)
 		{
 			auto dx11 = Graphic::Inst()->GetDx11();
@@ -81,7 +60,7 @@ namespace KY
 				break;
 			}
 
-			return SUCCEEDED(device->CreateShaderResourceView(get_dx_res(res), &desc, &mInternal));
+			return SUCCEEDED(device->CreateShaderResourceView(DX::DX11NameTranslator::Inst()->ToD3DResource(res), &desc, &mInternal));
 		}
 	}
 }

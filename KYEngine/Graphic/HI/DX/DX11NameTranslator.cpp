@@ -1,10 +1,40 @@
 #include "stdafx.h"
 #include "DX11NameTranslator.h"
 
+#include "Graphic/Resource/Resource.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
+#include "Graphic/Resource/Texture/Texture.h"
+#include "Graphic/Resource/Texture/Texture.inl"
+
+#include "Graphic/HI/DX/Buffer/DX11Buffer.h"
+#include "Graphic/HI/DX/Texture/Dx11Texture.h"
+
 namespace KY
 {
 	namespace DX
 	{
+
+		ID3D11Resource* DX11NameTranslator::ToD3DResource(Resource *res) const
+		{
+			switch (res->GetResourceType())
+			{
+			case ResourceType::ResT_Vertex:
+			case ResourceType::ResT_Index:
+			case ResourceType::ResT_Const:
+				return static_cast<Buffer*>(res)->GetInternal()->GetInternal();
+				break;
+
+			case ResourceType::ResT_Texture:
+				return static_cast<Texture2D*>(res)->GetInternal()->GetInternal();
+
+			default:
+				break;
+			}
+
+			BOOST_ASSERT(false && "not support enum");
+			return nullptr;
+		}
+
 		D3D11_PRIMITIVE_TOPOLOGY DX11NameTranslator::ToPrimitiveTopology(PrimitiveType type) const
 		{
 			D3D11_PRIMITIVE_TOPOLOGY d3dpri[] = {				
