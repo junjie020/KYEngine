@@ -262,7 +262,7 @@ private:
 
 			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
 
-			if (mBuffer.Create(param, data))
+			if (mBuffer.Init(param, data))
 			{
 				BufferInfo info = { 0, sizeof(VertexColor), 0 };
 				mRO.AddVertexBuffer(&mBuffer, info);
@@ -327,7 +327,7 @@ private:
 				mInputLayout.AddElem(*beg);
 			}
 
-			if (!mInputLayout.Create(*mVertexShader))
+			if (!mInputLayout.Init(*mVertexShader))
 			{
 				DebugOutline("create input layout failed!");
 				return false;
@@ -344,7 +344,7 @@ private:
 			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
-			if (mDynConstBuffer.Create(constParam, constData))
+			if (mDynConstBuffer.Init(constParam, constData))
 			{
 				mVertexShader->AddConstBuffer(0, &mDynConstBuffer);
 			}
@@ -459,7 +459,7 @@ private:
 
 			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
 
-			if (mBuffer.Create(param, data))
+			if (mBuffer.Init(param, data))
 			{
 				BufferInfo info = { 0, sizeof(VertexColor), 0 };
 				mRO.AddVertexBuffer(&mBuffer, info);
@@ -492,7 +492,7 @@ private:
 				mInputLayout.AddElem(*beg);
 			}
 
-			if (!mInputLayout.Create(*mVertexShader))
+			if (!mInputLayout.Init(*mVertexShader))
 			{
 				DebugOutline("create input layout failed!");
 				return false;
@@ -509,7 +509,7 @@ private:
 			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
-			if (mDynConstBuffer.Create(constParam, constData))
+			if (mDynConstBuffer.Init(constParam, constData))
 			{
 				mVertexShader->AddConstBuffer(0, &mDynConstBuffer);
 			}

@@ -6,18 +6,12 @@
 
 namespace KY
 {
-	RenderTargetView::~RenderTargetView()
-	{
-		SafeDelete(mRTV);
-	}
-
 	bool RenderTargetView::Init(const RTVParam &param, Resource *res)
 	{
-		BOOST_ASSERT(nullptr == mRTV);
+		BOOST_ASSERT(nullptr == mDx11Internal);
 
-		mRTV = new DX::Dx11RenderTargetView;
-
-		return mRTV->Init(param, res);
+		mDx11Internal = new DX::Dx11RenderTargetView;
+		return mDx11Internal->Init(param, res);
 	}
 
 }

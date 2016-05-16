@@ -177,6 +177,7 @@
     <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
     <ClInclude Include="Graphic\Render\RenderTargetView.h" />
+    <ClInclude Include="Graphic\Resource\IResourceInterface.h" />
     <ClInclude Include="Graphic\Resource\Shader\ShaderResourceView.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureAssertLoader.h" />
     <ClInclude Include="Graphic\Resource\Texture\TextureFormatHelper.h" />

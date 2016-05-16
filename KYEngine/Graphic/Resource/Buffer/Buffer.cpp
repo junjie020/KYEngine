@@ -5,34 +5,28 @@
 namespace KY
 {
 	Buffer::Buffer(ResourceType type)
-		: Resource(type)
-		, mBuffer(nullptr)
+		: Resource(type)		
 	{}
 
-	Buffer::~Buffer()
+	bool Buffer::Init(const BufferParam &param, const ResourceData &resData)
 	{
-		SafeDelete(mBuffer);
-	}
-
-	bool Buffer::Create(const BufferParam &param, const ResourceData &resData)
-	{
-		mBuffer = new DX::DX11Buffer(param, resData);
-		return mBuffer != nullptr;
+		mDx11Internal = new DX::DX11Buffer(param, resData);
+		return mDx11Internal != nullptr;
 	}
 
 	bool Buffer::Map(ResourceMapParam &param)
 	{
-		return mBuffer->Map(param);
+		return mDx11Internal->Map(param);
 	}
 
 	void Buffer::UnMap(uint32 subRes)
 	{
-		mBuffer->UnMap(subRes);
+		mDx11Internal->UnMap(subRes);
 	}
 
 	const BufferParam& Buffer::GetBufferParam() const
 	{
-		return mBuffer->GetBufferParam();
+		return mDx11Internal->GetBufferParam();
 	}
 
 

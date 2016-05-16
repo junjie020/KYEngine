@@ -2,29 +2,23 @@
 #define _BUFFER_H_
 
 #include "Graphic/Resource/Resource.h"
+#include "Graphic/Resource/IResourceInterface.h"
 #include "Graphic/HI/DX/Buffer/DX11Buffer.h"
 
 namespace KY
 {
-	namespace DX
-	{
-		class DX11Buffer;
-	}
 	class Buffer : public Resource
+		, public IResourceInterface<DX::DX11Buffer>
 	{
 	public:
-		Buffer(ResourceType type);
-		~Buffer();
+		Buffer(ResourceType type);		
 
 		bool Map(ResourceMapParam &param);
 		void UnMap(uint32 subRes);
 
-		bool Create(const BufferParam &param, const ResourceData &resData);
-		const DX::DX11Buffer* GetInternal() const{ return mBuffer; }
+		bool Init(const BufferParam &param, const ResourceData &resData);		
 
 		const BufferParam& GetBufferParam() const;
-	private:
-		DX::DX11Buffer *mBuffer;
 	};
 }
 #endif //_BUFFER_H_

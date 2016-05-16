@@ -127,7 +127,7 @@ namespace KY
 
 	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)
 {
-		mDynConstBuffer.Create({ ResT_Const, BA_Write, RU_Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
+		mDynConstBuffer.Init({ ResT_Const, BA_Write, RU_Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
 
 
 		{
@@ -146,13 +146,13 @@ namespace KY
 
 			//StaticLightInfo* staticLightInfo = lightSys->GetStaticInfo();
 
-			mLightConstBuffer.Create({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticLightConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+			mLightConstBuffer.Init({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticLightConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
 		}
 
 		{
 			StaticMaterialConstBuffer buffer;
 			buffer.diffColor = ColorF(1.0f, 0, 0, 1.0f);
-			mMaterialConstBuffer.Create({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+			mMaterialConstBuffer.Init({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
 		}
 
 		
@@ -183,7 +183,7 @@ namespace KY
 
 		BOOST_ASSERT(mVS->IsValid());
 
-		if (!mIP.Create(*mVS))
+		if (!mIP.Init(*mVS))
 		{
 			DebugOutline("create mesh input layout failed!");
 			return false;

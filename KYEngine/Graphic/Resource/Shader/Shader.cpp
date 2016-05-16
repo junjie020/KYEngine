@@ -8,15 +8,9 @@
 namespace KY
 {
 	Shader::Shader()	
-		: Resource(ResT_Shader)
-		, mShaderImpl(nullptr)
+		: Resource(ResT_Shader)		
 	{
 
-	}
-
-	Shader::~Shader()
-	{
-		SafeDelete(mShaderImpl);
 	}
 
 	bool Shader::InitFromFile(ShaderType type, const fs::path &file, const std::string &entry)
@@ -44,57 +38,35 @@ namespace KY
 
 	bool Shader::InitFromCode(ShaderType type, const std::string &shaderCode, const std::string &entry /*= "main"*/, const std::string &srcFileName /*= ""*/)
 	{
-		SafeDelete(mShaderImpl);
-		mShaderImpl = new DX::Dx11Shader(type, shaderCode, entry, nullptr, srcFileName);		
-		return mShaderImpl != nullptr;
+		SafeDelete(mDx11Internal);
+		mDx11Internal = new DX::Dx11Shader(type, shaderCode, entry, nullptr, srcFileName);
+		return mDx11Internal != nullptr;
 	}
 
 	KY::ShaderType Shader::GetShaderType() const
 	{
-		return mShaderImpl->GetType();
+		return mDx11Internal->GetType();
 	}
 
-	bool Shader::IsValid() const
-	{
-		return mShaderImpl && mShaderImpl->IsValid();
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-
-	InputLayout::InputLayout()
-		:mLayout(nullptr)
-	{
-
-	}
-
-	InputLayout::~InputLayout()
-	{
-		SafeDelete(mLayout);
-	}
-
+	//////////////////////////////////////////////////////////////////////////	
 	void InputLayout::AddElem(const InputElemDesc &elem)
 	{
-		if (nullptr == mLayout)
-			mLayout = new DX::DX11InputLayout;
+		if (nullptr == mDx11Internal)
+			mDx11Internal = new DX::DX11InputLayout;
 
-		mLayout->AddElement(elem);
+		mDx11Internal->AddElement(elem);
 	}
 
-	bool InputLayout::Create(const Shader &vs)
+	bool InputLayout::Init(const Shader &vs)
 	{
-		BOOST_ASSERT(mLayout);
+		BOOST_ASSERT(mDx11Internal);
 
-		return mLayout->Create(vs);
-	}
-
-	bool InputLayout::IsValid() const
-	{
-		return mLayout && mLayout->IsValid();
+		return mDx11Internal->Create(vs);
 	}
 
 	void InputLayout::Clean()
 	{
-		SafeDelete(mLayout);
+		SafeDelete(mDx11Internal);
 	}
 
 }

@@ -5,19 +5,12 @@
 
 namespace KY
 {
-	
-
-	ShaderResourceView::~ShaderResourceView()
-	{
-		SafeDelete(mSRV);
-	}
-
 	bool ShaderResourceView::Init(const SRVParam &param, Resource *res)
 	{
-		BOOST_ASSERT(nullptr == mSRV);
+		BOOST_ASSERT(nullptr == mDx11Internal);
 
-		mSRV = new DX::Dx11ShaderResourceView();
-		return mSRV->Init(param, res);
+		mDx11Internal = new DX::Dx11ShaderResourceView();
+		return mDx11Internal->Init(param, res);
 	}
 
 }

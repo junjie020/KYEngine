@@ -94,7 +94,7 @@ namespace KY
 		BufferParam param = { ResT_Vertex, BA_None, RU_Immutable, numElems * stride, 0 };
 
 		ResourceData data = { src, 0, 0 };
-		vb->Create(param, data);
+		vb->Init(param, data);
 
 		BufferInfo posInfo = { 0U, stride, slotIdx };
 		meshHelper.GetRO().AddVertexBuffer(vb, posInfo);
@@ -196,7 +196,7 @@ namespace KY
 
 				ResourceData ibResData = {reinterpret_cast<const uint8*>(&ibData[0]), 0, 0};
 
-				ib.Create(ibParam, ibResData);
+				ib.Init(ibParam, ibResData);
 
 				BufferInfo ibInfo = {0, elemSize, 0};
 				renderHelper.GetRO().SetIndexBuffer(&ib, ibInfo);

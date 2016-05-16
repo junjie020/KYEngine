@@ -378,6 +378,9 @@
     <ClInclude Include="Graphic\HI\DX\Render\Dx11RenderTargetView.h">
       <Filter>Graphic\HI\DX\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Resource\IResourceInterface.h">
+      <Filter>Graphic\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

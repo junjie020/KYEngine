@@ -2,32 +2,17 @@
 #define _SHADERRESOURCEVIEW_H_
 
 #include "Graphic/GraphicDef.h"
+#include "Graphic/Resource/IResourceInterface.h"
+
+#include "Graphic/HI/DX/Shader/Dx11ShaderResourceView.h"
 
 namespace KY
 {
 	class Resource;
-
-	namespace DX
-	{
-		class Dx11ShaderResourceView;
-	}
-
-    class ShaderResourceView
+    class ShaderResourceView : public IResourceInterface<DX::Dx11ShaderResourceView>
     {
     public:
-		ShaderResourceView() 
-			: mSRV(nullptr) 
-		{}
-
-		~ShaderResourceView();
-
 		bool Init(const SRVParam &param, Resource *res);
-
-		DX::Dx11ShaderResourceView* GetInternal() const {
-			return mSRV;
-		}
-    private:
-		DX::Dx11ShaderResourceView *mSRV;
     };
 }
 #endif // _SHADERRESOURCEVIEW_H_
