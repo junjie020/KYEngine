@@ -226,7 +226,7 @@ namespace KY
 			auto byteCode = vs11->GetShaderByteCode();
 
 			BOOST_ASSERT(!byteCode.empty());
-			return SUCCEEDED(device->CreateInputLayout(&*elems11.begin(), elems11.size(), &*byteCode.begin(), byteCode.size(), &mLayout));
+			return SUCCEEDED(device->CreateInputLayout(&*elems11.begin(), uint32(elems11.size()), &*byteCode.begin(), uint32(byteCode.size()), &mLayout));
 		}
 
 	}

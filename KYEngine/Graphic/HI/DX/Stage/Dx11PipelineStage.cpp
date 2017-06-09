@@ -130,7 +130,7 @@ namespace KY
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
 		if (!dx11Objs.empty())
-			context->VSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+			context->VSSetSamplers(idx, uint32(dx11Objs.size()), &dx11Objs[0]);
 	}
 
 	void DX::Dx11VSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
@@ -140,7 +140,7 @@ namespace KY
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
 		if (!dx11Objs.empty())
-			context->VSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
+			context->VSSetShaderResources(idx, uint32(dx11Objs.size()), &dx11Objs[0]);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -194,7 +194,7 @@ namespace KY
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(objs);
 		if (!dx11Objs.empty())
-			context->PSSetSamplers(idx, dx11Objs.size(), &dx11Objs[0]);
+			context->PSSetSamplers(idx, uint32(dx11Objs.size()), &dx11Objs[0]);
 	}
 
 	void DX::Dx11PSStage::SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs)
@@ -204,7 +204,7 @@ namespace KY
 
 		auto dx11Objs = ExtractDx11ObjFromCArray(srvs);
 		if (!dx11Objs.empty())
-			context->PSSetShaderResources(idx, dx11Objs.size(), &dx11Objs[0]);
+			context->PSSetShaderResources(idx, uint32(dx11Objs.size()), &dx11Objs[0]);
 	}
 
 	//////////////////////////////////////////////////////////////////////////

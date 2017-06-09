@@ -7,17 +7,17 @@ namespace KY
 	class TextureFormatHelper
 	{
 	public:
-		static size_t GetElemSize(TexFormat fmt)
+		static uint32 GetElemSize(TexFormat fmt)
 		{
 			auto it = mData.find(fmt);
 			if (it != mData.end())
 				return it->second.size;
 
 			BOOST_ASSERT(false && "not support format");
-			return size_t(-1);
+			return uint32(-1);
 		}
 
-		static glm::uvec3 GetMipmapLevelSize(size_t mip, const glm::uvec3 &dim)
+		static glm::uvec3 GetMipmapLevelSize(uint32 mip, const glm::uvec3 &dim)
 		{
 			return glm::uvec3(dim.x << mip, dim.y << mip, dim.z << mip);			
 		}
@@ -27,8 +27,8 @@ namespace KY
 	private:
 		struct Format
 		{
-			Format(size_t s, uint8 n) : size(s), elemNum(n){}
-			size_t size;
+			Format(uint32 s, uint8 n) : size(s), elemNum(n){}
+			uint32 size;
 			uint8 elemNum;
 		};
 

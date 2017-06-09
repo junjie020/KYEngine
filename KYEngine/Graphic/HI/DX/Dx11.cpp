@@ -72,7 +72,7 @@ namespace KY
 			}
 			
 			if (FAILED(::D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags,
-				&*levels.begin(), levels.size(), D3D11_SDK_VERSION, &mDevice, &returnLevel, &mDeviceContext)))
+				&*levels.begin(), uint32(levels.size()), D3D11_SDK_VERSION, &mDevice, &returnLevel, &mDeviceContext)))
 				return false;
 
 			mFeatureLevel = DX11NameTranslator::Inst()->FromeFeatureLevel(returnLevel);

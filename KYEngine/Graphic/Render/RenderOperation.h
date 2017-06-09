@@ -64,7 +64,7 @@ namespace KY
 		}
 
 		const VertexBufferInfo& GetVertexBufferInfo(uint32 idx) const { return mVBIs[idx]; }
-		size_t GetVertexBufferInfoCount() const { return mVBIs.size(); }
+		uint32 GetVertexBufferInfoCount() const { return uint32(mVBIs.size()); }
 		const VBIVec& GetVertexBufferInfos() const { return mVBIs; }
 		
 		void SetVertexDrawInfo(const DrawVertexBufferParam &vparam) { mvDrawParam = vparam; }

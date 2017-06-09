@@ -563,8 +563,8 @@ namespace KY
 	{
 		const uint8 *pData;
 		//{@ valid for texture resource
-		size_t pitch;
-		size_t slicePitch;
+		uint32 pitch;
+		uint32 slicePitch;
 		//@}
 	};
 

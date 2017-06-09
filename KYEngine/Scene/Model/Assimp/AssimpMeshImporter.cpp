@@ -26,7 +26,7 @@ namespace KY
 
 	}
 
-	static inline size_t get_slot_elem_size(SlotIndex idx)
+	static inline uint32 get_slot_elem_size(SlotIndex idx)
 	{
 		switch (idx)
 		{
@@ -90,8 +90,15 @@ namespace KY
 		VBs.push_back(new VertexBuffer);
 		VertexBuffer* vb = VBs.back();
 
-		const auto stride = get_slot_elem_size(slotIdx) * sizeof(float);
-		BufferParam param = { ResT_Vertex, BA_None, RU_Immutable, numElems * stride, 0 };
+		const uint32 stride = get_slot_elem_size(slotIdx) * sizeof(float);
+		BufferParam param = 
+		{ 
+			ResT_Vertex, 
+			BA_None, 
+			RU_Immutable, 
+			numElems * stride, 
+			uint32(0) 
+		};
 
 		ResourceData data = { src, 0, 0 };
 		vb->Init(param, data);
