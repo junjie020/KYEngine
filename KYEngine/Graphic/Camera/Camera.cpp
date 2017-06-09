@@ -15,13 +15,13 @@ namespace KY
 	{		
 	}
 
-	Camera::Camera(bool ortho, float w, float h, float n, float f)
+	Camera::Camera(bool , float w, float h, float n, float f)
 		: mMatProj(glm::ortho(w, h, n, f))
 		, mOrtho(true)
 		, mDirty(true)
 	{
 		mWorldMat = mat4x4_utils::INDENTIFY;		
-		BOOST_ASSERT(mOrtho == ortho);
+		//BOOST_ASSERT(mOrtho == ortho);
 	}
 
 	void Camera::ConstructAsOrtho(float w, float h, float n, float f)

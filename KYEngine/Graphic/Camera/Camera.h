@@ -25,15 +25,18 @@ namespace KY
 		virtual void SetScale(const glm::vec4 &scale) override;
 		virtual void SetWorldMat(const glm::mat4x4 &matWorld) override;
 
-		const Mat4x4F& GetViewMat() const {			
+		const Mat4x4F& GetViewMat() {
+			UpdateRelatedMatrix();
 			return mMatView;
 		}
 
-		const Mat4x4F& GetProjMat() const {			
+		const Mat4x4F& GetProjMat() {			
+			UpdateRelatedMatrix();
 			return mMatProj;
 		}
 
-		const Mat4x4F& GetViewProjMat() const {			
+		const Mat4x4F& GetViewProjMat() {			
+			UpdateRelatedMatrix();
 			return mMatViewProj;
 		}
 

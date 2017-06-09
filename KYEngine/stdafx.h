@@ -35,10 +35,16 @@ namespace fs = std::experimental::filesystem::v1;
 
 #include "glm/glm.hpp"
 
+#define NEED_BOOST 0
+#if NEED_BOOST
 //{@	boost
 #include "boost/assert.hpp"
 #include "boost/noncopyable.hpp"
 //@}
+#else //!NEED_BOOST
+#define BOOST_ASSERT(_CONDITION)	
+#define BOOST_VERIFY(_CONDITION)	_CONDITION
+#endif //NEED_BOOST
 
 //{@
 #include "Common/BaseTypes.h"

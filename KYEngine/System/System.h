@@ -21,7 +21,9 @@ namespace KY
 	class SampleTest;
 
 	class System : public Singleton<System>
-				 , public boost::noncopyable
+#if NEED_BOOST
+		: public boost::noncopyable
+#endif
 	{
 		System(const System& rhs);
 	public:

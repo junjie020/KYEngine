@@ -132,10 +132,11 @@ namespace KY
 
 		{
 			StaticLightConstBuffer buffer;
-			buffer.lightVec = Vec4f(100.f, 100.f, 100.f, 0.0f);
+			buffer.lightVec = Vec4f(100.f, -100.f, -100.f, 0.0f);
 			glm::normalize(buffer.lightVec);
 
-			buffer.eyePos = rt->GetCamera()->GetPostion();
+			auto camera = rt->GetCamera();
+			buffer.eyePos = camera->GetPostion();
 
 			buffer.diffColor = ColorF(1.0f, 1.0f, 1.0f, 1.0f);
 			buffer.ambientColor = ColorF(0.02f, 0.02f, 0.02f, 1.0f);
@@ -152,6 +153,7 @@ namespace KY
 		{
 			StaticMaterialConstBuffer buffer;
 			buffer.diffColor = ColorF(1.0f, 0, 0, 1.0f);
+			buffer.specularPow = 8.f;
 			mMaterialConstBuffer.Init({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
 		}
 

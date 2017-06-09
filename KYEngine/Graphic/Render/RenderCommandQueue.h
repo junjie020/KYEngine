@@ -1,12 +1,18 @@
 #ifndef _RENDERCOMMANDQUEUE_H_
 #define _RENDERCOMMANDQUEUE_H_
 
+#if NEED_BOOST
 #include "boost/noncopyable.hpp"
+#endif 
 namespace KY
 {
 	class RenderOperation;
 
-    class RenderCommandQueue : public boost::noncopyable
+    class RenderCommandQueue 
+#if NEED_BOOST
+		: public boost::noncopyable
+#endif
+		
     {
     public:
     	~RenderCommandQueue();

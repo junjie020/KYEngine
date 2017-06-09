@@ -1,4 +1,4 @@
-cbuffer MatBuffer : register(b0)
+cbuffer MatrixBuffer : register(b0)
 {
 	matrix matWorld;
 	matrix matView;
@@ -8,7 +8,7 @@ cbuffer MatBuffer : register(b0)
 
 cbuffer LightBuffer : register(b1)
 {
-	float4		lightDiffColor;
+	float4		lightColor;	
 	float4		lightAmbientClor;
 	float3		eyePos;
 	float3		lightVec;	
@@ -17,17 +17,45 @@ cbuffer LightBuffer : register(b1)
 cbuffer MaterialBuffer : register(b2)
 {
 	float4		materialDiffColor;	
+	float		specularPow;
 };
 
 struct Output
 {
 	float4 position : SV_POSITION;	
 	float3 normal	: NORMAL0;
+	float3 positionWS : TEXCOORD0;
 };
 
+float4 CalcSpecularPhong(float4 color, float3 L, float3 N, float3 V)
+{
+	float3 R = normalize(reflect(-L, N));
+	float RdotV = max(0, dot(R, V));
+
+	return color * pow(RdotV, specularPow);
+}
+
+float4 CalcSpecularBlinPhong(float4 color, float3 L, float3 N, float3 V)
+{
+	float3 H = normalize(L + N);
+
+	float HdotN = max(0, dot(H, N));
+
+	return color * pow(HdotN, specularPow);
+}
+
+float4 CalcDiffuse(float4 color, float3 L, float3 N)
+{
+	float LdotN = max(0, dot(L, N));
+	return color * LdotN;
+}
 
 float4 main(Output o) : SV_TARGET0
 {
-	float cos = max(0, dot(o.normal, lightVec));
-	return materialDiffColor * lightDiffColor * cos + lightAmbientClor;	
+	float3 normalizeL = normalize(lightVec);
+	float4 diffuse = CalcDiffuse(lightColor, normalizeL, o.normal);	
+
+	float3 viewVec = normalize(eyePos - o.positionWS);
+	float4 specular = CalcSpecularPhong(lightColor, normalizeL, o.normal, viewVec);		
+	return diffuse + lightAmbientClor + specular;
 }

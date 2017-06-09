@@ -9,6 +9,7 @@
 
 namespace KY
 {
+	// need packing into 16bytes
 	struct TransformConstBuffer {
 		Mat4x4F matWorld;
 		Mat4x4F matView;
@@ -24,6 +25,8 @@ namespace KY
 
 	struct StaticMaterialConstBuffer {
 		ColorF	diffColor;
+		float	specularPow;
+		float	padding[3];
 	};
 }
 #endif // _CONSTBUFFERDEF_H_
