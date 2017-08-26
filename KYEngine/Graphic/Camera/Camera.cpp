@@ -68,8 +68,8 @@ namespace KY
 		if (!mDirty)
 			return;
 
-		const auto center = GetPostion();
-		const auto eye = center + GetDirection();
+		const auto eye = GetPostion();
+		const auto center = eye + GetDirection();
 		
 		mMatView = glm::lookAtLH(KY::ToVec3(eye), KY::ToVec3(center), KY::ToVec3(mUpVector));
 		mMatViewProj = mMatView * mMatProj;

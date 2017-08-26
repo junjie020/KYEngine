@@ -19,8 +19,8 @@ namespace KY
 	{
 		BOOST_ASSERT(mCamera);
 
-		const float yaw = glm::radians(delta.x * msRotateSpeed);
-		const float pitch = glm::radians(delta.y * msRotateSpeed);
+		const float yaw = glm::radians(-delta.x * msRotateSpeed);
+		const float pitch = glm::radians(-delta.y * msRotateSpeed);
 
 		if (!(MathUtils::IS_ZERO(yaw) && MathUtils::IS_ZERO(pitch)))
 		{
@@ -28,7 +28,7 @@ namespace KY
 
 			const auto angles = glm::eulerAngles(glm::quat_cast(mat4x4_utils::INDENTIFY));
 
-			const auto matDelta = glm::yawPitchRoll(yaw * msRotateSpeed, pitch * msRotateSpeed, 0.f);
+			const auto matDelta = glm::yawPitchRoll(yaw, pitch, 0.f);
 
 			const glm::mat4x4 matViewNew = matView * matDelta;
 

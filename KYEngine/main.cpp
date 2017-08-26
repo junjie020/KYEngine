@@ -619,7 +619,7 @@ int MainEntry()
 		auto camera = vp->GetCamera();
 
 		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
-		auto direct = glm::normalize(Vec4f(1.f, 1.f, 1.f, 1.0f) - Vec4f(0.f, 0.f, 0.f, 1.f)); 		
+		auto direct = glm::normalize(Vec4f(0.f) - Vec4f(1.f));
 		camera->SetDirection(direct);
 		
 		tt.Init(vp);
