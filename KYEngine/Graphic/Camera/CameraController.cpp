@@ -24,17 +24,22 @@ namespace KY
 
 		if (!(MathUtils::IS_ZERO(yaw) && MathUtils::IS_ZERO(pitch)))
 		{
-			const auto &matView = mCamera->GetViewMat();
-
-			const auto angles = glm::eulerAngles(glm::quat_cast(mat4x4_utils::INDENTIFY));
-
 			const auto matDelta = glm::yawPitchRoll(yaw, pitch, 0.f);
 
-			const glm::mat4x4 matViewNew = matView * matDelta;
+			const auto matWorld = mCamera->GetWorldMat();
+			mCamera->SetWorldMat(matWorld * matDelta);
+			//const glm::mat4x4 matWorldNew = glm::inverse(matViewNew);
 
-			const glm::mat4x4 matWorldNew = glm::inverse(matViewNew);
+			//mCamera->SetWorldMat(matWorldNew);
 
-			mCamera->SetWorldMat(matWorldNew);
+			//auto eye = mCamera->GetPostion();
+			//auto center = eye + mCamera->GetDirection();
+
+			//auto newEye = eye * matDelta;
+			//auto newDir = center - eye;
+			//mCamera->SetPosition(newEye);
+			//mCamera->SetDirection(glm::normalize(newDir));
+
 		}
 	}
 
