@@ -26,8 +26,11 @@ namespace KY
 		{
 			const auto matDelta = glm::yawPitchRoll(yaw, pitch, 0.f);
 
-			const auto matWorld = mCamera->GetWorldMat();
-			mCamera->SetWorldMat(matWorld * matDelta);
+			auto dir = mCamera->GetDirection();
+			mCamera->SetDirection(dir * matDelta);
+			//const auto matWorld = mCamera->GetWorldMat();
+			
+			//mCamera->SetWorldMat(matWorld * matDelta);
 			//const glm::mat4x4 matWorldNew = glm::inverse(matViewNew);
 
 			//mCamera->SetWorldMat(matWorldNew);
@@ -43,9 +46,35 @@ namespace KY
 		}
 	}
 
-	void CameraController::Move(const glm::vec3 &delta)
+	void CameraController::Move(CameraMoveType type, const glm::vec3 &delta)
 	{
-		mCamera->SetPosition(glm::vec4(delta, 1.0f));
+		glm::vec4 newPos;
+
+		switch (type)
+		{
+		case KY::CameraController::MT_Direction:
+		{
+			auto dir = mCamera->GetDirection();
+			newPos = mCamera->GetPostion() + glm::normalize(dir) * msMoveSpeed * delta.z;
+		}			
+			break;
+		case KY::CameraController::MT_LeftRight:
+		{
+			newPos = mCamera->GetPostion();
+			newPos.x += delta.x * msMoveSpeed;
+		}
+			break;
+		case KY::CameraController::MT_UpDown:
+		{
+			newPos = mCamera->GetPostion();
+			newPos.y += delta.y * msMoveSpeed;
+		}
+			break;
+		default:
+			break;
+		}
+
+		mCamera->SetPosition(newPos);
 	}
 
 	void CameraController::SetRotateSpeed(float speed)

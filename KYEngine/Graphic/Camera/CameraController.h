@@ -15,7 +15,15 @@ namespace KY
 
 		void Rotate(const glm::vec2 &delta);
 
-		void Move(const glm::vec3 &delta);
+		enum CameraMoveType
+		{
+			MT_Direction,
+			MT_LeftRight,
+			MT_UpDown,
+			MT_Unknown,
+		};
+
+		void Move(CameraMoveType type, const glm::vec3 &delta);
 
 		static void SetRotateSpeed(float speed);
 		static void SetMoveSpeed(float speed);

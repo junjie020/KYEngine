@@ -47,16 +47,13 @@ namespace KY
 		ZERO_MEMORY(mMouseBtnsPressedState);
 	}
 
-	static bool HandleCameraMove(const glm::vec3 &delta)
+	static bool HandleCameraMove(CameraController::CameraMoveType type, glm::vec3 &delta)
 	{
 		auto vp = System::Inst()->GetMainVP();
 		auto camera = vp->GetCamera();
 
 		CameraController ctrller(camera);
-
-		const glm::vec3 pos = camera->GetPostion();
-
-		ctrller.Move(pos + delta);
+		ctrller.Move(type, delta);
 
 		return true;
 	}
@@ -69,38 +66,48 @@ namespace KY
 		if (mMouseBtnsPressedState[uint8(MouseButtonType::Left)])
 		{
 			glm::vec3 delta(0.f, 0.f, 0.f);
+			CameraController::CameraMoveType type = CameraController::MT_Unknown;			
 			switch (key)
 			{
 			case 'w':
 			case 'W':
+				type = CameraController::MT_Direction;
 				delta.z = 1;
 				break;
+
 			case 's':
 			case 'S':
-				delta.z = -1;
+				type = CameraController::MT_Direction;
+				delta.z = -1;				
 				break;
 
 			case 'a':
 			case 'A':
+				type = CameraController::MT_LeftRight;
 				delta.x = 1;
 				break;
 			case 'd':
 			case 'D':
+				type = CameraController::MT_LeftRight;
 				delta.x = -1;
 				break;
+
 			case 'q':
 			case 'Q':
+				type = CameraController::MT_UpDown;
 				delta.y = 1;
 				break;
 			case 'e':
 			case 'E':
+				type = CameraController::MT_UpDown;
 				delta.y = -1;
 				break;
-			default:
+			default:				
 				break;
 			}
 
-			HandleCameraMove(delta);		
+			if (type != CameraController::MT_Unknown)
+				HandleCameraMove(type, delta);
 		}
 		
 		return;
