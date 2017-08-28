@@ -308,6 +308,8 @@
     <None Include="Graphic\Resource\Texture\TextureTypeTraits.inl" />
     <None Include="Math\Color.inl" />
     <None Include="Math\Matrix.inl" />
+    <None Include="Resource\Shader\Common.inc" />
+    <None Include="Resource\Shader\Lighting.inc" />
     <None Include="Resource\Shader\Object.ps" />
     <None Include="Resource\Shader\Object.vs" />
     <None Include="Resource\Shader\ScreenQuad.ps" />

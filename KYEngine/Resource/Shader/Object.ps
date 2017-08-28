@@ -1,24 +1,5 @@
-cbuffer MatrixBuffer : register(b0)
-{
-	matrix matWorld;
-	matrix matView;
-	matrix matProj;
-	//matrix matViewProj;
-};
-
-cbuffer LightBuffer : register(b1)
-{
-	float4		lightColor;	
-	float4		lightAmbientClor;
-	float3		eyePos;
-	float3		lightVec;	
-};
-
-cbuffer MaterialBuffer : register(b2)
-{
-	float4		materialDiffColor;	
-	float		specularPow;
-};
+#include "Common.inc"
+#include "Lighting.inc"
 
 struct Output
 {

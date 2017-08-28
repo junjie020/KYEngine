@@ -514,5 +514,11 @@
     <None Include="Resource\Shader\ScreenTexQuad.vs">
       <Filter>Resource\Shader</Filter>
     </None>
+    <None Include="Resource\Shader\Lighting.inc">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\Common.inc">
+      <Filter>Resource\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
