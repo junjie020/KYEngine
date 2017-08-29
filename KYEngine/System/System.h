@@ -22,7 +22,7 @@ namespace KY
 
 	class System : public Singleton<System>
 #if NEED_BOOST
-		: public boost::noncopyable
+		, public boost::noncopyable
 #endif
 	{
 		System(const System& rhs);

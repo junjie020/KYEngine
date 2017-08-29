@@ -19,4 +19,4 @@ cbuffer LightInfoBuffer : register(b2)
 {
 	float3	eyePos;
 	int		numLights;
-}
+};

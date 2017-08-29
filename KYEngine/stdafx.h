@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
+#include <map>
 
 #ifdef _WIN32
 #include <filesystem>
@@ -35,7 +36,7 @@ namespace fs = std::experimental::filesystem::v1;
 
 #include "glm/glm.hpp"
 
-#define NEED_BOOST 0
+#define NEED_BOOST 1
 #if NEED_BOOST
 //{@	boost
 #include "boost/assert.hpp"

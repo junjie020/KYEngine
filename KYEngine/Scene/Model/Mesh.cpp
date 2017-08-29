@@ -12,7 +12,7 @@
 #include "Math/VectorUnit.h"
 #include "Platform/Win32DefHeader.h"
 
-#include "Common/FileSystem.h"
+#include "Common/FileSystem/FileSystem.h"
 
 namespace KY
 {

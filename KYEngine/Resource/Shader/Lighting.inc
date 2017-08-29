@@ -57,11 +57,11 @@ LightResult DoDirectionalLighting(Light light, float3 posInVS, float3 normalInVS
 {
 	LightResult result = (LightResult)0;
 
-	float3 lightVec = normalize(light.positionInVS - posInVS);
+	float3 lightVec = normalize(light.positionInVS.xyz - posInVS);
 	result.diffuse = CalcDiffuse(light.color, lightVec, normalInVS) * light.intensity;
 
 	float3 viewVecInVS = normalize(eyePosInVS - posInVS);
-	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewInVS) * light.intensity;
+	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewVecInVS) * light.intensity;
 
 	return result;
 }
@@ -71,15 +71,15 @@ LightResult DoPointLihgting(Light light, float3 posInVS, float3 normalInVS, floa
 	LightResult result = (LightResult)0;
 
 	float3 viewVecInVS = eyePosInVS - posInVS;
-	float distance = length(viewVecInPS);
+	float distance = length(viewVecInVS);
 	viewVecInVS /= distance;
 
 	float attenuation = CalcAttenuation(distance, light.range);
 
-	float3 lightVec = normalize(light.positionInVS - posInVS);
+	float3 lightVec = normalize(light.positionInVS.xyz - posInVS);
 	result.diffuse = CalcDiffuse(light.color, lightVec, normalInVS) * light.intensity * attenuation;
 
-	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewInVS) * light.intensity * attenuation;
+	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewVecInVS) * light.intensity * attenuation;
 	return result;
 }
 
@@ -100,17 +100,17 @@ LightResult DoSpotLihgting(Light light, float3 posInVS, float3 normalInVS, float
 	LightResult result = (LightResult)0;
 
 	float3 viewVecInVS = eyePosInVS - posInVS;
-	float distance = length(viewVecInPS);
+	float distance = length(viewVecInVS);
 	viewVecInVS /= distance;
 
 	float attenuation = CalcAttenuation(distance, light.range);
 
-	float3 lightVec = normalize(light.positionInVS - posInVS);
+	float3 lightVec = normalize(light.positionInVS.xyz - posInVS);
 	result.diffuse = CalcDiffuse(light.color, lightVec, normalInVS) * light.intensity * attenuation;
 
-	float spotIntensity = CalcSpotCoreIntensity(light.angle, light.directionInVS, lightVec);
+	float spotIntensity = CalcSpotCoreIntensity(light.angle, light.directionInVS.xyz, lightVec);
 
-	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewInVS) * light.intensity * attenuation * spotIntensity;
+	result.specular = CalcSpecularBlinPhong(light.color, lightVec, normalInVS, viewVecInVS) * light.intensity * attenuation * spotIntensity;
 	return result;
 }
 
@@ -124,7 +124,7 @@ LightResult DoLighting(float3 posInVS, float3 normalInVS)
 		LightResult result = (LightResult)0;
 		if (Lights[ii].lightType == DIRECTIONAL_LIGHT)
 		{
-			result = DoDirectionalLighting(Lights[ii], posInVS, normalInVS);
+			result = DoDirectionalLighting(Lights[ii], posInVS, normalInVS, eyePosInVS);
 		}
 		else if (Lights[ii].lightType == POINT_LIGHT)
 		{

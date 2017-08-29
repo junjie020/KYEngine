@@ -46,9 +46,6 @@
     <ClCompile Include="System\SampleTest.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Common\FileSystem.cpp">
-      <Filter>Common\FileSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Graphic\Resource\Shader\Shader.cpp">
       <Filter>Graphic\Resource\Shader</Filter>
     </ClCompile>
@@ -163,6 +160,15 @@
     <ClCompile Include="Graphic\HI\DX\Render\Dx11RenderTargetView.cpp">
       <Filter>Graphic\HI\DX\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Resource\Shader\Compile\ShaderCodeRegenerate.cpp">
+      <Filter>Graphic\Resource\Shader\Compile</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\FileSystem\FileSystem.cpp">
+      <Filter>Common\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\StringUtils\StringUtils.cpp">
+      <Filter>Common\StringUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -230,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="Math\Vector2.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\FileSystem.h">
-      <Filter>Common\FileSystem</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Resource\Shader\Shader.h">
       <Filter>Graphic\Resource\Shader</Filter>
@@ -381,6 +384,15 @@
     <ClInclude Include="Graphic\Resource\IResourceInterface.h">
       <Filter>Graphic\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Resource\Shader\Compile\ShaderCodeRegenerate.h">
+      <Filter>Graphic\Resource\Shader\Compile</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\FileSystem\FileSystem.h">
+      <Filter>Common\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StringUtils\StringUtils.h">
+      <Filter>Common\StringUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -476,6 +488,12 @@
     <Filter Include="Graphic\HI\DX\Render">
       <UniqueIdentifier>{0461408f-96d9-4c96-bbba-5f38e86d5fb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\Resource\Shader\Compile">
+      <UniqueIdentifier>{8d4f50eb-2f2c-4f95-ba56-02be5eb67e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\StringUtils">
+      <UniqueIdentifier>{c7c54522-71f0-4ce9-9bd0-a00d0e797924}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CodeGraph\CodeMap.dgml">
@@ -518,6 +536,9 @@
       <Filter>Resource\Shader</Filter>
     </None>
     <None Include="Resource\Shader\Common.inc">
+      <Filter>Resource\Shader</Filter>
+    </None>
+    <None Include="Resource\Shader\ShadeInput.inc">
       <Filter>Resource\Shader</Filter>
     </None>
   </ItemGroup>

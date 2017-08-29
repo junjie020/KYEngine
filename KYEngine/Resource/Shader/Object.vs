@@ -11,7 +11,8 @@ PSInput main(VSInput i)
 
 	psIN.position = mul(matProj, posVS);
 
-	psIN.normalInVS	= mul(matView, mul(matWorld, float4(i.normal, 0.f)).xyz;
+	float4 normalWS = mul(matWorld, float4(i.normal, 0.f));
+	psIN.normalInVS	= mul(matView, normalWS).xyz;
 
-	return o;
+	return psIN;
 }

@@ -8,6 +8,7 @@
 #include "Graphic/HI/DX/DX11NameTranslator.h"
 
 #include "DebugUtils/TraceUtils.h"
+#include "Common/FileSystem/FileSystem.h"
 
 #include <functional>
 
@@ -61,7 +62,24 @@ namespace KY
 			
 		}
 
-		Dx11Shader::Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry, ID3D11ClassLinkage *classLinkage, const std::string &srcFileName /*= ""*/) : mType(type)
+		static fs::path get_valid_default_temp_file_name(const fs::path& tmpPath)
+		{
+			const std::string defautlName = "tempShader";
+			const std::string shaderPathExt = ".hlsl";
+			for (int32 idx = 0; idx < 1024; ++idx)
+			{
+				fs::path finalFullPath = tmpPath / (defautlName + std::to_string(idx) + shaderPathExt);
+				if (fs::exists(finalFullPath))
+					return finalFullPath;
+			}
+
+			
+			BOOST_ASSERT("too many tmp file!!");
+			return tmpPath / (defautlName + shaderPathExt);
+		}
+
+		Dx11Shader::Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry, ID3D11ClassLinkage *classLinkage, const fs::path &srcFileName /*= ""*/) 
+			: mType(type)
 			, mShaderCode(shaderCode)
 			, mEntryName(entry)
 			, mClassLinkage(classLinkage)
@@ -92,10 +110,30 @@ namespace KY
 			// so I just use the D3DCompileFromFile API, it will have the debug info when using graphic debugger.
 			HRESULT hr = 0;
 
+			fs::path tempShaderFile;
+			if (!mShaderCode.empty())
+			{
+				fs::path tempFilePath = srcFileName.empty() ? FileSystem::Inst()->FindFromSubPath("Root") : srcFileName.parent_path();
+				tempFilePath /= "TmpShaderFiles";
+
+				if (!fs::exists(tempFilePath))
+				{
+					fs::create_directories(tempFilePath);
+				}
+
+				tempShaderFile = srcFileName.empty() ? get_valid_default_temp_file_name(tempFilePath) : (tempFilePath / srcFileName.filename());
+				
+				std::ofstream ostrm(tempShaderFile.string().c_str(), std::ios::out);
+				BOOST_ASSERT(ostrm);
+
+				ostrm.write(mShaderCode.c_str(), mShaderCode.size());
+			}
+
+			BOOST_ASSERT(fs::exists(tempShaderFile));
+
 			if (!srcFileName.empty())
 			{
-				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>>	cvter;
-				hr = D3DCompileFromFile(cvter.from_bytes(srcFileName).c_str(),
+				hr = D3DCompileFromFile(srcFileName.wstring().c_str(),
 					pDefines, pInclude,
 					entry.c_str(), get_shader_target(level, mType),
 					flags1, flags2, &pByteCode, &pError);
@@ -104,7 +142,7 @@ namespace KY
 			if (FAILED(hr))
 			{
 				hr = D3DCompile(shaderCode.c_str(), shaderCode.size(),
-					srcFileName.c_str(), pDefines, pInclude,
+					tempShaderFile.string().c_str(), pDefines, pInclude,
 					entry.c_str(), get_shader_target(level, mType),
 					flags1, flags2, &pByteCode, &pError);
 			}

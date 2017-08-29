@@ -2,10 +2,11 @@
 
 #include "ResourceManager.h"
 
-#include "Common/FileSystem.h"
+#include "Common/FileSystem/FileSystem.h"
 
 #include "Graphic/Resource/Shader/Shader.h"
 #include "Graphic/Resource/Texture/Texture.h"
+#include "Graphic/Resource/Shader/Compile/ShaderCodeRegenerate.h"
 
 
 namespace KY
@@ -43,9 +44,11 @@ namespace KY
 
 		auto shdrPath = FileSystem::Inst()->FindFromSubPath("shader");
 		auto fullshdrFileName = shdrPath / shaderName;
-		std::string fileContent;
-		const auto result = FileSystem::Inst()->ReadFileContent(fullshdrFileName, fileContent);
-		if (result != FileSystem::ReadFileResult::RFR_Success)
+
+		ShaderCodeRegenerate code;
+		std::string fileContent = code.Regenerate(fullshdrFileName);
+		
+		if (fileContent.empty())
 			return nullptr;
 		
 		auto shader = new Shader;

@@ -34,7 +34,7 @@
 
 #include "DebugUtils/TraceUtils.h"
 
-#include "Common/FileSystem.h"
+#include "Common/FileSystem/FileSystem.h"
 
 #include "Scene/Model/Model.h"
 
@@ -584,7 +584,7 @@ private:
 	KY::Actor *mActor;
 };
 
-#include "Common/FileSystem.h"
+#include "Common/FileSystem/FileSystem.h"
 
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, PSTR /*pScmdline*/, int /*iCmdshow*/)

@@ -13,7 +13,7 @@ namespace KY
 		{
 			Dx11Shader& operator=(const Dx11Shader&);
 		public:
-			Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry, ID3D11ClassLinkage *classLinkage, const std::string &srcFileName = "");
+			Dx11Shader(ShaderType type, const std::string &shaderCode, const std::string &entry, ID3D11ClassLinkage *classLinkage, const fs::path &srcFileName = "");
 			~Dx11Shader();
 
 			void Bind();
