@@ -1,42 +1,14 @@
 #include "Common.inc"
 #include "Lighting.inc"
+#include "ShdeInput.inc"
 
-struct Output
+float4 main(PSInput psIN) : SV_TARGET0
 {
-	float4 position : SV_POSITION;	
-	float3 normal	: NORMAL0;
-	float3 positionWS : TEXCOORD0;
-};
+	LightResult lightRes = DoLighting(psIN.positionInVS, psIN.normalInVS);
 
-float4 CalcSpecularPhong(float4 color, float3 L, float3 N, float3 V)
-{
-	float3 R = normalize(reflect(-L, N));
-	float RdotV = max(0, dot(R, V));
+	float4 diffuse = float4(lightRes.diffuse.rgb, 1.0f) * materialDiffColor;
 
-	return color * pow(RdotV, specularPow);
-}
+	float4 specular = float4(lightRes.specular.rgb, 1.0f) * materialSpecularColor;
 
-float4 CalcSpecularBlinPhong(float4 color, float3 L, float3 N, float3 V)
-{
-	float3 H = normalize(L + N);
-
-	float HdotN = max(0, dot(H, N));
-
-	return color * pow(HdotN, specularPow);
-}
-
-float4 CalcDiffuse(float4 color, float3 L, float3 N)
-{
-	float LdotN = max(0, dot(L, N));
-	return color * LdotN;
-}
-
-float4 main(Output o) : SV_TARGET0
-{
-	float3 normalizeL = normalize(lightVec);
-	float4 diffuse = CalcDiffuse(lightColor, normalizeL, o.normal);	
-
-	float3 viewVec = normalize(eyePos - o.positionWS);
-	float4 specular = CalcSpecularPhong(lightColor, normalizeL, o.normal, viewVec);		
-	return diffuse + lightAmbientClor + specular;
+	return diffuse + specular + materialEmissiveColor + materialAmbientColor;
 }
