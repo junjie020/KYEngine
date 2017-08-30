@@ -8,7 +8,7 @@
 namespace KY
 {
 	Shader::Shader()	
-		: Resource(ResT_Shader)		
+		: Resource(ResourceType::Shader)		
 	{
 
 	}

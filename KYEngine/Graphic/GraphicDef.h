@@ -6,7 +6,7 @@ namespace KY
 
 #define MAX_SAMPLER_STATE_NUM 16
 
-	enum FeatureLevel : uint8
+	enum class FeatureLevel : uint8
 	{
 		FL_Unknown = uint8(-1),
 		FL_9_1	= 0,
@@ -17,24 +17,23 @@ namespace KY
 		FL_11_0,
 		FL_11_1,
 	};
-	enum ResourceType : uint8
+	enum class ResourceType : uint8
 	{
-		ResT_Vertex = 0,
-		ResT_Index,
-		ResT_Const,
+		Vertex = 0,
+		Index,
+		Const,		
+		Shader,
 
-		ResT_Shader,
-
-		ResT_Texture,		
+		Texture,		
 	};
-	enum ResourceCPUAccess : uint8
+	enum class ResourceCPUAccess : uint8
 	{
-		BA_None = 0,
-		BA_Read = 0x01,
-		BA_Write = 0x02,
+		None = 0,
+		Read = 0x01,
+		Write = 0x02,
 	};
 
-	enum ResourceMapType : uint8
+	enum class ResourceMapType : uint8
 	{
 		ResMT_Read = 0,
 		ResMT_Write,
@@ -44,15 +43,15 @@ namespace KY
 		ResMT_WriteNoOverwrite,
 	};
 
-	enum ResourceUsage : uint8
+	enum class ResourceUsage : uint8
 	{
-		RU_Default = 0,
-		RU_Immutable,
-		RU_Dynamic,
-		RU_Stage,
+		Default = 0,
+		Immutable,
+		Dynamic,
+		Stage,
 	};
 
-	enum PrimitiveType : uint16
+	enum class PrimitiveType : uint16
 	{
 		PT_Unknown = uint16(-1),
 		PT_Point = 0,
@@ -70,14 +69,14 @@ namespace KY
 		PT_ControlPointEnd = PT_ControlPointBeg + 32,
 	};
 
-	enum ShaderType : uint8
+	enum class ShaderType : uint8
 	{
 		ShdrT_Vertex = 0,
 		ShdrT_Hull,
 		ShdrT_Domain,
 		ShdrT_Geometry,
 		ShdrT_Pixel,
-		ShdrT_Count,
+		Count,
 	};
 
 	enum TexFormat : uint32
@@ -185,41 +184,41 @@ namespace KY
 		TF_FORCE_UINT = 0xffffffff
 	};
 
-	enum FillMode : uint8
+	enum class FillMode : uint8
 	{
-		FM_WireFrame = 0,
-		FM_Solid,
+		WireFrame = 0,
+		Solid,
 	};
 
-	enum CullMode : uint8
+	enum class CullMode : uint8
 	{
-		CM_None = 0,
-		CM_Front,
-		CM_Back,
+		None = 0,
+		Front,
+		Back,
 	};
 
-	enum CompareFunc : uint8
+	enum class CompareFunc : uint8
 	{
-		CF_Never = 0,
-		CF_Less,
-		CF_Equal,
-		CF_LessEqual,
-		CF_Greater,
-		CF_NotEqual,
-		CF_GreaterEqual,
-		CF_Always,
+		Never = 0,
+		Less,
+		Equal,
+		LessEqual,
+		Greater,
+		NotEqual,
+		GreaterEqual,
+		Always,
 	};
 
-	enum StencilOperation : uint8
+	enum class StencilOperation : uint8
 	{
-		StencilOP_Keep = 0,
-		StencilOP_Zero,
-		StencilOP_Replace,
-		StencilOP_Incr_Sat,
-		StencilOP_Decr_Sat,
-		StencilOP_Invert,
-		StencilOP_Incr,
-		StencilOP_Decr,
+		Keep = 0,
+		Zero,
+		Replace,
+		Incr_Sat,
+		Decr_Sat,
+		Invert,
+		Incr,
+		Decr,
 	};
 
 	enum BlendType : uint8
@@ -431,6 +430,12 @@ namespace KY
 			uint32 mipLevels;
 
 		};
+
+		struct BufferEx {
+			uint32 firstElem;
+			uint32 numElems;
+			uint32 flags;
+		};
 		enum class SRVType {
 			Unknown = 0,
 			Buffer,
@@ -450,9 +455,10 @@ namespace KY
 		SRVType type;
 		union  
 		{
-			SRVParam::Buffer buffer;
-			SRVParam::Tex1D tex1D;
-			SRVParam::Tex2D tex2D;
+			SRVParam::Buffer	buffer;
+			SRVParam::Tex1D		tex1D;
+			SRVParam::Tex2D		tex2D;
+			SRVParam::BufferEx	bufferEx;
 		};
 	};
 	//@}	 
@@ -582,8 +588,8 @@ namespace KY
 	struct RasterizerState
 	{
 		RasterizerState()
-			: fillMode(FM_Solid)
-			, cullMode(CM_Back)
+			: fillMode(FillMode::Solid)
+			, cullMode(CullMode::Back)
 			, frontCCW(false)
 			, depthBias(0)
 			, slopeScaledDepthBias(0.0f)
@@ -621,7 +627,7 @@ namespace KY
 		DepthStencilState() 
 			: depthEnable(true)
 			, enableDepthWrite(true)
-			, depthFunc(CF_Less)
+			, depthFunc(CompareFunc::Less)
 			, stencilEnable(false)
 			, stencilReadMask(0xff)
 			, stencilWriteMask(0xff)			
@@ -641,10 +647,10 @@ namespace KY
 		struct StencilOpDesc
 		{
 			StencilOpDesc()
-				: stencilFailOp(StencilOP_Keep)
-				, stencilDepthFailOp(StencilOP_Keep)
-				, stencilPassOp(StencilOP_Keep)
-				, stencilFunc(CF_Always)
+				: stencilFailOp(StencilOperation::Keep)
+				, stencilDepthFailOp(StencilOperation::Keep)
+				, stencilPassOp(StencilOperation::Keep)
+				, stencilFunc(CompareFunc::Always)
 			{}
 			StencilOperation	stencilFailOp;
 			StencilOperation	stencilDepthFailOp;
@@ -706,7 +712,7 @@ namespace KY
 			, addrW(AddrM_Clamp)
 			, mipLODBias(0)
 			, maxAnisotropy(1)
-			, compFunc(CF_Never)
+			, compFunc(CompareFunc::Never)
 			, minLOD(-FLT_MAX)
 			, maxLOD(FLT_MAX)
 		{

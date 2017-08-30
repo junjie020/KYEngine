@@ -47,6 +47,10 @@ namespace KY
 				static_assert(sizeof(desc.Texture2D) == sizeof(param.tex2D), "Texture2D size not correct");
 				memcpy(&desc.Texture2D, &param.tex2D, sizeof(desc.Texture2D));
 				break;
+			case SRVParam::SRVType::BufferEx:
+				static_assert(sizeof(desc.BufferEx) == sizeof(param.bufferEx), "Struct buffer size not correct");
+				memcpy(&desc.BufferEx, &param.bufferEx, sizeof(desc.BufferEx));
+				break;
 			case SRVParam::SRVType::Tex1DArray:
 
 			case SRVParam::SRVType::Tex2DArray:
@@ -54,7 +58,7 @@ namespace KY
 			case SRVParam::SRVType::Tex2DMSArray:
 			case SRVParam::SRVType::Tex3D:
 			case SRVParam::SRVType::TexCube:
-			case SRVParam::SRVType::BufferEx:
+			
 
 			default:
 				break;

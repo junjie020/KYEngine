@@ -30,11 +30,11 @@ namespace KY
 		static inline void FOR_EACH_TYPE_PERFORM(ShaderType type, VSOp vs, HSOp hs, DSOp ds, GSOp gs, PSOp ps)
 		{
 			switch (type){
-			case ShdrT_Vertex: vs(); break;
-			case ShdrT_Hull: hs(); break;
-			case ShdrT_Domain: ds(); break;
-			case ShdrT_Geometry: gs(); break;
-			case ShdrT_Pixel: ps(); break;
+			case ShaderType::ShdrT_Vertex: vs(); break;
+			case ShaderType::ShdrT_Hull: hs(); break;
+			case ShaderType::ShdrT_Domain: ds(); break;
+			case ShaderType::ShdrT_Geometry: gs(); break;
+			case ShaderType::ShdrT_Pixel: ps(); break;
 			default:
 				BOOST_ASSERT("invaild shader type!");
 				break;
@@ -44,7 +44,7 @@ namespace KY
 
 		static inline const char* get_shader_target(FeatureLevel level, ShaderType type)
 		{
-			const char* targets[][ShdrT_Count] = {
+			const char* targets[][uint32(ShaderType::Count)] = {
 				"",		  "",		"",		  "",		"ps_1_0",
 				"vs_2_0", "",		"",		  "",		"ps_2_0",
 				"vs_3_0", "",		"",		  "",		"ps_3_0",
@@ -57,7 +57,7 @@ namespace KY
 			BOOST_ASSERT(COUNT_OF(targets) > uint32(level));
 			BOOST_ASSERT(COUNT_OF(targets[0]) > uint32(type));
 
-			return targets[level][type];
+			return targets[uint32(level)][uint32(type)];
 
 			
 		}
@@ -156,7 +156,7 @@ namespace KY
 #endif // _DEBUG
 			{
 				std::ostringstream oss;
-				oss << "compile shader failed, level : " << level << std::endl
+				oss << "compile shader failed, level : " << uint32(level) << std::endl
 					<< "error info : " << (const char*)pError->GetBufferPointer() << std::endl
 					<< "shader code : " << shaderCode;
 				DebugOutline(oss.str());
@@ -178,11 +178,7 @@ namespace KY
 
 			if (nullptr == mShader)
 			{
-				std::ostringstream oss;
-				oss << "create shader failed, shader type : " << mType << std::endl
-					<< ", shader code : " << mShaderCode << std::endl;
-
-				DebugOutline(oss.str());
+				DebugOutline("create shader failed, shader type : ", uint32(type), ", shader code : ", mShaderCode);
 			}
 		}
 

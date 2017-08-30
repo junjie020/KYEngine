@@ -230,7 +230,7 @@ private:
 			: KY::Actor(nullptr)
 			, mVertexShader(nullptr)
 			, mPixelShader(nullptr)
-			, mDynConstBuffer(ResT_Const)
+			, mDynConstBuffer(ResourceType::Const)
 			, mSRV(nullptr)
 			, mTex2D(nullptr)
 		{
@@ -255,9 +255,9 @@ private:
 			};
 
 			BufferParam param;
-			param.type = ResT_Vertex;
-			param.access = BA_None;
-			param.usage = RU_Immutable;
+			param.type = ResourceType::Const;
+			param.access = ResourceCPUAccess::None;
+			param.usage = ResourceUsage::Immutable;
 			param.sizeInBytes = sizeof(vc);
 
 			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
@@ -269,7 +269,7 @@ private:
 				DrawVertexBufferParam pp = { 3, 0 };
 				mRO.SetVertexDrawInfo(pp);
 
-				mRO.SetPrimitiveType(PT_TriList);
+				mRO.SetPrimitiveType(PrimitiveType::PT_TriList);
 			}
 		}
 
@@ -294,7 +294,7 @@ private:
 			*clr++ = Color32B::Black;
 
 			TextureMemoryLoader loader(width, height, 1, TF_R8G8B8A8_UNORM, std::move(rawBuffer));
-			TextureParam tp = { 1, 1, BF_ShaderResource, BA_None, RU_Default, TF_R8G8B8A8_UNORM, {1, 0},  0};
+			TextureParam tp = { 1, 1, BF_ShaderResource, ResourceCPUAccess::None, ResourceUsage::Default, TF_R8G8B8A8_UNORM, {1, 0},  0};
 			BOOST_VERIFY(mTex2D->Init(tp, &loader));
 
 			mSRV = new KY::ShaderResourceView;
@@ -309,12 +309,12 @@ private:
 		{
 			mVertexShader = ResourceManager::Inst()->FindAddShader("ScreenTexQuad.vs");
 			BOOST_ASSERT(mVertexShader && mVertexShader->IsValid());
-			mRO.SetShader(mVertexShader, KY::ShdrT_Vertex);
+			mRO.SetShader(mVertexShader, KY::ShaderType::ShdrT_Vertex);
 
 			mPixelShader = ResourceManager::Inst()->FindAddShader("ScreenTexQuad.ps");
 
 			BOOST_ASSERT(mPixelShader && mPixelShader->IsValid());
-			mRO.SetShader(mPixelShader, KY::ShdrT_Pixel);
+			mRO.SetShader(mPixelShader, KY::ShaderType::ShdrT_Pixel);
 
 			InputElemDesc desc[] =
 			{
@@ -338,9 +338,9 @@ private:
 
 			//////////////////////////////////////////////////////////////////////////
 			BufferParam constParam;
-			constParam.type = ResT_Const;
-			constParam.access = BA_Write;
-			constParam.usage = RU_Dynamic;
+			constParam.type = ResourceType::Const;
+			constParam.access = ResourceCPUAccess::Write;
+			constParam.usage = ResourceUsage::Dynamic;
 			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
@@ -355,7 +355,7 @@ private:
 		bool InitState()
 		{
 			KY::RasterizerState rsState;
-			rsState.cullMode = CM_None;
+			rsState.cullMode = CullMode::Back;
 			rsState.depthClipEnable = false;
 
 			KY::DepthStencilState dsState;
@@ -374,7 +374,7 @@ private:
 		virtual void UpdateImpl(Camera *camera)
 		{
 			Actor::UpdateImpl(camera);
-			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+			ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
 				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;
@@ -429,7 +429,7 @@ private:
 			: Actor(nullptr)
 			, mVertexShader(nullptr)
 			, mPixelShader(nullptr)
-			, mDynConstBuffer(ResT_Const)
+			, mDynConstBuffer(ResourceType::Const)
 		{
 			InitBufferData();
 			InitShadersAndInputLayout();
@@ -452,9 +452,9 @@ private:
 			};
 
 			BufferParam param;
-			param.type = ResT_Vertex;
-			param.access = BA_None;
-			param.usage = RU_Immutable;			
+			param.type = ResourceType::Vertex;
+			param.access = ResourceCPUAccess::None;
+			param.usage = ResourceUsage::Immutable;			
 			param.sizeInBytes = sizeof(vc);
 
 			ResourceData data = { reinterpret_cast<const uint8*>(vc), 0, 0 };
@@ -466,7 +466,7 @@ private:
 				DrawVertexBufferParam pp = { 3, 0 };
 				mRO.SetVertexDrawInfo(pp);
 
-				mRO.SetPrimitiveType(PT_TriList);
+				mRO.SetPrimitiveType(PrimitiveType::PT_TriList);
 			}
 		}
 
@@ -474,12 +474,12 @@ private:
 		{
 			mVertexShader = ResourceManager::Inst()->FindAddShader("ScreenQuad.vs");
 			BOOST_ASSERT(mVertexShader && mVertexShader->IsValid());
-			mRO.SetShader(mVertexShader, KY::ShdrT_Vertex);
+			mRO.SetShader(mVertexShader, KY::ShaderType::ShdrT_Vertex);
 
 			mPixelShader = ResourceManager::Inst()->FindAddShader("ScreenQuad.ps");				
 
 			BOOST_ASSERT(mPixelShader && mPixelShader->IsValid());
-			mRO.SetShader(mPixelShader, KY::ShdrT_Pixel);
+			mRO.SetShader(mPixelShader, KY::ShaderType::ShdrT_Pixel);
 
 			InputElemDesc desc[] = 
 			{
@@ -503,9 +503,9 @@ private:
 
 			//////////////////////////////////////////////////////////////////////////
 			BufferParam constParam;
-			constParam.type = ResT_Const;
-			constParam.access = BA_Write;
-			constParam.usage = RU_Dynamic;
+			constParam.type = ResourceType::Const;
+			constParam.access = ResourceCPUAccess::Write;
+			constParam.usage = ResourceUsage::Dynamic;
 			constParam.sizeInBytes = sizeof(TransformConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
@@ -520,7 +520,7 @@ private:
 		bool InitState()
 		{
 			KY::RasterizerState rsState;
-			rsState.cullMode = CM_None;
+			rsState.cullMode = CullMode::Back;
 			rsState.depthClipEnable = false;
 
 			KY::DepthStencilState dsState;
@@ -536,7 +536,7 @@ private:
 		virtual void UpdateImpl(Camera *camera) override
 		{
 			Actor::UpdateImpl(camera);
-			ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+			ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
 				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;

@@ -16,7 +16,7 @@ namespace KY
     class VertexBuffer : public Buffer
     {
     public:    	
-		VertexBuffer() : Buffer(ResT_Vertex){}
+		VertexBuffer() : Buffer(ResourceType::Vertex){}
 		~VertexBuffer(){}
     };
 }

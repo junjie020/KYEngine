@@ -20,7 +20,7 @@ namespace KY
 #endif // _DEBUG			
 			, mSwapChain(nullptr)
 			, mDepthStencilView(nullptr)
-			, mFeatureLevel(FL_Unknown)
+			, mFeatureLevel(FeatureLevel::FL_Unknown)
 		{
 			DX11NameTranslator::Create();
 		}
@@ -53,7 +53,7 @@ namespace KY
 
 			std::vector<D3D_FEATURE_LEVEL>	levels;
 			
-			if (wantedLevel == FL_Unknown)
+			if (wantedLevel == FeatureLevel::FL_Unknown)
 			{
 				std::vector<D3D_FEATURE_LEVEL> tmplevels = {
 					D3D_FEATURE_LEVEL_11_1, D3D_FEATURE_LEVEL_11_0,
@@ -66,7 +66,7 @@ namespace KY
 			}
 			else
 			{
-				for (int32 ii = wantedLevel; ii  >= 0; --ii)
+				for (int32 ii = int32(wantedLevel); ii  >= 0; --ii)
 					levels.push_back(DX11NameTranslator::Inst()->ToFeatureLevel(FeatureLevel(ii)));
 			
 			}
@@ -76,7 +76,7 @@ namespace KY
 				return false;
 
 			mFeatureLevel = DX11NameTranslator::Inst()->FromeFeatureLevel(returnLevel);
-			BOOST_ASSERT(mFeatureLevel != FL_Unknown);
+			BOOST_ASSERT(mFeatureLevel != FeatureLevel::FL_Unknown);
 
 			IDXGIFactory *dxgi = nullptr;
 			if (FAILED(::CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void **>(&dxgi))))

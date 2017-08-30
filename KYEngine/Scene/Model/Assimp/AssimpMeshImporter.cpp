@@ -60,9 +60,9 @@ namespace KY
 
 	static inline PrimitiveType get_primitive_type(aiMesh *mesh)
 	{
-		PrimitiveType pts[] = {PT_Point, PT_LineList, PT_TriList};
+		PrimitiveType pts[] = {PrimitiveType::PT_Point, PrimitiveType::PT_LineList, PrimitiveType::PT_TriList};
 
-		BOOST_ASSERT(_countof(pts) > mesh->mPrimitiveTypes);
+		BOOST_ASSERT(_countof(pts) > uint32(mesh->mPrimitiveTypes));
 		return pts[mesh->mPrimitiveTypes];
 	}
 
@@ -93,9 +93,9 @@ namespace KY
 		const uint32 stride = get_slot_elem_size(slotIdx) * sizeof(float);
 		BufferParam param = 
 		{ 
-			ResT_Vertex, 
-			BA_None, 
-			RU_Immutable, 
+			ResourceType::Vertex, 
+			ResourceCPUAccess::None, 
+			ResourceUsage::Immutable, 
 			numElems * stride, 
 			uint32(0) 
 		};
@@ -130,17 +130,17 @@ namespace KY
 		switch (aiType)
 		{
 		case aiPrimitiveType_POINT:
-			return PT_Point;
+			return PrimitiveType::PT_Point;
 		case aiPrimitiveType_LINE:
-			return PT_LineList;
+			return PrimitiveType::PT_LineList;
 		case aiPrimitiveType_TRIANGLE:
-			return PT_TriList;
+			return PrimitiveType::PT_TriList;
 		case aiPrimitiveType_POLYGON:
 			BOOST_ASSERT(false && "not support right now");
-			return PT_Unknown;
+			return PrimitiveType::PT_Unknown;
 		default:
 			BOOST_ASSERT(false && "invalid ai primitive type!");
-			return PT_Unknown;
+			return PrimitiveType::PT_Unknown;
 		}
 	}
 
@@ -192,7 +192,7 @@ namespace KY
 
 				const uint32 elemSize = idxCount < 65536 ? sizeof(uint16) : sizeof(uint32);
 				const uint32 sizeInBytes = elemSize * idxCount;
-				BufferParam ibParam = { ResT_Index, BA_None, RU_Immutable, sizeInBytes, 0};	
+				BufferParam ibParam = { ResourceType::Index, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeInBytes, 0};	
 
 				std::vector<uint8>	ibData(sizeInBytes);
 

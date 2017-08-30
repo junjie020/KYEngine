@@ -53,7 +53,7 @@ namespace KY
 
 			BOOST_ASSERT(COUNT_OF(usages) > uint32(usage));
 
-			return usages[usage];			
+			return usages[uint32(usage)];			
 		}
 
 		inline DXGI_FORMAT DX11NameTranslator::ToDXGI_FORMAT(TexFormat tf) const
@@ -66,9 +66,10 @@ namespace KY
 			const D3D11_BIND_FLAG flags[] = 
 			{ 
 				D3D11_BIND_VERTEX_BUFFER, D3D11_BIND_INDEX_BUFFER, D3D11_BIND_CONSTANT_BUFFER, 
+				D3D11_BIND_SHADER_RESOURCE,
 			};
 			BOOST_ASSERT(COUNT_OF(flags) > uint32(type));
-			return flags[type];
+			return flags[uint32(type)];
 		}
 
 		inline D3D11_BIND_FLAG DX11NameTranslator::ToBingFlag(BindFlag bind) const
@@ -78,9 +79,9 @@ namespace KY
 		inline D3D11_CPU_ACCESS_FLAG DX11NameTranslator::ToCPUAccessFlag(ResourceCPUAccess access) const
 		{
 			uint16 flag(0);
-			if (QueryBit(BA_Read, access))
+			if (QueryBit(uint8(ResourceCPUAccess::Read), uint8(access)))
 				flag |= D3D11_CPU_ACCESS_READ;
-			if (QueryBit(BA_Write, access))
+			if (QueryBit(uint8(ResourceCPUAccess::Write), uint8(access)))
 				flag |= D3D11_CPU_ACCESS_WRITE;
 
 			return D3D11_CPU_ACCESS_FLAG(flag);
@@ -103,7 +104,7 @@ namespace KY
 
 			BOOST_ASSERT(COUNT_OF(modes) > uint32(fm));
 
-			return modes[fm];
+			return modes[uint32(fm)];
 		}
 
 		inline D3D11_CULL_MODE DX11NameTranslator::ToCullMode(CullMode cm) const
@@ -111,7 +112,7 @@ namespace KY
 			const D3D11_CULL_MODE modes[] = { D3D11_CULL_NONE, D3D11_CULL_FRONT, D3D11_CULL_BACK };
 			BOOST_ASSERT(COUNT_OF(modes) > uint32(cm));
 
-			return modes[cm];
+			return modes[uint32(cm)];
 		}
 
 		inline D3D11_COMPARISON_FUNC DX11NameTranslator::ToComparisonFunc(CompareFunc cf) const
@@ -130,7 +131,7 @@ namespace KY
 
 			BOOST_ASSERT(COUNT_OF(funcs) > uint32(cf));
 
-			return funcs[cf];
+			return funcs[uint32(cf)];
 
 		}
 
@@ -150,7 +151,7 @@ namespace KY
 
 			BOOST_ASSERT(COUNT_OF(ops) > uint32(op));
 
-			return ops[op];
+			return ops[uint32(op)];
 		}
 
 		inline D3D11_BLEND DX11NameTranslator::ToBlendType(BlendType type) const
@@ -228,20 +229,20 @@ namespace KY
 			};
 
 			BOOST_ASSERT(COUNT_OF(levels) > uint32(level));
-			return levels[level];
+			return levels[uint32(level)];
 		}
 		inline FeatureLevel	DX11NameTranslator::FromeFeatureLevel(D3D_FEATURE_LEVEL level) const
 		{
 			switch (level)
 			{
-			case D3D_FEATURE_LEVEL_11_1: return FL_11_1;
-			case D3D_FEATURE_LEVEL_11_0: return FL_11_0;
-			case D3D_FEATURE_LEVEL_10_1: return FL_10_1;
-			case D3D_FEATURE_LEVEL_10_0: return FL_10_0;
-			case D3D_FEATURE_LEVEL_9_3:	 return FL_9_3;
-			case D3D_FEATURE_LEVEL_9_2:	 return FL_9_2;
-			case D3D_FEATURE_LEVEL_9_1:	 return FL_9_1;
-			default:	return FL_Unknown;
+			case D3D_FEATURE_LEVEL_11_1: return FeatureLevel::FL_11_1;
+			case D3D_FEATURE_LEVEL_11_0: return FeatureLevel::FL_11_0;
+			case D3D_FEATURE_LEVEL_10_1: return FeatureLevel::FL_10_1;
+			case D3D_FEATURE_LEVEL_10_0: return FeatureLevel::FL_10_0;
+			case D3D_FEATURE_LEVEL_9_3:	 return FeatureLevel::FL_9_3;
+			case D3D_FEATURE_LEVEL_9_2:	 return FeatureLevel::FL_9_2;
+			case D3D_FEATURE_LEVEL_9_1:	 return FeatureLevel::FL_9_1;
+			default:	return FeatureLevel::FL_Unknown;
 			}
 		}
 
@@ -255,7 +256,7 @@ namespace KY
 				D3D11_MAP_WRITE_NO_OVERWRITE, };
 			BOOST_ASSERT(COUNT_OF(maps) > uint32(type));
 
-			return maps[type];
+			return maps[uint32(type)];
 		}
 	}
 

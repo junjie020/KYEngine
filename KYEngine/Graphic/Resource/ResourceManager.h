@@ -11,7 +11,7 @@ namespace KY
 	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
-		Shader* FindAddShader(const std::string &shaderName, ShaderType type = ShdrT_Count);
+		Shader* FindAddShader(const std::string &shaderName, ShaderType type = ShaderType::Count);
 		Texture* FindAddTexture(const std::string &texName);
 
 	private:

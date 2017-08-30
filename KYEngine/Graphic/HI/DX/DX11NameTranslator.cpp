@@ -18,13 +18,13 @@ namespace KY
 		{
 			switch (res->GetResourceType())
 			{
-			case ResourceType::ResT_Vertex:
-			case ResourceType::ResT_Index:
-			case ResourceType::ResT_Const:
+			case ResourceType::Vertex:
+			case ResourceType::Index:
+			case ResourceType::Const:
 				return static_cast<Buffer*>(res)->GetInternal()->GetInternal();
 				break;
 
-			case ResourceType::ResT_Texture:
+			case ResourceType::Texture:
 				return static_cast<Texture2D*>(res)->GetInternal()->GetInternal();
 
 			default:
@@ -82,7 +82,7 @@ namespace KY
 			};
 				
 			BOOST_ASSERT(COUNT_OF(d3dpri) > uint32(type));
-			return d3dpri[type];
+			return d3dpri[uint32(type)];
 		}
 	}
 

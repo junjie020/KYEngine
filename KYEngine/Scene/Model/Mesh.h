@@ -17,9 +17,10 @@ namespace KY
 	{
 	public:
 		MeshRenderOperationHelper()
-			: mDynConstBuffer(ResT_Const)
-			, mLightConstBuffer(ResT_Const)
-			, mMaterialConstBuffer(ResT_Const)
+			: mDynConstBuffer(ResourceType::Const)
+			, mGlobalLightBuffer(ResourceType::Const)
+			, mMaterialConstBuffer(ResourceType::Const)
+			, mLightElemBuffer(ResourceType::Shader)
 			, mVS(nullptr)
 			, mPS(nullptr)
 		{}
@@ -53,13 +54,19 @@ namespace KY
 		Shader*			mVS;
 		Shader*			mPS;
 
-		//{@	those const buffer should manager from a pool by camera or other data
-		struct TransformConstData {
-
-		};
-		Buffer			mDynConstBuffer;
-		Buffer			mLightConstBuffer;
+		//{@	those const buffer should manager from a pool by camera or other data		
+		Buffer			mDynConstBuffer;	
 		Buffer			mMaterialConstBuffer;
+		Buffer			mGlobalLightBuffer;
+
+		//{@
+		Buffer			mLightElemBuffer;
+		ShaderResourceView* mLightElemBufferResView;
+
+			//SRVParam p = { TF_R8G8B8A8_UNORM, SRVParam::SRVType::Tex2D,{ 0, 1 } };
+		//mSRV->Init(p, mTex2D);
+		//@}
+
 		//@}
 
 

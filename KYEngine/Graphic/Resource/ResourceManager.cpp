@@ -19,11 +19,11 @@ namespace KY
 		};
 
 		const ExtShaderConvertPairType cvtPair[] = {
-			"vs", ShdrT_Vertex,
-			"ds", ShdrT_Domain,
-			"hs", ShdrT_Hull,
-			"gs", ShdrT_Geometry,
-			"ps", ShdrT_Pixel,
+			"vs", ShaderType::ShdrT_Vertex,
+			"ds", ShaderType::ShdrT_Domain,
+			"hs", ShaderType::ShdrT_Hull,
+			"gs", ShaderType::ShdrT_Geometry,
+			"ps", ShaderType::ShdrT_Pixel,
 		};
 
 		std::string extTrans = ext;
@@ -34,7 +34,7 @@ namespace KY
 				return pp.type;
 		}
 
-		return ShdrT_Count;
+		return ShaderType::Count;
 	}
 	Shader* ResourceManager::FindAddShader(const std::string & shaderName, ShaderType type)
 	{
@@ -53,14 +53,14 @@ namespace KY
 		
 		auto shader = new Shader;
 
-		if (type == ShdrT_Count)
+		if (type == ShaderType::Count)
 		{
 			auto ext = fullshdrFileName.extension().string();
 			if (!ext.empty())
 			{
 				ext = ext.substr(1);
 				type = from_ext_to_shader_type(ext);
-				if (type == ShdrT_Count)
+				if (type == ShaderType::Count)
 					return nullptr;
 			}
 		}

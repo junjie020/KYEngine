@@ -11,7 +11,7 @@ namespace KY
 	{
 	public:
 		Texture()
-			: Resource(ResT_Texture)
+			: Resource(ResourceType::Texture)
 		{}
 
 	};

@@ -21,7 +21,7 @@ struct LightResult
 	float4 specular;
 };
 
-StructuredBuffer<Light> Lights : register( t8 );	// reserve t0 ~ t1 for texture sample
+StructuredBuffer<Light> Lights : register( t8 );	// reserve t0 ~ t7 for texture sample
 
 float4 CalcSpecularPhong(float4 color, float3 L, float3 N, float3 V)
 {

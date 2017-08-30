@@ -12,7 +12,7 @@ namespace KY
     class IndexBuffer : public Buffer
     {
     public:
-		IndexBuffer() : Buffer(ResT_Index){}
+		IndexBuffer() : Buffer(ResourceType::Index){}
 		~IndexBuffer(){}
     };
 }

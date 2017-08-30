@@ -6,6 +6,7 @@
 
 #include "Graphic/Resource/ResourceManager.h"
 #include "Graphic/Resource/Buffer/ConstBufferDef.h"
+#include "Graphic/Resource/Shader/ShaderResourceView.h"
 #include "Graphic/Render/RenderTarget.h"
 
 #include "DebugUtils/TraceUtils.h"
@@ -102,19 +103,27 @@ namespace KY
 		//{@	hard code here, we need to follow the mesh's properties to define which shader should use or which macro should define
 		BOOST_ASSERT(mVS == nullptr);
 		mVS = ResourceManager::Inst()->FindAddShader("Object.vs");
-		mRO.SetShader(mVS, ShdrT_Vertex);
+		mRO.SetShader(mVS, ShaderType::ShdrT_Vertex);
 
 		BOOST_ASSERT(mPS == nullptr);
 		mPS = ResourceManager::Inst()->FindAddShader("Object.ps");
-		mRO.SetShader(mPS, ShdrT_Pixel);
+		mRO.SetShader(mPS, ShaderType::ShdrT_Pixel);
 		//@}
 
 		mVS->AddConstBuffer(0, &mDynConstBuffer);
 		
-
 		mPS->AddConstBuffer(0, &mDynConstBuffer);
-		mPS->AddConstBuffer(1, &mLightConstBuffer);
-		mPS->AddConstBuffer(2, &mMaterialConstBuffer);
+		mPS->AddConstBuffer(1, &mMaterialConstBuffer);		
+		mPS->AddConstBuffer(2, &mGlobalLightBuffer);
+
+		BOOST_ASSERT(nullptr == mLightElemBufferResView);
+		mLightElemBufferResView = new ShaderResourceView;
+
+		SRVParam srv;
+		srv.type = SRVParam::SRVType::BufferEx;
+		srv.fmt = TF_UNKNOWN;
+
+		BOOST_VERIFY(mLightElemBufferResView->Init(srv, &mLightElemBuffer));
 		
 		return true;
 	}
@@ -126,35 +135,53 @@ namespace KY
 	}
 
 	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)
-{
-		mDynConstBuffer.Init({ ResT_Const, BA_Write, RU_Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
-
+	{
+		mDynConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
 
 		{
-			StaticLightConstBuffer buffer;
-			buffer.lightVec = Vec4f(100.f, -100.f, -100.f, 0.0f);
-			glm::normalize(buffer.lightVec);
+			GlobalLightInfo info;
+			auto camera = rt->GetCamera();
+			info.eyePos = camera->GetPostion();
+
+			info.lightNum = 1;
+			
+			mGlobalLightBuffer.Init({ ResourceType::Const, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(GlobalLightInfo) }, { reinterpret_cast<const uint8*>(&info, 0, 0) });
+		}
+
+		{
+			// we need a lighting manager, this code must be move out here
+			static_assert(sizeof(LightElemConstBuffer) == 64, "single light buffer should equal to 64 bytes, see Lighting.inc shader file, Light struct is 64 bytes");
+			
+			std::vector<LightElemConstBuffer>	lightsBuffer;
+
+			lightsBuffer.push_back(LightElemConstBuffer());
+			auto &lb = lightsBuffer.back();
 
 			auto camera = rt->GetCamera();
-			buffer.eyePos = camera->GetPostion();
-
-			buffer.diffColor = ColorF(1.0f, 1.0f, 1.0f, 1.0f);
-			buffer.ambientColor = ColorF(0.02f, 0.02f, 0.02f, 1.0f);
 			
+			const auto &viewMat = camera->GetViewMat();
 
-			//Scene *scene = System::Inst()->GetScene();
-			//LightSystem* lightSys = scene->GetLightSystem();
+			const glm::vec4 lightPosInWS(10000.f, 10000.f, 10000.f, 1.0f);
+			lb.positionInVS = viewMat * lightPosInWS;
+			lb.directionInVS = glm::normalize(-lightPosInWS);
 
-			//StaticLightInfo* staticLightInfo = lightSys->GetStaticInfo();
-
-			mLightConstBuffer.Init({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticLightConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+			lb.lightType = LightType::Directional;
+			lb.angle = 360;
+			lb.color = ColorF(0.2f, 0.2f, 0.2f, 1.0f);
+			lb.range = -1.f;
+			
+			mLightElemBuffer.Init({ ResourceType::Shader, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(LightElemConstBuffer) * lightsBuffer.size() }, { reinterpret_cast<const uint8*>(&*lightsBuffer.begin()), 0, 0 });
 		}
 
 		{
 			StaticMaterialConstBuffer buffer;
-			buffer.diffColor = ColorF(1.0f, 0, 0, 1.0f);
+			buffer.diffColor		= ColorF(1.0f, 0, 0, 1.0f);
+			buffer.specularColor	= ColorF(1.f, 1.f, 1.f, 1.f);
+			buffer.emissiveColor	= ColorF::Black;
+			buffer.ambientColor		= ColorF(0.02f, 0.02f, 0.02f, 1.0f);
+
 			buffer.specularPow = 8.f;
-			mMaterialConstBuffer.Init({ ResT_Const, BA_None, RU_Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
+			mMaterialConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(StaticMaterialConstBuffer) }, { reinterpret_cast<const uint8*>(&buffer), 0, 0 });
 		}
 
 		
@@ -199,7 +226,7 @@ namespace KY
 
 	void MeshRenderOperationHelper::UpdateFrameData(Camera *camera)
 	{
-		ResourceMapParam param = { 0, ResMT_WriteDiscard, 0, 0, 0, false };
+		ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
 		if (mDynConstBuffer.Map(param))
 		{
 			BOOST_ASSERT(param.mapData.data);

@@ -104,7 +104,7 @@ namespace KY
 				//{@	vertex
 				{
 					VSStage* vs = GetStage<VSStage>(true);
-					auto vsShader = ro->GetShader(ShdrT_Vertex);
+					auto vsShader = ro->GetShader(ShaderType::ShdrT_Vertex);
 					vs->SetShader(vsShader);
 
 					const auto& buffers = vsShader->GetConstBuffers();
@@ -136,7 +136,7 @@ namespace KY
 				//{@	pixel stage
 				{
 					PSStage *ps = GetStage<PSStage>(true);
-					auto psShader = ro->GetShader(ShdrT_Pixel);
+					auto psShader = ro->GetShader(ShaderType::ShdrT_Pixel);
 
 					ps->SetShader(psShader);
 

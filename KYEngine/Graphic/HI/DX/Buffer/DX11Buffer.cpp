@@ -21,9 +21,9 @@ namespace KY
 
 			desc.Usage = DX11NameTranslator::Inst()->ToUsage(param.usage);
 
-			if (QueryBit(BA_Read, param.access))
+			if (QueryBit(uint8(ResourceCPUAccess::Read), uint8(param.access)))
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_READ;
-			if (QueryBit(BA_Write, param.access))
+			if (QueryBit(uint8(ResourceCPUAccess::Write), uint8(param.access)))
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_WRITE;
 
 			desc.ByteWidth = param.sizeInBytes;			

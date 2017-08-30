@@ -41,7 +41,7 @@ namespace KY
 			, mRSStateObj(nullptr)
 			, mDepthStencilStateObj(nullptr)
 			, mBlendStateObj(nullptr)			
-			, mPriType(PT_Unknown)
+			, mPriType(PrimitiveType::PT_Unknown)
 		{
 			ZERO_MEMORY(miDrawParam); // ZERO_MEMORY(vDrawParam);
 			ZERO_MEMORY(mShaders);
@@ -173,13 +173,13 @@ namespace KY
 
 		//{@
 		void SetShader(Shader *shader, ShaderType type){
-			BOOST_ASSERT(0 <= type && type < ShdrT_Count);
-			mShaders[type] = shader;
+			BOOST_ASSERT(0 <= uint32(type) && uint32(type) < uint32(ShaderType::Count));
+			mShaders[uint32(type)] = shader;
 		}
 
 		const Shader* GetShader(ShaderType type) const {
-			BOOST_ASSERT(0 <= type && type < ShdrT_Count);
-			return mShaders[type];
+			BOOST_ASSERT(0 <= uint32(type) && uint32(type) < uint32(ShaderType::Count));
+			return mShaders[uint32(type)];
 		}
 		//@}
 
@@ -231,7 +231,7 @@ namespace KY
 		IndexBuffer *mIndexBuf;
 		BufferInfo mIndexInfo;
 
-		Shader* mShaders[ShdrT_Count];
+		Shader* mShaders[int32(ShaderType::Count)];
 
 		InputLayout *mInputLayout;
 

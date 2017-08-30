@@ -46,7 +46,7 @@ namespace KY
 		InitializeWindows(dim, windowed);
 
 		
-		GraphicInitParam param = { dim.x, dim.y, 1, 0, FL_11_1, mhWnd, mWindowedMode };
+		GraphicInitParam param = { dim.x, dim.y, 1, 0, FeatureLevel::FL_11_1, mhWnd, mWindowedMode };
 
 		auto input = Input::Create();
 		input->Initialize();
