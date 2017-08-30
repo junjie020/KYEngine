@@ -16,20 +16,9 @@ namespace KY
 	class MeshRenderOperationHelper
 	{
 	public:
-		MeshRenderOperationHelper()
-			: mDynConstBuffer(ResourceType::Const)
-			, mGlobalLightBuffer(ResourceType::Const)
-			, mMaterialConstBuffer(ResourceType::Const)
-			, mLightElemBuffer(ResourceType::Shader)
-			, mVS(nullptr)
-			, mPS(nullptr)
-		{}
+		MeshRenderOperationHelper();
 
-		~MeshRenderOperationHelper(){	
-			for (auto vb : mVBs) {
-				delete vb;
-			}
-		}
+		~MeshRenderOperationHelper();
 		RenderOperation& GetRO(){ return mRO; }
 
 		typedef std::vector<VertexBuffer*> VertexBufferVec;
@@ -62,9 +51,6 @@ namespace KY
 		//{@
 		Buffer			mLightElemBuffer;
 		ShaderResourceView* mLightElemBufferResView;
-
-			//SRVParam p = { TF_R8G8B8A8_UNORM, SRVParam::SRVType::Tex2D,{ 0, 1 } };
-		//mSRV->Init(p, mTex2D);
 		//@}
 
 		//@}

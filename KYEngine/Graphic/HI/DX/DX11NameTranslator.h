@@ -20,6 +20,8 @@ namespace KY
 			inline D3D11_BIND_FLAG ToBingFlag(ResourceType type) const;
 			inline D3D11_BIND_FLAG ToBingFlag(BindFlag bind) const;
 
+			inline D3D11_RESOURCE_MISC_FLAG ToResMiscFlag(ResourceMiscFlag flag) const;
+
 			inline D3D11_CPU_ACCESS_FLAG ToCPUAccessFlag(ResourceCPUAccess access) const;
 
 			inline D3D11_FILTER ToFilterType(FilterType ft) const;
@@ -257,6 +259,11 @@ namespace KY
 			BOOST_ASSERT(COUNT_OF(maps) > uint32(type));
 
 			return maps[uint32(type)];
+		}
+
+		inline D3D11_RESOURCE_MISC_FLAG DX11NameTranslator::ToResMiscFlag(ResourceMiscFlag flag) const
+		{
+			return D3D11_RESOURCE_MISC_FLAG(flag);
 		}
 	}
 

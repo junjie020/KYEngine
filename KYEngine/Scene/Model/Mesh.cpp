@@ -78,6 +78,32 @@ namespace KY
 		}
 	}
 
+	MeshRenderOperationHelper::MeshRenderOperationHelper() : mDynConstBuffer(ResourceType::Const)
+		, mGlobalLightBuffer(ResourceType::Const)
+		, mMaterialConstBuffer(ResourceType::Const)
+		, mLightElemBuffer(ResourceType::Shader)
+		, mVS(nullptr)
+		, mPS(nullptr)
+		, mLightElemBufferResView(nullptr)
+	{
+
+	}
+
+	MeshRenderOperationHelper::~MeshRenderOperationHelper()
+	{
+
+		for (auto vb : mVBs)
+		{
+			delete vb;
+		}
+		mVBs.clear();
+
+		delete mLightElemBufferResView;
+		mLightElemBufferResView = nullptr;
+		mVS = nullptr;
+		mPS = nullptr;
+	}
+
 	bool MeshRenderOperationHelper::Init(RenderTarget *rt)
 	{
 		if (!mVBs.empty())
@@ -116,6 +142,7 @@ namespace KY
 		mPS->AddConstBuffer(1, &mMaterialConstBuffer);		
 		mPS->AddConstBuffer(2, &mGlobalLightBuffer);
 
+		//{@	should move to lighting manager
 		BOOST_ASSERT(nullptr == mLightElemBufferResView);
 		mLightElemBufferResView = new ShaderResourceView;
 
@@ -123,7 +150,15 @@ namespace KY
 		srv.type = SRVParam::SRVType::BufferEx;
 		srv.fmt = TF_UNKNOWN;
 
+		srv.bufferEx.firstElem = 0;
+		srv.bufferEx.flags = 0;
+		srv.bufferEx.numElems = 1;	// one directional light
+
 		BOOST_VERIFY(mLightElemBufferResView->Init(srv, &mLightElemBuffer));
+
+		mRO.SetPSShaderResourceView(8, mLightElemBufferResView);
+		//@}
+
 		
 		return true;
 	}
@@ -136,7 +171,7 @@ namespace KY
 
 	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)
 	{
-		mDynConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
+		mDynConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::Write, ResourceUsage::Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
 
 		{
 			GlobalLightInfo info;
@@ -145,20 +180,20 @@ namespace KY
 
 			info.lightNum = 1;
 			
-			mGlobalLightBuffer.Init({ ResourceType::Const, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(GlobalLightInfo) }, { reinterpret_cast<const uint8*>(&info, 0, 0) });
+			mGlobalLightBuffer.Init({ ResourceType::Const, ResourceCPUAccess::Write, ResourceUsage::Dynamic, sizeof(GlobalLightInfo) }, { reinterpret_cast<const uint8*>(&info, 0, 0) });
 		}
 
 		{
 			// we need a lighting manager, this code must be move out here
 			static_assert(sizeof(LightElemConstBuffer) == 64, "single light buffer should equal to 64 bytes, see Lighting.inc shader file, Light struct is 64 bytes");
-			
+
 			std::vector<LightElemConstBuffer>	lightsBuffer;
 
 			lightsBuffer.push_back(LightElemConstBuffer());
 			auto &lb = lightsBuffer.back();
 
 			auto camera = rt->GetCamera();
-			
+
 			const auto &viewMat = camera->GetViewMat();
 
 			const glm::vec4 lightPosInWS(10000.f, 10000.f, 10000.f, 1.0f);
@@ -169,8 +204,21 @@ namespace KY
 			lb.angle = 360;
 			lb.color = ColorF(0.2f, 0.2f, 0.2f, 1.0f);
 			lb.range = -1.f;
-			
-			mLightElemBuffer.Init({ ResourceType::Shader, ResourceCPUAccess::None, ResourceUsage::Immutable, sizeof(LightElemConstBuffer) * lightsBuffer.size() }, { reinterpret_cast<const uint8*>(&*lightsBuffer.begin()), 0, 0 });
+
+			BufferParam param;
+			param.type = ResourceType::Shader;
+			param.access = ResourceCPUAccess::Write;
+			param.usage = ResourceUsage::Dynamic;
+
+			param.sizeInBytes = sizeof(LightElemConstBuffer) * lightsBuffer.size();
+
+			param.byteStrideForStructureBuffer = sizeof(LightElemConstBuffer);
+			param.miscFlags = ResourceMiscFlag::BufferStructured;
+			ResourceData subData;
+			subData.pData = reinterpret_cast<const uint8*>(&*lightsBuffer.begin());
+			subData.pitch = 0,
+			subData.slicePitch = 0;
+			mLightElemBuffer.Init(param, subData);
 		}
 
 		{

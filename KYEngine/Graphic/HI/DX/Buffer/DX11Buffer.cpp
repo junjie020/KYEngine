@@ -18,7 +18,7 @@ namespace KY
 			auto device = Graphic::Inst()->GetDx11()->GetDevice();
 			D3D11_BUFFER_DESC desc = { 0 };
 			desc.BindFlags = DX11NameTranslator::Inst()->ToBingFlag(param.type);
-
+			desc.MiscFlags = DX11NameTranslator::Inst()->ToResMiscFlag(param.miscFlags);
 			desc.Usage = DX11NameTranslator::Inst()->ToUsage(param.usage);
 
 			if (QueryBit(uint8(ResourceCPUAccess::Read), uint8(param.access)))
@@ -26,7 +26,8 @@ namespace KY
 			if (QueryBit(uint8(ResourceCPUAccess::Write), uint8(param.access)))
 				desc.CPUAccessFlags |= D3D11_CPU_ACCESS_WRITE;
 
-			desc.ByteWidth = param.sizeInBytes;			
+			desc.ByteWidth = param.sizeInBytes;	
+			desc.StructureByteStride = param.byteStrideForStructureBuffer;
 
 			D3D11_SUBRESOURCE_DATA data = { resData.pData, resData.pitch, resData.slicePitch };
 			

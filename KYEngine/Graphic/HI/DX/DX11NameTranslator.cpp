@@ -13,7 +13,6 @@ namespace KY
 {
 	namespace DX
 	{
-
 		ID3D11Resource* DX11NameTranslator::ToD3DResource(Resource *res) const
 		{
 			switch (res->GetResourceType())
@@ -21,6 +20,7 @@ namespace KY
 			case ResourceType::Vertex:
 			case ResourceType::Index:
 			case ResourceType::Const:
+			case ResourceType::Shader:
 				return static_cast<Buffer*>(res)->GetInternal()->GetInternal();
 				break;
 

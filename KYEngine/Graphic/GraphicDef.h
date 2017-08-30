@@ -51,6 +51,28 @@ namespace KY
 		Stage,
 	};
 
+	enum ResourceMiscFlag : uint32
+	{
+		Default					= 0,
+		GenerateMips			= 0x1L,
+		Shared					= 0x2L,
+		TextureCube				= 0x4L,
+		DrawIndirectARGS		= 0x10L,
+		BufferAllowRawViews		= 0x20L,
+		BufferStructured		= 0x40L,
+		ResourceClamp			= 0x80L,
+		SharedKeyedMutex		= 0x100L,
+		GDICcompateible			= 0x200L,
+		SharedNthandle			= 0x800L,
+		RestrictedContent		= 0x1000L,
+		RestrictSharedResource  = 0x2000L,
+		SharedResourceDriver	= 0x4000L,
+		Guarded					= 0x8000L,
+		TtilePool				= 0x20000L,
+		Tiled					= 0x40000L,
+		HW_Protected			= 0x80000L
+	};
+
 	enum class PrimitiveType : uint16
 	{
 		PT_Unknown = uint16(-1),
@@ -369,8 +391,10 @@ namespace KY
 		ResourceCPUAccess access;
 		ResourceUsage usage;
 
-		uint32 sizeInBytes;
-		uint32 byteStrideForStructureBuffer;
+		uint32 sizeInBytes;		
+		uint32 byteStrideForStructureBuffer;		
+
+		ResourceMiscFlag miscFlags;
 	};
 
 	struct TextureParam 
