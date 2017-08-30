@@ -341,7 +341,7 @@ private:
 			constParam.type = ResourceType::Const;
 			constParam.access = ResourceCPUAccess::Write;
 			constParam.usage = ResourceUsage::Dynamic;
-			constParam.sizeInBytes = sizeof(TransformConstBuffer);
+			constParam.sizeInBytes = sizeof(GlobalDynamicConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
 			if (mDynConstBuffer.Init(constParam, constData))
@@ -377,19 +377,21 @@ private:
 			ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
-				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;
+				GlobalDynamicConstBuffer dynBuffer;
+				dynBuffer.matrix.world = mat4x4_utils::INDENTIFY;
 				//mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
 
 				//const Size2U dim = Graphic::Inst()->GetBackBufferSize();
 				//mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
 
-				mMatBuffer.matView = camera->GetViewMat();
-				mMatBuffer.matProj = camera->GetProjMat();
+				dynBuffer.matrix.view = camera->GetViewMat();
+				dynBuffer.matrix.proj = camera->GetProjMat();
+				dynBuffer.eyePos = camera->GetPostion();
 
 				BOOST_ASSERT(param.mapData.data);
 				BOOST_ASSERT(param.mapData.rowPitch != 0);
-				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
-				memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
+				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(dynBuffer));
+				memcpy(param.mapData.data, &dynBuffer, sizeof(dynBuffer));
 				mDynConstBuffer.UnMap(param.subRes);
 			}
 			else
@@ -407,8 +409,7 @@ private:
 	private:
 		KY::RenderOperation mRO;
 		//{@
-		KY::VertexBuffer		mBuffer;
-		TransformConstBuffer	mMatBuffer;
+		KY::VertexBuffer		mBuffer;		
 		KY::Buffer				mDynConstBuffer;
 		//@}
 
@@ -506,7 +507,7 @@ private:
 			constParam.type = ResourceType::Const;
 			constParam.access = ResourceCPUAccess::Write;
 			constParam.usage = ResourceUsage::Dynamic;
-			constParam.sizeInBytes = sizeof(TransformConstBuffer);
+			constParam.sizeInBytes = sizeof(GlobalDynamicConstBuffer);
 
 			ResourceData constData = { nullptr, 0, 0 };
 			if (mDynConstBuffer.Init(constParam, constData))
@@ -539,19 +540,20 @@ private:
 			ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
 			if (mDynConstBuffer.Map(param))
 			{
-				mMatBuffer.matWorld = mat4x4_utils::INDENTIFY;
+				GlobalDynamicConstBuffer dynBuffer;
+				dynBuffer.matrix.world = mat4x4_utils::INDENTIFY;
 				//mMatBuffer.matView = KY::ConstructViewMatrix(Vec4f(0.0f, 0.0f, 100.f, 1.0f), Vec4f(0.0f, 0.0f, 0.0f, 1.0f), Vec4f(0.0f, 1.0f, 0.0f, 1.0f));
 
 				//const Size2U dim = Graphic::Inst()->GetBackBufferSize();
 				//mMatBuffer.matProj = KY::ConstructPrespectiveMatrix(MathUtils::ToRadian(45.f), float(dim.x) / dim.y, 0.1f, 1000.f);
 
-				mMatBuffer.matView = camera->GetViewMat();
-				mMatBuffer.matProj = camera->GetProjMat();
+				dynBuffer.matrix.view = camera->GetViewMat();
+				dynBuffer.matrix.proj = camera->GetProjMat();
 
 				BOOST_ASSERT(param.mapData.data);
 				BOOST_ASSERT(param.mapData.rowPitch != 0);
-				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(mMatBuffer));
-				memcpy(param.mapData.data, &mMatBuffer, sizeof(mMatBuffer));
+				BOOST_ASSERT(param.mapData.rowPitch >= sizeof(dynBuffer));
+				memcpy(param.mapData.data, &dynBuffer, sizeof(dynBuffer));
 				mDynConstBuffer.UnMap(param.subRes);
 			}
 			else
@@ -568,8 +570,7 @@ private:
 	private:
 		KY::RenderOperation mRO;
 		//{@
-		KY::VertexBuffer		mBuffer;
-		TransformConstBuffer	mMatBuffer;
+		KY::VertexBuffer		mBuffer;		
 		KY::Buffer				mDynConstBuffer;
 		//@}
 		

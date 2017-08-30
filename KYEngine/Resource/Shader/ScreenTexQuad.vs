@@ -12,18 +12,18 @@ struct Output
 
 cbuffer MatBuffer : register(b0)
 {
-	matrix matWorld;
-	matrix matView;
-	matrix matProj;
+	matrix world;
+	matrix view;
+	matrix proj;
 };
 
 
 Output main(Input i)
 {
 	Output o;
-	o.position = mul(matWorld, i.position);
-	o.position = mul(matView, o.position);
-	o.position = mul(matProj, o.position);
+	o.position = mul(transMatrix.world, i.position);
+	o.position = mul(transMatrix.view, o.position);
+	o.position = mul(transMatrix.proj, o.position);
 
 	o.tex = i.tex;
 

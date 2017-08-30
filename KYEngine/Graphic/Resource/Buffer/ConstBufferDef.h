@@ -10,10 +10,22 @@
 namespace KY
 {
 	// need packing into 16bytes
-	struct TransformConstBuffer {
-		Mat4x4F matWorld;
-		Mat4x4F matView;
-		Mat4x4F matProj;
+	struct GlobalDynamicConstBuffer
+	{
+		struct TransformMatrix {
+			Mat4x4F world;
+			Mat4x4F view;
+			Mat4x4F proj;
+		};
+
+		TransformMatrix matrix;
+		glm::vec4		eyePos;	// use xyz element
+	};
+
+	struct GlobalStaticConstBuffer
+	{
+		int32		lightNum;
+		int32		padding[3];
 	};
 
 	//struct StaticLightConstBuffer {
@@ -49,12 +61,6 @@ namespace KY
 		float		angle;			// spot
 		float		range;			// point and spot light
 		LightType	lightType;
-	};
-
-	struct GlobalLightInfo
-	{
-		glm::vec3 eyePos;
-		uint32	lightNum;
 	};
 }
 #endif // _CONSTBUFFERDEF_H_

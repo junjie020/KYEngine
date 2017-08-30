@@ -78,8 +78,8 @@ namespace KY
 		}
 	}
 
-	MeshRenderOperationHelper::MeshRenderOperationHelper() : mDynConstBuffer(ResourceType::Const)
-		, mGlobalLightBuffer(ResourceType::Const)
+	MeshRenderOperationHelper::MeshRenderOperationHelper() : mGlobalDynamicConstBuffer(ResourceType::Const)
+		, mGlobalStaticConstBuffer(ResourceType::Const)
 		, mMaterialConstBuffer(ResourceType::Const)
 		, mLightElemBuffer(ResourceType::Shader)
 		, mVS(nullptr)
@@ -136,11 +136,12 @@ namespace KY
 		mRO.SetShader(mPS, ShaderType::ShdrT_Pixel);
 		//@}
 
-		mVS->AddConstBuffer(0, &mDynConstBuffer);
+		mVS->AddConstBuffer(0, &mGlobalDynamicConstBuffer);
 		
-		mPS->AddConstBuffer(0, &mDynConstBuffer);
-		mPS->AddConstBuffer(1, &mMaterialConstBuffer);		
-		mPS->AddConstBuffer(2, &mGlobalLightBuffer);
+		mPS->AddConstBuffer(0, &mGlobalDynamicConstBuffer);
+		mPS->AddConstBuffer(1, &mGlobalStaticConstBuffer);
+		mPS->AddConstBuffer(2, &mMaterialConstBuffer);		
+		
 
 		//{@	should move to lighting manager
 		BOOST_ASSERT(nullptr == mLightElemBufferResView);
@@ -171,16 +172,24 @@ namespace KY
 
 	bool MeshRenderOperationHelper::InitConstBuffer(RenderTarget *rt)
 	{
-		mDynConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::Write, ResourceUsage::Dynamic, sizeof(TransformConstBuffer) }, {nullptr, 0, 0});
+		mGlobalDynamicConstBuffer.Init({ ResourceType::Const, ResourceCPUAccess::Write, ResourceUsage::Dynamic, sizeof(GlobalDynamicConstBuffer) }, {nullptr, 0, 0});
 
 		{
-			GlobalLightInfo info;
-			auto camera = rt->GetCamera();
-			info.eyePos = camera->GetPostion();
-
-			info.lightNum = 1;
+			GlobalStaticConstBuffer info;
 			
-			mGlobalLightBuffer.Init({ ResourceType::Const, ResourceCPUAccess::Write, ResourceUsage::Dynamic, sizeof(GlobalLightInfo) }, { reinterpret_cast<const uint8*>(&info, 0, 0) });
+			info.lightNum = 1;
+
+			BufferParam param;
+			param.type = ResourceType::Const;
+			param.access = ResourceCPUAccess::None;
+			param.usage = ResourceUsage::Default;
+			param.sizeInBytes = sizeof(GlobalStaticConstBuffer);
+
+			param.miscFlags = ResourceMiscFlag::Default;
+			ResourceData resData;
+			resData.pData = reinterpret_cast<const uint8*>(&info);
+			resData.pitch = resData.slicePitch = 0;
+			mGlobalStaticConstBuffer.Init(param, resData);
 		}
 
 		{
@@ -275,20 +284,22 @@ namespace KY
 	void MeshRenderOperationHelper::UpdateFrameData(Camera *camera)
 	{
 		ResourceMapParam param = { 0, ResourceMapType::ResMT_WriteDiscard, 0, 0, 0, false };
-		if (mDynConstBuffer.Map(param))
+		if (mGlobalDynamicConstBuffer.Map(param))
 		{
 			BOOST_ASSERT(param.mapData.data);
 			BOOST_ASSERT(param.mapData.rowPitch != 0);
-			BOOST_ASSERT(param.mapData.rowPitch >= sizeof(TransformConstBuffer));
+			BOOST_ASSERT(param.mapData.rowPitch >= sizeof(GlobalDynamicConstBuffer));
 
-			TransformConstBuffer bb;
-			bb.matWorld = mat4x4_utils::INDENTIFY;
-			bb.matWorld[0][0] = bb.matWorld[1][1] = bb.matWorld[2][2] = 50.0f;// 100.f;
-			bb.matView = camera->GetViewMat();
-			bb.matProj = camera->GetProjMat();
+			GlobalDynamicConstBuffer bb;
+			bb.matrix.world = mat4x4_utils::INDENTIFY;
+			
+			bb.matrix.view = camera->GetViewMat();
+			bb.matrix.proj = camera->GetProjMat();
+
+			bb.eyePos = camera->GetPostion();
 
 			memcpy(param.mapData.data, &bb, sizeof(bb));
-			mDynConstBuffer.UnMap(param.subRes);
+			mGlobalDynamicConstBuffer.UnMap(param.subRes);
 		}
 		else
 		{

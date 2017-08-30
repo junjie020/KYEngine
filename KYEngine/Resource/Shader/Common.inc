@@ -1,22 +1,32 @@
-cbuffer MatrixBuffer : register(b0)
+struct TransformMatrix
 {
-	matrix matWorld;
-	matrix matView;
-	matrix matProj;
-	//matrix matViewProj;
+	float4x4 world;
+	float4x4 view;
+	float4x4 proj;	
 };
 
-cbuffer MaterialBuffer : register(b1)
+
+cbuffer GlobalRenderDynamicBuffer : register(b0)
 {
-	float4		materialDiffColor;	
-	float4		materialSpecularColor;
-	float4		materialAmbientColor;
-	float4		materialEmissiveColor;
-	float		materialSpecularPow;
+	TransformMatrix transMatrix;
+	float3 eyePos;
 };
 
-cbuffer LightInfoBuffer : register(b2)
+cbuffer GlobalRenderStaticBuffer : register(b1)
 {
-	float3	eyePos;
 	int		numLights;
+};
+
+struct MaterialData
+{
+	float4 diffuse;
+	float4 specular;
+	float4 ambient;
+	float4 emissive;
+	float	specularPow;
+};
+
+cbuffer MaterialBuffer : register(b2)
+{
+	MaterialData material;
 };

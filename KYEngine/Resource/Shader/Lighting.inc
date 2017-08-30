@@ -28,7 +28,7 @@ float4 CalcSpecularPhong(float4 color, float3 L, float3 N, float3 V)
 	float3 R = normalize(reflect(-L, N));
 	float RdotV = max(0, dot(R, V));
 
-	return color * pow(RdotV, materialSpecularPow);
+	return color * pow(RdotV, material.specularPow);
 }
 
 float4 CalcSpecularBlinPhong(float4 color, float3 L, float3 N, float3 V)
@@ -37,7 +37,7 @@ float4 CalcSpecularBlinPhong(float4 color, float3 L, float3 N, float3 V)
 
 	float HdotN = max(0, dot(H, N));
 
-	return color * pow(HdotN, materialSpecularPow);
+	return color * pow(HdotN, material.specularPow);
 }
 
 float4 CalcDiffuse(float4 color, float3 L, float3 N)
@@ -116,9 +116,10 @@ LightResult DoSpotLihgting(Light light, float3 posInVS, float3 normalInVS, float
 
 LightResult DoLighting(float3 posInVS, float3 normalInVS)
 {
-	const float3 eyePosInVS = (float3)0.f;
+	const float3 eyePosInVS = (float3)0.f;	
 
 	LightResult lResults = (LightResult)0;
+	
 	for (int ii = 0; ii < numLights; ++ii)
 	{
 		LightResult result = (LightResult)0;

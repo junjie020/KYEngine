@@ -5,14 +5,14 @@ PSInput main(VSInput i)
 {
 	PSInput psIN = (PSInput)0;
 
-	float4 posWS = mul(matWorld, i.position);	 
-	float4 posVS = mul(matView, posWS);	
+	float4 posWS = mul(transMatrix.world, i.position);	 
+	float4 posVS = mul(transMatrix.view, posWS);	
 	psIN.positionInVS = posVS.xyz;
 
-	psIN.position = mul(matProj, posVS);
+	psIN.position = mul(transMatrix.proj, posVS);
 
-	float4 normalWS = mul(matWorld, float4(i.normal, 0.f));
-	psIN.normalInVS	= mul(matView, normalWS).xyz;
+	float4 normalWS = mul(transMatrix.world, float4(i.normal, 0.f));
+	psIN.normalInVS	= mul(transMatrix.view, normalWS).xyz;
 
 	return psIN;
 }

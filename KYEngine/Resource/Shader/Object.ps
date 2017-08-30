@@ -6,9 +6,9 @@ float4 main(PSInput psIN) : SV_TARGET0
 {
 	LightResult lightRes = DoLighting(psIN.positionInVS, psIN.normalInVS);
 
-	float4 diffuse = float4(lightRes.diffuse.rgb, 1.0f) * materialDiffColor;
+	float4 diffuse = float4(lightRes.diffuse.rgb, 1.0f) * material.diffuse;
 
-	float4 specular = float4(lightRes.specular.rgb, 1.0f) * materialSpecularColor;
+	float4 specular = float4(lightRes.specular.rgb, 1.0f) * material.specular;
 
-	return diffuse + specular + materialEmissiveColor + materialAmbientColor;
+	return diffuse + specular + material.emissive + material.ambient;
 }
