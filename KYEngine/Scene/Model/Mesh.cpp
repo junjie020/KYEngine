@@ -213,6 +213,7 @@ namespace KY
 			lb.angle = 360;
 			lb.color = ColorF(0.2f, 0.2f, 0.2f, 1.0f);
 			lb.range = -1.f;
+			lb.intensity = 1.f;
 
 			BufferParam param;
 			param.type = ResourceType::Shader;

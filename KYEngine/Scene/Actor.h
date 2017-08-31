@@ -1,7 +1,7 @@
 #ifndef _ACTOR_H_
 #define _ACTOR_H_
 
-#include "Graphic/SpaceNode.h"
+#include "Scene/SpaceNode.h"
 #include "Graphic/Render/IRenderable.h"
 namespace KY
 {

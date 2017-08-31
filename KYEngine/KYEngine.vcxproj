@@ -186,6 +186,7 @@
     <ClCompile Include="Graphic\Frustum.cpp" />
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp" />
+    <ClCompile Include="Graphic\Lighting\LightManager.cpp" />
     <ClCompile Include="Graphic\Render\RenderTargetView.cpp" />
     <ClCompile Include="Graphic\Resource\Shader\Compile\ShaderCodeRegenerate.cpp" />
     <ClCompile Include="Graphic\Resource\Shader\ShaderResourceView.cpp" />
@@ -204,7 +205,6 @@
     <ClCompile Include="Graphic\Resource\State\StateObject.cpp" />
     <ClCompile Include="Graphic\Resource\Texture\Texture.cpp" />
     <ClCompile Include="Graphic\Resource\Buffer\VertexBuffer.cpp" />
-    <ClCompile Include="Graphic\SpaceNode.cpp" />
     <ClCompile Include="Graphic\Render\Viewport.cpp" />
     <ClCompile Include="Input\Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -221,6 +221,7 @@
     <ClCompile Include="Scene\Model\MeshImporter.cpp" />
     <ClCompile Include="Scene\Model\Model.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\SpaceNode.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -258,6 +259,7 @@
     <ClInclude Include="Graphic\Graphic.h" />
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
+    <ClInclude Include="Graphic\Lighting\LightManager.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
     <ClInclude Include="Graphic\Render\RenderTargetView.h" />
     <ClInclude Include="Graphic\Resource\IResourceInterface.h" />
@@ -280,7 +282,6 @@
     <ClInclude Include="Graphic\Resource\State\StateObject.h" />
     <ClInclude Include="Graphic\Resource\Texture\Texture.h" />
     <ClInclude Include="Graphic\Resource\Buffer\VertexBuffer.h" />
-    <ClInclude Include="Graphic\SpaceNode.h" />
     <ClInclude Include="Graphic\Render\Viewport.h" />
     <ClInclude Include="Graphic\Render\WindowRenderTarget.h" />
     <ClInclude Include="Input\Input.h" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Scene\Model\MeshImporter.h" />
     <ClInclude Include="Scene\Model\Model.h" />
     <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\SpaceNode.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System\SampleTest.h" />
     <ClInclude Include="System\System.h" />
