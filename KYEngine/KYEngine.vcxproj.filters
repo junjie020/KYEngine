@@ -175,6 +175,9 @@
     <ClCompile Include="Graphic\Material\Material.cpp">
       <Filter>Graphic\Material</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Material\GlobalConstBuffer.cpp">
+      <Filter>Graphic\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -403,6 +406,9 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Material\Material.h">
+      <Filter>Graphic\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Material\GlobalConstBuffer.h">
       <Filter>Graphic\Material</Filter>
     </ClInclude>
   </ItemGroup>

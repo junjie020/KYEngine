@@ -1,36 +1,58 @@
 #pragma once
 #include "Common/Singleton.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
+#include "Math/Color.h"
+
 namespace KY
 {
-	class LightHWData
-	{
-	public:
+	class ShaderResourceView;
+	class RenderTarget;
 
+	enum class LightType : uint32 {
+		Directional,
+		Point,
+		Spot,
+		Unknown
 	};
 
-	template<class HWType>
-	class TLight
+	struct LightConstBuffer
+	{
+		glm::vec4	positionInVS;	// point and spot light
+		glm::vec4	directionInVS;	// spot light
+		ColorF		color;
+		float		intensity;
+		float		angle;			// spot
+		float		range;			// point and spot light
+		LightType	lightType;
+	};
+
+	class Light
 	{
 	public:
 		void Update();
-	private:
-		HWType *mInternal;
-	};
 
-	using Light = TLight<LightHWData>;
+		LightConstBuffer	mInfo;
+	};
 
 	class LightManager : public Singleton<LightManager>
 	{
 	public:
-		LightManager() = default;
-		~LightManager() = default;
+		LightManager();
+		~LightManager();
 
 		void AddLight(const Light &l);
 
-		void Update();
-
+		void Update(RenderTarget *rt);
+	private:
+		void UpdateLightsBuffers(RenderTarget *rt);
+		//void UpdateLightGlobalBuffer(RenderTarget *rt);
+	
 	private:
 		using LightArray = std::vector<Light>;
-		LightArray mLights;
+		LightArray	mLights;
+
+		Buffer		mLightsConstBuffer;
+		ShaderResourceView* mLightElemBufferResView;
+		//@}
 	};
 }

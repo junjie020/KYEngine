@@ -187,6 +187,7 @@
     <ClCompile Include="Graphic\Graphic.cpp" />
     <ClCompile Include="Graphic\HI\DX\Texture\Dx11Texture.cpp" />
     <ClCompile Include="Graphic\Lighting\LightManager.cpp" />
+    <ClCompile Include="Graphic\Material\GlobalConstBuffer.cpp" />
     <ClCompile Include="Graphic\Material\Material.cpp" />
     <ClCompile Include="Graphic\Render\RenderTargetView.cpp" />
     <ClCompile Include="Graphic\Resource\Shader\Compile\ShaderCodeRegenerate.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Graphic\GraphicDef.h" />
     <ClInclude Include="Graphic\HI\DX\Texture\Dx11Texture.h" />
     <ClInclude Include="Graphic\Lighting\LightManager.h" />
+    <ClInclude Include="Graphic\Material\GlobalConstBuffer.h" />
     <ClInclude Include="Graphic\Material\Material.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
     <ClInclude Include="Graphic\Render\RenderTargetView.h" />

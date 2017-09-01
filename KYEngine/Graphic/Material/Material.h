@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "Graphic/GraphicDef.h"
 namespace KY
 {
 	class Shader;
@@ -22,21 +22,23 @@ namespace KY
 			return mName;
 		}
 
+		void Update();
+	public:
 		//{@
 		void SetRasterizerStateObj(const RasterizerState &state);
 		void SetBlendStateObj(const BlendState &state);
 		void SetDepthStencilStateObj(const BlendState &state);
 
 		RasterizerStateObj		*GetRasterizerStateObj() const {
-			return mRasterizerStateObj;
+			return mRasterizerState.obj;
 		}
 
 		BlendStateObj			*GetmBlendStateObj() const {
-			return mBlendStateObj;
+			return mBlendState.obj;
 		}	
 
 		DepthStencilStateObj	*GetDepthStencialStateObj() const {
-			return mDepthStencialStateObj;
+			return mDepthStencilState.obj;
 		}
 		//@}
 
@@ -44,6 +46,10 @@ namespace KY
 		void AddTexture(Texture *tex, SamplerStateObj *sampler);
 
 		void SetShader(const fs::path &shaderFile);
+
+
+	private:
+		
 
 	private:
 		std::string mName;
@@ -58,8 +64,28 @@ namespace KY
 		using TextureArray = std::vector<TextureData>;
 		TextureArray			mTextures;
 
-		RasterizerStateObj		*mRasterizerStateObj;
-		BlendStateObj			*mBlendStateObj;
-		DepthStencilStateObj	*mDepthStencialStateObj;
+		template<typename StateType, class ObjType>
+		class StateObj
+		{
+		public:
+			StateObj();
+			~StateObj();
+
+			void SetDirty(bool d) {
+				dirty = d;
+			}
+			bool IsDirty() const {
+				return dirty;
+			}
+
+		public:
+			StateType	state;
+			ObjType*	obj;
+			bool		dirty;
+		};
+
+		StateObj<RasterizerState, RasterizerStateObj>		mRasterizerState;
+		StateObj<BlendState, BlendStateObj>					mBlendState;
+		StateObj<DepthStencilState, DepthStencilStateObj>	mDepthStencilState;
 	};
 }

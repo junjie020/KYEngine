@@ -44,16 +44,9 @@ namespace KY
 		Shader*			mPS;
 
 		//{@	those const buffer should manager from a pool by camera or other data		
-		Buffer			mGlobalDynamicConstBuffer;	
-		Buffer			mGlobalStaticConstBuffer;
+		Buffer			mGlobalDynamicConstBuffer;			
 		Buffer			mMaterialConstBuffer;
 		
-
-		//{@
-		Buffer			mLightElemBuffer;
-		ShaderResourceView* mLightElemBufferResView;
-		//@}
-
 		//@}
 
 

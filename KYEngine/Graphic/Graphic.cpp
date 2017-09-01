@@ -11,12 +11,14 @@
 
 #include "Graphic/Render/WindowRenderTarget.h"
 #include "Graphic/Render/Viewport.h"
+#include "Graphic/Material/GlobalConstBuffer.h"
 
 
 namespace KY
 {
 	Graphic::Graphic()
-		: mDx(nullptr)		
+		: mDx(nullptr)
+		, mGlobalConstBuffer()
 	{
 		ZERO_MEMORY(mStages);
 	}

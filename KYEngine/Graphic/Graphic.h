@@ -19,6 +19,7 @@ namespace KY
 	class RenderTarget;
 	class WindowRenderTarget;
 	class Viewport;
+	class GlobalConstBuffer;
 
 	class Graphic : public Singleton<Graphic>
 	{
@@ -42,6 +43,10 @@ namespace KY
 
 
 		bool CommitRenderCommands();
+
+		GlobalConstBuffer* GetGlobalConstBuffer() const {
+			return mGlobalConstBuffer;
+		}
 
 	public:
 		//{@	internal
@@ -80,6 +85,8 @@ namespace KY
 			};
 		};
 		//@}
+
+		GlobalConstBuffer	*mGlobalConstBuffer;
 		
 	};
 

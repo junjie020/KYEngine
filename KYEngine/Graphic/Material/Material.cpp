@@ -4,6 +4,11 @@
 namespace KY
 {
 
+	void Material::Update()
+	{
+
+	}
+
 	void Material::SetRasterizerStateObj(const RasterizerState &state)
 	{
 
