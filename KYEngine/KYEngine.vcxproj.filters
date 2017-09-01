@@ -172,6 +172,9 @@
     <ClCompile Include="Scene\SpaceNode.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\Material\Material.cpp">
+      <Filter>Graphic\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -399,6 +402,9 @@
     <ClInclude Include="Scene\SpaceNode.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Material\Material.h">
+      <Filter>Graphic\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -502,6 +508,9 @@
     </Filter>
     <Filter Include="Graphic\Lighting">
       <UniqueIdentifier>{0623ac3c-85da-48e6-bc77-18b56109ddd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Material">
+      <UniqueIdentifier>{d7efc86e-22d4-4de1-8008-d7d291d5f6f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
