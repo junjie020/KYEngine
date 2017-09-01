@@ -88,9 +88,6 @@
     <ClCompile Include="Graphic\Resource\State\StateHelper.cpp">
       <Filter>Graphic\Resource\State</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\SpaceNode.cpp">
-      <Filter>Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="Graphic\Resource\ResourceManager.cpp">
       <Filter>Graphic\Resource</Filter>
     </ClCompile>
@@ -168,6 +165,18 @@
     </ClCompile>
     <ClCompile Include="Common\StringUtils\StringUtils.cpp">
       <Filter>Common\StringUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Lighting\LightManager.cpp">
+      <Filter>Graphic\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SpaceNode.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Material\Material.cpp">
+      <Filter>Graphic\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Material\GlobalConstBuffer.cpp">
+      <Filter>Graphic\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +287,6 @@
     </ClInclude>
     <ClInclude Include="Graphic\Resource\State\StateHelper.h">
       <Filter>Graphic\Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic\SpaceNode.h">
-      <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\Resource\ResourceManager.h">
       <Filter>Graphic\Resource</Filter>
@@ -393,6 +399,18 @@
     <ClInclude Include="Common\StringUtils\StringUtils.h">
       <Filter>Common\StringUtils</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Lighting\LightManager.h">
+      <Filter>Graphic\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SpaceNode.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Material\Material.h">
+      <Filter>Graphic\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Material\GlobalConstBuffer.h">
+      <Filter>Graphic\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -493,6 +511,12 @@
     </Filter>
     <Filter Include="Common\StringUtils">
       <UniqueIdentifier>{c7c54522-71f0-4ce9-9bd0-a00d0e797924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Lighting">
+      <UniqueIdentifier>{0623ac3c-85da-48e6-bc77-18b56109ddd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Material">
+      <UniqueIdentifier>{d7efc86e-22d4-4de1-8008-d7d291d5f6f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

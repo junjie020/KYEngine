@@ -44,23 +44,5 @@ namespace KY
 		float	specularPow;
 		float	padding[3];
 	};
-
-	enum class LightType : uint32 {
-		Directional,
-		Point,
-		Spot,
-		Unknown
-	};
-
-	struct LightElemConstBuffer
-	{
-		glm::vec4	positionInVS;	// point and spot light
-		glm::vec4	directionInVS;	// spot light
-		ColorF		color;
-		float		intensity;
-		float		angle;			// spot
-		float		range;			// point and spot light
-		LightType	lightType;
-	};
 }
 #endif // _CONSTBUFFERDEF_H_

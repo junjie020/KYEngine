@@ -619,8 +619,9 @@ int MainEntry()
 		ModelTest tt;
 		auto camera = vp->GetCamera();
 
-		camera->SetPosition(Vec4f(100.f, 100.f, 100.f, 1.f));
-		auto direct = glm::normalize(Vec4f(0.f) - Vec4f(1.f));
+		const glm::vec4 cameraPos = Vec4f(5.f, 5.f, 10.f, 1.f);
+		camera->SetPosition(cameraPos);
+		auto direct = glm::normalize(Vec4f(0.f, 0.f, 0.f, 1.f) - cameraPos);
 		camera->SetDirection(direct);
 		
 		tt.Init(vp);

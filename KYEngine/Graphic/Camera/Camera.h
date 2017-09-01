@@ -1,7 +1,7 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
-#include "Graphic/SpaceNode.h"
+#include "Scene/SpaceNode.h"
 #include "Graphic/Frustum.h"
 #include "Math/Matrix.h"
 
