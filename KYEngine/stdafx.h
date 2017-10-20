@@ -31,6 +31,8 @@ namespace fs = std::experimental::filesystem::v1;
 //@}
 
 #pragma warning(disable:4201)
+#pragma warning(disable:4100)
+#pragma warning(disable:4189)
 
 #include "Common/BaseDef.h"
 

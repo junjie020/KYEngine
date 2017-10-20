@@ -411,6 +411,12 @@
     <ClInclude Include="Graphic\Material\GlobalConstBuffer.h">
       <Filter>Graphic\Material</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Render\RenderBatch.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\Render\BufferRenderProxy.h">
+      <Filter>Graphic\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">

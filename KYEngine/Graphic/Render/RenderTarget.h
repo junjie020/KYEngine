@@ -5,6 +5,7 @@
 
 #include "Graphic/Render/RenderCommandQueue.h"
 #include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Render/RenderBatch.h"
 
 namespace KY
 {
@@ -34,9 +35,21 @@ namespace KY
 			mQueue.Push(std::forward<RenderCommandQueue>(q));
 		}
 
+		void AddRenderBatch(const RenderBatch &rb)
+		{
+			mRenderBatchs.push_back(rb);
+		}
+
+		auto& GetRenderBatchs()
+		{
+			return mRenderBatchs;
+		}
+
     private:
 		RenderCommandQueue	mQueue;
 		Camera				mCamera;
+
+		std::vector<RenderBatch>	mRenderBatchs;
     };
 }
 #endif // _RENDERTARGET_H_

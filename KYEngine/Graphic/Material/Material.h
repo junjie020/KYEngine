@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Graphic/GraphicDef.h"
+#include "Graphic/Resource/Buffer/Buffer.h"
+
 namespace KY
 {
 	class Shader;
@@ -13,12 +15,21 @@ namespace KY
 	struct RasterizerState;
 	struct DepthStencilState;
 	struct BlendState;
+	class ShaderResourceView;
 
 	class Material
 	{
 	public:
-		Material(const std::string &name) : mName(name){}
-		const std::string GetName() const{
+		Material(const std::string &name) 
+			: mName(name)
+			, mVSShader(nullptr)
+			, mPSShader(nullptr)
+		{
+
+		}
+
+		const std::string GetName() const
+		{
 			return mName;
 		}
 
@@ -45,24 +56,36 @@ namespace KY
 		void AddTexture(const fs::path &texPath, const SamplerState &state);
 		void AddTexture(Texture *tex, SamplerStateObj *sampler);
 
-		void SetShader(const fs::path &shaderFile);
+		void SetShader(const fs::path &shaderFile, ShaderType type);
 
+		const Shader* GetVSShader() const {
+			return mVSShader;
+		}
 
-	private:
-		
+		const Shader* GetPSShader() const {
+			return mPSShader;
+		}
 
-	private:
-		std::string mName;
-		Shader *mShader;
-
-		struct TextureData
+		struct TextureSamplerData
 		{
-			Texture			*tex;
-			SamplerStateObj *sampler;
+			Texture				*tex;
+			SamplerStateObj		*samplerObj;
+			ShaderResourceView	*srv;
 		};
 
-		using TextureArray = std::vector<TextureData>;
-		TextureArray			mTextures;
+
+		using TextureSamplerDataArray = std::vector<TextureSamplerData>;
+		const TextureSamplerDataArray& GetTextureSamplerDataArray() const {
+			return mTextureSamplers;
+		}
+		
+	private:
+		std::string mName;
+		Shader *mVSShader;
+		Shader *mPSShader;
+
+		
+		TextureSamplerDataArray	mTextureSamplers;
 
 		template<typename StateType, class ObjType>
 		class StateObj
@@ -87,5 +110,7 @@ namespace KY
 		StateObj<RasterizerState, RasterizerStateObj>		mRasterizerState;
 		StateObj<BlendState, BlendStateObj>					mBlendState;
 		StateObj<DepthStencilState, DepthStencilStateObj>	mDepthStencilState;
+
+		std::vector<Buffer*>									mConstBuffers;
 	};
 }

@@ -21,17 +21,6 @@ namespace KY
 
 	class Viewport;
 
-	struct DrawVertexBufferParam{		
-		uint32 mVertexCount;
-		uint32 mStartVertexLocation;
-	};
-
-	struct DrawIndexBufferParam{
-		uint32 mIndexCount;
-		uint32 mStartIndexLocation;
-		uint32 mBaseVertexLocation;
-	};
-
 	class RenderOperation
 	{
 	public:

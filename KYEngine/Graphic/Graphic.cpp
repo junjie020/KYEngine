@@ -12,6 +12,9 @@
 #include "Graphic/Render/WindowRenderTarget.h"
 #include "Graphic/Render/Viewport.h"
 #include "Graphic/Material/GlobalConstBuffer.h"
+#include "Graphic/Material/Material.h"
+
+#include "System/System.h"
 
 
 namespace KY
@@ -191,6 +194,115 @@ namespace KY
 		}
 		
 	}
+
+	void Graphic::CommitRenderBatch()
+	{
+		for (RenderTarget *rt : mRenderTargets)
+		{
+			auto& rbs = rt->GetRenderBatchs();
+
+			for (RenderBatch& rb : rbs)
+			{
+				//{@ input asm
+				IAStage* ia = GetStage<IAStage>(true);
+
+				BOOST_ASSERT(rb.mBufferProxy->mVertexBuf);
+				ia->SetVertexBuffer(rb.mBufferProxy->mVertexBuf, rb.mBufferProxy->mVertexBufferInfo);			
+				ia->SetIndexBuffer(rb.mBufferProxy->mIndexBuf, rb.mBufferProxy->mIndexBufferInfo);
+				ia->SetInputLayout(rb.mBufferProxy->mInputLayout);
+
+				ia->SetPrimitiveType(rb.mPriType);				
+				//@}
+
+				//{@	vertex
+				VSStage* vs = GetStage<VSStage>(true);
+					
+				const Shader *vsShader = rb.mMaterial->GetVSShader();
+				vs->SetShader(vsShader);
+
+				const auto& vsConstbuffers = vsShader->GetConstBuffers();
+
+				for (auto &bb : vsConstbuffers)
+				{
+					const BufferInfo info = { 0, 0, bb.first };	// hard code offset and strides
+					vs->SetConstBuffer(*(bb.second), info);
+				}
+
+				//auto samples = ro->GetVSSamplerObjs();
+				//SamplerStateObjConstVec sampleVec(MAX_SAMPLER_STATE_NUM);
+				//memcpy(&sampleVec[0], samples, MAX_SAMPLER_STATE_NUM * sizeof(SamplerStateObj*));
+				//vs->SetSamplerStates(0, sampleVec);
+
+				//auto srvs = ro->GetVSShaderResourceViews();
+				//vs->SetShaderResourceViews(0, ShaderResourceViewConstVec(srvs.begin(), srvs.end()));
+				//@}
+
+				//{@	rasterizer
+				RSStage* rs = GetStage<RSStage>(true);
+				rs->SetViewPort(static_cast<Viewport *>(rt));
+
+				auto rasterizerObj = rb.mMaterial->GetRasterizerStateObj();
+				if (rasterizerObj)
+					rs->SetRasterizerState(rasterizerObj);
+
+				//@}
+
+				//{@	pixel stage
+				PSStage *ps = GetStage<PSStage>(true);
+				const Shader* psShader = rb.mMaterial->GetPSShader();
+
+				ps->SetShader(psShader);
+
+				const auto& psConstbuffers = psShader->GetConstBuffers();
+
+				for (auto &bb : psConstbuffers)
+				{
+					const BufferInfo info = { 0, 0, bb.first };	// hard code offset and strides
+					ps->SetConstBuffer(*(bb.second), info);
+
+				}
+
+				const Material::TextureSamplerDataArray& samplers = rb.mMaterial->GetTextureSamplerDataArray();
+				SamplerStateObjConstVec sampleVec;
+				ShaderResourceViewConstVec srvs;
+				for (auto &ss : samplers) {
+					sampleVec.push_back(ss.samplerObj);
+					srvs.push_back(ss.srv);
+				}
+
+				ps->SetSamplerStates(0, sampleVec);
+				ps->SetShaderResourceViews(0, srvs);
+				//@}
+
+				//{@	output merage
+				
+				OMStage* om = GetStage<OMStage>(true);
+
+				auto dsobj = rb.mMaterial->GetDepthStencialStateObj();
+				if (dsobj)
+					om->SetDepthStencilState(dsobj);
+
+				auto blendobj = rb.mMaterial->GetmBlendStateObj();
+				if (blendobj)
+					om->SetBlendState(blendobj);				
+				//@}
+
+				auto context = GetDx11()->GetDeviceContext();
+
+				if (rb.mBufferProxy->mIndexBuf)
+				{
+					auto idxParam = rb.mBufferProxy->mDrawParam.idx;
+					context->DrawIndexed(idxParam.mIndexCount, idxParam.mStartIndexLocation, idxParam.mBaseVertexLocation);
+				}
+				else
+				{
+					auto vtxParam = rb.mBufferProxy->mDrawParam.vertex;
+					context->Draw(vtxParam.mVertexCount, vtxParam.mStartVertexLocation);
+				}
+			}
+		}
+	}
+
 	template<class StageClass>
 	StageClass* Graphic::GetStage(bool bInit)
 	{

@@ -29,5 +29,4 @@ namespace KY
 		return mDx11Internal->GetBufferParam();
 	}
 
-
 }

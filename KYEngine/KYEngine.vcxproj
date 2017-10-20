@@ -264,7 +264,9 @@
     <ClInclude Include="Graphic\Lighting\LightManager.h" />
     <ClInclude Include="Graphic\Material\GlobalConstBuffer.h" />
     <ClInclude Include="Graphic\Material\Material.h" />
+    <ClInclude Include="Graphic\Render\BufferRenderProxy.h" />
     <ClInclude Include="Graphic\Render\IRenderable.h" />
+    <ClInclude Include="Graphic\Render\RenderBatch.h" />
     <ClInclude Include="Graphic\Render\RenderTargetView.h" />
     <ClInclude Include="Graphic\Resource\IResourceInterface.h" />
     <ClInclude Include="Graphic\Resource\Shader\Compile\ShaderCodeRegenerate.h" />

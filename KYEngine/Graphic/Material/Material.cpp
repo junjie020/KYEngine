@@ -31,15 +31,14 @@ namespace KY
 
 	void Material::AddTexture(Texture *tex, SamplerStateObj *sampler)
 	{
-		auto foundPos = std::find_if(mTextures.begin(), mTextures.end(), [tex](auto td) { return td.tex == tex; });
-		if (foundPos == mTextures.end())
-			mTextures.push_back({ tex, sampler });
+		auto foundPos = std::find_if(mTextureSamplers.begin(), mTextureSamplers.end(), [tex](auto td) { return td.tex == tex; });
+		if (foundPos == mTextureSamplers.end())
+			mTextureSamplers.push_back({ tex, sampler });
 	}
 
-	void Material::SetShader(const fs::path &shaderFile)
+	void Material::SetShader(const fs::path &shaderFile, ShaderType type)
 	{
 
 	}
-
 }
 

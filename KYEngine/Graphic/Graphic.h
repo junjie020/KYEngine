@@ -6,6 +6,8 @@
 #include "Graphic/Stage/PipelineStage.h"
 #include "Math/Vector2.h"
 #include "Math/Rectangle.h"
+#include "Graphic/Render/RenderBatch.h"
+
 namespace KY
 {
 	namespace DX
@@ -48,6 +50,9 @@ namespace KY
 			return mGlobalConstBuffer;
 		}
 
+		void AddRenderBatch(const RenderBatch &batch);
+		void AddRenderBatch(const RenderBatch &batch, RenderTarget *rt);
+		
 	public:
 		//{@	internal
 		DX::Dx11* GetDx11();
@@ -57,6 +62,7 @@ namespace KY
 	private:
 		
 		void CommitRenderData();
+		void CommitRenderBatch();
 
 		template<class StageClass>
 		StageClass* GetStage(bool bInit);
@@ -86,7 +92,7 @@ namespace KY
 		};
 		//@}
 
-		GlobalConstBuffer	*mGlobalConstBuffer;
+		GlobalConstBuffer	*mGlobalConstBuffer;		
 		
 	};
 
