@@ -11,6 +11,7 @@ namespace KY
 {
 	Scene::Scene()
 		: mRoot(new Actor(nullptr))		
+		, mDirty(true)
 	{
 
 	}
@@ -22,7 +23,11 @@ namespace KY
 
 	void Scene::Update(RenderTarget *rt)
 	{
-		mRoot->Update(rt->GetCamera(), mVisableActors);
+		if (mDirty)
+		{
+			mVisableActors.clear();
+			mRoot->Update(rt->GetCamera(), mVisableActors);
+		}
 	}
 
 	void Scene::AddActor(Actor *act)
@@ -37,17 +42,25 @@ namespace KY
 
 	void Scene::Render(RenderTarget *rt)
 	{
-		RenderCommandQueue queue;
-		for (auto actor : mVisableActors)
+		if (false)
 		{
-			RenderCommandQueue localQ;
-			actor->ExtractRenderInfo(localQ);
+			RenderCommandQueue queue;
+			for (auto actor : mVisableActors)
+			{
+				RenderCommandQueue localQ;
+				actor->ExtractRenderInfo(localQ);
 
-			queue.Push(std::move(localQ));
+				queue.Push(std::move(localQ));
+			}
+
+			rt->AddRenderQueue(std::move(queue));	
 		}
+		else
+		{
+			for (auto actor : mVisableActors)
+			{
 
-		rt->AddRenderQueue(std::move(queue));
-
-		mVisableActors.clear();
+			}
+		}
 	}
 }

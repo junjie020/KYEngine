@@ -31,6 +31,11 @@ namespace KY
 		}
 	}
 
+	void Model::ExtractRenderInfo(RenderBatchVec &rbVec)
+	{
+
+	}
+
 	void Model::InitRenderData(RenderTarget *rt)
 {
 		for (auto &m : mMeshes)

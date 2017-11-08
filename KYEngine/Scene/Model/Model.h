@@ -22,6 +22,7 @@ namespace KY
 	public:
 		virtual void UpdateImpl(Camera *camera) override;
 		virtual void ExtractRenderInfo(RenderCommandQueue &ro) override;
+		virtual void ExtractRenderInfo(RenderBatchVec &rbVec) override;
 
 	private:
 		void InitRenderData(RenderTarget *rt);

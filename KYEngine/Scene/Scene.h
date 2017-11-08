@@ -25,6 +25,8 @@ namespace KY
 
 		using VisableActorVec = std::vector<Actor*>;
 		VisableActorVec mVisableActors;
+
+		bool mDirty;
 	};
 }
 #endif //_SCENE_H_

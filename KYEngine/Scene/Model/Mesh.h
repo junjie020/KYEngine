@@ -8,6 +8,7 @@
 
 #include "Graphic/Resource/State/StateHelper.h"
 #include "Graphic/Resource/Buffer/Buffer.h"
+#include "Graphic/Material/Material.h"
 
 namespace KY
 {
@@ -25,6 +26,8 @@ namespace KY
 		VertexBufferVec& GetVBs() { return mVBs; }
 		IndexBuffer& GetIB() { return mIB; }
 
+		Material& GetMaterial() { return mMaterial; }
+
 		bool Init(RenderTarget *rt);
 		
 		void UpdateFrameData(Camera *camera);
@@ -40,6 +43,15 @@ namespace KY
 		IndexBuffer		mIB;
 
 		InputLayout		mIP;
+
+
+		Material		mMaterial;
+
+
+
+		
+
+		//////////////////////////////////////////////////////////////////////////
 		Shader*			mVS;
 		Shader*			mPS;
 
@@ -71,6 +83,8 @@ namespace KY
 		void NeedUpdate() { mNeedUpdate = true; }
 
 		void SetMeshPrimitiveType(PrimitiveType type);
+
+		void Render(RenderBatch &rb);
 
     protected:
     	

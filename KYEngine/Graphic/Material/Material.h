@@ -53,8 +53,39 @@ namespace KY
 		}
 		//@}
 
-		void AddTexture(const fs::path &texPath, const SamplerState &state);
-		void AddTexture(Texture *tex, SamplerStateObj *sampler);
+		//{@
+		struct TextureSamplerData
+		{
+			std::vector<SamplerStateObj*>	samplers;
+			std::vector<ShaderResourceView*>srvs;
+
+			struct TextureDataRelation
+			{
+				Texture	*tex;
+				int32	sampleObjIdx;
+				int32	srvIdx;
+				TextureDataRelation()
+					: tex(nullptr)
+					, sampleObjIdx(-1)
+					, srvIdx(-1)
+				{}
+			};
+
+			std::unordered_map<std::string, TextureDataRelation>	textures;
+		};
+
+		void AddTexture(const fs::path &texPath, const SamplerState &state, const std::string &texName = "");
+		void AddTexture(const Texture *tex, SamplerStateObj *sampler, const std::string &texName);
+
+		void SetTexture(const Texture *tex, const std::string &texName);
+		void SetSamplerState(const SamplerState &state, const std::string &texName);
+
+		const TextureSamplerData& GetTextureSamplerData() const {
+			return mTextureSamplerData;
+		}
+
+		//@}
+
 
 		void SetShader(const fs::path &shaderFile, ShaderType type);
 
@@ -65,19 +96,6 @@ namespace KY
 		const Shader* GetPSShader() const {
 			return mPSShader;
 		}
-
-		struct TextureSamplerData
-		{
-			Texture				*tex;
-			SamplerStateObj		*samplerObj;
-			ShaderResourceView	*srv;
-		};
-
-
-		using TextureSamplerDataArray = std::vector<TextureSamplerData>;
-		const TextureSamplerDataArray& GetTextureSamplerDataArray() const {
-			return mTextureSamplers;
-		}
 		
 	private:
 		std::string mName;
@@ -85,7 +103,7 @@ namespace KY
 		Shader *mPSShader;
 
 		
-		TextureSamplerDataArray	mTextureSamplers;
+		TextureSamplerData	mTextureSamplerData;
 
 		template<typename StateType, class ObjType>
 		class StateObj

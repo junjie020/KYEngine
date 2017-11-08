@@ -2,6 +2,8 @@
 #ifndef __IRENDERABLE_H__
 #define __IRENDERABLE_H__
 
+#include "Graphic/Render/RenderBatch.h"
+
 namespace KY
 {
 	class RenderCommandQueue;
@@ -11,6 +13,7 @@ namespace KY
 		//virtual void Render() = 0;
 
 		virtual void ExtractRenderInfo(RenderCommandQueue &ro) = 0;
+		virtual void ExtractRenderInfo(RenderBatchVec &rbVec) {}
 	};
 }
 

@@ -3,12 +3,13 @@
 
 #include "Scene/SpaceNode.h"
 #include "Graphic/Render/IRenderable.h"
+
 namespace KY
 {
 	class Camera;
 	class Actor;
 	using VisableActorVec = std::vector<Actor*>;
-
+	
     class Actor : public SpaceNode
 				, public IRenderable
     {

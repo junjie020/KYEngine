@@ -262,7 +262,7 @@ namespace KY
 
 				}
 
-				const Material::TextureSamplerDataArray& samplers = rb.mMaterial->GetTextureSamplerDataArray();
+				const Material::TextureSamplerDataArray& samplers = rb.mMaterial->GetTextureSamplerData();
 				SamplerStateObjConstVec sampleVec;
 				ShaderResourceViewConstVec srvs;
 				for (auto &ss : samplers) {
@@ -291,12 +291,12 @@ namespace KY
 
 				if (rb.mBufferProxy->mIndexBuf)
 				{
-					auto idxParam = rb.mBufferProxy->mDrawParam.idx;
+					const auto& idxParam = rb.mBufferProxy->mDrawParam.idx;
 					context->DrawIndexed(idxParam.mIndexCount, idxParam.mStartIndexLocation, idxParam.mBaseVertexLocation);
 				}
 				else
 				{
-					auto vtxParam = rb.mBufferProxy->mDrawParam.vertex;
+					const auto& vtxParam = rb.mBufferProxy->mDrawParam.vertex;
 					context->Draw(vtxParam.mVertexCount, vtxParam.mStartVertexLocation);
 				}
 			}

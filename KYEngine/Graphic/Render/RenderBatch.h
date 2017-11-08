@@ -43,4 +43,6 @@ namespace KY
 
 		//std::vector<RenderElement>	mRenderElems;
 	};
+
+	using RenderBatchVec = std::vector<RenderBatch>;
 }

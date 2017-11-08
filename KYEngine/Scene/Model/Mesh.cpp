@@ -249,4 +249,9 @@ namespace KY
 		mRenderHelper.SetMeshPrimitiveType(type);
 	}
 
+	void Mesh::Render(RenderBatch &rb)
+	{
+
+	}
+
 }

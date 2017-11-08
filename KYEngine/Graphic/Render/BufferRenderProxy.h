@@ -10,6 +10,7 @@ namespace KY
 		BufferRenderProxy()
 			: mVertexBuf(nullptr)
 			, mIndexBuf(nullptr)
+			, mInputLayout(nullptr)
 			, mConstBuffer(nullptr)
 		{}
 

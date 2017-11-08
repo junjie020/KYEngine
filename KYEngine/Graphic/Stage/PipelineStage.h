@@ -149,10 +149,10 @@ namespace KY
 		void SetShader(const Shader *shader);
 		void SetConstBuffer(const Buffer &buffer, const BufferInfo &info);
 
-		void SetSamplerState(uint32 idx, const SamplerStateObj *obj);
-		void SetSamplerStates(uint32 idx, const SamplerStateObjConstVec &objs);
+		void SetSamplerState(uint32 startIdx, const SamplerStateObj *obj);
+		void SetSamplerStates(uint32 startIdx, const SamplerStateObjConstVec &objs);
 
-		void SetShaderResourceView(uint32 idx, const ShaderResourceView *srv);
+		void SetShaderResourceView(uint32 startIdx, const ShaderResourceView *srv);
 		void SetShaderResourceViews(uint32 idx, const ShaderResourceViewConstVec &srvs);
 	};
 

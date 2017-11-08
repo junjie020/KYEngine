@@ -22,6 +22,8 @@
 #include "Graphic/Resource/Texture/TextureTypeTraits.inl"
 
 #include "Graphic/Render/RenderOperation.h"
+#include "Graphic/Render/RenderBatch.h"
+
 #include "Graphic/Render/Viewport.h"
 
 
@@ -569,6 +571,7 @@ private:
 		}
 	private:
 		KY::RenderOperation mRO;
+		KY::RenderBatch	mRenderBatch;
 		//{@
 		KY::VertexBuffer		mBuffer;		
 		KY::Buffer				mDynConstBuffer;
