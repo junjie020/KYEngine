@@ -4,3 +4,6 @@
 [submodule "3rd/tinygltf"]
 	path = 3rd/tinygltf
 	url = https://github.com/syoyo/tinygltf.git
+[submodule "3rd/filesystem"]
+	path = 3rd/filesystem
+	url = https://github.com/gulrak/filesystem.git
