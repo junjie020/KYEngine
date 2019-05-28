@@ -1,3 +1,6 @@
 [submodule "3rd/json"]
 	path = 3rd/json
 	url = https://github.com/nlohmann/json.git
+[submodule "3rd/tinygltf"]
+	path = 3rd/tinygltf
+	url = https://github.com/syoyo/tinygltf.git
