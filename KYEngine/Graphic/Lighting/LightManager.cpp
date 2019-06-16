@@ -48,6 +48,7 @@ namespace KY
 
 		for (auto &l : mLights)
 		{
+			l.Update();
 			buffers.push_back(l.mInfo);
 		}
 

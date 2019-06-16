@@ -178,6 +178,9 @@
     <ClCompile Include="Graphic\Material\GlobalConstBuffer.cpp">
       <Filter>Graphic\Material</Filter>
     </ClCompile>
+    <ClCompile Include="Graphic\CommandList\CommandList.cpp">
+      <Filter>Graphic\CommandList</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -411,6 +414,9 @@
     <ClInclude Include="Graphic\Material\GlobalConstBuffer.h">
       <Filter>Graphic\Material</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\CommandList\CommandList.h">
+      <Filter>Graphic\CommandList</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Main">
@@ -517,6 +523,9 @@
     </Filter>
     <Filter Include="Graphic\Material">
       <UniqueIdentifier>{d7efc86e-22d4-4de1-8008-d7d291d5f6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\CommandList">
+      <UniqueIdentifier>{e6e790a7-14e3-4a53-8097-0f0b90a41e1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

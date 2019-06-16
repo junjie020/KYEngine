@@ -28,21 +28,6 @@ namespace KY
 
 			auto dir = mCamera->GetDirection();
 			mCamera->SetDirection(dir * matDelta);
-			//const auto matWorld = mCamera->GetWorldMat();
-			
-			//mCamera->SetWorldMat(matWorld * matDelta);
-			//const glm::mat4x4 matWorldNew = glm::inverse(matViewNew);
-
-			//mCamera->SetWorldMat(matWorldNew);
-
-			//auto eye = mCamera->GetPostion();
-			//auto center = eye + mCamera->GetDirection();
-
-			//auto newEye = eye * matDelta;
-			//auto newDir = center - eye;
-			//mCamera->SetPosition(newEye);
-			//mCamera->SetDirection(glm::normalize(newDir));
-
 		}
 	}
 
