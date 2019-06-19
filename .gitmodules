@@ -7,9 +7,6 @@
 [submodule "3rd/filesystem"]
 	path = 3rd/filesystem
 	url = https://github.com/gulrak/filesystem.git
-[submodule "3rd/boost"]
-	path = 3rd/boost
-	url = https://github.com/boostorg/boost.git
 [submodule "3rd/glm"]
 	path = 3rd/glm
 	url = https://github.com/g-truc/glm
