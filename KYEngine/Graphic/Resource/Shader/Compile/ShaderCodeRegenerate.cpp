@@ -3,8 +3,6 @@
 #include "Common/FileSystem/FileSystem.h"
 #include "DebugUtils/TraceUtils.h"
 
-#include "boost/algorithm/string.hpp"
-
 namespace KY
 {
 
@@ -28,8 +26,9 @@ namespace KY
 	int32 ShaderCodeRegenerate::RecurseFindIncludeFile(std::string &content)
 	{
 		std::vector<std::string>	codeLines;
-		boost::split(codeLines, content, boost::is_any_of("\n"));
-
+		std::istringstream iss(content);		
+		for (std::string line; (std::getline(iss, line)); codeLines.push_back(line));
+	
 		const std::string includePrefix = "#include";
 		int32 includeCodeLines = 0;
 		const std::string commonLine = "////////////////////////////////////////////////////////////////////\n";

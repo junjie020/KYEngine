@@ -63,7 +63,7 @@ namespace KY
 
 		mScene = new Scene;
 
-		AssimpResourceManager::Create();
+		//AssimpResourceManager::Create();
 
 		ResourceManager::Create();
 

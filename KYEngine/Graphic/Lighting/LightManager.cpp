@@ -74,7 +74,7 @@ namespace KY
 		param.access = ResourceCPUAccess::Write;
 		param.usage = ResourceUsage::Dynamic;
 
-		param.sizeInBytes = sizeof(LightConstBuffer) * buffers.size();
+		param.sizeInBytes = (uint32_t)(sizeof(LightConstBuffer) * buffers.size());
 
 		param.byteStrideForStructureBuffer = sizeof(LightConstBuffer);
 		param.miscFlags = ResourceMiscFlag::BufferStructured;
@@ -98,7 +98,7 @@ namespace KY
 
 		srv.bufferEx.firstElem	= 0;
 		srv.bufferEx.flags		= 0;
-		srv.bufferEx.numElems	= buffers.size();	// one directional light
+		srv.bufferEx.numElems	= (uint32_t)buffers.size();	// one directional light
 
 		BOOST_VERIFY(mLightElemBufferResView->Init(srv, &mLightsConstBuffer));
 

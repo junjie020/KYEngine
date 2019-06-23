@@ -156,3 +156,6 @@ $RECYCLE.BIN/
 .DS_Store
 /*.opendb
 /*.db
+
+.vs
+.vscode

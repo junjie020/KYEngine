@@ -75,7 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(IncludePath)</IncludePath>
-    <LibraryPath>$(WindowsSDK_LibraryPath_x86);$(VC_LibraryPath_x86);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -85,7 +85,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);$(IncludePath)</IncludePath>
-    <LibraryPath>$(WindowsSDK_LibraryPath_x86);$(VC_LibraryPath_x86);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(WindowsSDK_LibraryPath_x64);$(VC_LibraryPath_x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,14 +94,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;WIN32;GLM_ENABLE_EXPERIMENTAL;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost/assert/include;$(SolutionDir)3rd/boost/core/include;$(SolutionDir)3rd/boost/config/include;$(SolutionDir)3rd/boost/algorithm/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./ImpLib/lib/$(ConfigurationName)/assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -114,14 +115,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BrowseInformation>true</BrowseInformation>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost/assert/include;$(SolutionDir)3rd/boost/core/include;$(SolutionDir)3rd/boost/config/include;$(SolutionDir)3rd/boost/algorithm/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./ImpLib/lib/$(ConfigurationName)/assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -135,16 +137,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;WIN32;GLM_ENABLE_EXPERIMENTAL;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost/assert/include;$(SolutionDir)3rd/boost/core/include;$(SolutionDir)3rd/boost/config/include;$(SolutionDir)3rd/boost/algorithm/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>./ImpLib/lib/$(ConfigurationName)/assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,16 +158,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)3rd/glm;$(SolutionDir)3rd/filesystem;$(SolutionDir)3rd/tinygltf;$(SolutionDir)3rd/json;$(SolutionDir)3rd/boost/assert/include;$(SolutionDir)3rd/boost/core/include;$(SolutionDir)3rd/boost/config/include;$(SolutionDir)3rd/boost/algorithm/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>./ImpLib/lib/$(ConfigurationName)/assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,7 +177,6 @@
     <ClCompile Include="DebugUtils\TraceUtils.cpp" />
     <ClCompile Include="Graphic\Camera\Camera.cpp" />
     <ClCompile Include="Graphic\Camera\CameraController.cpp" />
-    <ClCompile Include="Graphic\CommandList\CommandList.cpp" />
     <ClCompile Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.cpp" />
     <ClCompile Include="Graphic\HI\DX\Render\Dx11RenderTargetView.cpp" />
     <ClCompile Include="Graphic\HI\DX\Shader\Dx11Shader.cpp" />
@@ -245,7 +248,6 @@
     <ClInclude Include="DebugUtils\TraceUtils.h" />
     <ClInclude Include="Graphic\Camera\Camera.h" />
     <ClInclude Include="Graphic\Camera\CameraController.h" />
-    <ClInclude Include="Graphic\CommandList\CommandList.h" />
     <ClInclude Include="Graphic\GraphicDataDef.h" />
     <ClInclude Include="Graphic\HI\DX\Buffer\DX11IndexBuffer.h" />
     <ClInclude Include="Graphic\HI\DX\Dx11HardwareInterface.h" />

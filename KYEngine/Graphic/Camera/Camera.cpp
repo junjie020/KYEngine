@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Math/VectorUnit.h"
 
-#include "glm/gtc/matrix_transform.inl"
+#include "glm/gtc/matrix_transform.hpp"
 
 namespace KY
 {
@@ -13,6 +13,7 @@ namespace KY
 		, mUpVector(vec4_utils::YAXIS)		
 		, mMatProj(glm::perspectiveLH(fov, aspect, n, f))
 	{		
+		
 	}
 
 	Camera::Camera(bool , float w, float h, float n, float f)

@@ -10,3 +10,15 @@
 [submodule "3rd/glm"]
 	path = 3rd/glm
 	url = https://github.com/g-truc/glm
+[submodule "3rd/boost/assert"]
+	path = 3rd/boost/assert
+	url = https://github.com/boostorg/assert.git
+[submodule "3rd/boost/core"]
+	path = 3rd/boost/core
+	url = https://github.com/boostorg/core.git
+[submodule "3rd/boost/config"]
+	path = 3rd/boost/config
+	url = https://github.com/boostorg/config.git
+[submodule "3rd/boost/algorithm"]
+	path = 3rd/boost/algorithm
+	url = https://github.com/boostorg/algorithm

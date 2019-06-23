@@ -11,22 +11,24 @@ namespace KY
 
 	void Material::SetRasterizerStateObj(const RasterizerState &state)
 	{
-
+		state;
 	}
 
 	void Material::SetBlendStateObj(const BlendState &state)
 	{
+		state;
 
 	}
 
 	void Material::SetDepthStencilStateObj(const BlendState &state)
 	{
-
+		state;
 	}
 
 	void Material::AddTexture(const fs::path &texPath, const SamplerState &state)
 	{
-
+		texPath;
+		state;
 	}
 
 	void Material::AddTexture(Texture *tex, SamplerStateObj *sampler)
@@ -38,7 +40,7 @@ namespace KY
 
 	void Material::SetShader(const fs::path &shaderFile)
 	{
-
+		shaderFile;
 	}
 
 }

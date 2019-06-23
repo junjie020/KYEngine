@@ -41,12 +41,14 @@ namespace KY
 
 	bool Model::InitFromFile(RenderTarget *rt, const fs::path &file)
 	{
-		AssimpMeshImporter assimpImporter(this);
+		rt;
+		file;
+		//AssimpMeshImporter assimpImporter(this);
 
-		if (assimpImporter.Import(file))
-		{
-			InitRenderData(rt);
-		}
+		//if (assimpImporter.Import(file))
+		//{
+		//	InitRenderData(rt);
+		//}
 
 		return false;
 	}

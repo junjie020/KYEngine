@@ -5,19 +5,19 @@
 
 namespace KY
 {
-    class AssimpMeshImporter : public MeshImporter
-    {
-    public:
-		AssimpMeshImporter(Model *m);
-		~AssimpMeshImporter();
+  //  class AssimpMeshImporter : public MeshImporter
+  //  {
+  //  public:
+		//AssimpMeshImporter(Model *m);
+		//~AssimpMeshImporter();
 
-		bool Import(const fs::path &filename);
+		//bool Import(const fs::path &filename);
 
-    protected:
-    	
+  //  protected:
+  //  	
 
-    private:
+  //  private:
 
-    };
+  //  };
 }
 #endif // _ASSIMPMESHIMPORTER_H_
